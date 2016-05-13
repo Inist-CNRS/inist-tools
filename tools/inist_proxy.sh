@@ -49,5 +49,5 @@ IT_MESSAGE "NOTICE" "Positionnement du proxy INIST pour FTP"
 export ftp_proxy="http://proxyout.inist.fr:8080"
 export FTP_PROXY="http://proxyout.inist.fr:8080"
 
-# Soertie "propre"
+# Sortie "propre"
 exit 0
