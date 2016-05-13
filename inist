@@ -1,0 +1,74 @@
+#!/usr/bin/env bash
+########################################################################
+#
+#   # #   # #  ###  #####     #####  ###   ###  #     ###
+#   # ##  # # #       #         #   #   # #   # #    #
+#   # # # # #  ###    #   ###   #   #   # #   # #     ### 
+#   # #  ## #     #   #         #   #   # #   # #        #
+#   # #   # #  ###    #         #    ###   ###  ##### ###
+#
+# Lanceur des outils « inist-tools »
+#
+# @author : INIST-CNRS/DPI
+#
+########################################################################
+
+#-----------------------------------------------------------------------
+# Environnement
+#-----------------------------------------------------------------------
+MODULE_NAME="INIST-TOOLS"
+MODULE_VERSION=$(git describe --tags)
+CURDIR=$( cd "$( dirname "$0" )" && pwd )
+DIR_MODULE=$(readlink -f "$CURDIR")
+DIR_CONF="$DIR_MODULE/conf"
+DIR_LIBS="$DIR_MODULE/libs"
+DIR_TOOLS="$DIR_MODULE/tools"
+
+#-----------------------------------------------------------------------
+# Chargement libs + conf
+#-----------------------------------------------------------------------
+if [ -f "$DIR_LIBS/inist.lib.sh" ]; then
+  source "$DIR_LIBS/inist.lib.sh"
+else
+  logger -s "[$MODULE_NAME] [ERROR] Impossible de charger la librairie de $MODULE_NAME depuis « $DIR_LIBS ». Fin."
+  exit 1
+fi
+
+if [ -f "$DIR_CONF/inist.conf.sh" ]; then
+  source "$DIR_CONF/inist.conf.sh"
+else
+  logger -s "[$MODULE_NAME] [ERROR] Impossible de charger la configuration de $MODULE_NAME depuis « $DIR_LIBS ». Fin."
+  exit 1
+fi
+
+#-----------------------------------------------------------------------
+# Gestion des arguments 
+#-----------------------------------------------------------------------
+COMMAND="$1"
+
+# Aucun argument : affichage de l'aide
+if [ "$#" -lt 1 ]; then
+  IT_GREETING
+  IT_MESSAGE "WARNING" "Nombre d'argument incorrect !"
+  IT_SHOW_HELP
+  exit 0
+fi
+
+case $COMMAND in
+
+  --version | -v )
+    IT_SHOW_VERSION
+    exit 0
+  ;;
+
+  --proxy | -p )
+    echo "Configuration du proxy INIST pour la session en cours"
+    "$DIR_TOOLS/inist_proxy.sh"
+    exit 0
+  ;;
+
+  * )
+    IT_SHOW_HELP
+  ;;
+  
+esac
