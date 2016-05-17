@@ -41,8 +41,8 @@ function IT_SHOW_VERSION {
 #-----------------------------------------------------------------------
 function IT_SHOW_HELP {
   echo "Options : "
-  echo -e "\t-v | --version\t\tAffiche la version"
-  echo -e "\t-p | --proxy\t\tPositionne le proxy INIST pour la session en cours"
+  echo -e "\t-p,--proxy\t\tPositionne le proxy INIST pour la session en cours"
+  echo -e "\t-v,--version\t\tAffiche la version"
 }
 
 #-----------------------------------------------------------------------
