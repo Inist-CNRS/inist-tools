@@ -28,6 +28,7 @@ DIR_TOOLS="$DIR_MODULE/tools"
 # Chargement libs + conf
 #-----------------------------------------------------------------------
 if [ -f "$DIR_LIBS/inist.lib.sh" ]; then
+  source "$DIR_LIBS/ansicolors.lib.sh"
   source "$DIR_LIBS/inist.lib.sh"
 else
   logger -s "[$MODULE_NAME] [ERROR] Impossible de charger la librairie de $MODULE_NAME depuis « $DIR_LIBS ». Fin."

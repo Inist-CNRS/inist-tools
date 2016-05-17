@@ -17,7 +17,7 @@
 #-----------------------------------------------------------------------
 function IT_MESSAGE {
   MESSAGE="[INIST-TOOLS] [$1] $2"
-  # echo "$MESSAGE"
+  # echo "$MESSAGE"    
   logger -s -p "$1" "$MESSAGE"
 }
 
@@ -26,14 +26,15 @@ function IT_MESSAGE {
 #-----------------------------------------------------------------------
 function IT_GREETING {
   cat "$DIR_LIBS/cnrs.ansi"
-  echo "$MODULE_NAME [$MODULE_VERSION]"
+  printf "${FG_BR_BLUE}$MODULE_NAME [${FG_BR_WHITE}$MODULE_VERSION]${RESET_ALL}\n"
+  # printf "$MODULE_NAME [$MODULE_VERSION]"
 }
 
 #-----------------------------------------------------------------------
 # Affichage de la version
 #-----------------------------------------------------------------------
 function IT_SHOW_VERSION {
-  echo "$MODULE_NAME est en version $MODULE_VERSION"
+  echo -e "$MODULE_NAME est en version ${FG_BR_WHITE}$MODULE_VERSION${RESET_ALL}"
 }
 
 #-----------------------------------------------------------------------
@@ -41,8 +42,8 @@ function IT_SHOW_VERSION {
 #-----------------------------------------------------------------------
 function IT_SHOW_HELP {
   echo "Options : "
-  echo -e "\t-p,--proxy\t\tPositionne le proxy INIST pour la session en cours"
-  echo -e "\t-v,--version\t\tAffiche la version"
+  printf "\t-p,--proxy\t\tPositionne le proxy INIST pour la session en cours\n"
+  printf "\t-v,--version\t\tAffiche la version\n"
 }
 
 #-----------------------------------------------------------------------

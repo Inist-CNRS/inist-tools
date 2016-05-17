@@ -1,0 +1,3 @@
+[submodule "libs/bashinator"]
+	path = libs/bashinator
+	url = https://github.com/wschlich/bashinator.git
