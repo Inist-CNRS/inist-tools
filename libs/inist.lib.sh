@@ -26,15 +26,15 @@ function IT_MESSAGE {
 #-----------------------------------------------------------------------
 function IT_GREETING {
   cat "$DIR_LIBS/cnrs.ansi"
-  printf "${FG_BR_BLUE}$MODULE_NAME [${FG_BR_WHITE}$MODULE_VERSION]${RESET_ALL}\n"
-  # printf "$MODULE_NAME [$MODULE_VERSION]"
+  # printf "${FG_BR_BLUE}$MODULE_NAME [${FG_BR_WHITE}$MODULE_VERSION]${RESET_ALL}\n"
+  printf "$MODULE_NAME [$MODULE_VERSION]\n"
 }
 
 #-----------------------------------------------------------------------
 # Affichage de la version
 #-----------------------------------------------------------------------
 function IT_SHOW_VERSION {
-  echo -e "$MODULE_NAME est en version ${FG_BR_WHITE}$MODULE_VERSION${RESET_ALL}"
+  printf "$MODULE_NAME est en version ${FG_BR_WHITE}$MODULE_VERSION${RESET_ALL}\n"
 }
 
 #-----------------------------------------------------------------------

@@ -13,11 +13,12 @@
 # Environnement
 #-----------------------------------------------------------------------
 MODULE_NAME="INIST PROXY FIREFOX"
-MODULE_DESC="Positionne le proxy INIST pour Firefox."
+MODULE_DESC="Lance Firefox avec le proxy INIST positionné."
 MODULE_VERSION=$(git describe --tags)
 CURDIR=$( cd "$( dirname "$0" )" && pwd )
 DIR_MODULE=$(readlink -f "$CURDIR")
 DIR_LIBS=$(readlink -f "$DIR_MODULE/../libs/")
+DIR_TOOLS=$(readlink -f "$DIR_MODULE/../tools/")
 
 #-----------------------------------------------------------------------
 # Chargement des libs (pour rendre le module autonome)
@@ -26,12 +27,22 @@ if [ -f "$DIR_LIBS/inist.lib.sh" ]; then
   source "$DIR_LIBS/inist.lib.sh"
 else
   logger -s "[$MODULE_NAME] [ERROR] Impossible de charger la librairie depuis « $DIR_LIBS ». Fin."
-  exit 1  
+  exit 1
 fi
 
 #-----------------------------------------------------------------------
 # Greeting
 #-----------------------------------------------------------------------
-echo "$MODULE_NAME [$MODULE_VERSION]"
-echo "MODULE_DESC"
-echo
+cat "$DIR_LIBS/firefox.ansi"
+printf "$MODULE_NAME [$MODULE_VERSION]\n"
+printf "$MODULE_DESC\n"
+
+#-----------------------------------------------------------------------
+# Positionnement du proxy pour l'environnement courant
+#-----------------------------------------------------------------------
+"$DIR_TOOLS/inist_proxy.sh"
+
+#-----------------------------------------------------------------------
+# Lancement de firefox
+#-----------------------------------------------------------------------
+firefox &

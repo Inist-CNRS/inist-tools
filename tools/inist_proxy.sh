@@ -33,9 +33,8 @@ fi
 #-----------------------------------------------------------------------
 # Greeting
 #-----------------------------------------------------------------------
-echo "$MODULE_NAME [$MODULE_VERSION]"
-echo "MODULE_DESC"
-echo
+printf "$MODULE_NAME [$MODULE_VERSION]\n"
+printf "$MODULE_DESC\n"
 
 # Exclusion du proxy
 IT_MESSAGE "NOTICE" "Dépositionnement du proxy pour localhost"
