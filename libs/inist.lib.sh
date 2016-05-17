@@ -42,8 +42,10 @@ function IT_SHOW_VERSION {
 #-----------------------------------------------------------------------
 function IT_SHOW_HELP {
   echo "Options : "
-  printf "\t-p,--proxy\t\tPositionne le proxy INIST pour la session en cours\n"
-  printf "\t-v,--version\t\tAffiche la version\n"
+  printf "\tproxy\t\tPositionne le proxy INIST pour la session en cours\n"
+  printf "\tproxy-chrome\tPositionne le proxy INIST pour le navigateur CHROM[E|MIUM]\n"
+  printf "\tproxy-firefox\tPositionne le proxy INIST pour le navigateur FIREFOX\n"
+  printf "\t-v,--version\tAffiche la version\n"
 }
 
 #-----------------------------------------------------------------------

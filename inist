@@ -28,6 +28,13 @@ DIR_TOOLS="$DIR_MODULE/tools"
 # Chargement libs + conf
 #-----------------------------------------------------------------------
 if [ -f "$DIR_LIBS/inist.lib.sh" ]; then
+  # Vérification de la présence du framework « Bashinator »
+  if [ -d "$DIR_LIBS/bashinator/" ]; then
+    source "$DIR_LIBS/bashinator/bashinator.lib.0.sh"
+  else
+    logger -s "[$MODULE_NAME] [ERROR] Impossible de charger le framework « Bashinator ». Fin."
+    exit 1
+  fi
   source "$DIR_LIBS/ansicolors.lib.sh"
   source "$DIR_LIBS/inist.lib.sh"
 else
@@ -79,6 +86,24 @@ case $COMMAND in
   proxy )
     echo "Configuration du proxy INIST pour la session en cours"
     "$DIR_TOOLS/inist_proxy.sh"
+    exit 0
+  ;;
+
+  #---------------------------------------------------------------------
+  # COMMANDE : proxy-chrome
+  #---------------------------------------------------------------------
+  proxy-chrome )
+    echo "Configuration du proxy INIST pour CHROME"
+    "$DIR_TOOLS/inist_proxy_chrome.sh"
+    exit 0
+  ;;
+
+  #---------------------------------------------------------------------
+  # COMMANDE : proxy-firefox
+  #---------------------------------------------------------------------
+  proxy-firefox )
+    echo "Configuration du proxy INIST pour FIREFOX"
+    "$DIR_TOOLS/inist_proxy_firefox.sh"
     exit 0
   ;;
 
