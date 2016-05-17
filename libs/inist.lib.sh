@@ -43,3 +43,16 @@ function IT_SHOW_HELP {
   echo -e "\t-v | --version\t\tAffiche la version"
   echo -e "\t-p | --proxy\t\tPositionne le proxy INIST pour la session en cours"
 }
+
+#-----------------------------------------------------------------------
+# Vérification de l'existance d'un binaire
+# (retourne 0 si trouvé, 1 si non trouvé)
+#-----------------------------------------------------------------------
+function IT_CHECK_BINARY {
+  if [ ! -z "$1" ]; then
+    CHECK=$(which "$1")
+    return $?
+  fi
+  # Argument $1 vide => ERREUR
+  return 1
+}
