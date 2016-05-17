@@ -65,7 +65,7 @@ fi
 case $COMMAND in
 
   #---------------------------------------------------------------------
-  # Version
+  # OPTION : --version
   #---------------------------------------------------------------------
   --version | -v )
     IT_SHOW_VERSION
@@ -73,9 +73,9 @@ case $COMMAND in
   ;;
 
   #---------------------------------------------------------------------
-  # Proxy
+  # COMMANDE : proxy
   #---------------------------------------------------------------------
-  --proxy | -p )
+  proxy )
     echo "Configuration du proxy INIST pour la session en cours"
     "$DIR_TOOLS/inist_proxy.sh"
     exit 0
