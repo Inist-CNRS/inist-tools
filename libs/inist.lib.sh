@@ -26,7 +26,7 @@ function IT_MESSAGE {
 #-----------------------------------------------------------------------
 function IT_GREETING {
   cat "$DIR_LIBS/cnrs.ansi"
-  echo "$MODULE_NAME $MODULE_VERSION"
+  echo "$MODULE_NAME [$MODULE_VERSION]"
 }
 
 #-----------------------------------------------------------------------
@@ -57,3 +57,18 @@ function IT_CHECK_BINARY {
   # Argument $1 vide => ERREUR
   return 1
 }
+
+#-----------------------------------------------------------------------
+# Vérification de la connectivite internet
+# 0 -> connexion filaire INIST
+# 1 -> connexion autre
+#-----------------------------------------------------------------------
+function IT_CHECK_CONNECTION {
+  IS_INIST=$(ifconfig | grep -i "172.16")
+  if [ "$IS_INIST" ]; then
+    return 0
+  else
+    return 1
+  fi
+}
+
