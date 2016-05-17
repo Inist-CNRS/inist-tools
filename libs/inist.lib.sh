@@ -25,6 +25,7 @@ function IT_MESSAGE {
 # Message d'accueil
 #-----------------------------------------------------------------------
 function IT_GREETING {
+  cat "$DIR_LIBS/cnrs.ansi"
   echo "$MODULE_NAME $MODULE_VERSION"
 }
 
