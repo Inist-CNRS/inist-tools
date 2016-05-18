@@ -18,6 +18,7 @@
 #-----------------------------------------------------------------------
 MODULE_NAME="INIST-TOOLS"
 MODULE_VERSION=$(git describe --tags)
+MODULE_VERSION_SHORT=$(git describe --tags | cut -d"-" -f1 )
 CURDIR=$( cd "$( dirname "$0" )" && pwd )
 DIR_MODULE=$(readlink -f "$CURDIR")
 DIR_CONF="$DIR_MODULE/conf"
@@ -56,6 +57,11 @@ if ! IT_CHECK_BINARY "find" ; then
   IT_MESSAGE "ERROR" "« find » non trouvé, veuillez l'installer avant de continuer."
   exit 1
 fi
+
+#-----------------------------------------------------------------------
+# Affichage logo CNRS
+#-----------------------------------------------------------------------
+cat "$DIR_LIBS/cnrs.ansi"
 
 #-----------------------------------------------------------------------
 # Gestion des arguments 

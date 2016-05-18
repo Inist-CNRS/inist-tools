@@ -16,6 +16,7 @@
 MODULE_NAME="INIST PROXY"
 MODULE_DESC="Positionne les variables d'environnement de la session courante pour le proxy INIST"
 MODULE_VERSION=$(git describe --tags)
+MODULE_VERSION_SHORT=$(git describe --tags | cut -d"-" -f1 )
 CURDIR=$( cd "$( dirname "$0" )" && pwd )
 DIR_MODULE=$(readlink -f "$CURDIR")
 DIR_LIBS=$(readlink -f "$DIR_MODULE/../libs/")
@@ -33,8 +34,7 @@ fi
 #-----------------------------------------------------------------------
 # Greeting
 #-----------------------------------------------------------------------
-printf "$MODULE_NAME [$MODULE_VERSION]\n"
-printf "$MODULE_DESC\n"
+IT_GREETING
 
 # Exclusion du proxy
 IT_MESSAGE "NOTICE" "Dépositionnement du proxy pour localhost"

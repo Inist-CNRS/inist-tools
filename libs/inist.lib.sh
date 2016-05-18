@@ -28,12 +28,12 @@ function IT_MESSAGE {
 }
 
 #-----------------------------------------------------------------------
-# Message d'accueil
+# Message d'accueil (générique, réutilisable)
 #-----------------------------------------------------------------------
 function IT_GREETING {
-  cat "$DIR_LIBS/cnrs.ansi"
   # printf "${FG_BR_BLUE}$MODULE_NAME [${FG_BR_WHITE}$MODULE_VERSION]${RESET_ALL}\n"
-  printf "$MODULE_NAME [$MODULE_VERSION]\n"
+  printf "$MODULE_NAME [$MODULE_VERSION_SHORT]\n"
+  printf "$MODULE_DESC\n"
 }
 
 #-----------------------------------------------------------------------

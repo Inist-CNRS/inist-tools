@@ -16,6 +16,7 @@
 MODULE_NAME="INIST INFO"
 MODULE_DESC="Affiche des informations sur l'environnement en cours"
 MODULE_VERSION=$(git describe --tags)
+MODULE_VERSION_SHORT=$(git describe --tags | cut -d"-" -f1 )
 CURDIR=$( cd "$( dirname "$0" )" && pwd )
 DIR_MODULE=$(readlink -f "$CURDIR")
 DIR_LIBS=$(readlink -f "$DIR_MODULE/../libs/")
@@ -34,13 +35,11 @@ fi
 #-----------------------------------------------------------------------
 # Greeting
 #-----------------------------------------------------------------------
-printf "$MODULE_NAME [$MODULE_VERSION]\n"
-printf "$MODULE_DESC\n"
+IT_GREETING
 
 #-----------------------------------------------------------------------
 # Récupération des infos
 #-----------------------------------------------------------------------
-
 ## Réseau
 # Combien d'interfaces filaires ?
 INFO_NET_ETH_COUNT=$(ifconfig -s | grep -i "eth" | wc -l)
