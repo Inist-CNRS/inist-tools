@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 ########################################################################
 #
-# INIST-TOOLS / INIST_PROXY_CHROME
+# INIST-TOOLS / INIST PROXY CHROME
 # 
 # Positionne le proxy INIST pour Chrome.
 #

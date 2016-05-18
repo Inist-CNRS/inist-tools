@@ -1,9 +1,10 @@
 #!/usr/bin/env bash
 ########################################################################
 #
-# INIST-TOOLS / INIST PROXY FIREFOX
+# INIST-TOOLS / INIST INFO
 # 
-# Positionne le proxy INIST pour Firefox.
+# Affiche un certain nombre d'informations concernant l'environnement
+# en cours.
 #
 # @author : INIST-CNRS/DPI
 #
@@ -12,8 +13,8 @@
 #-----------------------------------------------------------------------
 # Environnement
 #-----------------------------------------------------------------------
-MODULE_NAME="INIST PROXY FIREFOX"
-MODULE_DESC="Lance Firefox avec le proxy INIST positionné."
+MODULE_NAME="INIST INFO"
+MODULE_DESC="Affiche des informations sur l'environnement en cours"
 MODULE_VERSION=$(git describe --tags)
 CURDIR=$( cd "$( dirname "$0" )" && pwd )
 DIR_MODULE=$(readlink -f "$CURDIR")
@@ -33,16 +34,46 @@ fi
 #-----------------------------------------------------------------------
 # Greeting
 #-----------------------------------------------------------------------
-cat "$DIR_LIBS/firefox.ansi"
 printf "$MODULE_NAME [$MODULE_VERSION]\n"
 printf "$MODULE_DESC\n"
 
 #-----------------------------------------------------------------------
-# Positionnement du proxy pour l'environnement courant
+# Récupération des infos
 #-----------------------------------------------------------------------
-"$DIR_TOOLS/inist_proxy.sh"
+
+## Réseau
+# Combien d'interfaces filaires ?
+INFO_NET_ETH_COUNT=$(ifconfig -s | grep -i "eth" | wc -l)
+# Combien d'interfaces WiFi ?
+INFO_NET_WLAN_COUNT=$(ifconfig -s | grep -i "wlan" | wc -l)
+# INIST ou pas INIST ?
+if IT_CHECK_CONNECTION ; then
+  INFO_NET_INIST="INIST"
+else
+  INFO_NET_INIST="en mobilité"
+fi
+# Wifi ou filaire ?
+if $(ifconfig | grep -i "wlan") ; then
+  INFO_NET_TYPE="wifi"
+else
+  INFO_NET_TYPE="ethernet"
+fi
+# Adresse IP
+INFO_NET_IP=$(hostname  -I | cut -f1 -d' ')
+
 
 #-----------------------------------------------------------------------
-# Lancement de firefox
+# Affichage des infos
 #-----------------------------------------------------------------------
-firefox &
+printf "\n"
+printf "Informations Réseau\n"
+printf "Interface(s) ETH active(s)  :\t$INFO_NET_ETH_COUNT\n"
+printf "Interface(s) WIFI active(s) :\t$INFO_NET_WLAN_COUNT\n"
+printf "Réseau en cours             :\t$INFO_NET_TYPE\n"
+printf "Adresse IP                  :\t$INFO_NET_IP\n"
+printf "Réseau utilisé              :\t$INFO_NET_INIST\n"
+
+printf "\n"
+printf "Environnement\n"
+printf "Utilisateur courant     : $USER\n"
+printf "Répertoire d'exectution : $CURDIR\n"
