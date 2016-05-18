@@ -1,0 +1,8 @@
+Commandes :
+  noproxy         Reset les variables d'environnement *_proxy
+  proxy [on|off]  Positionne ou supprime le proxy INIST pour la session en cours
+  proxy-chrome    Positionne le proxy INIST pour le navigateur CHROM[E|MIUM]
+  proxy-firefox   Positionne le proxy INIST pour le navigateur FIREFOX
+
+Options :
+  -v,--version    Affiche la version
