@@ -98,7 +98,11 @@ case $COMMAND in
   # COMMANDE : proxy
   #---------------------------------------------------------------------
   proxy )
-    "$DIR_TOOLS/inist_proxy.sh"
+    if [ $2 = "on" ]; then
+      "$DIR_TOOLS/inist_proxy.sh"
+    elif [ $2 = "off" ]; then
+      "$DIR_TOOLS/inist_noproxy.sh"
+    fi
     exit 0
   ;;
 
