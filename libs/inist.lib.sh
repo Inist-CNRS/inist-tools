@@ -47,13 +47,7 @@ function IT_SHOW_VERSION {
 # Affichage de l'aide
 #-----------------------------------------------------------------------
 function IT_SHOW_HELP {
-  echo "Commandes : "
-  printf "\tnoproxy\t\tReset les variables d'environnement *_proxy\n"
-  printf "\tproxy\t\tPositionne le proxy INIST pour la session en cours\n"
-  printf "\tproxy-chrome\tPositionne le proxy INIST pour le navigateur CHROM[E|MIUM]\n"
-  printf "\tproxy-firefox\tPositionne le proxy INIST pour le navigateur FIREFOX\n"
-  echo "Options : "
-  printf "\t-v,--version\tAffiche la version\n"
+  cat $DIR_LIBS/inist-tools-help.txt
 }
 
 #-----------------------------------------------------------------------
