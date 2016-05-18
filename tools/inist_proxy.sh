@@ -4,7 +4,7 @@
 # INIST-TOOLS / INIST_PROXY
 # 
 # Positionne les variables d'environnement de la session courante
-# pour les proxies INIST.
+# pour le proxy INIST.
 #
 # @author : INIST-CNRS/DPI
 #
@@ -14,7 +14,7 @@
 # Environnement
 #-----------------------------------------------------------------------
 MODULE_NAME="INIST PROXY"
-MODULE_DESC="Positionne les variables d'environnement de la session courante pour les proxies INIST"
+MODULE_DESC="Positionne les variables d'environnement de la session courante pour le proxy INIST"
 MODULE_VERSION=$(git describe --tags)
 CURDIR=$( cd "$( dirname "$0" )" && pwd )
 DIR_MODULE=$(readlink -f "$CURDIR")
@@ -55,6 +55,3 @@ export HTTPS_PROXY="http://proxyout.inist.fr:8080"
 IT_MESSAGE "NOTICE" "Positionnement du proxy INIST pour FTP"
 export ftp_proxy="http://proxyout.inist.fr:8080"
 export FTP_PROXY="http://proxyout.inist.fr:8080"
-
-# Sortie "propre"
-exit 0
