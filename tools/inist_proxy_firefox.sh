@@ -38,6 +38,13 @@ printf "$MODULE_NAME [$MODULE_VERSION]\n"
 printf "$MODULE_DESC\n"
 
 #-----------------------------------------------------------------------
+# Tester si firefox existe, sinon, adieu !
+#-----------------------------------------------------------------------
+if ! IT_CHECK_BINARY "firefox" ; then
+  IT_MESSAGE "ERROR" "Firefox n'est pas installé. Fin."
+  exit 1
+fi
+#-----------------------------------------------------------------------
 # Positionnement du proxy pour l'environnement courant
 #-----------------------------------------------------------------------
 "$DIR_TOOLS/inist_proxy.sh"
