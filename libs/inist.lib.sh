@@ -92,7 +92,7 @@ function IT_CHECK_CONNECTION {
 function IT_CHECK_DOCKED {
   USBHUBS_COUNT=$(lsusb | grep "hub" | wc -l)
   DISPLAY_COUNT=$(xrandr | grep " connected" | wc -l)
-  if [ $USBHUBS_COUNT -lt 4 ] && [ $DISPLAY_COUNT -gt 1 ]
+  if [ $USBHUBS_COUNT -eq 4 ] && [ $DISPLAY_COUNT -gt 1 ]; then
     IS_DOCKED=0
     return 0
   else

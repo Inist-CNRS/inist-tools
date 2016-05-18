@@ -61,10 +61,22 @@ fi
 # Adresse IP
 INFO_NET_IP=$(hostname  -I | cut -f1 -d' ')
 
+## Docké ou pas ?
+if IT_CHECK_DOCKED ; then
+  INFO_GENERAL_DOCKED="oui"
+else
+  INFO_GENERAL_DOCKED="non"
+fi
 
 #-----------------------------------------------------------------------
 # Affichage des infos
 #-----------------------------------------------------------------------
+
+printf "\n"
+printf "Général\n"
+printf "Dock  :\t$INFO_GENERAL_DOCKED\n"
+
+
 printf "\n"
 printf "Informations Réseau\n"
 printf "Interface(s) ETH active(s)  :\t$INFO_NET_ETH_COUNT\n"
@@ -77,3 +89,4 @@ printf "\n"
 printf "Environnement\n"
 printf "Utilisateur courant     : $USER\n"
 printf "Répertoire d'exectution : $CURDIR\n"
+
