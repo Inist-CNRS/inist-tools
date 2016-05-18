@@ -102,6 +102,8 @@ case $COMMAND in
       "$DIR_TOOLS/inist_proxy.sh"
     elif [ $2 = "off" ]; then
       "$DIR_TOOLS/inist_noproxy.sh"
+    else
+      "$DIR_TOOLS/inist_proxy.sh"
     fi
     exit 0
   ;;
