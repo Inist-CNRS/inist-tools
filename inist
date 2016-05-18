@@ -100,7 +100,7 @@ case $COMMAND in
   # COMMANDE : noproxy
   #---------------------------------------------------------------------
   noproxy )
-    "$DIR_TOOLS/inist_proxy.sh"
+    "$DIR_TOOLS/inist_noproxy.sh"
     exit 0
   ;;
 
