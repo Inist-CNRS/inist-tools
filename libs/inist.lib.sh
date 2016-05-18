@@ -14,6 +14,7 @@
 # Initialisation de variables globales
 #-----------------------------------------------------------------------
 IS_INIST=1
+IS_DOCKED=1
 
 #-----------------------------------------------------------------------
 # Logging
@@ -72,11 +73,30 @@ function IT_CHECK_BINARY {
 # 1 -> connexion autre
 #-----------------------------------------------------------------------
 function IT_CHECK_CONNECTION {
-  IS_INIST=$(ifconfig | grep -i "172.16")
-  if [ "$IS_INIST" ]; then
+  COUNT=$(ifconfig | grep -i "172.16")
+  if [ "$COUNT" ]; then
+    IS_INIST=0
     return 0
   else
+    IS_INIST=1
     return 1
   fi
 }
 
+#-----------------------------------------------------------------------
+# Vérification du dockage du portable...
+# ...en comptant les hub USB dispo
+# ...en comptant les écrans connectés
+# /!\ Pss fiable à 100% (et il faut que xrandr soit installé)
+#-----------------------------------------------------------------------
+function IT_CHECK_DOCKED {
+  USBHUBS_COUNT=$(lsusb | grep "hub" | wc -l)
+  DISPLAY_COUNT=$(xrandr | grep " connected" | wc -l)
+  if [ $USBHUBS_COUNT -lt 4 ] && [ $DISPLAY_COUNT -gt 1 ]
+    IS_DOCKED=0
+    return 0
+  else
+    IS_DOCKED=1
+    return 1
+  fi
+}
