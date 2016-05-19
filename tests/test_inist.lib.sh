@@ -18,8 +18,61 @@ CURDIR=$( cd "$( dirname "$0" )" && pwd )
 DIR_MODULE=$(readlink -f "$CURDIR")
 DIR_LIBS=$(readlink -f "$DIR_MODULE/../libs/")
 
-#-----------------------------------------------------------------------
-# Chargement de SHUNIT2
-#-----------------------------------------------------------------------
-source $DIR_LIBS/shunit2/source/2.1/bin/shunit2
+source "$DIR_LIBS/inist.lib.sh"
 
+#-----------------------------------------------------------------------
+# Greeting !
+#-----------------------------------------------------------------------
+printf "$MODULE_NAME\n"
+printf "$MODULE_DESC\n"
+
+#-----------------------------------------------------------------------
+# Chargement de la lib à tester
+#-----------------------------------------------------------------------
+oneTimeSetUp()
+{
+  source "$DIR_LIBS/inist.lib.sh"
+}
+
+#-----------------------------------------------------------------------
+# TESTS
+#-----------------------------------------------------------------------
+## IT_GREETING
+test_IT_GREETING () {
+  out=$(IT_GREETING)
+  assertNotNull "Devrait afficher un message de démarrage de l'application" "$out"
+}
+
+## IT_SHOW_VERSION
+test_IT_SHOW_VERSION () {
+  out=$(IT_SHOW_VERSION)
+  assertNotNull "Devrait afficher un message de version de l'application" "$out"
+}
+
+## IT_SHOW_HELP
+test_IT_SHOW_HELP () {
+  out=$(IT_SHOW_HELP)
+  assertNotNull "Devrait afficher l'aide de l'application" "$out"
+}
+
+## IT_CHECK_BINARY
+test_IT_CHECK_BINARY () {
+  out=$(IT_CHECK_BINARY "ls")
+  assertTrue "Devrait retourner TRUE ('ls' est trouvé dans le système)" "$?"
+}
+
+## IT_CHECK_CONNECTION
+test_IT_CHECK_CONNECTION () {
+  out=$(IT_CHECK_CONNECTION)
+  assertTrue "Devrait retourner TRUE (connecté à l'INIST)" "$?"
+}
+
+## IT_CHECK_DOCKED
+test_IT_CHECK_DOCKED () {
+  out=$(IT_CHECK_DOCKED)
+  assertTrue "Devrait retourner TRUE (le PéCé est docké)" "$?"
+}
+#-----------------------------------------------------------------------
+# Chargement de SHUNIT2 pour lancer les TU
+#-----------------------------------------------------------------------
+source "$DIR_LIBS/shunit2/source/2.1/src/shunit2"

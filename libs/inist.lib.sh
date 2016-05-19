@@ -32,15 +32,16 @@ function IT_MESSAGE {
 #-----------------------------------------------------------------------
 function IT_GREETING {
   # printf "${FG_BR_BLUE}$MODULE_NAME [${FG_BR_WHITE}$MODULE_VERSION]${RESET_ALL}\n"
-  printf "$MODULE_NAME [$MODULE_VERSION_SHORT]\n"
-  printf "$MODULE_DESC\n"
+  if printf "$MODULE_NAME [$MODULE_VERSION_SHORT]\n" && printf "$MODULE_DESC\n" ; then
+    return 0
+  fi
 }
 
 #-----------------------------------------------------------------------
 # Affichage de la version
 #-----------------------------------------------------------------------
 function IT_SHOW_VERSION {
-  printf "$MODULE_NAME est en version ${FG_BR_WHITE}$MODULE_VERSION${RESET_ALL}\n"
+  printf "$MODULE_NAME est en version $MODULE_VERSION\n"
 }
 
 #-----------------------------------------------------------------------
