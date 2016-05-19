@@ -25,13 +25,14 @@ source "$DIR_LIBS/inist.lib.sh"
 #-----------------------------------------------------------------------
 printf "$MODULE_NAME\n"
 printf "$MODULE_DESC\n"
+printf "\n"
 
 #-----------------------------------------------------------------------
 # Chargement de la lib à tester
 #-----------------------------------------------------------------------
 oneTimeSetUp()
 {
-  source "$DIR_LIBS/inist.lib.sh"
+  source "$DIR_LIBS/inist.lib.sh" >> /dev/null
 }
 
 #-----------------------------------------------------------------------
@@ -72,7 +73,8 @@ test_IT_CHECK_DOCKED () {
   out=$(IT_CHECK_DOCKED)
   assertTrue "Devrait retourner TRUE (le PéCé est docké)" "$?"
 }
+
 #-----------------------------------------------------------------------
 # Chargement de SHUNIT2 pour lancer les TU
 #-----------------------------------------------------------------------
-source "$DIR_LIBS/shunit2/source/2.1/src/shunit2"
+time source "$DIR_LIBS/shunit2/source/2.1/src/shunit2"
