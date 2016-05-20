@@ -25,8 +25,8 @@ source "$DIR_LIBS/inist.lib.sh"
 #-----------------------------------------------------------------------
 function executeTest {
   testFile="$1"
-  printf "### Lance le test $testFile\n"  
-  /usr/bin/time --format "Test executé en %e sec." "$testFile"
+  printf "### Lance le test \e[1m$testFile\e[0m\n"  
+  /usr/bin/time --format "Test executé en %e sec. (%P CPU)" "$testFile"
 }
 
 
@@ -41,8 +41,11 @@ printf "\n"
 # Trouve tous les fichiers test_* du répertoire courant et les lance
 # un-à-un en calculant leur temps d'execution
 #-----------------------------------------------------------------------
-
 for tFile in "$CURDIR/test_*"; do
   executeTest $tFile
 done
 
+#-----------------------------------------------------------------------
+# Fin propre
+#-----------------------------------------------------------------------
+exit 0
