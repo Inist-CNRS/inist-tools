@@ -1,9 +1,0 @@
-[submodule "libs/bashinator"]
-	path = libs/bashinator
-	url = https://github.com/wschlich/bashinator.git
-[submodule "libs/bangsh"]
-	path = libs/bangsh
-	url = https://github.com/bangsh/bangsh.git
-[submodule "libs/shunit2"]
-	path = libs/shunit2
-	url = https://github.com/kward/shunit2.git
