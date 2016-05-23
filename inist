@@ -145,7 +145,7 @@ case $command in
   #---------------------------------------------------------------------
   --version | -v )
     cat "$DIR_LIBS/gfx/cnrs.ansi"
-    IT_SHOW_VERSION
+    _it_std_show_version
     exit 0
   ;;
 
