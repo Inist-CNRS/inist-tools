@@ -21,16 +21,42 @@ IS_DOCKED=1
 # $1 : level/priorité (NOTICE, WARNING, ERROR, etc.)
 # $2 : contenu du message ou de l'erreur
 #-----------------------------------------------------------------------
-function IT_MESSAGE {
+function _it_std_message {
   MESSAGE="[INIST-TOOLS] [$1] $2"
-  # echo "$MESSAGE"    
-  logger -s -p "$1" "$MESSAGE"
+  
+  case "$1" in
+  
+    # INFORMATION
+    info|INFO)
+      logger -s -p "$1" "$MESSAGE"
+      notify-send -i info "$MESSAGE"
+    ;;
+    
+    # ALERTE !
+    warning|WARNING)
+      logger -s -p "$1" "$MESSAGE"
+      notify-send -i warning "$MESSAGE"
+    ;;
+    
+    # ERREUR !
+    error|ERROR)
+      logger -s -p "$1" "$MESSAGE"
+      notify-send -i error "$MESSAGE"
+    ;;
+    
+    # Autre cas
+    *)
+      logger -s -p "$1" "$MESSAGE"
+      notify-send -i "$MESSAGE"
+    ;;
+    
+  esac
 }
 
 #-----------------------------------------------------------------------
 # Message d'accueil (générique, réutilisable)
 #-----------------------------------------------------------------------
-function IT_GREETING {
+function _it_std_greeting {
   # printf "${FG_BR_BLUE}$MODULE_NAME [${FG_BR_WHITE}$MODULE_VERSION]${RESET_ALL}\n"
   if printf "$MODULE_NAME [$MODULE_VERSION_SHORT]\n" && printf "$MODULE_DESC\n" ; then
     return 0
@@ -40,14 +66,14 @@ function IT_GREETING {
 #-----------------------------------------------------------------------
 # Affichage de la version
 #-----------------------------------------------------------------------
-function IT_SHOW_VERSION {
+function _it_std_show_version {
   printf "$MODULE_NAME est en version $MODULE_VERSION\n"
 }
 
 #-----------------------------------------------------------------------
 # Affichage de l'aide
 #-----------------------------------------------------------------------
-function IT_SHOW_HELP {
+function _it_std_show_help {
   cat $DIR_LIBS/inist-tools-help.txt
 }
 
@@ -55,7 +81,7 @@ function IT_SHOW_HELP {
 # Vérification de l'existance d'un binaire
 # (retourne 0 si trouvé, 1 si non trouvé)
 #-----------------------------------------------------------------------
-function IT_CHECK_COMMAND {
+function _it_std_check_command {
   if [ ! -z "$1" ]; then
     CHECK=$(which "$1")
     return $?
@@ -70,14 +96,14 @@ function IT_CHECK_COMMAND {
 # ...en comptant les écrans connectés
 # /!\ Pss fiable à 100% (et il faut que xrandr soit installé)
 #-----------------------------------------------------------------------
-function IT_CHECK_DOCKED {
-  USBHUBS_COUNT=$(lsusb | grep "hub" | wc -l)
-  DISPLAY_COUNT=$(xrandr | grep " connected" | wc -l)
-  if [ $USBHUBS_COUNT -eq 4 ] && [ $DISPLAY_COUNT -gt 1 ]; then
-    IS_DOCKED=0
-    return 0
-  else
-    IS_DOCKED=1
-    return 1
-  fi
-}
+#function _it_std_check_docked {
+  #USBHUBS_COUNT=$(lsusb | grep "hub" | wc -l)
+  #DISPLAY_COUNT=$(xrandr | grep " connected" | wc -l)
+  #if [ $USBHUBS_COUNT -eq 4 ] && [ $DISPLAY_COUNT -gt 1 ]; then
+    #IS_DOCKED=0
+    #return 0
+  #else
+    #IS_DOCKED=1
+    #return 1
+  #fi
+#}

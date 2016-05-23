@@ -20,12 +20,13 @@
 # 1 -> connexion autre
 #-----------------------------------------------------------------------
 function _it_network_isInistNetwork {
-  ifc=$(which ifconfig)
+  # En fonction des distrib, ifconfig n'est pas toujours au même endroit...
+  local ifc=$(which ifconfig)
   # On cherche l'IP "type INIST" (mais c'est une plage privée qu'on peut retrouver ailleurs)
-  COUNT=$("$ifc" | grep -i "172.16")
+  local COUNT=$("$ifc" | grep -i "172.16")
   # On ping vanda (si ça répond pas, c'est qu'on est pas en filaire INIST)
   VANDA=$(ping -c 1 vanda.ads.intra.inist.fr | grep -i "unknown")
-  if [ "$COUNT" ] && [ $VANDA ]; then
+  if [ "$COUNT" ] && [ ! $VANDA ]; then
     IS_INIST=0
     return 0
   else
@@ -80,4 +81,47 @@ function _it_network_inistProxyUnset {
   
   # Affichage du résultat (normalement il ne devrait rien y avoir... normalement...)
   env | grep -i "proxy"
+}
+
+#-----------------------------------------------------------------------
+# Informations Réseau
+#-----------------------------------------------------------------------
+function _it_network_info {
+  # Combien d'interfaces filaires ?
+  INFO_NET_ETH_COUNT=$(ifconfig -s | grep -i "eth" | wc -l)
+  # Combien d'interfaces WiFi ?
+  INFO_NET_WLAN_COUNT=$(ifconfig -s | grep -i "wlan" | wc -l)
+  # INIST ou pas INIST ?
+  if _it_network_isInistNetwork ; then
+    INFO_NET_INIST="INIST"
+  else
+    INFO_NET_INIST="en mobilité"
+  fi
+  # Wifi ou filaire ?
+  if $(ifconfig | grep -i "wlan") ; then
+    INFO_NET_TYPE="wifi"
+  else
+    INFO_NET_TYPE="ethernet"
+  fi
+
+  # Adresse IP
+  INFO_NET_IP=$(hostname  -I | cut -f1 -d' ')
+
+
+  # Affichage des infos
+  printf "\n"
+  printf "Général\n"
+
+  printf "\n"
+  printf "Informations Réseau\n"
+  printf "Interface(s) ETH active(s)  :\t$INFO_NET_ETH_COUNT\n"
+  printf "Interface(s) WIFI active(s) :\t$INFO_NET_WLAN_COUNT\n"
+  printf "Réseau en cours             :\t$INFO_NET_TYPE\n"
+  printf "Adresse IP                  :\t$INFO_NET_IP\n"
+  printf "Réseau utilisé              :\t$INFO_NET_INIST\n"
+
+  printf "\n"
+  printf "Environnement\n"
+  printf "Utilisateur courant     : $USER\n"
+  printf "Répertoire d'exectution : $CURDIR\n"
 }

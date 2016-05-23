@@ -46,8 +46,8 @@ fi
 #-----------------------------------------------------------------------
 # Vérification des dépendances
 #-----------------------------------------------------------------------
-if ! IT_CHECK_COMMAND "find" ; then
-  IT_MESSAGE "ERROR" "« find » non trouvé, veuillez l'installer avant de continuer."
+if ! _it_std_check_command "find" ; then
+  _it_std_message "ERROR" "« find » non trouvé, veuillez l'installer avant de continuer."
   exit 1
 fi
 
@@ -58,13 +58,13 @@ fi
 #-----------------------------------------------------------------------
 # Gestion des arguments 
 #-----------------------------------------------------------------------
-COMMAND="$1"
+command="$1"
 
 # Aucun argument : affichage de l'aide
 if [ "$#" -lt 1 ]; then
-  IT_GREETING
-  IT_MESSAGE "WARNING" "Nombre d'argument incorrect !"
-  IT_SHOW_HELP
+  _it_std_greeting
+  _it_std_message "WARNING" "Nombre d'argument incorrect !"
+  _it_std_show_help
   exit 0
 fi
 
@@ -73,50 +73,71 @@ fi
 #-----------------------------------------------------------------------
 
 # On est poli, on dit bonjour...
-IT_GREETING
+_it_std_greeting
 
 # ...et on traite la commande
-case $COMMAND in
+case $command in
 
   #---------------------------------------------------------------------
   # COMMANDE : info
   #---------------------------------------------------------------------
   info )
-    "$DIR_TOOLS/inist_info.sh"
-    exit 0
+    # On charge la lib "network"
+    source "$DIR_LIBS/network.lib.sh"
+    #
+    _it_network_info
   ;;
 
   #---------------------------------------------------------------------
   # COMMANDE : proxy
   #---------------------------------------------------------------------
   proxy )
+  
     # On charge la lib "network"
     source "$DIR_LIBS/network.lib.sh"
     
-    if [ $2 = "on" ]; then
-      _it_network_inistProxySet
-    elif [ $2 = "off" ]; then
-      _it_network_inistProxyUnset
-    else
-      _it_network_inistProxySet
-    fi
-    exit 0
-  ;;
-
-  #---------------------------------------------------------------------
-  # COMMANDE : proxy-chrome
-  #---------------------------------------------------------------------
-  proxy-chrome )
-    "$DIR_TOOLS/inist_proxy_chrome.sh"
-    exit 0
-  ;;
-
-  #---------------------------------------------------------------------
-  # COMMANDE : proxy-firefox
-  #---------------------------------------------------------------------
-  proxy-firefox )
-    "$DIR_TOOLS/inist_proxy_firefox.sh"
-    exit 0
+    case "$2" in
+      
+      # inist proxy on
+      on)
+        case "$3" in
+          # inist proxy on --firefox (ou --iceweasel)
+          --firefox|iceweasel)
+          ;;
+          
+          # inist proxy off --chrome (ou --chromium)
+          --chrome|chromium)
+          ;;
+          # Cas par défaut (application à tout le système)
+          *)
+            _it_network_inistProxySet
+          ;;
+        esac
+      ;;
+      
+      # inist proxy off
+      off)
+        case "$3" in
+          # inist proxy off --firefox (ou --iceweasel)
+          --firefox|iceweasel)
+          ;;
+          
+          # inist proxy off --chrome (ou --chromium)
+          --chrome|chromium)
+          ;;
+          # Cas par défaut (application à tout le système)
+          *)
+            _it_network_inistProxyUnset
+          ;;
+        esac
+      ;;
+      
+      # inist proxy
+      *)
+        _it_network_inistProxySet
+      ;;
+      
+    esac
   ;;
 
   #---------------------------------------------------------------------
@@ -133,12 +154,8 @@ case $COMMAND in
   #---------------------------------------------------------------------
 
   * )
-    IT_SHOW_HELP
+    _it_std_show_help
   ;;
   
 esac
 
-#-----------------------------------------------------------------------
-# FIN PROPRE
-#-----------------------------------------------------------------------
-exit 0
