@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 ########################################################################
 #
-# INIST-TOOLS / T.U. pour inist.lib.sh
+# INIST-TOOLS / T.U. Divers (inclassables)
 # 
 # @author : INIST-CNRS/DPI
 #
@@ -10,8 +10,8 @@
 #-----------------------------------------------------------------------
 # Environnement
 #-----------------------------------------------------------------------
-MODULE_NAME="T.U. INIST LIB"
-MODULE_DESC="Tests unitaires pour la librairie « inist.lib.sh »"
+MODULE_NAME="T.U. Divers"
+MODULE_DESC="Tests unitaires sur les fonctionnalités inclassables :)"
 MODULE_VERSION=$(git describe --tags)
 MODULE_VERSION_SHORT=$(git describe --tags | cut -d"-" -f1 )
 CURDIR=$( cd "$( dirname "$0" )" && pwd )
@@ -29,54 +29,11 @@ printf "$MODULE_DESC\n"
 printf "################################################################################\n"
 
 #-----------------------------------------------------------------------
-# Chargement de la lib à tester
-#-----------------------------------------------------------------------
-oneTimeSetUp()
-{
-  source "$DIR_LIBS/std.lib.sh" >> /dev/null
-}
-
-#-----------------------------------------------------------------------
 # TESTS
 #-----------------------------------------------------------------------
-## IT_GREETING
-test_IT_GREETING () {
-  out=$(IT_GREETING)
-  assertNotNull "Devrait afficher un message de démarrage de l'application" "$out"
-}
-
-## IT_SHOW_VERSION
-test_IT_SHOW_VERSION () {
-  out=$(IT_SHOW_VERSION)
-  assertNotNull "Devrait afficher un message de version de l'application" "$out"
-}
-
-## IT_SHOW_HELP
-test_IT_SHOW_HELP () {
-  out=$(IT_SHOW_HELP)
-  assertNotNull "Devrait afficher l'aide de l'application" "$out"
-}
-
-## IT_CHECK_BINARY
-test_IT_CHECK_COMMAND () {
-  out=$(IT_CHECK_COMMAND "ls")
-  assertTrue "Devrait retourner TRUE ('ls' est trouvé dans le système)" "$?"
-}
-
-## IT_CHECK_CONNECTION
-test_IT_CHECK_CONNECTION () {
-  out=$(IT_CHECK_CONNECTION)
-  assertTrue "Devrait retourner TRUE (connecté à l'INIST)" "$?"
-}
-
-## IT_CHECK_DOCKED
-test_IT_CHECK_DOCKED () {
-  out=$(IT_CHECK_DOCKED)
-  assertTrue "Devrait retourner TRUE (le PéCé est docké)" "$?"
-}
 
 #-----------------------------------------------------------------------
-# Chargement de SHUNIT2 pour lancer les TU
+# Chargement et lancement de SHUNIT2 pour executer les TU
 #-----------------------------------------------------------------------
 SHUNIT2=$(which shunit2)
 source "$SHUNIT2"

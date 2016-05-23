@@ -27,8 +27,10 @@ function executeTest {
   testFile="$1"
   printf "### Lance le test \e[1m$testFile\e[0m\n"  
   /usr/bin/time --format "Test executé en %e sec. (%P CPU)" "$testFile"
+  wait  $!
+  # $testFile
+  # return $?
 }
-
 
 #-----------------------------------------------------------------------
 # Greeting !
@@ -38,12 +40,18 @@ printf "$MODULE_DESC\n"
 printf "\n"
 
 #-----------------------------------------------------------------------
+# Vérification de la présence de SHUNIT2
+#-----------------------------------------------------------------------
+if ! IT_CHECK_COMMAND "shunit2"; then
+  IT_MESSAGE "ERROR" "shunit2 n'est pas installé sur votre système. « sudo apt-get install -y shunit2 » devrait régler le problème..."
+  exit 1
+fi
+
+#-----------------------------------------------------------------------
 # Trouve tous les fichiers test_* du répertoire courant et les lance
 # un-à-un en calculant leur temps d'execution
 #-----------------------------------------------------------------------
-for tFile in "$CURDIR/test_*"; do
-  executeTest $tFile
-done
+find "$CURDIR" -type f -name "test_*" | parallel --gnu --keep-order {}
 
 #-----------------------------------------------------------------------
 # Fin propre

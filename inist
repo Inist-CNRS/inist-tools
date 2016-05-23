@@ -28,16 +28,9 @@ DIR_TOOLS="$DIR_MODULE/tools"
 #-----------------------------------------------------------------------
 # Chargement libs + conf
 #-----------------------------------------------------------------------
-if [ -f "$DIR_LIBS/inist.lib.sh" ]; then
-  # Vérification de la présence du framework « Bashinator »
-  if [ -d "$DIR_LIBS/bashinator/" ]; then
-    source "$DIR_LIBS/bashinator/bashinator.lib.0.sh"
-  else
-    logger -s "[$MODULE_NAME] [ERROR] Impossible de charger le framework « Bashinator ». Fin."
-    exit 1
-  fi
+if [ -f "$DIR_LIBS/std.lib.sh" ]; then
   source "$DIR_LIBS/ansicolors.lib.sh"
-  source "$DIR_LIBS/inist.lib.sh"
+  source "$DIR_LIBS/std.lib.sh"
 else
   logger -s "[$MODULE_NAME] [ERROR] Impossible de charger la librairie de $MODULE_NAME depuis « $DIR_LIBS ». Fin."
   exit 1
@@ -53,7 +46,7 @@ fi
 #-----------------------------------------------------------------------
 # Vérification des dépendances
 #-----------------------------------------------------------------------
-if ! IT_CHECK_BINARY "find" ; then
+if ! IT_CHECK_COMMAND "find" ; then
   IT_MESSAGE "ERROR" "« find » non trouvé, veuillez l'installer avant de continuer."
   exit 1
 fi
@@ -61,7 +54,6 @@ fi
 #-----------------------------------------------------------------------
 # Affichage logo CNRS
 #-----------------------------------------------------------------------
-cat "$DIR_LIBS/cnrs.ansi"
 
 #-----------------------------------------------------------------------
 # Gestion des arguments 
@@ -98,21 +90,16 @@ case $COMMAND in
   # COMMANDE : proxy
   #---------------------------------------------------------------------
   proxy )
+    # On charge la lib "network"
+    source "$DIR_LIBS/network.lib.sh"
+    
     if [ $2 = "on" ]; then
-      "$DIR_TOOLS/inist_proxy.sh"
+      _it_network_inistProxySet
     elif [ $2 = "off" ]; then
-      "$DIR_TOOLS/inist_noproxy.sh"
+      _it_network_inistProxyUnset
     else
-      "$DIR_TOOLS/inist_proxy.sh"
+      _it_network_inistProxySet
     fi
-    exit 0
-  ;;
-
-  #---------------------------------------------------------------------
-  # COMMANDE : noproxy
-  #---------------------------------------------------------------------
-  noproxy )
-    "$DIR_TOOLS/inist_noproxy.sh"
     exit 0
   ;;
 
@@ -136,6 +123,7 @@ case $COMMAND in
   # OPTION : --version
   #---------------------------------------------------------------------
   --version | -v )
+    cat "$DIR_LIBS/gfx/cnrs.ansi"
     IT_SHOW_VERSION
     exit 0
   ;;
