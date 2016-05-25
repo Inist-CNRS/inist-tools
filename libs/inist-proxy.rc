@@ -16,7 +16,7 @@
 function _it_network_inistProxySet {
 
   # Log/message
-  logger -s "Positionnement des variables d'environnement pour le proxy INIST"
+  logger "[INIST-TOOLS] [INFO]" "Positionnement des variables d'environnement pour le proxy INIST"
   
   # Exclusion du proxy
   export no_proxy="localhost,127.0.0.0/8,*.local,172.16.0.0/16"
@@ -35,8 +35,8 @@ function _it_network_inistProxySet {
   export FTP_PROXY="http://proxyout.inist.fr:8080"
   
   # On affiche le résultat dans l'environnement
-  $envProxy=$(env | grep -i "proxy" | sort)
-  logger -s "$envProxy"
+  envProxy=$(env | grep -i "proxy" | sort)
+  printf "$envProxy\n"
 }
 
 #-------------------------------------------------------------------------------
@@ -45,7 +45,7 @@ function _it_network_inistProxySet {
 function _it_network_inistProxyUnset {
 
   # Log/message
-  logger -s "Suppression des variables d'environnement pour le proxy INIST\n"
+  logger "[INIST-TOOLS] [INFO]" "Suppression des variables d'environnement pour le proxy INIST"
 
   unset "no_proxy"
   unset "http_proxy"
@@ -59,6 +59,6 @@ function _it_network_inistProxyUnset {
   
   # Affichage du résultat (normalement il ne devrait rien y avoir...
   # ...normalement !...)
-  $envProxy=$(env | grep -i "proxy" | sort)
-  logger -s "$envProxy"
+  envProxy=$(env | grep -i "proxy" | sort)
+  printf "$envProxy\n"
 }
