@@ -1,2 +1,1 @@
-#!/usr/bin/env bash
-export PATH=$PATH:/opt/istex-tools
+export PATH="$PATH:/opt/inist-tools"

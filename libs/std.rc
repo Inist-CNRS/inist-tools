@@ -22,7 +22,7 @@ IS_DOCKED=1
 # $2 : contenu du message ou de l'erreur
 #-----------------------------------------------------------------------
 function _it_std_message {
-  MESSAGE="[INIST-TOOLS] [$1] $2"
+  MESSAGE="[INIST-TOOLS ($MODULE_VERSION_SHORT)] [$1] $2"
   
   case "$1" in
   

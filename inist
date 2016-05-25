@@ -17,22 +17,22 @@
 # Environnement
 #-------------------------------------------------------------------------------
 MODULE_NAME="INIST-TOOLS"
-MODULE_VERSION=$(git describe --tags)
-MODULE_VERSION_SHORT=$(git describe --tags | cut -d"-" -f1 )
 CURDIR=$( cd "$( dirname "$0" )" && pwd )
 DIR_MODULE=$(readlink -f "$CURDIR")
 DIR_CONF="$DIR_MODULE/conf"
 DIR_LIBS="$DIR_MODULE/libs"
 DIR_TOOLS="$DIR_MODULE/tools"
 DIR_INSTALL="$DIR_MODULE/install"
+MODULE_VERSION=$(cd "$DIR_MODULE" && git describe --tags)
+MODULE_VERSION_SHORT=$(cd "$DIR_MODULE" && git describe --tags | cut -d"-" -f1)
 
 
 #-------------------------------------------------------------------------------
 # Chargement libs + conf
 #-------------------------------------------------------------------------------
-if [ -f "$DIR_LIBS/std.lib.sh" ]; then
+if [ -f "$DIR_LIBS/std.rc" ]; then
   # source "$DIR_LIBS/ansicolors.lib.sh"
-  source "$DIR_LIBS/std.lib.sh"
+  source "$DIR_LIBS/std.rc"
 else
   logger -s "[$MODULE_NAME] [ERROR] Impossible de charger la librairie de $MODULE_NAME depuis « $DIR_LIBS ». Fin."
   exit 1
