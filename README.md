@@ -15,7 +15,7 @@ Ajouter dans .bashrc
 ```bash
 # INIST-TOOLS
 . /chemin/vers/le/projet/inist-tools/libs/inist-proxy.rc
-PATH=$PATH:/chemin/vers/le/projet/inist-tools/
+export PATH=$PATH:/chemin/vers/le/projet/inist-tools/
 ```
 
 ----
