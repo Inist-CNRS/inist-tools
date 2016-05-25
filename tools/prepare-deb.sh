@@ -28,9 +28,14 @@ DIR_SYSINSTALL="$DIR_INSTALL/opt"
 # ------------------------------------------------------------------------------
 # Nettoyage 
 # ------------------------------------------------------------------------------
+if [ -f "$DIR_ROOT/install.deb" ]; then
+  rm "$DIR_ROOT/install.deb"
+fi
+
 if [ -d "$DIR_INSTALL/opt" ]; then
   rm -Rf "$DIR_INSTALL/opt"
 fi
+
 
 # ------------------------------------------------------------------------------
 # Création de l'arbo

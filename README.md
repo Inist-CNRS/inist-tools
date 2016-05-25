@@ -48,11 +48,21 @@ Fournit l'aide des commandes « inist-tools ».
 ```bash
 $ inist -v | --version
 ```
+
 Renseigne sur la version actuelle de « inist-tools »
 
 ---
 
 ## DEV ##
+
+## Construire le package .deb ##
+
+Depuis le répertoire du projet, executer :
+
+```bash
+$ sudo make package
+```
+
 ### Tests Unitaires ###
 
 #### Prérequis ####

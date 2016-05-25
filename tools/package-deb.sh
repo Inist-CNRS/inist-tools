@@ -25,13 +25,13 @@ DIR_TOOLS=$(readlink -f "$DIR_MODULE/../tools")
 DIR_INSTALL=$(readlink -f "$DIR_MODULE/../install")
 DIR_SYSINSTALL="$DIR_INSTALL/opt"
 
-
 #-------------------------------------------------------------------------------
 # ROOT own U !
 #-------------------------------------------------------------------------------
+chmod -R 755 "$DIR_INSTALL"
 chown -R root:root "$DIR_INSTALL"
 
 #-------------------------------------------------------------------------------
 # Build...
 #-------------------------------------------------------------------------------
-dpkg-deb --build "$DIR_INSTALL"
+dpkg-deb --build "$DIR_INSTALL" inist-tools.deb
