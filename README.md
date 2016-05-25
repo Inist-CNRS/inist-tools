@@ -10,8 +10,6 @@ Pour que la commande « inist » puisse agir sur l'environnement courant de
 l'utilisateur, le fichier inist-proxy.rc doit "sourcé" directement
 depuis ~/.bashrc
 
-Ajouter dans .bashrc
-
 ### /opt ###
 
 En tant que root, créer un lien symbolique vers le répertoire où a été pullé
