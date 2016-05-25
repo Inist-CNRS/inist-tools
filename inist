@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-########################################################################
+################################################################################
 #
 #   # #   # #  ###  #####     #####  ###   ###  #     ###
 #   # ##  # # #       #         #   #   # #   # #    #
@@ -11,11 +11,11 @@
 #
 # @author : INIST-CNRS/DPI
 #
-########################################################################
+################################################################################
 
-#-----------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 # Environnement
-#-----------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 MODULE_NAME="INIST-TOOLS"
 MODULE_VERSION=$(git describe --tags)
 MODULE_VERSION_SHORT=$(git describe --tags | cut -d"-" -f1 )
@@ -25,11 +25,12 @@ DIR_CONF="$DIR_MODULE/conf"
 DIR_LIBS="$DIR_MODULE/libs"
 DIR_TOOLS="$DIR_MODULE/tools"
 
-#-----------------------------------------------------------------------
+
+#-------------------------------------------------------------------------------
 # Chargement libs + conf
-#-----------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 if [ -f "$DIR_LIBS/std.lib.sh" ]; then
-  source "$DIR_LIBS/ansicolors.lib.sh"
+  # source "$DIR_LIBS/ansicolors.lib.sh"
   source "$DIR_LIBS/std.lib.sh"
 else
   logger -s "[$MODULE_NAME] [ERROR] Impossible de charger la librairie de $MODULE_NAME depuis « $DIR_LIBS ». Fin."
@@ -43,22 +44,17 @@ else
   exit 1
 fi
 
-#-----------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 # Vérification des dépendances
-#-----------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 if ! _it_std_check_command "find" ; then
   _it_std_message "ERROR" "« find » non trouvé, veuillez l'installer avant de continuer."
   exit 1
 fi
 
-#-----------------------------------------------------------------------
-# Affichage logo CNRS
-#-----------------------------------------------------------------------
-
-#-----------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 # Gestion des arguments 
-#-----------------------------------------------------------------------
-command="$1"
+#-------------------------------------------------------------------------------
 
 # Aucun argument : affichage de l'aide
 if [ "$#" -lt 1 ]; then
@@ -68,94 +64,102 @@ if [ "$#" -lt 1 ]; then
   exit 0
 fi
 
-#-----------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 # COMMANDE [+option[s]]
-#-----------------------------------------------------------------------
-
+#-------------------------------------------------------------------------------
+function inist {
 # On est poli, on dit bonjour...
-_it_std_greeting
+  _it_std_greeting
 
-# ...et on traite la commande
-case $command in
+  # ...et on traite la ligne de commande
+  case $1 in
 
-  #---------------------------------------------------------------------
-  # COMMANDE : info
-  #---------------------------------------------------------------------
-  info )
-    # On charge la lib "network"
-    source "$DIR_LIBS/network.lib.sh"
-    #
-    _it_network_info
-  ;;
+    #---------------------------------------------------------------------------
+    # COMMANDE : info
+    #---------------------------------------------------------------------------
+    info )
+      # On charge la lib "network"
+      source "$DIR_LIBS/network.lib.sh"
+      #
+      _it_network_info
+    ;;
 
-  #---------------------------------------------------------------------
-  # COMMANDE : proxy
-  #---------------------------------------------------------------------
-  proxy )
-  
-    # On charge la lib "network"
-    source "$DIR_LIBS/network.lib.sh"
+    #---------------------------------------------------------------------------
+    # COMMANDE : proxy
+    #---------------------------------------------------------------------------
+    proxy )
+      
+      case "$2" in
+        
+        # ----------------------------------------------------------------------
+        # inist proxy on
+        # ----------------------------------------------------------------------
+        on )
+
+          case "$3" in
+            # inist proxy on --firefox (ou --iceweasel)
+            --firefox|iceweasel )
+            ;;
+            
+            # inist proxy off --chrome (ou --chromium)
+            --chrome|chromium )
+            ;;
+            # Cas par défaut (application à tout le système)
+            *)
+              _it_std_message "INFO" "Positionnement des variables d'environnement pour le proxy INIST"
+              source "$DIR_TOOLS/proxy-on.rc"
+            ;;
+          esac
+        ;;
+        
+        # ----------------------------------------------------------------------
+        # inist proxy off
+        # ----------------------------------------------------------------------
+        off )
+
+          case "$3" in
+            # inist proxy off --firefox (ou --iceweasel)
+            --firefox|iceweasel )
+            ;;
+            
+            # inist proxy off --chrome (ou --chromium)
+            --chrome|chromium )
+            ;;
+            # Cas par défaut (application à tout le système)
+            *)
+              _it_std_message "INFO" "Suppression des variables d'environnement pour le proxy INIST"
+              source "$DIR_TOOLS/proxy-off.rc"
+            ;;
+          esac
+        ;;
+        
+        # ----------------------------------------------------------------------
+        # inist proxy (sans sous-commande)
+        # ----------------------------------------------------------------------
+        * )
+          _it_std_message "INFO" "Positionnement des variables d'environnement pour le proxy INIST"
+          source "$DIR_TOOLS/proxy-on.rc"
+        ;;
+        
+      esac
+    ;;
+
+    #---------------------------------------------------------------------------
+    # OPTION : --version
+    #---------------------------------------------------------------------------
+    --version | -v )
+      cat "$DIR_LIBS/gfx/cnrs.ansi"
+      _it_std_show_version
+      exit 0
+    ;;
+
+    #---------------------------------------------------------------------------
+    # Options non gérées...
+    #---------------------------------------------------------------------------
+
+    * )
+      _it_std_show_help
+    ;;
     
-    case "$2" in
-      
-      # inist proxy on
-      on)
-        case "$3" in
-          # inist proxy on --firefox (ou --iceweasel)
-          --firefox|iceweasel)
-          ;;
-          
-          # inist proxy off --chrome (ou --chromium)
-          --chrome|chromium)
-          ;;
-          # Cas par défaut (application à tout le système)
-          *)
-            _it_network_inistProxySet
-          ;;
-        esac
-      ;;
-      
-      # inist proxy off
-      off)
-        case "$3" in
-          # inist proxy off --firefox (ou --iceweasel)
-          --firefox|iceweasel)
-          ;;
-          
-          # inist proxy off --chrome (ou --chromium)
-          --chrome|chromium)
-          ;;
-          # Cas par défaut (application à tout le système)
-          *)
-            _it_network_inistProxyUnset
-          ;;
-        esac
-      ;;
-      
-      # inist proxy
-      *)
-        _it_network_inistProxySet
-      ;;
-      
-    esac
-  ;;
-
-  #---------------------------------------------------------------------
-  # OPTION : --version
-  #---------------------------------------------------------------------
-  --version | -v )
-    cat "$DIR_LIBS/gfx/cnrs.ansi"
-    _it_std_show_version
-    exit 0
-  ;;
-
-  #---------------------------------------------------------------------
-  # Options non gérées...
-  #---------------------------------------------------------------------
-
-  * )
-    _it_std_show_help
-  ;;
-  
-esac
-
+  esac
+}

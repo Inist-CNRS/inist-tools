@@ -1,0 +1,64 @@
+################################################################################
+#
+# INIST-TOOLS / inist-proxy.rc
+# 
+# Fonctions spécifiques au proxy INIST dans l'environnement utilisateur
+# Cette bibliothèque est à sourcer directement dans le .bashrc de l'utilisateur
+# pour rendre ses fonctions disponibles de manière globale.
+#
+# @author : INIST-CNRS/DPI
+#
+################################################################################
+
+#-------------------------------------------------------------------------------
+# Positionne les variables d'environnement pour le proxy INIST
+#-------------------------------------------------------------------------------
+function _it_network_inistProxySet {
+
+  # Log/message
+  logger -s "Positionnement des variables d'environnement pour le proxy INIST"
+  
+  # Exclusion du proxy
+  export no_proxy="localhost,127.0.0.0/8,*.local,172.16.0.0/16"
+  export NO_PROXY="localhost,127.0.0.0/8,*.local,172.16.0.0/16"
+
+  # HTTP
+  export http_proxy="http://proxyout.inist.fr:8080"
+  export HTTP_PROXY="http://proxyout.inist.fr:8080"
+
+  # HTTPS
+  export https_proxy="http://proxyout.inist.fr:8080"
+  export HTTPS_PROXY="http://proxyout.inist.fr:8080"
+
+  # FTP
+  export ftp_proxy="http://proxyout.inist.fr:8080"
+  export FTP_PROXY="http://proxyout.inist.fr:8080"
+  
+  # On affiche le résultat dans l'environnement
+  $envProxy=$(env | grep -i "proxy" | sort)
+  logger -s "$envProxy"
+}
+
+#-------------------------------------------------------------------------------
+# Reset les variables d'environnement proxy
+#-------------------------------------------------------------------------------
+function _it_network_inistProxyUnset {
+
+  # Log/message
+  logger -s "Suppression des variables d'environnement pour le proxy INIST\n"
+
+  unset "no_proxy"
+  unset "http_proxy"
+  unset "https_proxy"
+  unset "ftp_proxy"
+
+  unset "NO_PROXY"
+  unset "HTTP_PROXY"
+  unset "HTTPS_PROXY"
+  unset "FTP_PROXY"
+  
+  # Affichage du résultat (normalement il ne devrait rien y avoir...
+  # ...normalement !...)
+  $envProxy=$(env | grep -i "proxy" | sort)
+  logger -s "$envProxy"
+}
