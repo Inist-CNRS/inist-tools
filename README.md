@@ -6,9 +6,9 @@ Ubuntu) dans l'environnement INIST.
 
 Pour l'heure, l'installation n'est pas automatisée.
 
-Pour que la commande « inist » puisse agir sur l'environnement courant de
-l'utilisateur, le fichier inist-proxy.rc doit "sourcé" directement
-depuis ~/.bashrc
+Pour faire fonctionner la commande « inist » dans l'environnement courant, il
+faut configurer les éléments suivants :
+
 
 ### /opt ###
 
@@ -19,8 +19,9 @@ inist-tools :
 /opt # ln -s /chemin/vers/le/pull/de/inist-tools .
 ```
 
-
 ### .bashrc ###
+
+Dans le .bashrc, ajouter :
 
 ```bash
 # INIST-TOOLS
