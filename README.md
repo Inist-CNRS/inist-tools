@@ -4,12 +4,21 @@ Ubuntu) dans l'environnement INIST.
 
 ## INSTALLATION ##
 
-Pour pouvoir agir sur l'environnement courant de l'utilisateur, une partie des
-fonctions de « inist-tools » doit être "sourcée" directement depuis son .bashrc.
-
 Pour l'heure, l'installation n'est pas automatisée.
 
----
+Pour que la commande « inist » puisse agir sur l'environnement courant de
+l'utilisateur, le fichier inist-proxy.rc doit "sourcé" directement
+depuis ~/.bashrc
+
+Ajouter dans .bashrc
+
+```bash
+# INIST-TOOLS
+. /chemin/vers/le/projet/inist-tools/libs/inist-proxy.rc
+PATH=$PATH:/chemin/vers/le/projet/inist-tools/
+```
+
+----
 
 ## Commandes ##
 

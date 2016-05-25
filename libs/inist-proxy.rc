@@ -13,7 +13,7 @@
 #-------------------------------------------------------------------------------
 # Positionne les variables d'environnement pour le proxy INIST
 #-------------------------------------------------------------------------------
-function _it_network_inistProxySet {
+function _it_inistProxy_on {
 
   # Log/message
   logger "[INIST-TOOLS] [INFO]" "Positionnement des variables d'environnement pour le proxy INIST"
@@ -42,7 +42,7 @@ function _it_network_inistProxySet {
 #-------------------------------------------------------------------------------
 # Reset les variables d'environnement proxy
 #-------------------------------------------------------------------------------
-function _it_network_inistProxyUnset {
+function _it_inistProxy_off {
 
   # Log/message
   logger "[INIST-TOOLS] [INFO]" "Suppression des variables d'environnement pour le proxy INIST"

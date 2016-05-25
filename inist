@@ -107,7 +107,8 @@ case $1 in
           # Cas par défaut (application à tout le système)
           *)
             _it_std_message "INFO" "Positionnement des variables d'environnement pour le proxy INIST"
-            source "$DIR_TOOLS/proxy-on.rc"
+            source "$DIR_LIBS/inist-proxy.rc"
+            _it_inistProxy_on
           ;;
         esac
       ;;
@@ -128,7 +129,8 @@ case $1 in
           # Cas par défaut (application à tout le système)
           *)
             _it_std_message "INFO" "Suppression des variables d'environnement pour le proxy INIST"
-            source "$DIR_TOOLS/proxy-off.rc"
+            source "$DIR_LIBS/inist-proxy.rc"
+            _it_inistProxy_off
           ;;
         esac
       ;;
