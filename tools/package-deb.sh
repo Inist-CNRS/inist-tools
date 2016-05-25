@@ -3,7 +3,7 @@
 #
 # inist-tools / tools / prepare-deb.sh
 #
-# Prépare l'arborescence en vue de créer le .deb pour inist-tools
+# Crée le .deb pour inist-tools
 #
 # @author : INIST-CNRS/DPI
 #
@@ -12,8 +12,8 @@
 #-------------------------------------------------------------------------------
 # Environnement
 #-------------------------------------------------------------------------------
-MODULE_NAME="PREPARE-DEB"
-MODULE_DESC="Prépare l'arborescence et les fichiers en vue de créer le .deb"
+MODULE_NAME="PACKAGE-DEB"
+MODULE_DESC="Crée le .deb"
 MODULE_VERSION=$(git describe --tags)
 MODULE_VERSION_SHORT=$(git describe --tags | cut -d"-" -f1 )
 CURDIR=$( cd "$( dirname "$0" )" && pwd )
