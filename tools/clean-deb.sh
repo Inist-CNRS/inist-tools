@@ -3,7 +3,7 @@
 #
 # inist-tools / tools / prepare-deb.sh
 #
-# Crée le .deb pour inist-tools
+# Nettoie l'arborescence du répertoire d'installation
 #
 # @author : INIST-CNRS/DPI
 #
@@ -12,8 +12,8 @@
 #-------------------------------------------------------------------------------
 # Environnement
 #-------------------------------------------------------------------------------
-MODULE_NAME="PACKAGE-DEB"
-MODULE_DESC="Crée le .deb"
+MODULE_NAME="CLEAN-DEB"
+MODULE_DESC="Nettoie l'arborescence du répertoire d'installation"
 MODULE_VERSION=$(git describe --tags)
 MODULE_VERSION_SHORT=$(git describe --tags | cut -d"-" -f1 )
 CURDIR=$( cd "$( dirname "$0" )" && pwd )
@@ -25,13 +25,9 @@ DIR_TOOLS=$(readlink -f "$DIR_MODULE/../tools")
 DIR_INSTALL=$(readlink -f "$DIR_MODULE/../install")
 DIR_SYSINSTALL="$DIR_INSTALL/opt"
 
-
-#-------------------------------------------------------------------------------
-# ROOT own U !
-#-------------------------------------------------------------------------------
-chown -R root:root "$DIR_INSTALL"
-
-#-------------------------------------------------------------------------------
-# Build...
-#-------------------------------------------------------------------------------
-dpkg-deb --build "$DIR_INSTALL"
+# ------------------------------------------------------------------------------
+# Nettoyage 
+# ------------------------------------------------------------------------------
+if [ -d "$DIR_INSTALL/opt" ]; then
+  rm -Rf "$DIR_INSTALL/opt"
+fi
