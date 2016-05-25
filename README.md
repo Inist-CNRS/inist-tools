@@ -12,11 +12,32 @@ depuis ~/.bashrc
 
 Ajouter dans .bashrc
 
+### /opt ###
+
+En tant que root, créer un lien symbolique vers le répertoire où a été pullé
+inist-tools :
+
+```bash
+/opt # ln -s /chemin/vers/le/pull/de/inist-tools .
+```
+
+
+### .bashrc ###
+
 ```bash
 # INIST-TOOLS
-. /chemin/vers/le/projet/inist-tools/libs/inist-proxy.rc
-export PATH=$PATH:/chemin/vers/le/projet/inist-tools/
+. /opt/inist-tools/libs/inist-proxy.rc
 ```
+
+### /etc/profile.d/ ###
+
+En tant que root, créer un fichier executable dans /etc/profile.d/, nommé
+« inist-tools.sh » et contenant
+
+```bash
+export PATH="$PATH:/opt/inist-tools"
+```
+
 
 ----
 
