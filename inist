@@ -24,6 +24,7 @@ DIR_MODULE=$(readlink -f "$CURDIR")
 DIR_CONF="$DIR_MODULE/conf"
 DIR_LIBS="$DIR_MODULE/libs"
 DIR_TOOLS="$DIR_MODULE/tools"
+DIR_INSTALL="$DIR_MODULE/install"
 
 
 #-------------------------------------------------------------------------------

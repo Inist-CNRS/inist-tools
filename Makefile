@@ -6,5 +6,6 @@ test:
 
 install:
 
-
-clean:
+package:
+	./tools/prepare-deb.sh
+	./tools/package-deb.sh
