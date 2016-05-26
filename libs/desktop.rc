@@ -1,0 +1,92 @@
+#!/usr/bin/env bash
+################################################################################
+#
+# inist-tools / libs / desktop.rc
+# 
+# Bibliothèque de fonctions de configuration des environnements de bureau...
+#
+# @author : INIST-CNRS/DPI
+#
+################################################################################
+
+KDE=$(which kde4)
+GNOME=$(which gnome-session)
+UNITY=$(which unity)
+XFCE4=$(which xfce4-session)
+
+# ------------------------------------------------------------------------------
+# KDE
+# ------------------------------------------------------------------------------
+function _it_desktop_kde_proxyOn {
+  if [ -z $KDE ]; then
+    it_std_message "ERROR" "KDE n'est pas installé."
+    exit 1
+  fi
+}
+
+function _it_desktop_kde_proxyOff {
+  if [ -z $KDE ]; then
+    it_std_message "ERROR" "KDE n'est pas installé."
+    exit 1
+  fi
+}
+
+# ------------------------------------------------------------------------------
+# GNOME
+# ------------------------------------------------------------------------------
+function _it_desktop_gnome_proxyOn {
+  if [ -z $GNOME ]; then
+    it_std_message "ERROR" "Gnome n'est pas installé."
+    exit 1
+  fi
+}
+
+function _it_desktop_gnome_proxyOff {
+  if [ -z $GNOME ]; then
+    it_std_message "ERROR" "Gnome n'est pas installé."
+    exit 1
+  fi
+ 
+}
+
+# ------------------------------------------------------------------------------
+# UNITY
+# ------------------------------------------------------------------------------
+function _it_desktop_unity_proxyOn {
+  if [ -z $UNITY ]; then
+    it_std_message "ERROR" "Unity n'est pas installé."
+    exit 1
+  fi
+  
+}
+
+function _it_dektop_unity_proxyOff {
+  if [ -z $UNITY ]; then
+    it_std_message "ERROR" "Unity n'est pas installé."
+    exit 1
+  fi
+  
+}
+
+# ------------------------------------------------------------------------------
+# XFCE
+# ------------------------------------------------------------------------------
+function _it_dektop_xfce4_proxyOn {
+  if [ -z $XFCE4 ]; then
+    it_std_message "ERROR" "XFCE4 n'est pas installé."
+    exit 1
+    gsettings set org.gnome.system.proxy mode 'manual'
+    gsettings set org.gnome.system.proxy.http host "$INIST_PROXY_ADDRESS"
+    gsettings set org.gnome.system.proxy.http port "$INIST_PROXY_PORT"
+  fi
+}
+
+function _it_dektop_xfce4_proxyOff {
+  if [ -z $XFCE4 ]; then
+    it_std_message "ERROR" "XFCE4 n'est pas installé."
+    exit 1
+    gsettings set org.gnome.system.proxy mode 'auto'
+    gsettings set org.gnome.system.proxy.http host ""
+    gsettings set org.gnome.system.proxy.http port ""
+  fi
+}
