@@ -1,0 +1,91 @@
+#!/usr/bin/env bash
+################################################################################
+#
+# inist-tools / libs / browser.rc
+# 
+# Bibliothèque de fonctions de configuration des navigateurs...
+#
+# @author : INIST-CNRS/DPI
+#
+################################################################################
+
+FIREFOX=$(which firefox)
+ICEWEASEL=$(which iceweasel)
+CHROME=$(which chrome)
+CHROMIUM=$(which chromium)
+
+# ------------------------------------------------------------------------------
+# FIREFOX
+# ------------------------------------------------------------------------------
+function _it_browser_firefox_proxyOn {
+  if [ -z $FIREFOX ]; then
+    it_std_message "ERROR" "Firefox n'est pas installé."
+    exit 1
+  fi
+  
+}
+
+function _it_browser_firefox_proxyOff {
+  if [ -z $FIREFOX ]; then
+    it_std_message "ERROR" "Firefox n'est pas installé."
+    exit 1
+  fi
+  
+}
+
+# ------------------------------------------------------------------------------
+# ICEWEASEL
+# ------------------------------------------------------------------------------
+function _it_browser_iceweasel_proxyOn {
+  if [ -z $ICEWEASEL ]; then
+    it_std_message "ERROR" "IceWeasel n'est pas installé."
+    exit 1
+  fi
+  
+}
+
+function _it_browser_iceweasel_proxyOff {
+  if [ -z $ICEWEASEL ]; then
+    it_std_message "ERROR" "IceWeasel n'est pas installé."
+    exit 1
+  fi
+  
+}
+
+# ------------------------------------------------------------------------------
+# CHROME
+# ------------------------------------------------------------------------------
+function _it_browser_chrome_proxyOn {
+  if [ -z $CHROME ]; then
+    it_std_message "ERROR" "Chrome n'est pas installé."
+    exit 1
+  fi
+  
+}
+
+function _it_browser_chrome_proxyOff {
+  if [ -z $CHROME ]; then
+    it_std_message "ERROR" "Chrome n'est pas installé."
+    exit 1
+  fi
+  
+}
+
+# ------------------------------------------------------------------------------
+# CHROMIUM
+# ------------------------------------------------------------------------------
+function _it_browser_chromium_proxyOn {
+  if [ -z $CHROMIUM ]; then
+    it_std_message "ERROR" "Chrome n'est pas installé."
+    exit 1
+  fi
+  
+}
+
+function _it_browser_chromium_proxyOff {
+  if [ -z $CHROMIUM ]; then
+    it_std_message "ERROR" "Chrome n'est pas installé."
+    exit 1
+  fi
+  
+}

@@ -1,14 +1,14 @@
 #!/usr/bin/env bash
-########################################################################
+################################################################################
 #
-# INIST-TOOLS / INIST LIB
+# inist-tools / libs / std.rc
 # 
 # Bibliothèque de fonctions standards utilisées par le lanceur ou les
-# outils « INIST-TOOLS ».
+# outils « inist-tools ».
 #
 # @author : INIST-CNRS/DPI
 #
-########################################################################
+################################################################################
 
 #-----------------------------------------------------------------------
 # Initialisation de variables globales
@@ -32,19 +32,19 @@ function _it_std_message {
     # INFORMATION
     info|INFO)
       logger -s -p "$1" "$MESSAGE"
-      notify-send -i "$ICON_CNRS" "$MESSAGE"
+      notify-send --icon="$ICON_CNRS" --urgency=low "$MESSAGE"
     ;;
     
     # ALERTE !
     warning|WARNING)
       logger -s -p "$1" "$MESSAGE"
-      notify-send -i warning "$MESSAGE"
+      notify-send --icon=warning --urgency=normal "$MESSAGE"
     ;;
     
     # ERREUR !
     error|ERROR)
       logger -s -p "$1" "$MESSAGE"
-      notify-send -i error "$MESSAGE"
+      notify-send --icon=error --urgency=critical "$MESSAGE"
     ;;
     
     # Autre cas
