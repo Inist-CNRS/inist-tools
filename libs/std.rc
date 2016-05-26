@@ -13,8 +13,11 @@
 #-----------------------------------------------------------------------
 # Initialisation de variables globales
 #-----------------------------------------------------------------------
-IS_INIST=1
-IS_DOCKED=1
+ICON_CNRS="$DIR_LIBS/gfx/cnrs_64px.png"
+ICON_CHROME="$DIR_LIBS/gfx/chrome_64px.png"
+ICON_CHROMIUM="$DIR_LIBS/gfx/chromium_64px.png"
+ICON_FIREFOX="$DIR_LIBS/gfx/firefox_64px.png"
+ICON_ICEWEASEL="$DIR_LIBS/gfx/iceweasel_64px.png"
 
 #-----------------------------------------------------------------------
 # Logging
@@ -29,7 +32,7 @@ function _it_std_message {
     # INFORMATION
     info|INFO)
       logger -s -p "$1" "$MESSAGE"
-      notify-send -i info "$MESSAGE"
+      notify-send -i "$ICON_CNRS" "$MESSAGE"
     ;;
     
     # ALERTE !
@@ -47,7 +50,7 @@ function _it_std_message {
     # Autre cas
     *)
       logger -s -p "$1" "$MESSAGE"
-      notify-send -i "$MESSAGE"
+      notify-send "$ICON_CNRS" "$MESSAGE"
     ;;
     
   esac
