@@ -81,7 +81,7 @@ function _it_std_greeting {
 # Affichage de la version
 #-----------------------------------------------------------------------
 function _it_std_show_version {
-  printf "$MODULE_NAME est en version $MODULE_VERSION (système : $HOST_SYSTEM)\n"
+  printf "$MODULE_NAME est en version $MODULE_VERSION\nSystème : $HOST_SYSTEM\nVersion : $HOST_SYSTEM_VERSION\n"
 }
 
 #-----------------------------------------------------------------------
