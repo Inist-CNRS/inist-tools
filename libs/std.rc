@@ -58,6 +58,30 @@ function _it_std_message {
       notify-send --icon=error --urgency=critical "$MESSAGE"
     ;;
     
+    # FIREFOX
+    firefox|FIREFOX)
+      logger -s -p "$1" "$MESSAGE"
+      notify-send --icon="$ICON_FIREFOX" --urgency=low "$MESSAGE"
+    ;;
+
+    # ICEWEASEL
+    iceweasel|ICEWEASEL)
+      logger -s -p "$1" "$MESSAGE"
+      notify-send --icon="$ICON_ICEWEASEL" --urgency=low "$MESSAGE"
+    ;;
+
+    # CHROME
+    chrome|CHROME)
+      logger -s -p "$1" "$MESSAGE"
+      notify-send --icon="$ICON_CHROME" --urgency=low "$MESSAGE"
+    ;;
+
+    # CHROMIUM
+    chromium|CHROMIUM)
+      logger -s -p "$1" "$MESSAGE"
+      notify-send --icon="$ICON_CHROMIUM" --urgency=low "$MESSAGE"
+    ;;
+    
     # Autre cas
     *)
       logger -s -p "$1" "$MESSAGE"
