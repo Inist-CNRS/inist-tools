@@ -1,0 +1,22 @@
+#!/usr/bin/env bash
+################################################################################
+#
+# inist-tools / libs / desktop.rc
+# 
+# Bibliothèque de fonctions de configuration des divers applicatifs
+# Debian/Ubuntu hors browsers et environnements de bureau
+#
+# @author : INIST-CNRS/DPI
+#
+################################################################################
+
+
+function _it_misc_apt_proxyOn {
+  APT_PROXIES_FILE="/etc/apt/apt.conf.d/95proxies"
+  if [ -f "$APT_PROXIES_FILE"] {
+  }
+Acquire::http::proxy "http://myproxy.server.com:8080/";
+Acquire::ftp::proxy "ftp://myproxy.server.com:8080/";
+Acquire::https::proxy "https://myproxy.server.com:8080/";
+  
+}
