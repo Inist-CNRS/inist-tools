@@ -1,1 +1,0 @@
-ansicolors.rc
