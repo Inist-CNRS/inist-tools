@@ -31,9 +31,8 @@ if cat /etc/issue | grep -i "debian" ; then
   HOST_SYSTEM="debian"
 elif cat /etc/issue | grep -i "ubuntu"; then
   HOST_SYSTEM="ubuntu"
-  HOST_SYSTEM_VERSION=$(uname -a)
 else
-  HOST_SYSTEM="inconnu"
+  HOST_SYSTEM="autre"
 fi
 # ...et de sa version précise
 HOST_SYSTEM_VERSION=$(uname -mrs)

@@ -10,13 +10,43 @@
 #
 ################################################################################
 
+# ------------------------------------------------------------------------------
+# Variables globales
+# ------------------------------------------------------------------------------
+APT_PROXIES_FILE="/etc/apt/apt.conf.d/95proxies"
 
+# ------------------------------------------------------------------------------
+# APT
+# ------------------------------------------------------------------------------
 function _it_misc_apt_proxyOn {
-  APT_PROXIES_FILE="/etc/apt/apt.conf.d/95proxies"
   if [ -f "$APT_PROXIES_FILE"] {
+    rm "$APT_PROXIES_FILE"
   }
-Acquire::http::proxy "http://myproxy.server.com:8080/";
-Acquire::ftp::proxy "ftp://myproxy.server.com:8080/";
-Acquire::https::proxy "https://myproxy.server.com:8080/";
-  
+  touch "$APT_PROXIES_FILE"
+  echo "Acquire::http::proxy $INIST_HTTP_PROXY" >> "$APT_PROXIES_FILE";
+  echo "Acquire::https::proxy $INIST_HTTPS_PROXY" >> "$APT_PROXIES_FILE";
+  echo "Acquire::ftp::proxy $INIST_FTP_PROXY" >> "$APT_PROXIES_FILE";
+}
+
+function _it_misc_apt_proxyOff {
+  if [ -f "$APT_PROXIES_FILE"] {
+    rm "$APT_PROXIES_FILE"
+  }
+}
+
+
+# ------------------------------------------------------------------------------
+# INFOS
+# ------------------------------------------------------------------------------
+function _it_misc_info {
+  # Type de plateforme (Ubuntu ? Debian ? Autre ?)
+  if cat /etc/issue | grep -i "debian" ; then
+    HOST_SYSTEM_LINUX="debian"
+  elif cat /etc/issue | grep -i "ubuntu"; then
+    HOST_SYSTEM_LINUX="ubuntu"
+  else
+    HOST_SYSTEM="autre"
+  fi
+  # Version Linux
+  HOST_SYSTEM_VERSION=$(uname -mrs)
 }
