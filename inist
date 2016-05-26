@@ -26,6 +26,17 @@ DIR_INSTALL="$DIR_MODULE/install"
 MODULE_VERSION=$(cd "$DIR_MODULE" && git describe --tags)
 MODULE_VERSION_SHORT=$(cd "$DIR_MODULE" && git describe --tags | cut -d"-" -f1)
 
+# Détermination du système sur lequel on se trouve...
+if cat /etc/issue | grep -i "debian" ; then
+  HOST_SYSTEM="debian"
+elif cat /etc/issue | grep -i "ubuntu"; then
+  HOST_SYSTEM="ubuntu"
+else
+  HOST_SYSTEM="inconnu"
+fi
+
+
+
 
 #-------------------------------------------------------------------------------
 # Chargement libs + conf

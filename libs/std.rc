@@ -13,11 +13,22 @@
 #-----------------------------------------------------------------------
 # Initialisation de variables globales
 #-----------------------------------------------------------------------
+
+# PROXY
+INIST_HTTP_PROXY="http://proxyout.inist.fr:8080"
+INIST_HTTPS_PROXY="https://proxyout.inist.fr:8080"
+INIST_FTP_PROXY="http://proxyout.inist.fr:8080"
+INIST_NO_PROXY="localhost,127.0.0.0/8,*.local,172.16.0.0/16"
+INIST_PROXY_ADDRESS="http://proxyout.inist.fr"
+INIST_PROXY_PORT="8080"
+
+# ICONS
 ICON_CNRS="$DIR_LIBS/gfx/cnrs_64px.png"
 ICON_CHROME="$DIR_LIBS/gfx/chrome_64px.png"
 ICON_CHROMIUM="$DIR_LIBS/gfx/chromium_64px.png"
 ICON_FIREFOX="$DIR_LIBS/gfx/firefox_64px.png"
 ICON_ICEWEASEL="$DIR_LIBS/gfx/iceweasel_64px.png"
+
 
 #-----------------------------------------------------------------------
 # Logging
@@ -70,7 +81,7 @@ function _it_std_greeting {
 # Affichage de la version
 #-----------------------------------------------------------------------
 function _it_std_show_version {
-  printf "$MODULE_NAME est en version $MODULE_VERSION\n"
+  printf "$MODULE_NAME est en version $MODULE_VERSION (système : $HOST_SYSTEM)\n"
 }
 
 #-----------------------------------------------------------------------
