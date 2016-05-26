@@ -27,9 +27,12 @@ MODULE_VERSION=$(cd "$DIR_MODULE" && git describe --tags)
 MODULE_VERSION_SHORT=$(cd "$DIR_MODULE" && git describe --tags | cut -d"-" -f1)
 
 # Détermination du système sur lequel on se trouve...
-if cat /etc/issue | grep -i "debian" ; then
+is_debian=$(cat /etc/issue | grep -i "debian")
+is_ubuntu=$(cat /etc/issue | grep -i "ubuntu")
+
+if [ "$is_debian" ]; then
   HOST_SYSTEM="debian"
-elif cat /etc/issue | grep -i "ubuntu"; then
+elif [ "$is_ubuntu" ]; then
   HOST_SYSTEM="ubuntu"
 else
   HOST_SYSTEM="autre"

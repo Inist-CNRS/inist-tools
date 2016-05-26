@@ -36,7 +36,9 @@ ICON_ICEWEASEL="$DIR_LIBS/gfx/iceweasel_64px.png"
 # $2 : contenu du message ou de l'erreur
 #-----------------------------------------------------------------------
 function _it_std_message {
-  MESSAGE="[INIST-TOOLS ($MODULE_VERSION_SHORT)] [$1] $2"
+  local MESSAGE="[INIST-TOOLS ($MODULE_VERSION_SHORT)] $2"
+  local MSG_TITLE="[INIST-TOOLS : $1]"
+  local MSG_CONTENT="$2"
   
   case "$1" in
   
@@ -49,43 +51,43 @@ function _it_std_message {
     # ALERTE !
     warning|WARNING)
       logger -s -p "$1" "$MESSAGE"
-      notify-send --icon=warning --urgency=normal "$MESSAGE"
+      notify-send --icon=stock_dialog-warning --urgency=normal "ATTENTION !" "$MESSAGE"
     ;;
     
     # ERREUR !
     error|ERROR)
       logger -s -p "$1" "$MESSAGE"
-      notify-send --icon=error --urgency=critical "$MESSAGE"
+      notify-send --icon=stock_dialog-error --urgency=critical "ERREUR !" "$MESSAGE"
     ;;
     
     # FIREFOX
     firefox|FIREFOX)
-      logger -s -p "$1" "$MESSAGE"
-      notify-send --icon="$ICON_FIREFOX" --urgency=low "$MESSAGE"
+      logger -s "$MESSAGE"
+      notify-send --icon="$ICON_FIREFOX" --urgency=low "MSG_TITLE" "$MSG_CONTENT"
     ;;
 
     # ICEWEASEL
     iceweasel|ICEWEASEL)
-      logger -s -p "$1" "$MESSAGE"
-      notify-send --icon="$ICON_ICEWEASEL" --urgency=low "$MESSAGE"
+      logger -s "$MESSAGE"
+      notify-send --icon="$ICON_ICEWEASEL" --urgency=low "MSG_TITLE" "$MSG_CONTENT"
     ;;
 
     # CHROME
     chrome|CHROME)
-      logger -s -p "$1" "$MESSAGE"
-      notify-send --icon="$ICON_CHROME" --urgency=low "$MESSAGE"
+      logger -s "$MESSAGE"
+      notify-send --icon="$ICON_CHROME" --urgency=low "MSG_TITLE" "$MSG_CONTENT"
     ;;
 
     # CHROMIUM
     chromium|CHROMIUM)
-      logger -s -p "$1" "$MESSAGE"
-      notify-send --icon="$ICON_CHROMIUM" --urgency=low "$MESSAGE"
+      logger -s "$MESSAGE"
+      notify-send --icon="$ICON_CHROMIUM" --urgency=low "MSG_TITLE" "$MSG_CONTENT"
     ;;
     
     # Autre cas
     *)
-      logger -s -p "$1" "$MESSAGE"
-      notify-send "$ICON_CNRS" "$MESSAGE"
+      logger -s "$MESSAGE"
+      notify-send --icon="$ICON_CNRS" --urgency=low "MSG_TITLE" "$MSG_CONTENT"
     ;;
     
   esac
