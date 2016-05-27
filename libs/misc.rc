@@ -13,28 +13,30 @@
 # ------------------------------------------------------------------------------
 # Variables globales
 # ------------------------------------------------------------------------------
-APT_PROXIES_FILE="/etc/apt/apt.conf.d/95proxies"
+SUDO=$(which gksudo) || $(which kdesudo) || $(which sudo)
 
 # ------------------------------------------------------------------------------
 # APT
+# /!\ Ne peut s'executer qu'en root
 # ------------------------------------------------------------------------------
 function _it_misc_apt_proxy {
-  if [ -f "$APT_PROXIES_FILE"] {
-    rm "$APT_PROXIES_FILE"
-  }
-
+  # Root only !
+  # Les sous-routines qui doivent être executées en user "root" sont déportées
+  # dans des scripts distincts sous /tools
   case "$1" in
     on)
-      if [ -f "$APT_PROXIES_FILE" ]; then
-        _it_misc_apt_proxy "off"
+      _it_std_message "INFO" "Configuration de APT pour le proxy INIST"
+      $SUDO "$DIR_TOOLS/apt-proxy-on.sh"
+      if [ $? -gt 0 ]; then
+        _it_std_message "ERROR" "Impossible de modifier la configuration de APT"
       fi
-      touch "$APT_PROXIES_FILE"
-      echo "Acquire::http::proxy $INIST_HTTP_PROXY" >> "$APT_PROXIES_FILE";
-      echo "Acquire::https::proxy $INIST_HTTPS_PROXY" >> "$APT_PROXIES_FILE";
-      echo "Acquire::ftp::proxy $INIST_FTP_PROXY" >> "$APT_PROXIES_FILE";
     ;;
     off)
-      rm "$APT_PROXIES_FILE"
+      _it_std_message "INFO" "Déconfiguration de APT pour le proxy INIST"
+      $SUDO "$DIR_TOOLS/apt-proxy-off.sh"
+      if [ $? -gt 0 ]; then
+        _it_std_message "ERROR" "Impossible de modifier la configuration de APT"
+      fi
     ;;
     help)
     ;;
