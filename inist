@@ -152,11 +152,25 @@ case $1 in
       *)
         _it_std_message "INFO" "Positionnement des variables d'environnement pour le proxy INIST"
         source "$DIR_LIBS/inist-proxy.rc"
-        _it_inistProxy_on
+        _it_inistProxy "$2"
       ;;
     esac
 
       
+  ;;
+
+  #---------------------------------------------------------------------------
+  # ON (alias inist proxy on)
+  #---------------------------------------------------------------------------
+  on )
+    inist proxy on
+  ;;
+
+  #---------------------------------------------------------------------------
+  # OFF (alias inist proxy off)
+  #---------------------------------------------------------------------------
+  off )
+    inist proxy off
   ;;
 
   #---------------------------------------------------------------------------

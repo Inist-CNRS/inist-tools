@@ -99,7 +99,7 @@ function _it_std_message {
 #-----------------------------------------------------------------------
 function _it_std_greeting {
   # printf "${FG_BR_BLUE}$MODULE_NAME [${FG_BR_WHITE}$MODULE_VERSION]${RESET_ALL}\n"
-  if echo -e "$MODULE_NAME [$MODULE_VERSION_SHORT]\n" && printf "$MODULE_DESC\n" ; then
+  if echo -e "$MODULE_NAME [$MODULE_VERSION_SHORT]\n" ; then
     return 0
   fi
 }
