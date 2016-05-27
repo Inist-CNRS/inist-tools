@@ -26,9 +26,12 @@ function _it_desktop_kde_proxy {
   case $1 in
     on)
       it_std_message "INFO" "Configuration de KDE pour le proxy INIST"
+      kwriteconfig --file kioslaverc --group 'Proxy Settings' --key ProxyType 2
+      kwriteconfig --file kioslaverc --group 'Proxy Settings' --key 'Proxy Config Script' $INIST_PROXYPAC
     ;;
     off)
       it_std_message "INFO" "Déconfiguration de KDE pour le proxy INIST"
+      kwriteconfig --file kioslaverc --group 'Proxy Settings' --key ProxyType 0
     ;;
     help)
     ;;
