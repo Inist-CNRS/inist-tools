@@ -53,9 +53,9 @@ function _it_desktop_gnome_proxy {
     ;;
     off)
       _it_std_message "INFO" "Déconfiguration de XFCE4 pour le proxy INIST"
-      gsettings set org.gnome.system.proxy mode 'auto'
-      gsettings set org.gnome.system.proxy.http host ""
-      gsettings set org.gnome.system.proxy.http port ""
+      gsettings reset org.gnome.system.proxy mode
+      gsettings reset org.gnome.system.proxy.http host
+      gsettings reset org.gnome.system.proxy.http port
     ;;
     help)
       # C'est ici qu'on affiche l'aide
@@ -104,9 +104,9 @@ function _it_dektop_xfce4_proxy {
     ;;
     off)
       _it_std_message "INFO" "Déconfiguration de XFCE4 pour le proxy INIST"
-      gsettings set org.gnome.system.proxy mode 'auto'
-      gsettings set org.gnome.system.proxy.http host ""
-      gsettings set org.gnome.system.proxy.http port ""
+      gsettings reset org.gnome.system.proxy mode
+      gsettings reset org.gnome.system.proxy.http host
+      gsettings reset org.gnome.system.proxy.http port
     ;;
     help)
       # C'est ici qu'on affiche l'aide
