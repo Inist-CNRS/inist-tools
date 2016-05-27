@@ -46,14 +46,22 @@ function _it_desktop_gnome_proxy {
 
   case $1 in
     on)
-      it_std_message "INFO" "Configuration de GNOME pour le proxy INIST"
+      _it_std_message "INFO" "Configuration de XFCE4 pour le proxy INIST"
+      gsettings set org.gnome.system.proxy mode 'manual'
+      gsettings set org.gnome.system.proxy.http host "$INIST_PROXY_ADDRESS"
+      gsettings set org.gnome.system.proxy.http port "$INIST_PROXY_PORT"
     ;;
     off)
-      it_std_message "INFO" "Déconfiguration de GNOME pour le proxy INIST"
+      _it_std_message "INFO" "Déconfiguration de XFCE4 pour le proxy INIST"
+      gsettings set org.gnome.system.proxy mode 'auto'
+      gsettings set org.gnome.system.proxy.http host ""
+      gsettings set org.gnome.system.proxy.http port ""
     ;;
     help)
+      # C'est ici qu'on affiche l'aide
     ;;
   esac
+
 }
 
 # ------------------------------------------------------------------------------
@@ -83,22 +91,25 @@ function _it_desktop_unity_proxy {
 # ------------------------------------------------------------------------------
 function _it_dektop_xfce4_proxy {
   if [ -z $XFCE4 ]; then
-    it_std_message "ERROR" "XFCE4 n'est pas installé."
+    _it_std_message "ERROR" "XFCE4 n'est pas installé."
     exit 1
   fi
 
   case $1 in
     on)
+      _it_std_message "INFO" "Configuration de XFCE4 pour le proxy INIST"
       gsettings set org.gnome.system.proxy mode 'manual'
       gsettings set org.gnome.system.proxy.http host "$INIST_PROXY_ADDRESS"
       gsettings set org.gnome.system.proxy.http port "$INIST_PROXY_PORT"
     ;;
     off)
+      _it_std_message "INFO" "Déconfiguration de XFCE4 pour le proxy INIST"
       gsettings set org.gnome.system.proxy mode 'auto'
       gsettings set org.gnome.system.proxy.http host ""
       gsettings set org.gnome.system.proxy.http port ""
     ;;
     help)
+      # C'est ici qu'on affiche l'aide
     ;;
   esac
 }

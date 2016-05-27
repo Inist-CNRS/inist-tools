@@ -27,6 +27,7 @@ function _it_misc_apt_proxy {
     on)
       _it_std_message "INFO" "Configuration de APT pour le proxy INIST"
       $SUDO "$DIR_TOOLS/apt-proxy-on.sh"
+      # Si le code de retour > 0, c'est que ça n'a pas fonctionné
       if [ $? -gt 0 ]; then
         _it_std_message "ERROR" "Impossible de modifier la configuration de APT"
       fi
@@ -34,11 +35,13 @@ function _it_misc_apt_proxy {
     off)
       _it_std_message "INFO" "Déconfiguration de APT pour le proxy INIST"
       $SUDO "$DIR_TOOLS/apt-proxy-off.sh"
+      # Si le code de retour > 0, c'est que ça n'a pas fonctionné
       if [ $? -gt 0 ]; then
         _it_std_message "ERROR" "Impossible de modifier la configuration de APT"
       fi
     ;;
     help)
+      # Afficher l'aide de la commande
     ;;
   esac
 }

@@ -45,7 +45,7 @@ function _it_std_message {
     # INFORMATION
     info|INFO)
       logger -s -p "$1" "$MESSAGE"
-      notify-send --icon="$ICON_CNRS" --urgency=low "$MESSAGE"
+      notify-send --icon="$ICON_CNRS" --urgency=low "INFORMATION" "$MESSAGE"
     ;;
     
     # ALERTE !
