@@ -108,7 +108,7 @@ function _it_std_greeting {
 # Affichage de la version
 #-----------------------------------------------------------------------
 function _it_std_show_version {
-  echo -e "$MODULE_NAME est en version ${FG_BR_WHITE}${BG_DK_GREY}${FS_BOLD}$MODULE_VERSION${RESET_ALL}\nSystème : $HOST_SYSTEM\nVersion : $HOST_SYSTEM_VERSION\n"
+  echo -e "$MODULE_NAME est en version ${FG_BR_BLUE}${BG_BLUE}${FS_BOLD}$MODULE_VERSION${RESET_ALL}\nSystème : $HOST_SYSTEM\nVersion : $HOST_SYSTEM_VERSION\n"
 }
 
 #-----------------------------------------------------------------------
