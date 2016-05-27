@@ -46,6 +46,7 @@ HOST_SYSTEM_VERSION=$(uname -mrs)
 #-------------------------------------------------------------------------------
 if [ -f "$DIR_LIBS/std.rc" ]; then
   # source "$DIR_LIBS/ansicolors.lib.sh"
+  source "$DIR_LIBS/ansicolors.rc"
   source "$DIR_LIBS/std.rc"
 else
   logger -s "[$MODULE_NAME] [ERROR] Impossible de charger la librairie de $MODULE_NAME depuis « $DIR_LIBS ». Fin."
@@ -102,104 +103,60 @@ case $1 in
   # COMMANDE : proxy
   #---------------------------------------------------------------------------
   proxy )
-    
-    case "$2" in
-      
-      #-----------------------------------------------------------------------
-      # inist proxy on
-      #-----------------------------------------------------------------------
-      on )
 
-        case "$3" in
-          # inist proxy on --firefox (ou --iceweasel)
-          --firefox )
-            source "$DIR_LIBS/browsers.rc"
-            _it_std_message "FIREFOX" "Configuration de firefox pour le proxy INIST"
-          ;;
+    # $2 qui vaut on|off|help est directement passé à la fonction qui va 
+    # le gérer
 
-          --iceweasel )
-            source "$DIR_LIBS/browsers.rc"
-            _it_std_message "ICEWEASEL" "Configuration de iceweasel pour le proxy INIST"
-          ;;
-          
-          # inist proxy off --chrome (ou --chromium)
-          --chrome )
-            source "$DIR_LIBS/browsers.rc"
-            _it_std_message "CHROME" "Configuration de chrome pour le proxy INIST"
-          ;;
+    case "$3" in
+      # inist proxy on --firefox (ou --iceweasel)
+      --firefox )
+        source "$DIR_LIBS/browsers.rc"
+      ;;
 
-          --chromium )
-            source "$DIR_LIBS/browsers.rc"
-            _it_std_message "CHROMIUM" "Configuration de chromium pour le proxy INIST"
-          ;;
-
-          --xfce )
-            source "$DIR_LIBS/desktop.rc"
-            _it_std_message "XFCE" "Configuration de XFCE pour le proxy INIST"
-            _it_dektop_xfce4_proxyOn
-          ;;
-
-          --gnome )
-            source "$DIR_LIBS/desktop.rc"
-            _it_std_message "GNOME" "Configuration de GNOME pour le proxy INIST"
-          ;;
-
-          --unity )
-            source "$DIR_LIBS/desktop.rc"
-            _it_std_message "UNITY" "Configuration de Unity pour le proxy INIST"
-          ;;
-
-          --kde )
-            source "$DIR_LIBS/desktop.rc"
-            _it_std_message "KDE" "Configuration de KDE pour le proxy INIST"
-          ;;
-
-          --apt )
-            source "$DIR_LIBS/misc.rc"
-            _it_std_message "APT" "Configuration de APT pour le proxy INIST"
-            _it_misc_apt_proxyOn
-          ;;
-
-          # Cas par défaut (application à tout le système)
-          *)
-            _it_std_message "INFO" "Positionnement des variables d'environnement pour le proxy INIST"
-            source "$DIR_LIBS/inist-proxy.rc"
-            _it_inistProxy_on
-          ;;
-        esac
+      --iceweasel )
+        source "$DIR_LIBS/browsers.rc"
       ;;
       
-      #-----------------------------------------------------------------------
-      # inist proxy off
-      #-----------------------------------------------------------------------
-      off )
-
-        case "$3" in
-          # inist proxy off --firefox (ou --iceweasel)
-          --firefox|iceweasel )
-          ;;
-          
-          # inist proxy off --chrome (ou --chromium)
-          --chrome|chromium )
-          ;;
-          # Cas par défaut (application à tout le système)
-          *)
-            _it_std_message "INFO" "Suppression des variables d'environnement pour le proxy INIST"
-            source "$DIR_LIBS/inist-proxy.rc"
-            _it_inistProxy_off
-          ;;
-        esac
+      # inist proxy off --chrome (ou --chromium)
+      --chrome )
+        source "$DIR_LIBS/browsers.rc"
       ;;
-      
-      #-----------------------------------------------------------------------
-      # inist proxy (sans sous-commande)
-      #-----------------------------------------------------------------------
-      * )
+
+      --chromium )
+        source "$DIR_LIBS/browsers.rc"
+      ;;
+
+      --xfce )
+        source "$DIR_LIBS/desktop.rc"
+        _it_dektop_xfce4_proxy "$2"
+      ;;
+
+      --gnome )
+        source "$DIR_LIBS/desktop.rc"
+      ;;
+
+      --unity )
+        source "$DIR_LIBS/desktop.rc"
+      ;;
+
+      --kde )
+        source "$DIR_LIBS/desktop.rc"
+      ;;
+
+      --apt )
+        source "$DIR_LIBS/misc.rc"
+        _it_misc_apt_proxy "$2"
+      ;;
+
+      # Cas par défaut (application à tout le système)
+      *)
         _it_std_message "INFO" "Positionnement des variables d'environnement pour le proxy INIST"
-        source "$DIR_TOOLS/proxy-on.rc"
+        source "$DIR_LIBS/inist-proxy.rc"
+        _it_inistProxy_on
       ;;
-      
     esac
+
+      
   ;;
 
   #---------------------------------------------------------------------------

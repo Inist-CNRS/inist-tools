@@ -17,76 +17,88 @@ XFCE4=$(which xfce4-session)
 # ------------------------------------------------------------------------------
 # KDE
 # ------------------------------------------------------------------------------
-function _it_desktop_kde_proxyOn {
+function _it_desktop_kde_proxy {
   if [ -z $KDE ]; then
     it_std_message "ERROR" "KDE n'est pas installé."
     exit 1
   fi
-}
-
-function _it_desktop_kde_proxyOff {
-  if [ -z $KDE ]; then
-    it_std_message "ERROR" "KDE n'est pas installé."
-    exit 1
-  fi
+  
+  case $1 in
+    on)
+      it_std_message "INFO" "Configuration de KDE pour le proxy INIST"
+    ;;
+    off)
+      it_std_message "INFO" "Déconfiguration de KDE pour le proxy INIST"
+    ;;
+    help)
+    ;;
+  esac
 }
 
 # ------------------------------------------------------------------------------
 # GNOME
 # ------------------------------------------------------------------------------
-function _it_desktop_gnome_proxyOn {
+function _it_desktop_gnome_proxy {
   if [ -z $GNOME ]; then
     it_std_message "ERROR" "Gnome n'est pas installé."
     exit 1
   fi
-}
 
-function _it_desktop_gnome_proxyOff {
-  if [ -z $GNOME ]; then
-    it_std_message "ERROR" "Gnome n'est pas installé."
-    exit 1
-  fi
- 
+  case $1 in
+    on)
+      it_std_message "INFO" "Configuration de GNOME pour le proxy INIST"
+    ;;
+    off)
+      it_std_message "INFO" "Déconfiguration de GNOME pour le proxy INIST"
+    ;;
+    help)
+    ;;
+  esac
 }
 
 # ------------------------------------------------------------------------------
 # UNITY
 # ------------------------------------------------------------------------------
-function _it_desktop_unity_proxyOn {
+function _it_desktop_unity_proxy {
   if [ -z $UNITY ]; then
     it_std_message "ERROR" "Unity n'est pas installé."
     exit 1
   fi
-  
-}
 
-function _it_dektop_unity_proxyOff {
-  if [ -z $UNITY ]; then
-    it_std_message "ERROR" "Unity n'est pas installé."
-    exit 1
-  fi
+  case $1 in
+    on)
+      it_std_message "INFO" "Configuration de UNITY pour le proxy INIST"
+    ;;
+    off)
+      it_std_message "INFO" "Déconfiguration de UNITY pour le proxy INIST"
+    ;;
+    help)
+    ;;
+  esac
   
 }
 
 # ------------------------------------------------------------------------------
 # XFCE
 # ------------------------------------------------------------------------------
-function _it_dektop_xfce4_proxyOn {
+function _it_dektop_xfce4_proxy {
   if [ -z $XFCE4 ]; then
     it_std_message "ERROR" "XFCE4 n'est pas installé."
     exit 1
-    gsettings set org.gnome.system.proxy mode 'manual'
-    gsettings set org.gnome.system.proxy.http host "$INIST_PROXY_ADDRESS"
-    gsettings set org.gnome.system.proxy.http port "$INIST_PROXY_PORT"
   fi
-}
 
-function _it_dektop_xfce4_proxyOff {
-  if [ -z $XFCE4 ]; then
-    it_std_message "ERROR" "XFCE4 n'est pas installé."
-    exit 1
-    gsettings set org.gnome.system.proxy mode 'auto'
-    gsettings set org.gnome.system.proxy.http host ""
-    gsettings set org.gnome.system.proxy.http port ""
-  fi
+  case $1 in
+    on)
+      gsettings set org.gnome.system.proxy mode 'manual'
+      gsettings set org.gnome.system.proxy.http host "$INIST_PROXY_ADDRESS"
+      gsettings set org.gnome.system.proxy.http port "$INIST_PROXY_PORT"
+    ;;
+    off)
+      gsettings set org.gnome.system.proxy mode 'auto'
+      gsettings set org.gnome.system.proxy.http host ""
+      gsettings set org.gnome.system.proxy.http port ""
+    ;;
+    help)
+    ;;
+  esac
 }

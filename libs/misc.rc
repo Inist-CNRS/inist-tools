@@ -18,22 +18,28 @@ APT_PROXIES_FILE="/etc/apt/apt.conf.d/95proxies"
 # ------------------------------------------------------------------------------
 # APT
 # ------------------------------------------------------------------------------
-function _it_misc_apt_proxyOn {
+function _it_misc_apt_proxy {
   if [ -f "$APT_PROXIES_FILE"] {
     rm "$APT_PROXIES_FILE"
   }
-  touch "$APT_PROXIES_FILE"
-  echo "Acquire::http::proxy $INIST_HTTP_PROXY" >> "$APT_PROXIES_FILE";
-  echo "Acquire::https::proxy $INIST_HTTPS_PROXY" >> "$APT_PROXIES_FILE";
-  echo "Acquire::ftp::proxy $INIST_FTP_PROXY" >> "$APT_PROXIES_FILE";
-}
 
-function _it_misc_apt_proxyOff {
-  if [ -f "$APT_PROXIES_FILE"] {
-    rm "$APT_PROXIES_FILE"
-  }
+  case "$1" in
+    on)
+      if [ -f "$APT_PROXIES_FILE" ]; then
+        _it_misc_apt_proxy "off"
+      fi
+      touch "$APT_PROXIES_FILE"
+      echo "Acquire::http::proxy $INIST_HTTP_PROXY" >> "$APT_PROXIES_FILE";
+      echo "Acquire::https::proxy $INIST_HTTPS_PROXY" >> "$APT_PROXIES_FILE";
+      echo "Acquire::ftp::proxy $INIST_FTP_PROXY" >> "$APT_PROXIES_FILE";
+    ;;
+    off)
+      rm "$APT_PROXIES_FILE"
+    ;;
+    help)
+    ;;
+  esac
 }
-
 
 # ------------------------------------------------------------------------------
 # INFOS

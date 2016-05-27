@@ -15,8 +15,9 @@
 #-----------------------------------------------------------------------
 # Escape sequence and resets
 #-----------------------------------------------------------------------
-ESC_SEQ="\x1b["
+#ESC_SEQ="\x1b["
 # ESC_SEQ="\e["
+ESC_SEQ="\033["
 RESET_ALL="${ESC_SEQ}0m"
 RESET_BOLD="${ESC_SEQ}21m"
 RESET_UL="${ESC_SEQ}24m"
@@ -24,41 +25,49 @@ RESET_UL="${ESC_SEQ}24m"
 #-----------------------------------------------------------------------
 # Foreground colours
 #-----------------------------------------------------------------------
-FG_BLACK="${ESC_SEQ}30;"
-FG_RED="${ESC_SEQ}31;"
-FG_GREEN="${ESC_SEQ}32;"
-FG_YELLOW="${ESC_SEQ}33;"
-FG_BLUE="${ESC_SEQ}34;"
-FG_MAGENTA="${ESC_SEQ}35;"
-FG_CYAN="${ESC_SEQ}36;"
-FG_WHITE="${ESC_SEQ}37;"
-FG_BR_BLACK="${ESC_SEQ}90;"
-FG_BR_RED="${ESC_SEQ}91;"
-FG_BR_GREEN="${ESC_SEQ}92;"
-FG_BR_YELLOW="${ESC_SEQ}93;"
-FG_BR_BLUE="${ESC_SEQ}94;"
-FG_BR_MAGENTA="${ESC_SEQ}95;"
-FG_BR_CYAN="${ESC_SEQ}96;"
-FG_BR_WHITE="${ESC_SEQ}97;"
+FG_BLACK="${ESC_SEQ}30m;"
+FG_RED="${ESC_SEQ}31m"
+FG_GREEN="${ESC_SEQ}32m"
+FG_YELLOW="${ESC_SEQ}33m"
+FG_BLUE="${ESC_SEQ}34m"
+FG_MAGENTA="${ESC_SEQ}35m"
+FG_CYAN="${ESC_SEQ}36m"
+FG_WHITE="${ESC_SEQ}37m"
+FG_BR_BLACK="${ESC_SEQ}90m"
+FG_BR_RED="${ESC_SEQ}91m"
+FG_BR_GREEN="${ESC_SEQ}92m"
+FG_BR_YELLOW="${ESC_SEQ}93m"
+FG_BR_BLUE="${ESC_SEQ}94m"
+FG_BR_MAGENTA="${ESC_SEQ}95m"
+FG_BR_CYAN="${ESC_SEQ}96m"
+FG_BR_WHITE="${ESC_SEQ}97m"
 
 #-----------------------------------------------------------------------
 # Background colours (optional)
 #-----------------------------------------------------------------------
-BG_BLACK="40;"
-BG_RED="41;"
-BG_GREEN="42;"
-BG_YELLOW="43;"
-BG_BLUE="44;"
-BG_MAGENTA="45;"
-BG_CYAN="46;"
-BG_WHITE="47;"
+BG_BLACK="${ESC_SEQ}40m"
+BG_RED="${ESC_SEQ}41m"
+BG_GREEN="${ESC_SEQ}42m"
+BG_YELLOW="${ESC_SEQ}43m"
+BG_BLUE="${ESC_SEQ}44m"
+BG_MAGENTA="${ESC_SEQ}45m"
+BG_CYAN="${ESC_SEQ}46m"
+BG_WHITE="${ESC_SEQ}47m"
+BG_LT_GREY="${ESC_SEQ}47m"
+BG_DK_GREY="${ESC_SEQ}100m"
+BG_LT_RED="${ESC_SEQ}101m"
+BG_LT_GREEN="${ESC_SEQ}102m"
+BG_LT_YELLOW="${ESC_SEQ}103m"
+BG_LT_BLUE="${ESC_SEQ}104m"
+BG_LT_MAGENTA="${ESC_SEQ}105m"
+BG_LT_CYAN="${ESC_SEQ}106m"
 
 #-----------------------------------------------------------------------
 # Font styles
 #-----------------------------------------------------------------------
-FS_REG="0m"
-FS_BOLD="1m"
-FS_UL="4m"
+FS_REG="${ESC_SEQ}0m"
+FS_BOLD="${ESC_SEQ}1m"
+FS_UL="${ESC_SEQ}4m"
 
 
 #-----------------------------------------------------------------------

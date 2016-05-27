@@ -98,7 +98,7 @@ function _it_std_message {
 #-----------------------------------------------------------------------
 function _it_std_greeting {
   # printf "${FG_BR_BLUE}$MODULE_NAME [${FG_BR_WHITE}$MODULE_VERSION]${RESET_ALL}\n"
-  if printf "$MODULE_NAME [$MODULE_VERSION_SHORT]\n" && printf "$MODULE_DESC\n" ; then
+  if echo -e "$MODULE_NAME [$MODULE_VERSION_SHORT]\n" && printf "$MODULE_DESC\n" ; then
     return 0
   fi
 }
@@ -107,7 +107,7 @@ function _it_std_greeting {
 # Affichage de la version
 #-----------------------------------------------------------------------
 function _it_std_show_version {
-  printf "$MODULE_NAME est en version $MODULE_VERSION\nSystème : $HOST_SYSTEM\nVersion : $HOST_SYSTEM_VERSION\n"
+  echo -e "$MODULE_NAME est en version ${FG_BR_WHITE}${BG_DK_GREY}${FS_BOLD}$MODULE_VERSION${RESET_ALL}\nSystème : $HOST_SYSTEM\nVersion : $HOST_SYSTEM_VERSION\n"
 }
 
 #-----------------------------------------------------------------------
