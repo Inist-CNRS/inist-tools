@@ -20,6 +20,8 @@ inist-tools :
 ```
 
 ### .bashrc ###
+*C'est le seul endroit qui permet de mettre à disposition la commande « inist »
+dans les shells interactifs sans login (Konsole, Xterm, Terminator, etc.).*
 
 Dans le .bashrc, ajouter :
 
@@ -29,6 +31,8 @@ Dans le .bashrc, ajouter :
 ```
 
 ### /etc/profile.d/ ###
+*Ce répertoire contient les scripts executés au lancement d'un shell interactif
+avec login (tty, ssh, etc.).*
 
 En tant que root, créer un fichier executable dans /etc/profile.d/, nommé
 « inist-tools.sh » et contenant
