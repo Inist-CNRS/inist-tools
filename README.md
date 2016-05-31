@@ -27,7 +27,7 @@ Dans le .bashrc, ajouter :
 
 ```bash
 # INIST-TOOLS
-. /opt/inist-tools/libs/inist-proxy.rc
+. /opt/inist-tools/inistrc
 ```
 
 ### /etc/profile.d/ ###
@@ -38,7 +38,8 @@ En tant que root, créer un fichier executable dans /etc/profile.d/, nommé
 « inist-tools.sh » et contenant
 
 ```bash
-export PATH="$PATH:/opt/inist-tools"
+# INIST-TOOLS
+. /opt/inist-tools/inistrc
 ```
 
 
