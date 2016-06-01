@@ -17,9 +17,6 @@ function _it_inistProxy {
 
   case "$1" in
     on)
-      # Log/message
-      logger "[INIST-TOOLS] [INFO]" "Positionnement des variables d'environnement pour le proxy INIST"
-      
       # Exclusion du proxy
       export no_proxy="localhost,127.0.0.0/8,*.local,172.16.0.0/16"
       export NO_PROXY="localhost,127.0.0.0/8,*.local,172.16.0.0/16"
@@ -38,9 +35,6 @@ function _it_inistProxy {
     ;;
     
     off)
-      # Log/message
-      logger "[INIST-TOOLS] [INFO]" "Suppression des variables d'environnement pour le proxy INIST"
-
       unset "no_proxy"
       unset "http_proxy"
       unset "https_proxy"

@@ -9,6 +9,20 @@
 ################################################################################
 
 #-------------------------------------------------------------------------------
+# Récupère l'adresse IP à l'aidre de la commande "ip a"
+#-------------------------------------------------------------------------------
+function _it_network_getIP {
+  case "$1" in
+    eth|ethernet)
+      IP_ADDR=$(ip a | grep "eth.$" | cut -d " " -f6 | cut -d "/" -f 1)
+    ;;
+    wlan|wifi)
+      IP_ADDR=$(ip a | grep "wlan.$" | cut -d " " -f6 | cut -d "/" -f 1)
+    ;;
+  esac
+}
+
+#-------------------------------------------------------------------------------
 # Vérification de la connectivite internet
 # 0 -> connexion filaire INIST
 # 1 -> connexion autre
@@ -33,10 +47,12 @@ function _it_network_isInistNetwork {
 # Informations Réseau
 #-------------------------------------------------------------------------------
 function _it_network_info {
+  # En fonction des distrib, ifconfig n'est pas toujours au même endroit...
+  local ifc=$(which ifconfig)
   # Combien d'interfaces filaires ?
-  INFO_NET_ETH_COUNT=$(ifconfig -s | grep -i "eth" | wc -l)
+  INFO_NET_ETH_COUNT=$($ifc -s | grep -i "eth" | wc -l)
   # Combien d'interfaces WiFi ?
-  INFO_NET_WLAN_COUNT=$(ifconfig -s | grep -i "wlan" | wc -l)
+  INFO_NET_WLAN_COUNT=$($ifc -s | grep -i "wlan" | wc -l)
   # INIST ou pas INIST ?
   if _it_network_isInistNetwork ; then
     INFO_NET_INIST="INIST"
@@ -44,7 +60,7 @@ function _it_network_info {
     INFO_NET_INIST="en mobilité"
   fi
   # Wifi ou filaire ?
-  if $(ifconfig | grep -i "wlan") ; then
+  if $($ifc | grep -i "wlan") ; then
     INFO_NET_TYPE="wifi"
   else
     INFO_NET_TYPE="ethernet"

@@ -80,6 +80,11 @@ Renseigne sur la version actuelle de « inist-tools »
 
 ## DEV ##
 
+*__Note__ : <br> La commande « inist » devient disponible dans la console parce 
+que le fichier "inistrc" est sourcé au lancement de celle-ci. Toute modification
+du fichier inistrc ou des sous-commande nécessite à nouveau que le fichier
+inistrc soit sourcé pour être prise en compte.*
+
 ## Construire le package .deb ##
 
 Depuis le répertoire du projet, executer :

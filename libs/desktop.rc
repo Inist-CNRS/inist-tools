@@ -79,9 +79,15 @@ function _it_desktop_unity_proxy {
   case $1 in
     on)
       it_std_message "INFO" "Configuration de UNITY pour le proxy INIST"
+      gsettings set org.gnome.system.proxy mode 'manual'
+      gsettings set org.gnome.system.proxy.http host "$INIST_PROXY_ADDRESS"
+      gsettings set org.gnome.system.proxy.http port "$INIST_PROXY_PORT"
     ;;
     off)
       it_std_message "INFO" "Déconfiguration de UNITY pour le proxy INIST"
+      gsettings reset org.gnome.system.proxy mode
+      gsettings reset org.gnome.system.proxy.http host
+      gsettings reset org.gnome.system.proxy.http port
     ;;
     help)
     ;;

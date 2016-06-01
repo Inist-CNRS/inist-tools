@@ -1,0 +1,2 @@
+perrin	ALL=(root)	NOPASSWD:	/opt/inist-tools/tools/apt-proxy-on.sh
+perrin	ALL=(root)	NOPASSWD:	/opt/inist-tools/tools/apt-proxy-off.sh
