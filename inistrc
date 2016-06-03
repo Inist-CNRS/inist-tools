@@ -202,8 +202,9 @@ function inist {
     # time|date|sync
     #---------------------------------------------------------------------------
     time|date|sync )
-      _it_std_message "INFO" "Synchronisation de la date/heure..."
+      _it_std_consoleMessage "INFO" "Synchronisation de la date/heure..."
       sudo "/opt/inist-tools/tools/timesync.sh"
+      _it_std_consoleMessage "OK" "Heure synchronisée"
     ;;
 
     #---------------------------------------------------------------------------
