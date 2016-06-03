@@ -18,7 +18,7 @@ CURDIR=$( cd "$( dirname "$0" )" && pwd )
 DIR_MODULE=$(readlink -f "$CURDIR")
 DIR_LIBS=$(readlink -f "$DIR_MODULE/../libs/")
 
-source "$DIR_LIBS/inist.lib.sh"
+source "$DIR_LIBS/std.rc"
 
 #-----------------------------------------------------------------------
 # Greeting !

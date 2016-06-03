@@ -18,7 +18,7 @@ CURDIR=$( cd "$( dirname "$0" )" && pwd )
 DIR_MODULE=$(readlink -f "$CURDIR")
 DIR_LIBS=$(readlink -f "$DIR_MODULE/../libs/")
 
-source "$DIR_LIBS/inist.lib.sh"
+source "$DIR_LIBS/std.rc"
 
 #-----------------------------------------------------------------------
 # Fonctions
@@ -42,8 +42,8 @@ printf "\n"
 #-----------------------------------------------------------------------
 # Vérification de la présence de SHUNIT2
 #-----------------------------------------------------------------------
-if ! IT_CHECK_COMMAND "shunit2"; then
-  IT_MESSAGE "ERROR" "shunit2 n'est pas installé sur votre système. « sudo apt-get install -y shunit2 » devrait régler le problème..."
+if ! _it_std_check_command "shunit2"; then
+  _it_std_consoleMessage "ERROR" "shunit2 n'est pas installé sur votre système. « sudo apt-get install -y shunit2 » devrait régler le problème..."
   exit 1
 fi
 
