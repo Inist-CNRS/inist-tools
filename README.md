@@ -105,7 +105,7 @@ Les TU utilisent :
 Ces dépendances s'installent via le gestionnaire de paquet Ubuntu/Debian :
 
 ```bash
-$ apt-get install -y shunit2 build-essential
+$ apt-get install -y --force-yes shunit2 build-essential
 ```
 
 #### Lancer les tests ####
