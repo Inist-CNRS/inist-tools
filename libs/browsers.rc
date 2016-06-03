@@ -26,10 +26,13 @@ function _it_browsers_firefox_proxy {
   
   # On recherche le fichier "prefs.js" qui contient la configuration
   _it_std_consoleMessage "INFO" "Recherche du fichier de configuration de Firefox..."
-  PREFS_JS=$(find $HOME -type f -wholename "*firefox*prefs.js")
-  
+  local PREFS_JS=$(find "$HOME/.mozilla" -type f -name "prefs.js")
+
   if [ ! -z $PREFS_JS ]; then
     _it_std_consoleMessage "OK" "Fichier de conf. Firefox trouvé ➜ $PREFS_JS"
+    local BACKUP_DIR=$(dirname $PREFS_JS)
+    local BACKUP_FILE="$BACKUP_DIR/prefs.js.bak"
+    _it_std_consoleMessage "INFO" "Fichier de backup ➜ $BACKUP_FILE"
   else
     _it_std_consoleMessage "NOK" "Fichier de conf. Firefox introuvable. Fin."
     return 1
@@ -49,7 +52,6 @@ function _it_browsers_firefox_proxy {
     # --------------------------------------------------------------------------
     # Backup du fichier avant toute modification
     # --------------------------------------------------------------------------
-    local BACKUP_FILE="$DIR_BACKUP/prefs.js.bak"
     if [ -f "$BACKUP_FILE" ]; then
       _it_std_consoleMessage "INFO" "Un ancien backup a été trouvé, on le supprime."
       rm "$BACKUP_FILE"
@@ -74,6 +76,7 @@ function _it_browsers_firefox_proxy {
     rm "$PREFS_JS"
     mv "$PREFS_JS.tmp" "$PREFS_JS"
     # Et on configure pour le proxy INIST
+    echo 'user_pref("network.proxy.type", 1);' >> $PREFS_JS
     echo 'user_pref("network.proxy.share_proxy_settings", true);' >> $PREFS_JS
     echo 'user_pref("network.proxy.socks_version", 4);'           >> $PREFS_JS
     echo 'user_pref("network.proxy.http", "proxyout.inist.fr");'  >> $PREFS_JS
@@ -95,6 +98,7 @@ function _it_browsers_firefox_proxy {
     grep -vi "network\.proxy" $PREFS_JS > "$PREFS_JS.tmp"
     rm "$PREFS_JS"
     mv "$PREFS_JS.tmp" "$PREFS_JS"
+    echo 'user_pref("network.proxy.type", 5);' >> $PREFS_JS
     _it_std_consoleMessage "INFO" "Firefox n'est plus configuré pour le proxy INIST."
   ;;
 

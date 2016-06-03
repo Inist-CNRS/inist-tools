@@ -24,7 +24,6 @@ DIR_CONF="$DIR_MODULE/conf"
 DIR_LIBS="$DIR_MODULE/libs"
 DIR_TOOLS="$DIR_MODULE/tools"
 DIR_INSTALL="$DIR_MODULE/install"
-DIR_BACKUP="$DIR_MODULE/backup"
 MODULE_VERSION=$(cd "$DIR_MODULE" && git describe --tags)
 MODULE_VERSION_SHORT=$(cd "$DIR_MODULE" && git describe --tags | cut -d"-" -f1)
 
@@ -150,7 +149,7 @@ function inist {
 
         --kde )
           source "$DIR_LIBS/desktop.rc"
-          _it_dektop_unity_proxy "$2"
+          _it_dektop_kde_proxy "$2"
         ;;
 
         --apt )
