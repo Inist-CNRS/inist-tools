@@ -16,6 +16,7 @@ MODULE_NAME="PACKAGE-DEB"
 MODULE_DESC="Crée le .deb"
 MODULE_VERSION=$(git describe --tags)
 MODULE_VERSION_SHORT=$(git describe --tags | cut -d"-" -f1 )
+MODULE_VERSION_FOR_CONTROL=$(git describe --tags | cut -d"-" -f1 | cut -d "v" -f 2)
 CURDIR=$( cd "$( dirname "$0" )" && pwd )
 DIR_MODULE=$(readlink -f "$CURDIR")
 DIR_ROOT=$(readlink -f "$DIR_MODULE/..")
@@ -34,4 +35,14 @@ chown -R root:root "$DIR_INSTALL"
 #-------------------------------------------------------------------------------
 # Build...
 #-------------------------------------------------------------------------------
-dpkg-deb --build "$DIR_INSTALL" inist-tools.deb
+dpkg-deb --build "$DIR_INSTALL" "inist-tools_$MODULE_VERSION_FOR_CONTROL.deb"
+
+# ------------------------------------------------------------------------------
+# On repositionne les droits
+# ------------------------------------------------------------------------------
+# chown -R $USER:$USER "$DIR_INSTALL"
+
+# ------------------------------------------------------------------------------
+# FIN !
+# ------------------------------------------------------------------------------
+exit 0

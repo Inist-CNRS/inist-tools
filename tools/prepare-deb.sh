@@ -15,7 +15,8 @@
 MODULE_NAME="PREPARE-DEB"
 MODULE_DESC="Prépare l'arborescence et les fichiers en vue de créer le .deb"
 MODULE_VERSION=$(git describe --tags)
-MODULE_VERSION_SHORT=$(git describe --tags | cut -d"-" -f1 )
+MODULE_VERSION_SHORT=$(git describe --tags | cut -d"-" -f1)
+MODULE_VERSION_FOR_CONTROL=$(git describe --tags | cut -d"-" -f1 | cut -d "v" -f 2)
 CURDIR=$( cd "$( dirname "$0" )" && pwd )
 DIR_MODULE=$(readlink -f "$CURDIR")
 DIR_ROOT=$(readlink -f "$DIR_MODULE/..")
@@ -45,11 +46,29 @@ mkdir -p "$DIR_INSTALL/opt/inist-tools"
 # ------------------------------------------------------------------------------
 # Copie des fichiers utiles (et seulements ceux-là)
 # ------------------------------------------------------------------------------
-cp "$DIR_ROOT/inist" "$DIR_SYSINSTALL/inist-tools/"
+cp "$DIR_ROOT/inistrc" "$DIR_SYSINSTALL/inist-tools/"
 cp -R "$DIR_CONF" "$DIR_SYSINSTALL/inist-tools/"
 cp -R "$DIR_LIBS" "$DIR_SYSINSTALL/inist-tools/"
 cp -R "$DIR_TOOLS" "$DIR_SYSINSTALL/inist-tools/"
 
+# ------------------------------------------------------------------------------
+# Création du fichier CONTROL
+# ------------------------------------------------------------------------------
+FILE_CONTROL="$DIR_INSTALL/DEBIAN/control"
+if [ -f "$FILE_CONTROL" ]; then
+  rm "$FILE_CONTROL"
+  touch "$FILE_CONTROL"
+fi
+
+echo "Package      : inist-tools"                   >> "$FILE_CONTROL"
+echo "Version      : $MODULE_VERSION_FOR_CONTROL"   >> "$FILE_CONTROL"
+echo "Section      : base"                          >> "$FILE_CONTROL"
+echo "Priority     : optional"                      >> "$FILE_CONTROL"
+echo "Architecture : all"                           >> "$FILE_CONTROL"
+echo "Depends      : bash"                          >> "$FILE_CONTROL"
+echo "Maintainer   : Stanislas PERRIN <stanislas.perrin@inist.fr> / INIST-CNRS/DPI" >> "$FILE_CONTROL"
+echo "Description  : Outils de gestion du poste GNU/Linux dans l'environnement INIST. [$MODULE_VERSION] " >> "$FILE_CONTROL"
+echo "Homepage     : http://www.inist.fr/"          >> "$FILE_CONTROL"
 
 # ------------------------------------------------------------------------------
 # FIN !

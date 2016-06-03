@@ -12,8 +12,8 @@
 #-------------------------------------------------------------------------------
 # Environnement
 #-------------------------------------------------------------------------------
-MODULE_NAME="PREPARE-DEB"
-MODULE_DESC="Prépare l'arborescence et les fichiers en vue de créer le .deb"
+MODULE_NAME="TIMESYNC"
+MODULE_DESC="Met à jour date et heure en synchronisant au serveur de temps de l'INIST"
 MODULE_VERSION=$(git describe --tags)
 MODULE_VERSION_SHORT=$(git describe --tags | cut -d"-" -f1 )
 CURDIR=$( cd "$( dirname "$0" )" && pwd )

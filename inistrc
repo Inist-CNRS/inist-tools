@@ -24,6 +24,7 @@ DIR_CONF="$DIR_MODULE/conf"
 DIR_LIBS="$DIR_MODULE/libs"
 DIR_TOOLS="$DIR_MODULE/tools"
 DIR_INSTALL="$DIR_MODULE/install"
+DIR_BACKUP="$DIR_MODULE/backup"
 MODULE_VERSION=$(cd "$DIR_MODULE" && git describe --tags)
 MODULE_VERSION_SHORT=$(cd "$DIR_MODULE" && git describe --tags | cut -d"-" -f1)
 
@@ -113,7 +114,7 @@ function inist {
         # inist proxy on --firefox (ou --iceweasel)
         --firefox )
           source "$DIR_LIBS/browsers.rc"
-          _it_browsers_firefox_proxy
+          _it_browsers_firefox_proxy "$2"
         ;;
 
         --iceweasel )
@@ -195,6 +196,14 @@ function inist {
     #---------------------------------------------------------------------------
     off )
       inist proxy off
+    ;;
+
+    #---------------------------------------------------------------------------
+    # time|date|sync
+    #---------------------------------------------------------------------------
+    time|date|sync )
+      _it_std_message "INFO" "Synchronisation de la date/heure..."
+      sudo "/opt/inist-tools/tools/timesync.sh"
     ;;
 
     #---------------------------------------------------------------------------

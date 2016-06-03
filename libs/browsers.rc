@@ -13,79 +13,162 @@ FIREFOX=$(which firefox)
 ICEWEASEL=$(which iceweasel)
 CHROME=$(which chrome)
 CHROMIUM=$(which chromium)
+TIMESTAMP=$(date +%F_%H-%M-%S)
 
 # ------------------------------------------------------------------------------
 # FIREFOX
 # ------------------------------------------------------------------------------
-function _it_browser_firefox_proxyOn {
+function _it_browsers_firefox_proxy {
   if [ -z $FIREFOX ]; then
-    it_std_message "ERROR" "Firefox n'est pas installé."
-    exit 1
+    _it_std_consoleMessage "ERREUR" "Firefox n'est pas installé."
+    return $FALSE
   fi
   
+  # On recherche le fichier "prefs.js" qui contient la configuration
+  _it_std_consoleMessage "INFO" "Recherche du fichier de configuration de Firefox..."
+  PREFS_JS=$(find $HOME -type f -wholename "*firefox*prefs.js")
+  
+  if [ ! -z $PREFS_JS ]; then
+    _it_std_consoleMessage "OK" "Fichier de conf. Firefox trouvé ➜ $PREFS_JS"
+  else
+    _it_std_consoleMessage "NOK" "Fichier de conf. Firefox introuvable. Fin."
+    return 1
+  fi
+  
+
+  # ----------------------------------------------------------------------------
+  #
+  # ----------------------------------------------------------------------------
+  case "$1" in
+
+  # ----------------------------------------------------------------------------
+  # FIREFOX PROXY ON 
+  # ----------------------------------------------------------------------------
+  on)
+    _it_std_consoleMessage "INFO" "Configuration de Firefox pour le proxy INIST"
+    # --------------------------------------------------------------------------
+    # Backup du fichier avant toute modification
+    # --------------------------------------------------------------------------
+    local BACKUP_FILE="$DIR_BACKUP/prefs.js.bak"
+    if [ -f "$BACKUP_FILE" ]; then
+      _it_std_consoleMessage "INFO" "Un ancien backup a été trouvé, on le supprime."
+      rm "$BACKUP_FILE"
+    fi
+    
+    # Copie (backup)
+    cp $PREFS_JS "$BACKUP_FILE"
+    
+    # Vérification
+    if [ $? -gt 0 ]; then
+      _it_std_consoleMessage "ERREUR" "Impossible de copier « $PREFS_JS » ➜ « $BACKUP_FILE" »
+      return $FALSE
+    else
+      _it_std_consoleMessage "INFO" "Configuration sauvegardée."
+    fi
+    
+    # --------------------------------------------------------------------------
+    # Modification du fichier de configuration
+    # --------------------------------------------------------------------------
+    # On supprime toute les conf de proxy
+    grep -vi "network\.proxy" $PREFS_JS > "$PREFS_JS.tmp"
+    rm "$PREFS_JS"
+    mv "$PREFS_JS.tmp" "$PREFS_JS"
+    # Et on configure pour le proxy INIST
+    echo 'user_pref("network.proxy.share_proxy_settings", true);' >> $PREFS_JS
+    echo 'user_pref("network.proxy.socks_version", 4);'           >> $PREFS_JS
+    echo 'user_pref("network.proxy.http", "proxyout.inist.fr");'  >> $PREFS_JS
+    echo 'user_pref("network.proxy.http_port", 8080);'            >> $PREFS_JS
+    echo 'user_pref("network.proxy.ssl", "proxyout.inist.fr");'   >> $PREFS_JS
+    echo 'user_pref("network.proxy.ssl_port", 8080);'             >> $PREFS_JS
+    echo 'user_pref("network.proxy.ftp", "proxyout.inist.fr");'   >> $PREFS_JS
+    echo 'user_pref("network.proxy.ftp_port", 8080);'             >> $PREFS_JS
+    echo 'user_pref("network.proxy.socks", "proxyout.inist.fr");' >> $PREFS_JS
+    echo 'user_pref("network.proxy.socks_port", 8080);'           >> $PREFS_JS
+    _it_std_consoleMessage "INFO" "Firefox est configuré pour le proxy INIST."
+  ;;
+
+  # ----------------------------------------------------------------------------
+  # FIREFOX PROXY OFF
+  # ----------------------------------------------------------------------------
+  off)
+    _it_std_consoleMessage "INFO" "Déconfiguration de Firefox pour le proxy INIST"
+    grep -vi "network\.proxy" $PREFS_JS > "$PREFS_JS.tmp"
+    rm "$PREFS_JS"
+    mv "$PREFS_JS.tmp" "$PREFS_JS"
+    _it_std_consoleMessage "INFO" "Firefox n'est plus configuré pour le proxy INIST."
+  ;;
+
+  esac
+
 }
 
-function _it_browser_firefox_proxyOff {
-  if [ -z $FIREFOX ]; then
-    it_std_message "ERROR" "Firefox n'est pas installé."
-    exit 1
-  fi
-  
-}
 
 # ------------------------------------------------------------------------------
 # ICEWEASEL
 # ------------------------------------------------------------------------------
-function _it_browser_iceweasel_proxyOn {
+function _it_browsers_iceweasel_proxy {
   if [ -z $ICEWEASEL ]; then
-    it_std_message "ERROR" "IceWeasel n'est pas installé."
-    exit 1
+    _it_std_consoleMessage "ERREUR" "IceWeasel n'est pas installé."
+    return $FALSE
   fi
-  
-}
 
-function _it_browser_iceweasel_proxyOff {
-  if [ -z $ICEWEASEL ]; then
-    it_std_message "ERROR" "IceWeasel n'est pas installé."
-    exit 1
-  fi
+  case "$1" in
+  on)
+    _it_std_message "ICEWEASEL" "Configuration de Iceweasel pour le proxy INIST"
+    
+  ;;
+  off)
+    _it_std_message "ICEWEASEL" "Déconfiguration de Iceweasel pour le proxy INIST"
+  ;;
+  esac
   
 }
 
 # ------------------------------------------------------------------------------
 # CHROME
 # ------------------------------------------------------------------------------
-function _it_browser_chrome_proxyOn {
+function _it_browsers_chrome_proxy {
   if [ -z $CHROME ]; then
-    it_std_message "ERROR" "Chrome n'est pas installé."
-    exit 1
+    _it_std_consoleMessage "ERREUR" "Chrome n'est pas installé."
+    return $FALSE
   fi
+
+  local CHROME_CONFDIR="/home/$USER/.config/chrome"
+  if [ ! -d $CHROME_CONFDIR ]; then
+    it_std_message "ERROR" "Le répertoire de configuration de Chrome n'est pas disponible."
+    return $FALSE
+  fi
+
+  case "$1" in
+  on)
+    _it_std_message "CHROME" "Configuration de Chrome pour le proxy INIST"
+    
+  ;;
+  off)
+    _it_std_message "CHROME" "Restauration de la configuration de Chrome"
+  ;;
+  esac
   
 }
 
-function _it_browser_chrome_proxyOff {
-  if [ -z $CHROME ]; then
-    it_std_message "ERROR" "Chrome n'est pas installé."
-    exit 1
-  fi
-  
-}
 
 # ------------------------------------------------------------------------------
 # CHROMIUM
 # ------------------------------------------------------------------------------
-function _it_browser_chromium_proxyOn {
+function _it_browsers_chromium_proxy {
   if [ -z $CHROMIUM ]; then
-    it_std_message "ERROR" "Chrome n'est pas installé."
-    exit 1
+    _it_std_message "ERROR" "Chrome n'est pas installé."
+    return $FALSE
   fi
-  
-}
 
-function _it_browser_chromium_proxyOff {
-  if [ -z $CHROMIUM ]; then
-    it_std_message "ERROR" "Chrome n'est pas installé."
-    exit 1
-  fi
+  case "$1" in
+  on)
+    _it_std_message "CHROMIUM" "Configuration de Chromium pour le proxy INIST"
+    
+  ;;
+  off)
+    _it_std_message "CHROMIUM" "Déconfiguration de Chromium pour le proxy INIST"
+  ;;
+  esac
   
 }
