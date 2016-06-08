@@ -17,9 +17,8 @@
 # Environnement
 #-------------------------------------------------------------------------------
 export PATH="$PATH:/opt/inist-tools"
+PID="$$"
 MODULE_NAME="INIST-TOOLS"
-# CURDIR=$( cd "$( dirname "$0" )" && pwd )
-# DIR_MODULE=$(readlink -f "$CURDIR")
 DIR_MODULE="/opt/inist-tools" # fixé "en dur" en fonction du chemin définitif
 DIR_CONF="$DIR_MODULE/conf"
 DIR_LIBS="$DIR_MODULE/libs"
@@ -32,8 +31,15 @@ DIR_IT=$(readlink -f "$CURDIR")
 if [ -d "$DIR_IT/.git" ]; then
   MODULE_VERSION=$(cd "$DIR_IT" && git describe --tags)
   MODULE_VERSION_SHORT=$(cd "$DIR_IT" && git describe --tags | cut -d"-" -f1)
+elif [ -d "$DIR_MODULE/.git" ]; then
+  MODULE_VERSION=$(cd "$DIR_MODULE" && git describe --tags)
+  MODULE_VERSION_SHORT=$(cd "$DIR_MODULE" && git describe --tags | cut -d"-" -f1)
 elif [ -f "$DIR_MODULE/.version" ]; then
   MODULE_VERSION=$(cat "$DIR_MODULE/.version")
+  MODULE_VERSION_SHORT="$MODULE_VERSION"
+else
+  MODULE_VERSION="inconnue"
+  MODULE_VERSION_SHORT="inconnue"
 fi
 
 # Détermination du système sur lequel on se trouve...
@@ -230,8 +236,16 @@ function inist {
     # reload
     #---------------------------------------------------------------------------
     reload )
-      _it_std_consoleMessage "INFO" "INIST-TOOLS Reloading !"
+      _it_std_consoleMessage "INFO" "Rechargement de INIST-TOOLS"
       source /opt/inist-tools/inistrc
+      _it_std_consoleMessage "INFO" "INIST-TOOLS [$MODULE_VERSION] rechargé"
+    ;;
+
+    #---------------------------------------------------------------------------
+    # OPTION : --pid
+    #---------------------------------------------------------------------------
+    --pid )
+      echo "$PID"
     ;;
 
     #---------------------------------------------------------------------------

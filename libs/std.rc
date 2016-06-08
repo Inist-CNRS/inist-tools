@@ -99,12 +99,12 @@ function _it_std_message {
   esac
 }
 
-#-----------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 # Message en console uniquement
 # (mais en plus joli)
 # $1 : type de message
 # $2 : contenu du message
-#-----------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 function  _it_std_consoleMessage {
   case "$1" in
 
@@ -136,9 +136,9 @@ function  _it_std_consoleMessage {
   esac
 }
 
-#-----------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 # Message d'accueil (générique, réutilisable)
-#-----------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 function _it_std_greeting {
   # printf "${FG_BR_BLUE}$MODULE_NAME [${FG_BR_WHITE}$MODULE_VERSION]${RESET_ALL}\n"
   if echo -e "$MODULE_NAME [$MODULE_VERSION_SHORT]\n" ; then
@@ -146,24 +146,24 @@ function _it_std_greeting {
   fi
 }
 
-#-----------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 # Affichage de la version
-#-----------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 function _it_std_show_version {
   echo -e "$MODULE_NAME est en version ${FG_BR_BLUE}${BG_BLUE}${FS_BOLD}$MODULE_VERSION${RESET_ALL}\nSystème : $HOST_SYSTEM\nVersion : $HOST_SYSTEM_VERSION\n"
 }
 
-#-----------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 # Affichage de l'aide
-#-----------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 function _it_std_show_help {
   cat $DIR_LIBS/inist-tools-help.txt
 }
 
-#-----------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 # Vérification de l'existance d'un binaire
 # (retourne 0 si trouvé, 1 si non trouvé)
-#-----------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 function _it_std_check_command {
   if [ ! -z "$1" ]; then
     CHECK=$(which "$1")
@@ -173,12 +173,52 @@ function _it_std_check_command {
   return 1
 }
 
-#-----------------------------------------------------------------------
+#-------------------------------------------------------------------------------
+# Crée un backup de fichier
+# (notamment avant la modification des confs)
+#-------------------------------------------------------------------------------
+function _it_std_backup {
+  local FILE="$1"
+  # On vérifie que c'est bien un fichier
+  if [ ! -f "$FILE"]; then
+    _it_std_consoleMessage "ERREUR" "« $FILE » n'est pas un fichier"
+    return $FALSE
+  fi
+  
+  #
+  DIRNAME=$(which dirname)
+  BASENAME=$(which basename)
+  
+  # Chemin absolu du fichier
+  local ABS_FILE=$(readlink -f "$FILE")
+  
+  # Quel est le répertoire de ce fichier ?
+  local FILE_DIR=$(DIRNAME "$FILE")
+  
+  # Quel est le nom de ce fichie ?
+  local FILE_NAME=$(BASENAME "$FILE")
+  local FILE_NAME_WITHOUT_EXTENSION="${FILE_NAME%.*}"
+  
+  # Création du nom de backup en fonction de la date du jour
+  local TIMESTAMP=$(date +%Y-%m-%d@%H-%M-%S)
+  local NEW_FILE_NAME="$FILE_DIR/$FILE_NAME_WITHOUT_EXTENSION.inist.$TIMESTAMP"
+  
+  # Copie du fichier
+  cp "$FILE" "$NEW_FILE_NAME"
+  
+  # Vérification de la copie
+  if [ "$?" -gt 0 ]; then
+    _it_std_consoleMessage "ERREUR" "La copie de « $FILE » vers « $NEW_FILE_NAME » n'a pas fonctionné."
+    return $FALSE
+  fi
+}
+
+#-------------------------------------------------------------------------------
 # Vérification du dockage du portable...
 # ...en comptant les hub USB dispo
 # ...en comptant les écrans connectés
 # /!\ Pss fiable à 100% (et il faut que xrandr soit installé)
-#-----------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 #function _it_std_check_docked {
   #USBHUBS_COUNT=$(lsusb | grep "hub" | wc -l)
   #DISPLAY_COUNT=$(xrandr | grep " connected" | wc -l)
