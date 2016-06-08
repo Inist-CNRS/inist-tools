@@ -16,6 +16,7 @@
 #-------------------------------------------------------------------------------
 # Environnement
 #-------------------------------------------------------------------------------
+export PATH="$PATH:/opt/inist-tools"
 MODULE_NAME="INIST-TOOLS"
 # CURDIR=$( cd "$( dirname "$0" )" && pwd )
 # DIR_MODULE=$(readlink -f "$CURDIR")
@@ -24,8 +25,16 @@ DIR_CONF="$DIR_MODULE/conf"
 DIR_LIBS="$DIR_MODULE/libs"
 DIR_TOOLS="$DIR_MODULE/tools"
 DIR_INSTALL="$DIR_MODULE/install"
-MODULE_VERSION=$(cd "$DIR_MODULE" && git describe --tags)
-MODULE_VERSION_SHORT=$(cd "$DIR_MODULE" && git describe --tags | cut -d"-" -f1)
+
+# Version en fonction du mode DEV ou DEB
+CURDIR=$( cd "$( dirname "$0" )" && pwd )
+DIR_IT=$(readlink -f "$CURDIR")
+if [ -d "$DIR_IT/.git" ]; then
+  MODULE_VERSION=$(cd "$DIR_IT" && git describe --tags)
+  MODULE_VERSION_SHORT=$(cd "$DIR_IT" && git describe --tags | cut -d"-" -f1)
+elif [ -f "$DIR_MODULE/.version" ]; then
+  MODULE_VERSION=$(cat "$DIR_MODULE/.version")
+fi
 
 # Détermination du système sur lequel on se trouve...
 is_debian=$(cat /etc/issue | grep -i "debian")
@@ -198,12 +207,31 @@ function inist {
     ;;
 
     #---------------------------------------------------------------------------
+    # stuff : ranger automatiquement les trucs qui traînent avec un simple
+    #         drag-&-drop sur une icône du bureau qui sert de raccourci à
+    #         la commande « inist stuff »
+    #---------------------------------------------------------------------------
+    stuff )
+      source "$DIR_LIBS/stuff.rc"
+      _it_std_message "INFO" "STUFF : rangement..."
+      _it_stuff_tidy "$@"
+    ;;
+
+    #---------------------------------------------------------------------------
     # time|date|sync
     #---------------------------------------------------------------------------
     time|date|sync )
       _it_std_consoleMessage "INFO" "Synchronisation de la date/heure..."
       sudo "/opt/inist-tools/tools/timesync.sh"
       _it_std_consoleMessage "OK" "Heure synchronisée"
+    ;;
+
+    #---------------------------------------------------------------------------
+    # reload
+    #---------------------------------------------------------------------------
+    reload )
+      _it_std_consoleMessage "INFO" "INIST-TOOLS Reloading !"
+      source /opt/inist-tools/inistrc
     ;;
 
     #---------------------------------------------------------------------------

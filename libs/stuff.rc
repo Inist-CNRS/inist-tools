@@ -1,0 +1,72 @@
+#!/usr/bin/env bash
+################################################################################
+#
+# inist-tools / libs / stuff.rc
+# 
+# Pour ranger votre bazar...
+#
+# @author : INIST-CNRS/DPI
+#
+################################################################################
+
+
+#-------------------------------------------------------------------------------
+# Variables globales
+#-------------------------------------------------------------------------------
+STUFF_HOME="$HOME/stuff.inist"
+STUFF_DIROFTHEDAY=$(date +%Y/%m/%d)
+# Création du répertoire de stockage au cas où il n'existerait pas
+mkdir -p "$STUFF_HOME/$STUFF_DIROFTHEDAY"
+
+function _it_stuff_tidy {
+  # Parcours à partir du 3ème argument (on récupère TOUS les arguments de la
+  # ligne de commande dans l'appel de la fonction avec "$@")
+  # 0 = inist
+  # 1 = stuff
+  # 2 ~ n = liste d'URLs de fichiers/répertoires
+  for url in "${@:2}"
+  do
+    if [ -f "$url" ]; then
+      _it_stuff_tidyFile "$url"
+    elif [ -d "$url" ]; then
+      _it_stuff_tidyDir "$url"
+    else
+      _it_std_message "WARNING" "STUFF : je ne sais pas quoi faire de « $url »..."
+    fi
+  done
+}
+
+function _it_stuff_tidyDir {
+  # On vérifie que c'est bien un répertoire
+  if [ ! -d "$1" ]; then
+    _it_std_message "ERROR" "STUFF : « $1 » n'est pas un répertoire."
+    return $FALSE
+  fi
+
+  # On range le contenu du répertoire !
+  find "$1" -type f | parallel --gnu "/opt/inist-tools/inistexec stuff {}"
+}
+
+
+function _it_stuff_tidyFile {
+  # On vérifie que c'est bien un fichier
+  if [ ! -f "$1" ]; then
+    _it_std_message "ERROR" "STUFF : « $1 » n'est pas un fichier."
+    return $FALSE
+  else
+    # Chemin réel absolu du fichier
+    local STUFF_FILE=$(readlink -f "$1")
+    # Date de création du fichier sous la forme YYYY/MM/DD
+    local STUFF_FILE_CDATE=$(stat -c %z "$STUFF_FILE" | cut -d" " -f 1 | sed "s/-/\//g")
+    # On créé le répertoire de stockage pour ce fichier s'il n'existe pas
+    mkdir -p "$STUFF_HOME/$STUFF_FILE_CDATE"
+  fi
+
+  # On range le fichier !
+  # _it_std_message "INFO" "STUFF : Déplacement de « $STUFF_FILE » vers « $STUFF_HOME/$STUFF_FILE_CDATE/ »"
+  mv "$STUFF_FILE" "$STUFF_HOME/$STUFF_FILE_CDATE/"
+  # On vérifie que le déplacement s'est bien passé...
+  if [ "$?" -gt 0 ]; then
+    _it_std_message "ERROR" "STUFF : « $STUFF_FILE » n'a pas pu être déplacé"
+  fi
+}

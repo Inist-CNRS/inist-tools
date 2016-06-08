@@ -1,9 +1,9 @@
 Package      : inist-tools
-Version      : 0.8.0
+Version      : 0.8.3
 Section      : base
 Priority     : optional
 Architecture : all
 Depends      : bash
 Maintainer   : Stanislas PERRIN <stanislas.perrin@inist.fr> / INIST-CNRS/DPI
-Description  : Outils de gestion du poste GNU/Linux dans l'environnement INIST. [v0.8.0] 
+Description  : Outils de gestion du poste GNU/Linux dans l'environnement INIST. [v0.8.3-2-g2572412] 
 Homepage     : http://www.inist.fr/

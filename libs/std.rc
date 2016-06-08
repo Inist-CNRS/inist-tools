@@ -10,9 +10,9 @@
 #
 ################################################################################
 
-#-----------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 # Initialisation de variables globales
-#-----------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 
 # TRUE or FALSE ?
 TRUE=0
@@ -36,13 +36,13 @@ ICON_FIREFOX="$DIR_LIBS/gfx/firefox_64px.png"
 ICON_ICEWEASEL="$DIR_LIBS/gfx/iceweasel_64px.png"
 
 
-#-----------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 # Logging
 # $1 : level/priorité (NOTICE, WARNING, ERROR, etc.)
 # $2 : contenu du message ou de l'erreur
-#-----------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 function _it_std_message {
-  local MESSAGE="[INIST-TOOLS ($MODULE_VERSION_SHORT)] $2"
+  local MESSAGE="[INIST-TOOLS ($MODULE_VERSION)] $2"
   local MSG_TITLE="[INIST-TOOLS : $1]"
   local MSG_CONTENT="$2"
   
@@ -93,7 +93,7 @@ function _it_std_message {
     # Autre cas
     *)
       logger -s "$MESSAGE"
-      notify-send --icon="$ICON_CNRS" --urgency=low "MSG_TITLE" "$MSG_CONTENT"
+      notify-send --icon="$ICON_CNRS" --urgency=low "$MSG_TITLE" "$MSG_CONTENT"
     ;;
     
   esac
