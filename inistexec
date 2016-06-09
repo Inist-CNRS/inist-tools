@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+################################################################################
+#
+#   # #   # #  ###  #####     #####  ###   ###  #     ###
+#   # ##  # # #       #         #   #   # #   # #    #
+#   # # # # #  ###    #   ###   #   #   # #   # #     ### 
+#   # #  ## #     #   #         #   #   # #   # #        #
+#   # #   # #  ###    #         #    ###   ###  ##### ###
+#
+# Wrapper pour INIST-TOOLS permettant de les utiliser dans des scripts ou des
+# raccourcis bureau
+#
+# @author : INIST-CNRS/DPI
+#
+################################################################################
+
+# C'est simple...
+# ...on source inistrc
+source /opt/inist-tools/inistrc
+# ...et on appelle la commande "inist" en lui passant tous les arguments reçus
+inist "$@"
+# ...et on s'en va !
+exit 0

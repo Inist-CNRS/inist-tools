@@ -18,6 +18,7 @@
 #-------------------------------------------------------------------------------
 export PATH="$PATH:/opt/inist-tools"
 PID="$$"
+PARENT_COMMAND="$(ps -o comm= $PPID)"
 MODULE_NAME="INIST-TOOLS"
 DIR_MODULE="/opt/inist-tools" # fixé "en dur" en fonction du chemin définitif
 DIR_CONF="$DIR_MODULE/conf"
@@ -55,7 +56,6 @@ else
 fi
 # ...et de sa version précise
 HOST_SYSTEM_VERSION=$(uname -mrs)
-
 
 #-------------------------------------------------------------------------------
 # COMMANDE [+option[s]]
