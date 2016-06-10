@@ -27,7 +27,7 @@ function _it_misc_apt_proxy {
   
     on)
       _it_std_message "INFO" "Configuration de APT pour le proxy INIST"
-      $SUDO "$DIR_TOOLS/apt-proxy-on.sh"
+      fakeroot "$DIR_TOOLS/apt-proxy-on.sh"
       # Si le code de retour > 0, c'est que ça n'a pas fonctionné
       if [ $? -gt 0 ]; then
         _it_std_message "ERROR" "Impossible de modifier la configuration de APT"
@@ -36,7 +36,7 @@ function _it_misc_apt_proxy {
     
     off)
       _it_std_message "INFO" "Déconfiguration de APT pour le proxy INIST"
-      $SUDO "$DIR_TOOLS/apt-proxy-off.sh"
+      fakeroot "$DIR_TOOLS/apt-proxy-off.sh"
       # Si le code de retour > 0, c'est que ça n'a pas fonctionné
       if [ $? -gt 0 ]; then
         _it_std_message "ERROR" "Impossible de modifier la configuration de APT"
@@ -56,7 +56,7 @@ function _it_misc_apt_proxy {
 # ------------------------------------------------------------------------------
 # WGET
 # ------------------------------------------------------------------------------
-_it_misc_wget_proxy {
+function _it_misc_wget_proxy {
   WGET=$(which wget)
   if [ -z "$WGET" ]; then
     _it_std_consoleMessage "ERREUR" "wget est introuvable (ou pas installé)"
@@ -88,7 +88,7 @@ _it_misc_wget_proxy {
 # ------------------------------------------------------------------------------
 # CURL
 # ------------------------------------------------------------------------------
-_it_misc_curl_proxy {
+function _it_misc_curl_proxy {
   CURL=$(which curl)
   if [ -z "$CURL" ]; then
     _it_std_consoleMessage "ERREUR" "curl est introuvable (ou pas installé)"
@@ -103,7 +103,7 @@ _it_misc_curl_proxy {
 # ------------------------------------------------------------------------------
 # NPM
 # ------------------------------------------------------------------------------
-_it_misc_npm_proxy {
+function _it_misc_npm_proxy {
   NPM=$(which npm)
   if [ -z "$NPM" ]; then
     _it_std_consoleMessage "ERREUR" "npm est introuvable (ou pas installé)"
@@ -136,7 +136,7 @@ _it_misc_npm_proxy {
 # ------------------------------------------------------------------------------
 # WGET
 # ------------------------------------------------------------------------------
-_it_misc_docker_proxy {
+function _it_misc_docker_proxy {
   WGET=$(which docker)
   if [ -z "$DOCKER" ]; then
     _it_std_consoleMessage "ERREUR" "docker est introuvable (ou pas installé)"

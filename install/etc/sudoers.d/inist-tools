@@ -1,3 +1,3 @@
-$USER	ALL=(root)	NOPASSWD:	/opt/inist-tools/tools/apt-proxy-on.sh
-$USER	ALL=(root)	NOPASSWD:	/opt/inist-tools/tools/apt-proxy-off.sh
-$USER	ALL=(root)	NOPASSWD:	/opt/inist-tools/tools/timesync.sh
+USERS	ALL=(root)	NOPASSWD:	/opt/inist-tools/tools/apt-proxy-on.sh
+USERS	ALL=(root)	NOPASSWD:	/opt/inist-tools/tools/apt-proxy-off.sh
+USERS	ALL=(root)	NOPASSWD:	/opt/inist-tools/tools/timesync.sh
