@@ -9,7 +9,7 @@ build: ## Crée le package .deb
 	@./tools/prepare-deb.sh
 	@./tools/package-deb.sh
 
-publish: ## Build le .deb et le publie sur GitHub
+release: ## Build le .deb et le publie sur GitHub
 	@./tools/clean-deb.sh
 	@./tools/prepare-deb.sh
 	@./tools/package-deb.sh

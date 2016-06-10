@@ -12,7 +12,7 @@
 #-------------------------------------------------------------------------------
 # Environnement
 #-------------------------------------------------------------------------------
-MODULE_NAME="PREPARE-DEB"
+MODULE_NAME="RELEASE-DEB"
 MODULE_DESC="Publie le .deb sur github"
 MODULE_VERSION=$(git describe --tags)
 MODULE_VERSION_SHORT=$(git describe --tags | cut -d"-" -f1)
@@ -23,6 +23,7 @@ DIR_ROOT=$(readlink -f "$DIR_MODULE/..")
 DIR_CONF=$(readlink -f "$DIR_MODULE/../conf")
 DIR_LIBS=$(readlink -f "$DIR_MODULE/../libs")
 DIR_TOOLS=$(readlink -f "$DIR_MODULE/../tools")
+DIR_RELEASES=$(readlink -f "$DIR_MODULE/../releases")
 DIR_INSTALL=$(readlink -f "$DIR_MODULE/../install")
 DIR_SYSINSTALL="$DIR_INSTALL/opt"
 
@@ -36,11 +37,20 @@ if [ -z "$DOTDEB" ]; then
   exit 1
 fi
 
+PACKAGENAME=$(basename "$DOTDEB")
+
+# Déplacer le .deb dans /releases
+mv "$DOTDEB" "$DIR_RELEASES"
+
+# On redevient $USER
+# REALUSER=$(logname)
+# su "$REALUSER"
+
 # Ajouter le .deb au dépôt
-git add "$DOTDEB"
+git add "$DIR_RELEASES/$PACKAGENAME"
 
 # Comitter
-git commit -a -m "Publication du package « $DOTDEB » [$MODULE_VERSION]"
+git commit -a -m "Publication du package « $PACKAGENAME » [$MODULE_VERSION]"
 
 # Pusher
 git push
