@@ -28,6 +28,13 @@ DIR_SYSINSTALL="$DIR_INSTALL/opt"
 # ------------------------------------------------------------------------------
 # Nettoyage 
 # ------------------------------------------------------------------------------
+# Suppression Arbo /opt
 if [ -d "$DIR_INSTALL/opt" ]; then
   rm -Rf "$DIR_INSTALL/opt"
+fi
+
+# Suppression .deb généré
+PACKAGE=$(find "$DIR_ROOT" -type f -name "*.deb")
+if [ ! -z "$PACKAGE" ]; then
+  rm "$PACKAGE"
 fi

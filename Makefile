@@ -9,6 +9,9 @@ build: ## Crée le package .deb
 	@./tools/prepare-deb.sh
 	@./tools/package-deb.sh
 
+clean: ## Nettoie les scories après la création du package
+	@./tools/clean-deb.sh
+
 .PHONY: help
 
 help:

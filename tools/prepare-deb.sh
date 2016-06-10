@@ -56,7 +56,7 @@ cp -R "$DIR_TOOLS" "$DIR_SYSINSTALL/inist-tools/"
 # ------------------------------------------------------------------------------
 # On écrit la version dans un fichier
 # ------------------------------------------------------------------------------
-if echo "$MODULE_VERSION_SHORT" >> "$DIR_SYSINSTALL/inist-tools/.version" then
+if echo "$MODULE_VERSION_SHORT" >> "$DIR_SYSINSTALL/inist-tools/.version"; then
   chmod 555 "$DIR_SYSINSTALL/inist-tools/.version"
 else
   source "../libs/std.rc"
@@ -79,7 +79,7 @@ echo "Version      : $MODULE_VERSION_FOR_CONTROL"   >> "$FILE_CONTROL"
 echo "Section      : base"                          >> "$FILE_CONTROL"
 echo "Priority     : optional"                      >> "$FILE_CONTROL"
 echo "Architecture : all"                           >> "$FILE_CONTROL"
-echo "Depends      : bash make shunit2 parallel"    >> "$FILE_CONTROL"
+echo "Depends      : bash, make, shunit2, parallel" >> "$FILE_CONTROL"
 echo "Maintainer   : Stanislas PERRIN <stanislas.perrin@inist.fr> / INIST-CNRS/DPI" >> "$FILE_CONTROL"
 echo "Description  : Outils de gestion du poste GNU/Linux dans l'environnement INIST. [$MODULE_VERSION] " >> "$FILE_CONTROL"
 echo "Homepage     : http://www.inist.fr/"          >> "$FILE_CONTROL"
