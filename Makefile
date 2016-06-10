@@ -9,6 +9,12 @@ build: ## Crée le package .deb
 	@./tools/prepare-deb.sh
 	@./tools/package-deb.sh
 
+publish: ## Build le .deb et le publie sur GitHub
+	@./tools/clean-deb.sh
+	@./tools/prepare-deb.sh
+	@./tools/package-deb.sh
+	@./tools/publish-deb.sh
+
 clean: ## Nettoie les scories après la création du package
 	@./tools/clean-deb.sh
 
