@@ -34,7 +34,7 @@ if [ -d "$DIR_INSTALL/opt" ]; then
 fi
 
 # Suppression .deb généré
-PACKAGE=$(find "$DIR_ROOT" -type f -name "*.deb")
-if [ ! -z "$PACKAGE" ]; then
-  rm "$PACKAGE"
-fi
+# PACKAGE=$(find "$DIR_ROOT" -type f -name "*.deb")
+# if [ ! -z "$PACKAGE" ]; then
+#   rm "$PACKAGE"
+# fi
