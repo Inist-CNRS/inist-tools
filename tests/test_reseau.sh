@@ -39,16 +39,16 @@ oneTimeSetUp()
 #-----------------------------------------------------------------------
 # TESTS
 #-----------------------------------------------------------------------
-test_inist_proxy_on () {
-  _it_inistProxy "on" >> /dev/null
-  out=$(env | grep "8080" | wc -l)
-  assertEquals "Les variables d'environnement proxy doivent être positionnées pour le proxy INIST." 6 "$out"
-}
-
 test_inist_proxy_off () {
   _it_inistProxy "off" >> /dev/null
   out=$(env | grep "8080" | wc -l)
-  assertEquals "Les variables d'environnement proxy doivent être vides." 0 "$out"
+  assertEquals "Les variables d'environnement proxy doivent être vides (on ne doit trouver aucun '8080' dedans)." 0 "$out"
+}
+
+test_inist_proxy_on () {
+  _it_inistProxy "on" >> /dev/null
+  out=$(env | grep "8080" | wc -l)
+  assertEquals "Les variables d'environnement proxy doivent être positionnées pour le proxy INIST (on doit trouver 6 x '8080' dedans)." 6 "$out"
 }
 
 #-----------------------------------------------------------------------
