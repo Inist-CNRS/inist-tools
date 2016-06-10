@@ -29,8 +29,27 @@ printf "$MODULE_DESC\n"
 printf "################################################################################\n"
 
 #-----------------------------------------------------------------------
+# Chargement de la lib à tester
+#-----------------------------------------------------------------------
+oneTimeSetUp()
+{
+  source "$DIR_LIBS/inist-proxy.rc" >> /dev/null
+}
+
+#-----------------------------------------------------------------------
 # TESTS
 #-----------------------------------------------------------------------
+test_inist_proxy_on () {
+  _it_inistProxy "on" >> /dev/null
+  out=$(env | grep "8080" | wc -l)
+  assertEquals "Les variables d'environnement proxy doivent être positionnées pour le proxy INIST." 6 "$out"
+}
+
+test_inist_proxy_off () {
+  _it_inistProxy "off" >> /dev/null
+  out=$(env | grep "8080" | wc -l)
+  assertEquals "Les variables d'environnement proxy doivent être vides." 0 "$out"
+}
 
 #-----------------------------------------------------------------------
 # Chargement de SHUNIT2 pour lancer les TU
@@ -38,4 +57,7 @@ printf "########################################################################
 SHUNIT2=$(which shunit2)
 source "$SHUNIT2"
 
-### /!\ Ne pas mettre d'exit, sinon ça arrête les tests !
+#############################################################
+### /!\ Ne pas mettre d'exit, sinon ça arrête les tests ! ###
+#############################################################
+

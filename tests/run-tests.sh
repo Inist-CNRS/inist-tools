@@ -43,7 +43,7 @@ printf "\n"
 # Vérification de la présence de SHUNIT2
 #-----------------------------------------------------------------------
 if ! _it_std_check_command "shunit2"; then
-  _it_std_consoleMessage "ERROR" "shunit2 n'est pas installé sur votre système. « sudo apt-get install -y shunit2 » devrait régler le problème..."
+  _it_std_consoleMessage "ERROR" "shunit2 n'est pas installé sur votre système. « sudo apt-get install -y --force-yes shunit2 » devrait régler le problème..."
   exit 1
 fi
 

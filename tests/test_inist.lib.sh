@@ -81,4 +81,6 @@ test_it_std_check_command () {
 SHUNIT2=$(which shunit2)
 source "$SHUNIT2"
 
-### /!\ Ne pas mettre d'exit, sinon ça arrête les tests !
+#############################################################
+### /!\ Ne pas mettre d'exit, sinon ça arrête les tests ! ###
+#############################################################
