@@ -172,6 +172,11 @@ function inist {
           _it_misc_apt_proxy "$2"
         ;;
 
+        --npm )
+          source "$DIR_LIBS/misc.rc"
+          _it_misc_npm_proxy "$2"
+        ;;
+
         # Cas par défaut (application à tout le système)
         # On gère la commande sous forme « inist proxy [on|off] »
         # et par défaut (inist proxy) -> "on"

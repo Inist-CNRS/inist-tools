@@ -174,7 +174,7 @@ function _it_std_check_command {
 }
 
 #-------------------------------------------------------------------------------
-# Crée un backup de fichier
+# Crée un backup d'un fichier...
 # (notamment avant la modification des confs)
 #-------------------------------------------------------------------------------
 function _it_std_backup {

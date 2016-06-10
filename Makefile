@@ -1,11 +1,15 @@
 SHELL:=/bin/bash
 
-# Lance le fichier de test qui execute tous les TU
-test:
-	./tests/run-tests.sh
+test: ## Lance tous les tests sur inist-tools
+	@./tests/run-tests.sh
 
-install:
+install: ## Installe inist-tools (non-implémenté)
 
-package:
-	./tools/prepare-deb.sh
-	./tools/package-deb.sh
+build: ## Crée le package .deb
+	@./tools/prepare-deb.sh
+	@./tools/package-deb.sh
+
+.PHONY: help
+
+help:
+	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'

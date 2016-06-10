@@ -24,6 +24,7 @@ function _it_misc_apt_proxy {
   # Les sous-routines qui doivent être executées en user "root" sont déportées
   # dans des scripts distincts sous /tools
   case "$1" in
+  
     on)
       _it_std_message "INFO" "Configuration de APT pour le proxy INIST"
       $SUDO "$DIR_TOOLS/apt-proxy-on.sh"
@@ -32,6 +33,7 @@ function _it_misc_apt_proxy {
         _it_std_message "ERROR" "Impossible de modifier la configuration de APT"
       fi
     ;;
+    
     off)
       _it_std_message "INFO" "Déconfiguration de APT pour le proxy INIST"
       $SUDO "$DIR_TOOLS/apt-proxy-off.sh"
@@ -40,9 +42,94 @@ function _it_misc_apt_proxy {
         _it_std_message "ERROR" "Impossible de modifier la configuration de APT"
       fi
     ;;
+    
     help)
       # Afficher l'aide de la commande
     ;;
+    
+    *)
+    ;;
+    
+  esac
+}
+
+# ------------------------------------------------------------------------------
+# WGET
+# ------------------------------------------------------------------------------
+_it_misc_wget_proxy {
+  WGET=$(which wget)
+  if [ -z "$WGET" ]; then
+    _it_std_consoleMessage "ERREUR" "wget est introuvable (ou pas installé)"
+    return $FALSE
+  fi
+  
+  # On recherche un éventuel .wgetrc pour le backuper
+  if [ -f "$HOME/.wgetrc" ]; then
+    _it_std_backup "$HOME/.wgetrc"
+  fi
+  
+  case "$1" in
+  
+    on)
+    ;;
+    
+    off)
+    ;;
+    
+    help)
+    ;;
+    
+    *)
+    ;;
+  
+  esac
+}
+
+# ------------------------------------------------------------------------------
+# CURL
+# ------------------------------------------------------------------------------
+_it_misc_curl_proxy {
+  CURL=$(which curl)
+  if [ -z "$CURL" ]; then
+    _it_std_consoleMessage "ERREUR" "curl est introuvable (ou pas installé)"
+    return $FALSE
+  fi
+  
+  #
+  # curl utilise les variables d'environnement
+  #
+}
+
+# ------------------------------------------------------------------------------
+# NPM
+# ------------------------------------------------------------------------------
+_it_misc_npm_proxy {
+  NPM=$(which npm)
+  if [ -z "$NPM" ]; then
+    _it_std_consoleMessage "ERREUR" "npm est introuvable (ou pas installé)"
+    return $FALSE
+  fi
+  
+  case "$1" in
+    
+    on)
+      $NPM config set proxy "$INIST_HTTP_PROXY"
+      $NPM config set https-proxy "$INIST_HTTPs_PROXY"
+      _it_std_consoleMessage "INFO" "npm est paramétré pour le proxy INIST"
+    ;;
+    
+    off)
+      $NPM config rm proxy
+      $NPM config rm https-proxy
+      _it_std_consoleMessage "INFO" "npm n'est plus paramétré pour le proxy INIST"
+    ;;
+    
+    help)
+    ;;
+    
+    *)
+    ;;
+    
   esac
 }
 
