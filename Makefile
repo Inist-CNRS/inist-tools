@@ -7,12 +7,12 @@ install: ## Installe inist-tools (non-implémenté)
 
 build: ## Crée le package .deb
 	@./tools/prepare-deb.sh
-	@./tools/package-deb.sh
+	@./tools/build-deb.sh
 
 release: ## Build le .deb et le publie sur GitHub
 	@./tools/clean-deb.sh
 	@./tools/prepare-deb.sh
-	@./tools/package-deb.sh
+	@./tools/build-deb.sh
 	@./tools/publish-deb.sh
 
 clean: ## Nettoie les scories après la création du package

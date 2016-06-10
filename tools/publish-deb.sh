@@ -31,16 +31,13 @@ DIR_SYSINSTALL="$DIR_INSTALL/opt"
 # Publication sur GitHub
 # ------------------------------------------------------------------------------
 # Trouver le .deb
-DOTDEB=$(find "$DIR_ROOT" -type f -name "inist-tools_*.deb")
+DOTDEB=$(find "$DIR_RELEASES" -type f -name "inist-tools_*.deb")
 if [ -z "$DOTDEB" ]; then
   _it_std_consoleMessage "ERROR" "Fichier .deb introuvable."
   exit 1
 fi
 
 PACKAGENAME=$(basename "$DOTDEB")
-
-# Déplacer le .deb dans /releases
-mv "$DOTDEB" "$DIR_RELEASES"
 
 # On redevient $USER
 # REALUSER=$(logname)

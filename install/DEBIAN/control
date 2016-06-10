@@ -5,5 +5,5 @@ Priority     : optional
 Architecture : all
 Depends      : bash, make, shunit2, parallel
 Maintainer   : Stanislas PERRIN <stanislas.perrin@inist.fr> / INIST-CNRS/DPI
-Description  : Outils de gestion du poste GNU/Linux dans l'environnement INIST. [v0.9.6-1-g953879d] 
+Description  : Outils de gestion du poste GNU/Linux dans l'environnement INIST. [v0.9.6-2-g1f1d6ba] 
 Homepage     : http://www.inist.fr/
