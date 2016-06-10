@@ -111,7 +111,7 @@ function inist {
     #---------------------------------------------------------------------------
     info )
       # On charge la lib "network"
-      source "$DIR_LIBS/network.lib.sh"
+      source "$DIR_LIBS/network.rc"
       #
       _it_network_info
     ;;

@@ -37,7 +37,7 @@ oneTimeSetUp()
 }
 
 #-----------------------------------------------------------------------
-# TESTS
+# TESTS (fonctionnels, pas unitaires)
 #-----------------------------------------------------------------------
 test_inist_proxy_off () {
   _it_inistProxy "off" >> /dev/null
