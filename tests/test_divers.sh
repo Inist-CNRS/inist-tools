@@ -29,8 +29,28 @@ printf "$MODULE_DESC\n"
 printf "################################################################################\n"
 
 #-----------------------------------------------------------------------
-# TESTS
+# Chargement de la lib à tester
 #-----------------------------------------------------------------------
+oneTimeSetUp()
+{
+  source "$DIR_LIBS/std.rc" >> /dev/null
+  source "$DIR_LIBS/misc.rc" >> /dev/null
+}
+
+#-----------------------------------------------------------------------
+# TESTS NPM
+#-----------------------------------------------------------------------
+test_npm_proxyOff () {
+  _it_misc_npm_proxy "off" >> /dev/null
+  out=$(npm config ls -l | grep -i "proxy" | grep -i "null" | wc -l)
+  assertEquals "Les variables d'environnement proxy pour npm doivent être positionnées à null (on doit trouver 2 x 'null' dedans)." 2 "$out"
+}
+
+test_npm_proxyOn () {
+  _it_misc_npm_proxy "on" >> /dev/null
+  out=$(npm config ls -l | grep -i "proxy" | grep "8080" | wc -l)
+  assertEquals "Les variables d'environnement proxy pour npm doivent être positionnées (on doit trouver 2 x '8080' dedans)." 2 "$out"
+}
 
 #-----------------------------------------------------------------------
 # Chargement et lancement de SHUNIT2 pour executer les TU
@@ -38,4 +58,8 @@ printf "########################################################################
 SHUNIT2=$(which shunit2)
 source "$SHUNIT2"
 
-### /!\ Ne pas mettre d'exit, sinon ça arrête les tests !
+
+#############################################################
+### /!\ Ne pas mettre d'exit, sinon ça arrête les tests ! ###
+#############################################################
+
