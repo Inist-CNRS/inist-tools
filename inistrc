@@ -93,15 +93,16 @@ function inist {
   #-----------------------------------------------------------------------------
   # Gestion des arguments 
   #-----------------------------------------------------------------------------
-  # Aucun argument : affichage de l'aide
-  if [ "$#" -lt 1 ]; then
-    _it_std_greeting
-    _it_std_message "WARNING" "Nombre d'argument incorrect !"
-    _it_std_show_help
-  fi
 
   # On est poli, on dit bonjour...
   _it_std_greeting
+
+  # Aucun argument : affichage de l'aide
+  if [ "$#" -lt 1 ]; then
+    _it_std_consoleMessage "WARNING" "Nombre d'argument incorrect !"
+    _it_std_show_help
+    return $FALSE
+  fi
   
   # ligne commande = arguments de la fonction
   case $1 in
