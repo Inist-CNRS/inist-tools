@@ -114,7 +114,7 @@ function _it_misc_npm_proxy {
     
     on)
       $NPM config set proxy "$INIST_HTTP_PROXY"
-      $NPM config set https-proxy "$INIST_HTTPs_PROXY"
+      $NPM config set https-proxy "$INIST_HTTPS_PROXY"
       _it_std_consoleMessage "INFO" "npm est paramétré pour le proxy INIST"
     ;;
     
