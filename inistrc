@@ -223,9 +223,9 @@ function inist {
     #         la commande « inist stuff »
     #---------------------------------------------------------------------------
     stuff )
-      source "$DIR_LIBS/stuff.rc"
-      _it_std_message "INFO" "STUFF : rangement..."
-      _it_stuff_tidy "$@"
+      # source "$DIR_LIBS/stuff.rc"
+      # _it_std_message "INFO" "STUFF : rangement..."
+      # _it_stuff_tidy "$@"
     ;;
 
     #---------------------------------------------------------------------------

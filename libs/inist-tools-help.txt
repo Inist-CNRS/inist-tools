@@ -16,11 +16,6 @@ Commandes :
 
   reload    recharge inistrc pour prendre en compte les dernières modifications 
             apportées à inistrc (orienté dev)
-            
-  stuff     </chemin/vers/un/fichier>|</chemin/vers/un/répertoire>|
-            <liste de chemins vers des fichiers>
-            Range (déplace) les fichiers passés en paramètres dans une arbo
-            ~/stuff.inist/YYYY/MM/DD/
   
 Options :
   -v,--version    Affiche la version
