@@ -90,8 +90,10 @@ inistrc soit sourcé pour être prise en compte.*
 Depuis le répertoire du projet, executer :
 
 ```bash
-$ sudo make package
+$ make build
 ```
+_Note : grâce à l'utilisation de fakeroot, il n'est plus utile de sudo la
+commande._
 
 ### Tests Unitaires ###
 
@@ -108,6 +110,8 @@ Ces dépendances s'installent via le gestionnaire de paquet Ubuntu/Debian :
 $ apt-get install -y --force-yes shunit2 build-essential
 ```
 
+_Note : --force-yes n'est utile que pour les configurations Debian._
+
 #### Lancer les tests ####
 
 Depuis la racine du projet :
@@ -116,3 +120,9 @@ Depuis la racine du projet :
 $ make test
 ```
 
+Note : ne pas mettre d'exit dans les scripts des TU, sinon ils s'arrêteront
+au passage sur ce fichier.
+
+Note 2 : il est recommandé de faire les tests "proxy on" _après_ les tests
+"proxy off" si on ne veut pas se retrouver avec des applis déconfigurées du
+proxy INIST à la fin des tests 😁.
