@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+#
+# INIST-TOOLS INSTALLATION : POST-INSTALLATION
+#
+################################################################################
+
+# Protection des fichiers /etc/sudoers.d/*
+chmod 600 /etc/sudoers.d/inis-tools
+
+#
