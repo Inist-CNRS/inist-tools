@@ -4,19 +4,27 @@ Ubuntu) dans l'environnement INIST.
 
 ## INSTALLATION ##
 
-Pour l'heure, l'installation n'est pas automatisée.
+### Utilisateur ###
+Si vous êtes « utilisateur » et ne comptez pas développer inist-tools, vous
+trouverez dans le répertoire /releases le paquet .deb qui vous permettra
+d'installer les outils simplement avec la commande :
 
-Pour faire fonctionner la commande « inist » dans l'environnement courant, il
-faut configurer les éléments suivants :
+```bash
+$ dpkg -i inist-tools_x_y_z.deb
+```
 
+### Développeur ###
+Clonez le dépôt dans le répertoire de travail de votre choix.
+En suite, pour faire fonctionner la commande « inist » dans l'environnement
+courant, il faut configurer les éléments suivants :
 
 ### /opt ###
 
-En tant que root, créer un lien symbolique vers le répertoire où a été pullé
+En tant que root, créer un lien symbolique vers le répertoire où a été cloné
 inist-tools :
 
 ```bash
-/opt # ln -s /chemin/vers/le/pull/de/inist-tools .
+/opt # ln -s /chemin/vers/le/clone/de/inist-tools .
 ```
 
 ### .bashrc ###
@@ -41,7 +49,6 @@ En tant que root, créer un fichier executable dans /etc/profile.d/, nommé
 # INIST-TOOLS
 . /opt/inist-tools/inistrc
 ```
-
 
 ----
 
