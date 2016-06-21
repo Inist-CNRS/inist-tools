@@ -148,3 +148,21 @@ release                        Build le .deb et le publie sur GitHub
 test                           Lance tous les tests sur inist-tools
 ```
 
+#### build ####
+Construit le paquet <inist-tools_x_y_z.deb> installable sous Debian et Ubuntu
+avec la commande "dpkg -i inist-tools_x_y_z.deb".
+
+#### clean ####
+Nettoie toute l'arborescence "install" des fichiers ayant servi aux commandes
+'build' et 'release'.
+Cette commande est utile pour ne pas avoir le projet "en double" dans l'arbo
+/install et signalés par git comme n'étant pas ajoutés.
+
+#### install ####
+Installe inist-tools (non implémenté).
+
+#### release ####
+Construit le .deb et le publie sur le dépôt GitHub du projet dans /releases.
+
+#### test ####
+Lance tous les tests (unitaires et fonctionnels) du répertoire /tests.

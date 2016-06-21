@@ -2,7 +2,6 @@ inist-tools (0.9.9) RC; urgency=medium
 
   * Version Release Candidate en cours de finalisation avant publication
     de
-    
   * Prise en chage du PROXY INIST (on et off) pour :
     - le système dans son ensemble
     - les consoles avec et sans login
@@ -10,5 +9,7 @@ inist-tools (0.9.9) RC; urgency=medium
     - npm
     - firefox / iceweasel (seulement le premier profil)
     Pour l'instant, Chrome/Chromium n'est pas supporté.
+  * Prise en charge du rechargement de la commande « inist »
+  * [DEV] Ajout de la section « make » dans README.md
 
  -- Stanislas PERRIN <stanislas.perrin@inist.fr>  Tue, 21 Jun 2016 08:28:37 +0200
