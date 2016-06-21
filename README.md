@@ -83,7 +83,10 @@ Renseigne sur la version actuelle de « inist-tools »
 *__Note__ : <br> La commande « inist » devient disponible dans la console parce 
 que le fichier "inistrc" est sourcé au lancement de celle-ci. Toute modification
 du fichier inistrc ou des sous-commande nécessite à nouveau que le fichier
-inistrc soit sourcé pour être prise en compte.*
+inistrc soit sourcé pour être prise en compte.<br>
+Pour facilier cette opération, la commande 'inist reload' permet de recharger
+le fichier inistrc directement dans l'environnement courant.
+*
 
 ## Construire le package .deb ##
 
@@ -126,3 +129,22 @@ au passage sur ce fichier.
 Note 2 : il est recommandé de faire les tests "proxy on" _après_ les tests
 "proxy off" si on ne veut pas se retrouver avec des applis déconfigurées du
 proxy INIST à la fin des tests 😁.
+
+### Make ###
+Inist-tools est fourni avec un Makefile qui permet d'automatiser un certain
+nombre d'opérations. Une aide sommaire est disponible avec la commande
+
+```bash
+$ make
+```
+depuis le répertoire de l'application. Actuellement, le Makefile permet les
+opérations suivantes :
+
+```bash
+build                          Crée le package .deb
+clean                          Nettoie les scories après la création du package
+install                        Installe inist-tools (non-implémenté)
+release                        Build le .deb et le publie sur GitHub
+test                           Lance tous les tests sur inist-tools
+```
+
