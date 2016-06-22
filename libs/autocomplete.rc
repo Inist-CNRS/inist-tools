@@ -1,0 +1,60 @@
+#!/usr/bin/env bash
+################################################################################
+#
+# inist-tools / libs / autocomplete.rc
+# 
+# Autocomplétion pour inist-tools
+#
+# @author : INIST-CNRS/DPI
+#
+################################################################################
+
+_inist () {                 
+  local cur
+  COMPREPLY=()
+  cur=${COMP_WORDS[COMP_CWORD]}
+
+  case "$cur" in
+
+    i*)
+      COMPREPLY=( $( compgen -W 'info' -- $cur ) )
+    ;;
+
+    o*)
+      COMPREPLY=( $( compgen -W 'on off' -- $cur ) )
+    ;;
+  
+    p*)
+      COMPREPLY=( $( compgen -W 'proxy' -- $cur ) )
+    ;;
+
+    r*)
+      COMPREPLY=( $( compgen -W 'reload' -- $cur ) )
+    ;;
+
+    s*)
+      COMPREPLY=( $( compgen -W 'sync' -- $cur ) )
+    ;;
+    
+    t*)
+      COMPREPLY=( $( compgen -W 'time' -- $cur ) )
+    ;;
+
+    proxy*)
+      COMPREPLY=( $( compgen -W 'on off' -- $cur ) )
+    ;;
+      
+    -*)
+      COMPREPLY=( $( compgen -W '-h --help -v --version' -- $cur ) )
+    ;;
+
+    *)
+      COMPREPLY=( $( compgen -W 'info proxy reload time date sync -h --help -v --version' -- $cur ) )
+    ;;
+    
+  esac
+
+  return $TRUE
+}
+
+complete -F _inist inist

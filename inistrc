@@ -64,6 +64,7 @@ if [ -f "$DIR_LIBS/std.rc" ]; then
   # source "$DIR_LIBS/ansicolors.lib.sh"
   source "$DIR_LIBS/ansicolors.rc"
   source "$DIR_LIBS/std.rc"
+  source "$DIR_LIBS/autocomplete.rc"
 else
   logger -s "[$MODULE_NAME] [ERROR] Impossible de charger la librairie de $MODULE_NAME depuis « $DIR_LIBS ». Fin."
   return 1
