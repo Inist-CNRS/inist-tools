@@ -2,7 +2,7 @@ language:
   - bash
 
 before_install:
-  - sudo apt-get install -y make shunit2 parallell
+  - sudo apt-get install -y make shunit2 parallel
 
 script:
   - make test

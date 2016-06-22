@@ -18,5 +18,6 @@ inist-tools (0.9.9) RC; urgency=medium
   * [DEV] Lancement des TU à chaque 'git push'
   * [DEV] Correction du fichier .travis.yml
   * [DEV] Correction du fichier .travis.yml (2)
+  * [DEV] Correction du fichier .travis.yml (3)
 
  -- Stanislas PERRIN <stanislas.perrin@inist.fr>  Tue, 21 Jun 2016 08:28:37 +0200

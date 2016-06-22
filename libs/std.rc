@@ -219,6 +219,22 @@ function _it_std_backup {
 }
 
 #-------------------------------------------------------------------------------
+# Restaure un fichier backupé avec la fonction « _it_std_backup »
+# (recherche automatiquement dans l'arborescence indiquée en argument
+# un fichier de backup et le restaure)
+#-------------------------------------------------------------------------------
+function _it_std_restore {
+  WHERETOFIND="$1"
+  if [ ! -d "$WHERETOFIND" ]; then
+    _it_std_consoleMessage "ERROR" "« $WHERETOFIND » n'est pas un répertoire"
+    return $FALSE
+  fi
+  
+  BACKUPFILE=$(find "$WHERETOFIND" -type f -name "*.")
+  
+}
+
+#-------------------------------------------------------------------------------
 # Vérification du dockage du portable...
 # ...en comptant les hub USB dispo
 # ...en comptant les écrans connectés
