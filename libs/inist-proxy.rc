@@ -11,6 +11,11 @@
 ################################################################################
 
 #-------------------------------------------------------------------------------
+# Variables Globales
+#-------------------------------------------------------------------------------
+
+
+#-------------------------------------------------------------------------------
 # Positionne les variables d'environnement pour le proxy INIST
 #-------------------------------------------------------------------------------
 function _it_inistProxy {
@@ -32,6 +37,9 @@ function _it_inistProxy {
       # FTP
       export ftp_proxy="http://proxyout.inist.fr:8080"
       export FTP_PROXY="http://proxyout.inist.fr:8080"
+      
+      # Positionnement de la variable d'environnement globale
+      echo "1" > "$IT_ENV_ISPROXY"
     ;;
     
     off)
@@ -44,6 +52,13 @@ function _it_inistProxy {
       unset "HTTP_PROXY"
       unset "HTTPS_PROXY"
       unset "FTP_PROXY"
+      
+      # Positionnement de la variable d'environnement globale
+      echo "0" > "$IT_ENV_ISPROXY"
+    ;;
+    
+    help)
+      # Aide (toDo)
     ;;
     
     *)

@@ -35,6 +35,11 @@ ICON_CHROMIUM="$DIR_LIBS/gfx/chromium_64px.png"
 ICON_FIREFOX="$DIR_LIBS/gfx/firefox_64px.png"
 ICON_ICEWEASEL="$DIR_LIBS/gfx/iceweasel_64px.png"
 
+#-------------------------------------------------------------------------------
+# Variables d'« environnement » utilisant /run/shm (RAMdisk)
+#-------------------------------------------------------------------------------
+# Stockage de l'état de la dernier commande 'inist proxy' (1 = on / 0 = off)
+IT_ENV_ISPROXY="/run/shm/it_env_isProxy"
 
 #-------------------------------------------------------------------------------
 # Logging

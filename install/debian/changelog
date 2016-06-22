@@ -13,5 +13,7 @@ inist-tools (0.9.9) RC; urgency=medium
   * [DEV] Ajout de la section « make » dans README.md
   * [DEV] Ajout de la gestion du sourçage de /opt/inist-tools/inistrc
     dans le .bashrc de l'utilisateur en postins/postrm
+  * [DEV] Conserve le statut « inist proxy on » pour le répercuter sur
+    l'ouverture d'une nouvelle console
 
  -- Stanislas PERRIN <stanislas.perrin@inist.fr>  Tue, 21 Jun 2016 08:28:37 +0200

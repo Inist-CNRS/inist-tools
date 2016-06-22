@@ -57,30 +57,30 @@ fi
 # ...et de sa version précise
 HOST_SYSTEM_VERSION=$(uname -mrs)
 
+#-----------------------------------------------------------------------------
+# Chargement libs + conf
+#-----------------------------------------------------------------------------
+if [ -f "$DIR_LIBS/std.rc" ]; then
+  # source "$DIR_LIBS/ansicolors.lib.sh"
+  source "$DIR_LIBS/ansicolors.rc"
+  source "$DIR_LIBS/std.rc"
+else
+  logger -s "[$MODULE_NAME] [ERROR] Impossible de charger la librairie de $MODULE_NAME depuis « $DIR_LIBS ». Fin."
+  return 1
+fi
+
+if [ -f "$DIR_CONF/inist.conf.sh" ]; then
+  source "$DIR_CONF/inist.conf.sh"
+else
+  logger -s "[$MODULE_NAME] [ERROR] Impossible de charger la configuration de $MODULE_NAME depuis « $DIR_LIBS ». Fin."
+  return 1
+fi
+
 #-------------------------------------------------------------------------------
 # COMMANDE [+option[s]]
 #-------------------------------------------------------------------------------
 
 function inist {
-
-  #-----------------------------------------------------------------------------
-  # Chargement libs + conf
-  #-----------------------------------------------------------------------------
-  if [ -f "$DIR_LIBS/std.rc" ]; then
-    # source "$DIR_LIBS/ansicolors.lib.sh"
-    source "$DIR_LIBS/ansicolors.rc"
-    source "$DIR_LIBS/std.rc"
-  else
-    logger -s "[$MODULE_NAME] [ERROR] Impossible de charger la librairie de $MODULE_NAME depuis « $DIR_LIBS ». Fin."
-    exit 1
-  fi
-
-  if [ -f "$DIR_CONF/inist.conf.sh" ]; then
-    source "$DIR_CONF/inist.conf.sh"
-  else
-    logger -s "[$MODULE_NAME] [ERROR] Impossible de charger la configuration de $MODULE_NAME depuis « $DIR_LIBS ». Fin."
-    exit 1
-  fi
 
   #-----------------------------------------------------------------------------
   # Vérification des dépendances
@@ -184,17 +184,17 @@ function inist {
         *)
           case "$2" in
             on)
-              _it_std_message "INFO" "Positionnement des variables d'environnement pour le proxy INIST"
+              _it_std_consoleMessage "INFO" "Positionnement des variables d'environnement pour le proxy INIST"
               source "$DIR_LIBS/inist-proxy.rc"
               _it_inistProxy "$2"
             ;;
             off)
-              _it_std_message "INFO" "Suppression des variables d'environnement pour le proxy INIST"
+              _it_std_consoleMessage "INFO" "Suppression des variables d'environnement pour le proxy INIST"
               source "$DIR_LIBS/inist-proxy.rc"
               _it_inistProxy "$2"
             ;;
             *)
-              _it_std_message "INFO" "Positionnement des variables d'environnement pour le proxy INIST"
+              _it_std_consoleMessage "INFO" "Positionnement des variables d'environnement pour le proxy INIST"
               source "$DIR_LIBS/inist-proxy.rc"
               _it_inistProxy "on"
             ;;
@@ -273,10 +273,21 @@ function inist {
   esac
 }
 
-
 #-------------------------------------------------------------------------------
-# Pour pouvoir en faire un usage standalone, on appelle la fonction inist()
-# en lui passant tous les arguments reçus
+# Si la variable d'env it_env_isProxy est positionnée, on répercute son état
 #-------------------------------------------------------------------------------
-# inist "$@"
+if [ -e "$IT_ENV_ISPROXY" ]; then
+  _it_std_consoleMessage "INFO" "Variable d'environnement isProxy trouvée"
+  is_Proxy=$(cat "$IT_ENV_ISPROXY")
+  source "$DIR_LIBS/inist-proxy.rc"
+  if [ "$is_Proxy" -eq 1 ]; then
+    _it_inistProxy "on"
+    _it_std_consoleMessage "INFO" "Proxy INIST activé"
+  elif [ "$is_Proxy" -eq 0 ]; then
+    _it_inistProxy "on"
+    _it_std_consoleMessage "INFO" "Proxy INIST désactivé"
+  else
+    _it_std_consoleMessage "WARNING" "Variable d'environnement vide ou contenant une valeur incohérente."
+  fi
+fi
 
