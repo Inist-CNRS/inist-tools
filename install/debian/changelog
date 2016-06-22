@@ -22,5 +22,7 @@ inist-tools (0.9.9) RC; urgency=medium
   * [DEV] TU pour les fonction backup/restore de fichiers
   * [DEV] Modification de /tools/prepare-deb.sh pour s'adapter au
     changement d'arbo
+  * [DEV] Lien sybolique permettant à dpkg-deb d'utiliser
+    /install/debian
 
  -- Stanislas PERRIN <stanislas.perrin@inist.fr>  Tue, 21 Jun 2016 08:28:37 +0200

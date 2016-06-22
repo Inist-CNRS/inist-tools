@@ -40,12 +40,6 @@ chmod -R 755 "$DIR_INSTALL"
 fakeroot dpkg-deb --build "$DIR_INSTALL" "$DIR_RELEASES/inist-tools_$MODULE_VERSION_FOR_CONTROL.deb"
 
 # ------------------------------------------------------------------------------
-# On repositionne les droits pour que le user courant puisse y accéder
-# ------------------------------------------------------------------------------
-# chown -R $USER:$USER "$DIR_INSTALL"
-# chmod -R 777 "$DIR_INSTALL"
-
-# ------------------------------------------------------------------------------
 # FIN !
 # ------------------------------------------------------------------------------
 exit 0

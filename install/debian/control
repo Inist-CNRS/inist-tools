@@ -1,9 +1,9 @@
 Package      : inist-tools
-Version      : 0.9.8
+Version      : 0.9.10RC
 Section      : base
 Priority     : optional
 Architecture : all
-Depends      : bash, make, shunit2, parallel
+Depends      : bash, make, ntpdate, parallel
 Maintainer   : Stanislas PERRIN <stanislas.perrin@inist.fr> / INIST-CNRS/DPI
-Description  : Outils de gestion du poste GNU/Linux dans l'environnement INIST. [v0.9.8] 
+Description  : Outils de gestion du poste GNU/Linux dans l'environnement INIST. [v0.9.10RC-1-g89ab97a] 
 Homepage     : http://www.inist.fr/
