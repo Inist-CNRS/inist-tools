@@ -16,5 +16,6 @@ inist-tools (0.9.9) RC; urgency=medium
   * [DEV] Conserve le statut « inist proxy on » pour le répercuter sur
     l'ouverture d'une nouvelle console
   * [DEV] Lancement des TU à chaque 'git push'
+  * [DEV] Correction du fichier .travis.yml
 
  -- Stanislas PERRIN <stanislas.perrin@inist.fr>  Tue, 21 Jun 2016 08:28:37 +0200
