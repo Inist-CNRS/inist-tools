@@ -1,0 +1,6 @@
+language : bash
+
+before_install:
+	- sudo apt-get install -qq make shunit2 parallell
+
+script: make test

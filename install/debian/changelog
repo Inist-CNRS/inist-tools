@@ -15,5 +15,6 @@ inist-tools (0.9.9) RC; urgency=medium
     dans le .bashrc de l'utilisateur en postins/postrm
   * [DEV] Conserve le statut « inist proxy on » pour le répercuter sur
     l'ouverture d'une nouvelle console
+  * [DEV] Lancement des TU à chaque 'git push'
 
  -- Stanislas PERRIN <stanislas.perrin@inist.fr>  Tue, 21 Jun 2016 08:28:37 +0200
