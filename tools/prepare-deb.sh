@@ -68,7 +68,7 @@ fi
 # ------------------------------------------------------------------------------
 # Création du fichier CONTROL
 # ------------------------------------------------------------------------------
-FILE_CONTROL="$DIR_INSTALL/DEBIAN/control"
+FILE_CONTROL="$DIR_INSTALL/debian/control"
 if [ -f "$FILE_CONTROL" ]; then
   rm "$FILE_CONTROL"
   touch "$FILE_CONTROL"
