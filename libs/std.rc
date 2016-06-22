@@ -185,7 +185,7 @@ function _it_std_check_command {
 function _it_std_backup {
   local FILE="$1"
   # On vérifie que c'est bien un fichier
-  if [ ! -f "$FILE"]; then
+  if [ ! -f "$FILE" ]; then
     _it_std_consoleMessage "ERREUR" "« $FILE » n'est pas un fichier"
     return $FALSE
   fi
@@ -198,22 +198,23 @@ function _it_std_backup {
   local ABS_FILE=$(readlink -f "$FILE")
   
   # Quel est le répertoire de ce fichier ?
-  local FILE_DIR=$(DIRNAME "$FILE")
+  # local FILE_DIR=$(DIRNAME "$FILE")
   
-  # Quel est le nom de ce fichie ?
-  local FILE_NAME=$(BASENAME "$FILE")
-  local FILE_NAME_WITHOUT_EXTENSION="${FILE_NAME%.*}"
+  # Quel est le nom de ce fichier ?
+  # local FILE_NAME=$(BASENAME "$FILE")
+  # local FILE_NAME_WITHOUT_EXTENSION="${FILE_NAME%.*}"
   
   # Création du nom de backup en fonction de la date du jour
-  local TIMESTAMP=$(date +%Y-%m-%d@%H-%M-%S)
-  local NEW_FILE_NAME="$FILE_DIR/$FILE_NAME_WITHOUT_EXTENSION.inist.$TIMESTAMP"
+  # local TIMESTAMP=$(date +%Y-%m-%d@%H-%M-%S)
+  # local NEW_FILE_NAME="$FILE_DIR/$FILE_NAME_WITHOUT_EXTENSION.inist.$TIMESTAMP"
+  local NEW_FILE_NAME="${ABS_FILE}_itb" # itb = Inist Tools Backup
   
-  # Copie du fichier
-  cp "$FILE" "$NEW_FILE_NAME"
-  
-  # Vérification de la copie
-  if [ "$?" -gt 0 ]; then
-    _it_std_consoleMessage "ERREUR" "La copie de « $FILE » vers « $NEW_FILE_NAME » n'a pas fonctionné."
+  # Copie + vérification
+  if cp "$FILE" "$NEW_FILE_NAME" ; then
+    _it_std_consoleMessage "INFO" "Le fichier « $FILE » a été backupé vers « $NEW_FILE_NAME »."
+    return $TRUE
+  else
+    _it_std_consoleMessage "ERREUR" "Le backup de « $FILE » vers « $NEW_FILE_NAME » n'a pas fonctionné."
     return $FALSE
   fi
 }
@@ -224,13 +225,29 @@ function _it_std_backup {
 # un fichier de backup et le restaure)
 #-------------------------------------------------------------------------------
 function _it_std_restore {
+
   WHERETOFIND="$1"
   if [ ! -d "$WHERETOFIND" ]; then
     _it_std_consoleMessage "ERROR" "« $WHERETOFIND » n'est pas un répertoire"
     return $FALSE
   fi
+
+  # Recherche du fichier de backup
+  BACKUPFILE=$(find "$WHERETOFIND" -type f -name "*_itb")
   
-  BACKUPFILE=$(find "$WHERETOFIND" -type f -name "*.")
+  if [ ! -z "$BACKUPFILE" ]; then
+    RESTOREDFILE=$(echo "$BACKUPFILE" | sed -e 's/_itb//g')
+    if mv "$BACKUPFILE" "$RESTOREDFILE" ; then
+      _it_std_consoleMessage "INFO" "Fichier « $RESTOREDFILE » restauré."
+      return $TRUE;
+    else
+      _it_std_consoleMessage "ERROR" "Impossible de restaurer « $RESTOREDFILE »."
+      return $TRUE;
+    fi
+  else
+    _it_std_consoleMessage "WARNING" "Aucun fichier de backup trouvé dans « $WHERETOFIND »."
+    return $FALSE
+  fi
   
 }
 

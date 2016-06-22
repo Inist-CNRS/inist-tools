@@ -34,7 +34,9 @@ printf "########################################################################
 oneTimeSetUp()
 {
   source "$DIR_LIBS/std.rc" >> /dev/null
+  source "$DIR_LIBS/ansicolors.rc" >> /dev/null
   source "$DIR_LIBS/misc.rc" >> /dev/null
+  echo "Contenu du fichier à backuper puis restaurer" > "/run/shm/inist-tools-backup-test"
 }
 
 #-----------------------------------------------------------------------
@@ -51,6 +53,24 @@ test_npm_proxyOn () {
   out=$(npm config ls -l | grep -i "proxy" | grep "8080" | wc -l)
   assertEquals "Les variables d'environnement proxy pour npm doivent être positionnées (on doit trouver 2 x '8080' dedans)." 2 "$out"
 }
+
+#-----------------------------------------------------------------------
+# TESTS BACKUP / RESTORE
+#-----------------------------------------------------------------------
+test_file_backup () {
+  _it_std_backup "/run/shm/inist-tools-backup-test"
+  out=$(ls -l "/run/shm/inist-tools-backup-test_itb" | wc -l)
+  assertEquals "On doit trouver un fichier de backup." 1 "$out"
+}
+
+test_file_restore () {
+  _it_std_restore "/run/shm/"
+  out1=$(find "/run/shm/" -type f -name "inist-tools-backup-test_itb" | wc -l)
+  out2=$(find "/run/shm/" -type f -name "inist-tools-backup-test" | wc -l)
+  assertEquals "Le fichier de backup doit avoir été supprimé" 0 "$out1"
+  assertEquals "Le fichier original doit avoir été restauré" 1 "$out2"
+}
+
 
 #-----------------------------------------------------------------------
 # Chargement et lancement de SHUNIT2 pour executer les TU
