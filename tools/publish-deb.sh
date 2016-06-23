@@ -39,10 +39,6 @@ fi
 
 PACKAGENAME=$(basename "$DOTDEB")
 
-# On redevient $USER
-# REALUSER=$(logname)
-# su "$REALUSER"
-
 # Ajouter le .deb au dépôt
 git add "$DIR_RELEASES/$PACKAGENAME"
 
@@ -50,7 +46,7 @@ git add "$DIR_RELEASES/$PACKAGENAME"
 git commit -a -m "Publication du package « $PACKAGENAME » [$MODULE_VERSION]"
 
 # Pusher
-git push
+git push --tags && git push
 
 # ------------------------------------------------------------------------------
 # FIN !
