@@ -20,10 +20,9 @@ Commandes :
   reload    recharge inistrc pour prendre en compte les dernières modifications 
             apportées à inistrc (orienté dev)
 
-  sync      synchronise la date et l'heure de la machine sur le serveur de temps
+  time      synchronise la date et l'heure de la machine sur le serveur de temps
             de l'INIST
-  
-  time      alias de sync
+            
   date      alias de sync
             
 Options :

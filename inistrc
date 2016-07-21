@@ -233,7 +233,7 @@ function inist {
     #---------------------------------------------------------------------------
     # time|date|sync
     #---------------------------------------------------------------------------
-    time|date|sync )
+    time|date )
       _it_std_consoleMessage "INFO" "Synchronisation de la date/heure..."
       sudo "/opt/inist-tools/tools/timesync.sh"
       _it_std_consoleMessage "OK" "Heure synchronisée"
@@ -283,10 +283,8 @@ if [ -e "$IT_ENV_ISPROXY" ]; then
   source "$DIR_LIBS/inist-proxy.rc"
   if [ "$is_Proxy" -eq 1 ]; then
     _it_inistProxy "on"
-    _it_std_consoleMessage "INFO" "Proxy INIST activé"
   elif [ "$is_Proxy" -eq 0 ]; then
     _it_inistProxy "on"
-    _it_std_consoleMessage "INFO" "Proxy INIST désactivé"
   else
     _it_std_consoleMessage "WARNING" "Variable d'environnement vide ou contenant une valeur incohérente."
   fi

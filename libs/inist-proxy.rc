@@ -40,6 +40,10 @@ function _it_inistProxy {
       
       # Positionnement de la variable d'environnement globale
       echo "1" > "$IT_ENV_ISPROXY"
+      
+      # Message en console
+      _it_std_consoleMessage "INFO" "Proxy INIST activé"
+      
     ;;
     
     off)
@@ -55,6 +59,9 @@ function _it_inistProxy {
       
       # Positionnement de la variable d'environnement globale
       echo "0" > "$IT_ENV_ISPROXY"
+      
+      # Message en console
+      _it_std_consoleMessage "INFO" "Proxy INIST désactivé"
     ;;
     
     help)
@@ -67,7 +74,7 @@ function _it_inistProxy {
   esac
   
   # On affiche le résultat dans l'environnement
-  envProxy=$(env | grep -i "proxy" | sort)
-  printf "$envProxy\n"
+  # envProxy=$(env | grep -i "proxy" | sort)
+  # printf "$envProxy\n"
 }
 

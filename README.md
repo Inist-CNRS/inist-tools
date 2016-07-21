@@ -1,4 +1,5 @@
 # inist-tools #
+[![Build Status](https://travis-ci.org/Inist-CNRS/ezmaster.svg?branch=master)](https://travis-ci.org/Inist-CNRS/ezmaster)
 Ensemble d'outils permettant de faire fonctionner un poste GNU/Linux (Debian,
 Ubuntu) dans l'environnement INIST.
 
@@ -49,6 +50,18 @@ En tant que root, créer un fichier executable dans /etc/profile.d/, nommé
 # INIST-TOOLS
 . /opt/inist-tools/inistrc
 ```
+
+### Tester les commande en cours de développement ###
+Du fait qu'inist-tools soit chargé au lancement, les modification faites sur le
+fichier inistrc ne sont pas prises en compte avant le prochain rechargement
+(nouvelle session, nouvelle console ouverte, reboot, etc.).
+Pour palier cette difficulté, la commande
+
+```bash
+$ inist --reload
+```
+permet de recharger inistrc '"sur place" et de rendre les modifications qui lui
+ont été apportées disponible immédiatement.
 
 ----
 
