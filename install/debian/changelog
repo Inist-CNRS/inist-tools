@@ -26,5 +26,7 @@ inist-tools (0.9.11RC) RC; urgency=medium
     /install/debian
   * [DEV] Commit -- 23/06/2016 @ 11:57:14
   * [DEV] Diverses corrections mineures
+  * [DEV] Correction du bug bloquant d'installation sur les
+    configuration qui n'utilisent pas /home/perrin
 
  -- Stanislas PERRIN <stanislas.perrin@inist.fr>  Tue, 21 Jun 2016 08:28:37 +0200

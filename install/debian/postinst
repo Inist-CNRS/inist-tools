@@ -9,7 +9,6 @@
 # Variables globales
 # ------------------------------------------------------------------------------
 USER=$(logname)
-USERDIR="/home/$USER"
 
 # ------------------------------------------------------------------------------
 # Protection des fichiers /etc/sudoers.d/*
@@ -17,6 +16,11 @@ USERDIR="/home/$USER"
 chmod 600 /etc/sudoers.d/inist-tools
 
 # ------------------------------------------------------------------------------
+# On redevient le user courant
+# ------------------------------------------------------------------------------
+su "$USER"
+
+# ------------------------------------------------------------------------------
 # Installation dans le .bashrc de l'utilisateur
 # ------------------------------------------------------------------------------
-echo ". /opt/inist-tools/inistrc # INIST-TOOLS" >> "$USERDIR/.bashrc"
+echo ". /opt/inist-tools/inistrc # INIST-TOOLS" >> "$HOME/.bashrc"
