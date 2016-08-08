@@ -26,7 +26,15 @@ INIST_PROXYPAC="http://proxypac.intra.inist.fr/proxy.pac"
 INIST_NO_PROXY="localhost,127.0.0.0/8,*.local,172.16.0.0/16"
 INIST_PROXY_ADDRESS="http://proxyout.inist.fr"
 INIST_PROXY_PORT="8080"
+
+# PROXY ADSL
+INIST_HTTP_ADSL_PROXY="http://adsl.inist.fr:8080"
+INIST_HTTPS_ADSL_PROXY="https://adsl.inist.fr:8080"
+INIST_FTP_ADSL_PROXY="http://adsl.inist.fr:8080"
 INIST_ADSL_PROXYPAC="http://proxypac.intra.inist.fr/proxy.pac"
+INIST_ADSL_PROXY_ADDRESS="http://adsl.inist.fr"
+INIST_ADSL_PROXY_PORT="8080"
+
 
 # ICONS
 ICON_CNRS="$DIR_LIBS/gfx/cnrs_64px.png"

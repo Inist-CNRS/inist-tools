@@ -184,21 +184,30 @@ function inist {
         # et par défaut (inist proxy) -> "on"
         *)
           case "$2" in
+          
             on)
               _it_std_consoleMessage "INFO" "Positionnement des variables d'environnement pour le proxy INIST"
               source "$DIR_LIBS/inist-proxy.rc"
               _it_inistProxy "$2"
             ;;
+            
             off)
               _it_std_consoleMessage "INFO" "Suppression des variables d'environnement pour le proxy INIST"
               source "$DIR_LIBS/inist-proxy.rc"
               _it_inistProxy "$2"
             ;;
+            
+            --adsl)
+              source "$DIR_LIBS/adsl-proxy.rc"
+              _it_inistADSLProxy "$3"
+            ;;
+            
             *)
               _it_std_consoleMessage "INFO" "Positionnement des variables d'environnement pour le proxy INIST"
               source "$DIR_LIBS/inist-proxy.rc"
               _it_inistProxy "on"
             ;;
+            
           esac
         ;;
       esac
@@ -240,6 +249,14 @@ function inist {
     ;;
 
     #---------------------------------------------------------------------------
+    # daemon
+    #---------------------------------------------------------------------------
+    daemon )
+      source "/opt/inist-tools/libs/daemon.rc"
+      _it_daemon
+    ;;
+
+    #---------------------------------------------------------------------------
     # reload
     #---------------------------------------------------------------------------
     reload )
@@ -247,6 +264,16 @@ function inist {
       source /opt/inist-tools/inistrc
       _it_std_consoleMessage "INFO" "INIST-TOOLS [$MODULE_VERSION] rechargé"
     ;;
+    
+    #---------------------------------------------------------------------------
+    # status
+    #---------------------------------------------------------------------------
+    status )
+      _it_std_consoleMessage "INFO" "Informations sur l'environnement..."
+      source /opt/inist-tools/libs/misc.rc
+      _it_misc_proxyStatus
+    ;;
+    
 
     #---------------------------------------------------------------------------
     # OPTION : --pid

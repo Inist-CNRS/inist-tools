@@ -134,12 +134,39 @@ function _it_misc_npm_proxy {
 }
 
 # ------------------------------------------------------------------------------
-# WGET
+# DOCKER
 # ------------------------------------------------------------------------------
 function _it_misc_docker_proxy {
-  WGET=$(which docker)
+  DOCKER=$(which docker)
   if [ -z "$DOCKER" ]; then
     _it_std_consoleMessage "ERREUR" "docker est introuvable (ou pas installé)"
+    return $FALSE
+  fi
+  
+  case "$1" in
+  
+    on)
+    ;;
+    
+    off)
+    ;;
+    
+    help)
+    ;;
+    
+    *)
+    ;;
+  
+  esac
+}
+
+# ------------------------------------------------------------------------------
+# BOWER
+# ------------------------------------------------------------------------------
+function _it_misc_bower_proxy {
+  BOWER=$(which boer)
+  if [ -z "$BOWER" ]; then
+    _it_std_consoleMessage "ERREUR" "bower est introuvable (ou pas installé)"
     return $FALSE
   fi
   
@@ -174,4 +201,19 @@ function _it_misc_info {
   fi
   # Version Linux
   HOST_SYSTEM_VERSION=$(uname -mrs)
+}
+
+# ------------------------------------------------------------------------------
+# STATUS
+# ------------------------------------------------------------------------------
+function _it_misc_proxyStatus {
+  local countProxyout=$(env | grep -i "proxyout" | wc -l)
+  local countAdslProxy=$(env | grep -i "adsl" | wc -l)
+  if [ $countProxyout -gt 0 ]; then
+    _it_std_consoleMessage "INFO" "L'environnement est paramétré pour utiliser le proxy INIST"
+  elif [ $countAdslProxy -gt 0 ]; then
+    _it_std_consoleMessage "INFO" "L'environnement est paramétré pour utiliser le proxy ADSL INIST"
+  else
+    _it_std_consoleMessage "INFO" "L'environnement n'est pas paramétré pour utiliser un des proxies de l'INIST"
+  fi
 }

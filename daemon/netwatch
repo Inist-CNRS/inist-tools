@@ -1,0 +1,116 @@
+#!/usr/bin/env bash
+################################################################################
+#
+# inist-tools / tools / netwatch
+#
+# Daemon qui surveille la connexion internet pour détecter le réseau sur lequel
+# le portable est connecté.
+#
+# @author : INIST-CNRS/DPI
+#
+################################################################################
+
+# ------------------------------------------------------------------------------
+# CONFIGURATION
+# ------------------------------------------------------------------------------
+TRUE=0
+FALSE=1
+DEBUG=false
+# Concernant le daemon...
+daemonDIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+daemonFILE=$(basename "$0")
+cd /
+
+# ------------------------------------------------------------------------------
+# Gestion des signaux
+# ------------------------------------------------------------------------------
+trap process_USR1 SIGUSR1
+trap process_KILL SIGKILL
+trap process_TERM SIGTERM
+
+process_USR1() {
+  exit $TRUE
+}
+
+function process_KILL {
+  exit $FALSE
+}
+
+function process_TERM {
+  exit $TRUE
+}
+
+# ------------------------------------------------------------------------------
+# DEBUGGING
+# ------------------------------------------------------------------------------
+print_debug() {
+    whatiam="$1"; tty="$2"
+    [[ "$tty" != "not a tty" ]] && {
+        echo "" >$tty
+        echo "$whatiam, PID $$" >$tty
+        ps -o pid,sess,pgid -p $$ >$tty
+        tty >$tty
+    }
+}
+
+# ------------------------------------------------------------------------------
+# Processus fils ici
+# ------------------------------------------------------------------------------
+# 2. Processus fils. On reforke.
+if [ "$1" = "child" ] ; then   
+    shift; tty="$1"; shift
+    $DEBUG && print_debug "*** CHILD, NEW SESSION, NEW PGID" "$tty"
+    umask 0
+    "$daemonDIR/$daemonFILE" XXrefork_daemonXX "$tty" "$@" </dev/null >/dev/null 2>/dev/null &
+    $DEBUG && [[ "$tty" != "not a tty" ]] && echo "CHILD OUT" >$tty
+    exit 0
+fi
+
+# ------------------------------------------------------------------------------
+# Point d'entrée
+# ------------------------------------------------------------------------------
+# 1. Début de l'appel
+if [ "$1" != "XXrefork_daemonXX" ] ; then 
+    tty=$(tty)
+    $DEBUG && print_debug "*** PARENT" "$tty"
+    setsid "$daemonDIR/$daemonFILE" child "$tty" "$@" &
+    $DEBUG && [[ "$tty" != "not a tty" ]] && echo "PARENT OUT" >$tty
+    exit 0
+fi
+
+# ------------------------------------------------------------------------------
+# Se lance après le forkage du processus fils
+# ------------------------------------------------------------------------------
+# 3. Reforké, au travail !
+exec >  /tmp/outfile
+exec 2> /tmp/errfile
+exec 0< /dev/null
+
+shift; tty="$1"; shift
+
+$DEBUG && print_debug "*** DAEMON" "$tty"
+
+# ------------------------------------------------------------------------------
+# Partie "métier" du daemon
+# La gestion de la fin (exit) se fait grâce à la gestion des signaux
+# ------------------------------------------------------------------------------
+$DEBUG && [[ "$tty" != "not a tty" ]]  && echo NOT A REAL DAEMON. NOT RUNNING WHILE LOOP. >$tty
+$DEBUG || {
+while true; do
+    # Check du réseau
+    #
+    
+    # Màj des configurations
+    #
+    
+    # Pause avant de checker à nouveau le réseau
+    sleep 10
+done
+}
+
+$DEBUG && [[ "$tty" != "not a tty" ]] && sleep 3 && echo "DAEMON OUT" >$tty
+
+# ------------------------------------------------------------------------------
+# Fin ! (n'est jamais appelée, mais c'est un peu le « The End » d'un film...)
+# ------------------------------------------------------------------------------
+exit $TRUE 

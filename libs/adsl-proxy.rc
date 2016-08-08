@@ -1,0 +1,81 @@
+################################################################################
+#
+# INIST-TOOLS / adsl-proxy.rc
+# 
+# Fonctions spécifiques au proxy ADSL de la FreeBox de l'INIST dans
+# l'environnement utilisateur.
+# Cette bibliothèque est à sourcer directement dans le .bashrc de l'utilisateur
+# pour rendre ses fonctions disponibles de manière globale.
+#
+# @author : INIST-CNRS/DPI
+#
+################################################################################
+
+#-------------------------------------------------------------------------------
+# Variables Globales
+#-------------------------------------------------------------------------------
+
+
+#-------------------------------------------------------------------------------
+# Positionne les variables d'environnement pour le proxy INIST
+#-------------------------------------------------------------------------------
+function _it_inistADSLProxy {
+
+  case "$1" in
+    on)
+      # Exclusion du proxy
+      export no_proxy="localhost,127.0.0.0/8,*.local,172.16.0.0/16"
+      export NO_PROXY="localhost,127.0.0.0/8,*.local,172.16.0.0/16"
+
+      # HTTP
+      export http_proxy="http://adsl.inist.fr:8080"
+      export HTTP_PROXY="http://adsl.inist.fr:8080"
+
+      # HTTPS
+      export https_proxy="http://adsl.inist.fr:8080"
+      export HTTPS_PROXY="http://adsl.inist.fr:8080"
+      
+      # FTP
+      export ftp_proxy="http://adsl.inist.fr:8080"
+      export FTP_PROXY="http://adsl.inist.fr:8080"
+      
+      # Positionnement de la variable d'environnement globale
+      echo "1" > "$IT_ENV_ISADSLPROXY"
+      
+      # Message en console
+      _it_std_consoleMessage "INFO" "Proxy ADSL INIST activé"
+      
+    ;;
+    
+    off)
+      unset "no_proxy"
+      unset "http_proxy"
+      unset "https_proxy"
+      unset "ftp_proxy"
+
+      unset "NO_PROXY"
+      unset "HTTP_PROXY"
+      unset "HTTPS_PROXY"
+      unset "FTP_PROXY"
+      
+      # Positionnement de la variable d'environnement globale
+      echo "0" > "$IT_ENV_ISADSLPROXY"
+      
+      # Message en console
+      _it_std_consoleMessage "INFO" "Proxy ADSL INIST désactivé"
+    ;;
+    
+    help)
+      # Aide (toDo)
+    ;;
+    
+    *)
+      # Rien
+    ;;
+  esac
+  
+  # On affiche le résultat dans l'environnement
+  # envProxy=$(env | grep -i "proxy" | sort)
+  # printf "$envProxy\n"
+}
+

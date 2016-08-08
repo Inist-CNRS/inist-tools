@@ -1,0 +1,83 @@
+################################################################################
+#
+# INIST-TOOLS / daemon.rc
+# 
+# Bibliothèque de fonctions de gestion du daemon "netwatch"
+#
+# @author : INIST-CNRS/DPI
+#
+################################################################################
+
+DAEMON_NAME="netwatch"
+
+#-------------------------------------------------------------------------------
+# Retourne le process-id du daemon
+#-------------------------------------------------------------------------------
+function _it_daemon_getPid {
+  local daemonPID=$(pgrep -f "$DAEMON_NAME")
+  return $daemonPID
+}
+
+#-------------------------------------------------------------------------------
+# Indique sir le daemon est en vie
+#-------------------------------------------------------------------------------
+function _it_daemon_isAlive {
+  daemonPID=$(_it_daemon_getPid)
+  if [ ! -z $daemonPID ]; then
+    return TRUE
+  else
+    return FALSE
+  fi
+}
+
+#-------------------------------------------------------------------------------
+# Start / Stop the daemon
+#-------------------------------------------------------------------------------
+function _it_daemon {
+  case "$1" in
+  
+    # Lancement du daemon
+    on )
+      if [ _it_daemon_isAlive -eq FALSE ]; then
+        _it_std_consoleMessage "INFO" "Lancement du daemon « $DAEMON_NAME »"
+        /opt/inist-tools/daemon/netwatch
+        if [ _it_daemon_isAlive -eq TRUE ]; then
+          PID=$(_it_daemon_getPid)
+          _it_std_consoleMessage "INFO" "Daemon « netwatch » en fonction (PID = $PID)"
+        else
+          _it_std_consoleMessage "ERROR" "Impossible de lancer le daemon « $DAEMON_NAME »"
+        fi
+      else
+        _it_std_consoleMessage "WARNING" "Le daemon « $DAEMON_NAME » est déjà en cours de fonctionnement"
+      fi
+    ;;
+    
+    # Arrêt du daemon
+    off )
+      if [ _it_daemon_isAlive -eq TRUE ]; then
+        _it_std_consoleMessage "INFO" "Arrêt du daemon « $DAEMON_NAME »"
+        PID=$(_it_daemon_getPid)
+        kill -15 "$PID"
+        sleep 1
+        # On vérifie qu'il est bien "mort"
+        if [ _it_daemon_isAlive -eq FALSE ]; then
+          _it_std_consoleMessage "INFO" "Daemon « $DAEMON_NAME » arrêté"
+        else
+          _it_std_consoleMessage "ERROR" "Impossible d'arrêter le daemon « $DAEMON_NAME » (PID = $PID)"
+        fi
+      else
+        _it_std_consoleMessage "WARNING" "Le daemon « $DAEMON_NAME » est déjà arrêté"
+      fi
+    ;;
+    
+    # Reload
+    reload )
+    ;;
+    
+    # Force-Reload
+    force-reload )
+    ;;
+    
+  esac
+}
+
