@@ -263,10 +263,40 @@ function inist {
     # daemon
     #---------------------------------------------------------------------------
     daemon )
-      source "/opt/inist-tools/libs/daemon.rc"
-      _it_daemon
+      # source "/opt/inist-tools/libs/daemon.rc"
+      # ToDo...
     ;;
 
+    #---------------------------------------------------------------------------
+    # power
+    #---------------------------------------------------------------------------
+    power )
+      case "$3" in
+        
+        save )
+          /opt/inist-tools/tools/powersave
+        ;;
+        
+        max )
+          /opt/inist-tools/tools/powermax
+        ;;
+        
+        *)
+          _it_std_consoleMessage "WARNING" "L'option « $3 » n'est pas reconnue pour la commande « power »"
+          return $FALSE
+        ;;
+        
+      esac
+    ;;
+    
+    powersave )
+      /opt/inist-tools/tools/powersave
+    ;;
+    
+    powermax )
+      /opt/inist-tools/tools/powermax
+    ;;
+    
     #---------------------------------------------------------------------------
     # reload
     #---------------------------------------------------------------------------

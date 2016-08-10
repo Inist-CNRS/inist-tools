@@ -19,5 +19,5 @@ su "$USER"
 # ------------------------------------------------------------------------------
 # Suppression de l'intégration dans le .bashrc
 # ------------------------------------------------------------------------------
-grep -vi "# INIST-TOOLS" "$HOME/.bashrc" > /run/shm/bashrc.tmp
+grep -vi "# inist-tools" "$HOME/.bashrc" > /run/shm/bashrc.tmp
 mv /run/shm/bashrc.tmp "$HOME/.bashrc"

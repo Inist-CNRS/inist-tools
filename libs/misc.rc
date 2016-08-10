@@ -179,11 +179,12 @@ function _it_misc_bower_proxy {
         
         # modifier le .bowerrc
         #
+        sleep 1
       else # .bowerrc n'existe pas
         # créer le .bowerrc dans le home de l'utilisateur et y positionner les
         # variables de proxy
         #
-        
+        sleep 1
       fi
     ;;
     
@@ -194,7 +195,8 @@ function _it_misc_bower_proxy {
         _it_std_consoleMessage "ERROR" "Il semblerait qu'il n'existe pas de fichier .bowerrc"
         return $FALSE
       else
-        
+        #
+        sleep 1
       fi
     ;;
     

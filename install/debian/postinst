@@ -23,4 +23,6 @@ su "$USER"
 # ------------------------------------------------------------------------------
 # Installation dans le .bashrc de l'utilisateur
 # ------------------------------------------------------------------------------
-echo ". /opt/inist-tools/inistrc # INIST-TOOLS" >> "$HOME/.bashrc"
+echo -e "\n" >> "$HOME/.bashrc"
+echo "# inist-tools" >> "$HOME/.bashrc"
+echo ". /opt/inist-tools/inistrc # inist-tools" >> "$HOME/.bashrc"

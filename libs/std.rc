@@ -180,8 +180,10 @@ function _it_std_show_help {
 function _it_std_check_command {
   # Argument $1 vide => ERREUR
   if [ ! -z "$1" ]; then
-    CHECK=$(which "$1")
-    return "$CHECK"
+    if [ ! -z $(which "$1") ]; then
+      return $TRUE
+    fi
+    return $FALSE
   fi
   _it_std_consoleMessage "ERREUR" "$1 est introuvable (ou pas installé)"
   return $FALSE
