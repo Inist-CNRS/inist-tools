@@ -178,12 +178,13 @@ function _it_std_show_help {
 # (retourne 0 si trouvé, 1 si non trouvé)
 #-------------------------------------------------------------------------------
 function _it_std_check_command {
+  # Argument $1 vide => ERREUR
   if [ ! -z "$1" ]; then
     CHECK=$(which "$1")
-    return $?
+    return "$CHECK"
   fi
-  # Argument $1 vide => ERREUR
-  return 1
+  _it_std_consoleMessage "ERREUR" "$1 est introuvable (ou pas installé)"
+  return $FALSE
 }
 
 #-------------------------------------------------------------------------------
@@ -257,6 +258,22 @@ function _it_std_restore {
     return $FALSE
   fi
   
+}
+
+
+function _it_std_removeConf {
+  FILE="$1"
+  if [ ! -f "$FILE" ]; then
+    _it_std_consoleMessage "ERROR" "« $FILE » n'existe pas ou n'est pas un fichier"
+    return $FALSE
+  fi
+  
+  # Suppression des éléments de configuration propre à "inist-tools" du fichier
+  if [ grep -v "# inist-tools" "$FILE" > "/run/shm/$$" ] && [ mv "/run/shm/$$" > "$FILE" ]; then
+    return $TRUE
+  else
+    return $FALSE
+  fi
 }
 
 #-------------------------------------------------------------------------------

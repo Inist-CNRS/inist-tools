@@ -1,5 +1,5 @@
 # inist-tools #
-[![Build Status](https://travis-ci.org/Inist-CNRS/ezmaster.svg?branch=master)](https://travis-ci.org/Inist-CNRS/ezmaster)
+[![Build Status](https://travis-ci.org/Inist-CNRS/inist-tools.svg?branch=master)](https://travis-ci.org/Inist-CNRS/inist-tools)
 Ensemble d'outils permettant de faire fonctionner un poste GNU/Linux (Debian,
 Ubuntu) dans l'environnement INIST.
 
@@ -50,6 +50,17 @@ En tant que root, créer un fichier executable dans /etc/profile.d/, nommé
 # INIST-TOOLS
 . /opt/inist-tools/inistrc
 ```
+
+<div class="alert alert-success">
+<strong>Configuration propres à inist-tools</strong><br />
+Dans les fichiers de configuration modifiés au moment de l'installation de
+inist-tools, toutles les lignes modifiées sont marquées avec
+<pre># inist-tools</pre>
+permettant ainsi de les retrouver et les supprimer correctement au moment de la
+désinstallation du paquet.<br />
+Si vous modifiez ces marquage, la désinstallation échouera et cassera le paquet
+sur votre système.
+</div>
 
 ### Tester les commande en cours de développement ###
 Du fait qu'inist-tools soit chargé au lancement, les modification faites sur le

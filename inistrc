@@ -86,9 +86,10 @@ function inist {
   #-----------------------------------------------------------------------------
   # Vérification des dépendances
   #-----------------------------------------------------------------------------
-  if ! _it_std_check_command "find" ; then
+  checkFind=$(_it_std_check_command "find")
+  if [ "$checkFind" == "$FALSE" ]; then
     _it_std_message "ERROR" "« find » non trouvé, veuillez l'installer avant de continuer."
-    exit 1
+    exit $FALSE
   fi
 
   #-----------------------------------------------------------------------------
@@ -177,6 +178,16 @@ function inist {
         --npm )
           source "$DIR_LIBS/misc.rc"
           _it_misc_npm_proxy "$2"
+        ;;
+
+        --bower )
+          source "$DIR_LIBS/misc.rc"
+          _it_misc_bower_proxy "$2"
+        ;;
+
+        --docker )
+          source "$DIR_LIBS/misc.rc"
+          _it_misc_docker_proxy "$2"
         ;;
 
         # Cas par défaut (application à tout le système)
