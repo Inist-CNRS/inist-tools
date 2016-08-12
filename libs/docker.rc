@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+################################################################################
+#
+# inist-tools / libs / docker.rc
+# 
+# Bibliothèque de fonctions de configuration de docker pour le proxy INIST
+#
+# @author : INIST-CNRS/DPI
+#
+################################################################################
+
+# ------------------------------------------------------------------------------
+# DOCKER
+# ------------------------------------------------------------------------------
+function _it_misc_docker_proxy {
+  # Check si bower est installé
+  if ! _it_std_check_command "docker" ; then
+    return $FALSE
+  fi
+
+  case "$1" in
+  
+    on)
+    ;;
+    
+    off)
+    ;;
+    
+    help)
+      return $TRUE
+    ;;
+    
+    *)
+      return $FALSE
+    ;;
+  
+  esac
+}

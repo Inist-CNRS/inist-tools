@@ -182,10 +182,11 @@ function _it_std_check_command {
   if [ ! -z "$1" ]; then
     if [ ! -z $(which "$1") ]; then
       return $TRUE
+    else
+      _it_std_consoleMessage "ERROR" "$1 est introuvable (ou pas installé)"
+      return $FALSE
     fi
-    return $FALSE
   fi
-  _it_std_consoleMessage "ERREUR" "$1 est introuvable (ou pas installé)"
   return $FALSE
 }
 
@@ -218,7 +219,7 @@ function _it_std_backup {
   # Création du nom de backup en fonction de la date du jour
   # local TIMESTAMP=$(date +%Y-%m-%d@%H-%M-%S)
   # local NEW_FILE_NAME="$FILE_DIR/$FILE_NAME_WITHOUT_EXTENSION.inist.$TIMESTAMP"
-  local NEW_FILE_NAME="${ABS_FILE}_itb" # itb = Inist Tools Backup
+  local NEW_FILE_NAME="${ABS_FILE}_inist-tools-backup"
   
   # Copie + vérification
   if cp "$FILE" "$NEW_FILE_NAME" ; then
@@ -269,7 +270,6 @@ function _it_std_removeConf {
     _it_std_consoleMessage "ERROR" "« $FILE » n'existe pas ou n'est pas un fichier"
     return $FALSE
   fi
-  
   # Suppression des éléments de configuration propre à "inist-tools" du fichier
   if [ grep -v "# inist-tools" "$FILE" > "/run/shm/$$" ] && [ mv "/run/shm/$$" > "$FILE" ]; then
     return $TRUE

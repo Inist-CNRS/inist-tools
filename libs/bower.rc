@@ -1,0 +1,71 @@
+#!/usr/bin/env bash
+################################################################################
+#
+# inist-tools / libs / bower.rc
+# 
+# Bibliothèque de fonctions de configuration de bower pour le proxy INIST
+#
+# @author : INIST-CNRS/DPI
+#
+################################################################################
+
+function _it_misc_bower_proxy {
+  # Check si bower est installé
+  if ! _it_std_check_command "bower" ; then
+    return $FALSE
+  fi
+
+
+  case "$1" in
+  
+    on)
+      # Cherche le .bowerrc
+      local BOWERRC=$(_it_misc_bower_getBowerRC)
+      if [ ! -z "$BOWERRC" ]; then # .bowerrc existe
+        # On vérifie qu'il n'est pas déjà "on"
+        dejaOn=$(jq .proxy "$BOWERRC" | grep "proxyout")
+        if [ ! -z "$dejaOn" ]; then
+          _it_std_consoleMessage "WARNIN" "Bower est déjà configuré pour utiliser le proxy INIST"
+          exit $TRUE
+        fi
+        # faire un backup de l'existant avant de le modifier
+        _it_std_backup "$BOWERRC"
+      else # .bowerrc n'existe pas
+        # créer le .bowerrc dans le home de l'utilisateur et y positionner les
+        # variables de proxy
+        BOWERRC="$HOME/.bowerrc"
+        touch "$BOWERRC"
+      fi
+      # modifier le .bowerrc
+      jq -n '{proxy: "$INIST_HTTP_PROXY" , "https-proxy": "$INIST_HTTPS_PROXY"}' > "$BOWERRC"
+      _it_std_consoleMessage "INFO" "Bower configuré pour utiliser le proxy INIST"
+    ;;
+    
+    off)
+      # Cherche le .bowerrc
+      BOWERRC=$(ls -a "$HOME/.bowerrc")
+      if [ ! -z "$BOWERRC" ] ; then # .bowerrc existe
+        sed -i "s/{\"proxy\":\"$INIST_HTTP_PROXY\",\"https-proxy\":\"$INIST_HTTPS_PROXY\"}//g" "$BOWERRC"
+        testBowerProxy=$(cat "$BOWERRC" | grep -i "proxyout")
+        if [ ! -z $testBowerProxy ] ; then
+          _it_std_consoleMessage "ERROR" "Impossible de supprimer la configuration proxy INIST de « $BOWERRC »"
+          return $FALSE
+        else
+          _it_std_consoleMessage "INFO" "Configuration proxy INIST supprimée de « $BOWERRC »"
+        fi
+      else
+        _it_std_consoleMessage "ERROR" "Il semblerait qu'il n'existe pas de fichier .bowerrc"
+        return $FALSE
+      fi
+    ;;
+    
+    help)
+      return $TRUE
+    ;;
+    
+    *)
+      return $FALSE
+    ;;
+  
+  esac
+}
