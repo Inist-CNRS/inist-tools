@@ -181,13 +181,13 @@ function inist {
         ;;
 
         --bower )
-          source "$DIR_LIBS/misc.rc"
-          _it_misc_bower_proxy "$2"
+          source "$DIR_LIBS/bower.rc"
+          _it_bower_proxy "$2"
         ;;
 
         --docker )
-          source "$DIR_LIBS/misc.rc"
-          _it_misc_docker_proxy "$2"
+          source "$DIR_LIBS/docker.rc"
+          _it_docker_proxy "$2"
         ;;
 
         # Cas par défaut (application à tout le système)

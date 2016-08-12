@@ -9,25 +9,20 @@
 #
 ################################################################################
 
-function _it_misc_bower_proxy {
+BOWERRC="$HOME/.bowerrc"
+TMPJSON="/tmp/tmpjson"
+
+function _it_bower_proxy {
   # Check si bower est installé
   if ! _it_std_check_command "bower" ; then
     return $FALSE
   fi
 
-
   case "$1" in
   
     on)
       # Cherche le .bowerrc
-      local BOWERRC=$(_it_misc_bower_getBowerRC)
-      if [ ! -z "$BOWERRC" ]; then # .bowerrc existe
-        # On vérifie qu'il n'est pas déjà "on"
-        dejaOn=$(jq .proxy "$BOWERRC" | grep "proxyout")
-        if [ ! -z "$dejaOn" ]; then
-          _it_std_consoleMessage "WARNIN" "Bower est déjà configuré pour utiliser le proxy INIST"
-          exit $TRUE
-        fi
+      if [ -f "$BOWERRC" ]; then # .bowerrc existe
         # faire un backup de l'existant avant de le modifier
         _it_std_backup "$BOWERRC"
       else # .bowerrc n'existe pas
@@ -35,19 +30,24 @@ function _it_misc_bower_proxy {
         # variables de proxy
         BOWERRC="$HOME/.bowerrc"
         touch "$BOWERRC"
+        jq -n '{comment: "Fichier créé par inist-tools. Ne pas supprimer."}' > "$BOWERRC"
       fi
       # modifier le .bowerrc
-      jq -n '{proxy: "$INIST_HTTP_PROXY" , "https-proxy": "$INIST_HTTPS_PROXY"}' > "$BOWERRC"
+      jq --arg inist_http_proxy "$INIST_HTTP_PROXY" '.proxy = $inist_http_proxy' "$BOWERRC" > "$TMPJSON" && cp "$TMPJSON" "$BOWERRC"
+      jq --arg inist_https_proxy "$INIST_HTTPS_PROXY" '.["https-proxy"] = $inist_https_proxy' "$BOWERRC" > "$TMPJSON" && cp "$TMPJSON" "$BOWERRC"
       _it_std_consoleMessage "INFO" "Bower configuré pour utiliser le proxy INIST"
     ;;
     
     off)
-      # Cherche le .bowerrc
-      BOWERRC=$(ls -a "$HOME/.bowerrc")
-      if [ ! -z "$BOWERRC" ] ; then # .bowerrc existe
-        sed -i "s/{\"proxy\":\"$INIST_HTTP_PROXY\",\"https-proxy\":\"$INIST_HTTPS_PROXY\"}//g" "$BOWERRC"
+      # Cherche le .bowerrc et n'agit que si .bowerrc existe
+      if [ -f "$BOWERRC" ]; then # .bowerrc existe
+        jq 'del(.proxy)' "$BOWERRC" > "$TMPJSON" && cp "$TMPJSON" "$BOWERRC"
+        jq 'del(.["https-proxy"])' "$BOWERRC" > "$TMPJSON" && cp "$TMPJSON" "$BOWERRC"
+
+        # On vérifie qu'on a effectivement bien modifié la conf...
         testBowerProxy=$(cat "$BOWERRC" | grep -i "proxyout")
-        if [ ! -z $testBowerProxy ] ; then
+        
+        if [ ! -z "$testBowerProxy" ]; then
           _it_std_consoleMessage "ERROR" "Impossible de supprimer la configuration proxy INIST de « $BOWERRC »"
           return $FALSE
         else

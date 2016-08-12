@@ -28,5 +28,7 @@ inist-tools (0.9.11RC) RC; urgency=medium
   * [DEV] Diverses corrections mineures
   * [DEV] Correction du bug bloquant d'installation sur les
     configuration qui n'utilisent pas /home/perrin
+  * [DEV] Première version des commandes proxy on|off pour bower et
+    docker
 
  -- Stanislas PERRIN <stanislas.perrin@inist.fr>  Tue, 21 Jun 2016 08:28:37 +0200
