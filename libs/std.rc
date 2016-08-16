@@ -20,7 +20,7 @@ FALSE=1
 
 # PROXY
 INIST_HTTP_PROXY="http://proxyout.inist.fr:8080"
-INIST_HTTPS_PROXY="https://proxyout.inist.fr:8080"
+INIST_HTTPS_PROXY="http://proxyout.inist.fr:8080"
 INIST_FTP_PROXY="http://proxyout.inist.fr:8080"
 INIST_PROXYPAC="http://proxypac.intra.inist.fr/proxy.pac"
 INIST_NO_PROXY="localhost,127.0.0.0/8,*.local,172.16.0.0/16"
@@ -126,9 +126,9 @@ function  _it_std_consoleMessage {
       printf "${FG_BR_GREEN}[INFO]\t\t${FG_WHITE}$2${RESET_ALL}\n"
     ;;
 
-    # Erreur
+    # Warning
     attention|ATTENTION|warning|WARNING)
-      printf "${FG_BR_YELLOW}[WARNING]\t${FG_YELLOW}$2${RESET_ALL}\n"
+      printf "${FG_BR_YELLOW}[WARNING]\t${FG_WHITE}$2${RESET_ALL}\n"
     ;;
 
     # Erreur

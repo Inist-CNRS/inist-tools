@@ -21,7 +21,7 @@ function _it_docker_proxy {
   case "$1" in
   
     on)
-      sudo /opt/inis-tools/tools/docker-proxy-on.sh
+      sudo /opt/inist-tools/tools/docker-proxy-on.sh
       if [ $? -eq 0 ]; then
         _it_std_consoleMessage "INFO" "Docker est configuré pour utiliser le proxy INIST"
       else
@@ -30,7 +30,7 @@ function _it_docker_proxy {
     ;;
     
     off)
-      sudo /opt/inis-tools/tools/docker-proxy-off.sh
+      sudo /opt/inist-tools/tools/docker-proxy-off.sh
       if [ $? -eq 0 ]; then
         _it_std_consoleMessage "INFO" "Docker n'est plus configuré pour utiliser le proxy INIST"
       else
