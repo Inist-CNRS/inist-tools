@@ -13,7 +13,7 @@
 # DOCKER
 # ------------------------------------------------------------------------------
 function _it_docker_proxy {
-  # Check si bower est installé
+  # Check si docker est installé
   if ! _it_std_check_command "docker" ; then
     return $FALSE
   fi
@@ -22,7 +22,7 @@ function _it_docker_proxy {
   
     on)
       sudo /opt/inis-tools/tools/docker-proxy-on.sh
-      if [ $? -eq 0]; then
+      if [ $? -eq 0 ]; then
         _it_std_consoleMessage "INFO" "Docker est configuré pour utiliser le proxy INIST"
       else
         _it_std_consoleMessage "ERROR" "La configuration de Docker pour le proxy INIST a échoué"
@@ -31,7 +31,7 @@ function _it_docker_proxy {
     
     off)
       sudo /opt/inis-tools/tools/docker-proxy-off.sh
-      if [ $? -eq 0]; then
+      if [ $? -eq 0 ]; then
         _it_std_consoleMessage "INFO" "Docker n'est plus configuré pour utiliser le proxy INIST"
       else
         _it_std_consoleMessage "ERROR" "La déconfiguration de Docker pour le proxy INIST a échoué"

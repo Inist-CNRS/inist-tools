@@ -55,6 +55,7 @@ printf "export https_proxy=\"$INIST_HTTPS_PROXY\" # inist-tools\n" >> "$DOCKER_D
 # ------------------------------------------------------------------------------
 is_debian=$(cat /etc/issue | grep -i "debian")
 is_ubuntu=$(cat /etc/issue | grep -i "ubuntu")
+
 if [ ! -z "$is_debian" ]; then
   platform="debian"
 elif [ ! -z "$is_ubuntu" ]; then
@@ -62,8 +63,6 @@ elif [ ! -z "$is_ubuntu" ]; then
 else
   platform="unknown"
 fi
-
-echo "[docker-proxy-on] plateforme détectée : $platform"
 
 if [ "$platform" == "debian" ]; then
   # Backup

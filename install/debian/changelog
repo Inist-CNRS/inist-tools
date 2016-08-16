@@ -30,5 +30,7 @@ inist-tools (0.9.11RC) RC; urgency=medium
     configuration qui n'utilisent pas /home/perrin
   * [DEV] Première version des commandes proxy on|off pour bower et
     docker
+  * [DEV] Correction doc + correction proxy on pour APT + ajout messahe
+    d'erreur sur commande incorrecte
 
  -- Stanislas PERRIN <stanislas.perrin@inist.fr>  Tue, 21 Jun 2016 08:28:37 +0200

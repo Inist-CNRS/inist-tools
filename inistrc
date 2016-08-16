@@ -194,6 +194,7 @@ function inist {
         # On gère la commande sous forme « inist proxy [on|off] »
         # et par défaut (inist proxy) -> "on"
         *)
+       
           case "$2" in
           
             on)
@@ -214,6 +215,8 @@ function inist {
             ;;
             
             *)
+              _it_std_consoleMessage "WARNING" "Commande ou option « $2 » inconnue dans ce contexte"
+              return $FALSE
               _it_std_consoleMessage "INFO" "Positionnement des variables d'environnement pour le proxy INIST"
               source "$DIR_LIBS/inist-proxy.rc"
               _it_inistProxy "on"
@@ -336,6 +339,7 @@ function inist {
     #---------------------------------------------------------------------------
 
     * )
+      _it_std_consoleMessage "WARNING" "Commande ou option « $1 » inconnue (ou peut-être mal saisie)."
       _it_std_show_help
     ;;
     

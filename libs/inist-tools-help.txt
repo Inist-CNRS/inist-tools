@@ -3,8 +3,8 @@ Commandes :
   info      Donne des informations sur votre configuration
 
   proxy     [on|off] [--chrome|--chromium|--firefox|--iceweasel|
-                      --kde|--unity|--gnome|--xfce|
-                      --apt|--npm]
+                      --kde|--unity|--gnome|--xfce| --apt|--npm|--bower|
+                      --docker]
             Positionne ou supprime le proxy INIST pour la session en cours ou
             pour le navigateur
             Utilisée seule, cette commande positionne les variables
