@@ -114,9 +114,7 @@ if [ "$platform" == "debian" ]; then
   confSystemd
   
 elif [ "$platform" == "ubuntu" ]; then
-  #
-  echo "ExecStart=/usr/bin/docker daemon \$DOCKER_OPTS -H fd://" >> /etc/systemd/system/docker.service.d/http-proxy.conf
-  #
+
   ubuntuVersion=$(cat /etc/lsb-release | grep -i "DISTRIB_RELEASE" | cut -d"=" -f 2)
   ubuntuMajor=$(echo "$ubuntuVersion" | cut -d"." -f 1)
   ubuntuMinor=$(echo "$ubuntuVersion" | cut -d"." -f 2)

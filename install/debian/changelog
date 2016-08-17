@@ -36,5 +36,6 @@ inist-tools (0.9.11RC) RC; urgency=medium
   * [DEV] Màj des scripts on et off pour docker
   * [DEV] Ajout des fichiers pour proxypac
   * [DEV] Ajout des fichiers pour proxypac
+  * [DEV] Commit -- 17/08/2016 @ 13:18:23
 
  -- Stanislas PERRIN <stanislas.perrin@inist.fr>  Tue, 21 Jun 2016 08:28:37 +0200
