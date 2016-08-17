@@ -20,28 +20,30 @@ DIR_LIBS=$(readlink -f "$DIR_MODULE/../libs/")
 
 source "$DIR_LIBS/std.rc"
 
-#-----------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 # Greeting !
-#-----------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 printf "################################################################################\n"
 printf "$MODULE_NAME\n"
 printf "$MODULE_DESC\n"
 printf "################################################################################\n"
 
-#-----------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 # Chargement de la lib à tester
-#-----------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 oneTimeSetUp()
 {
   source "$DIR_LIBS/std.rc" >> /dev/null
   source "$DIR_LIBS/ansicolors.rc" >> /dev/null
   source "$DIR_LIBS/misc.rc" >> /dev/null
+  source "$DIR_LIBS/bower.rc" >> /dev/null
+  source "$DIR_LIBS/docker.rc" >> /dev/null
   echo "Contenu du fichier à backuper puis restaurer" > "/run/shm/inist-tools-backup-test"
 }
 
-#-----------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 # TESTS NPM
-#-----------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 test_npm_proxyOff () {
   _it_misc_npm_proxy "off" >> /dev/null
   out=$(npm config ls -l | grep -i "proxy" | grep -i "null" | wc -l)
@@ -54,9 +56,22 @@ test_npm_proxyOn () {
   assertEquals "Les variables d'environnement proxy pour npm doivent être positionnées (on doit trouver 2 x '8080' dedans)." 2 "$out"
 }
 
-#-----------------------------------------------------------------------
+#-------------------------------------------------------------------------------
+# TESTS DOCKER
+#-------------------------------------------------------------------------------
+test_docker_proxyOff () {
+  # _it_docker_proxy "off" >> /dev/null
+}
+
+test_docker_proxyOn () {
+  _it_docker_proxy "on" >> /dev/null
+  out=$(docker pull hello-world | grep "Status: Image is up to date for hello-world:latest" | wc -l)
+  assertEquals "Le conteneur « hello-word » devrait être installé dans sa dernière version disponible" 1 "$out"
+}
+
+#-------------------------------------------------------------------------------
 # TESTS BACKUP / RESTORE
-#-----------------------------------------------------------------------
+#-------------------------------------------------------------------------------
 test_file_backup () {
   _it_std_backup "/run/shm/inist-tools-backup-test"
   out=$(ls -l "/run/shm/inist-tools-backup-test_itb" | wc -l)

@@ -11,6 +11,8 @@
 #
 ################################################################################
 
+source "/opt/inist-tools/libs/std.rc"
+
 # ------------------------------------------------------------------------------
 # Variables globales
 # ------------------------------------------------------------------------------
@@ -42,36 +44,47 @@ else
   platform="unknown"
 fi
 
-# Suppression de la conf spécifique au proxy INIST
-rm /etc/systemd/system/docker.service.d/http-proxy.conf
 
-if [ $platform == "debian" ]; then
-  cp /etc/systemd/system/docker.service.d/http-proxy.conf /etc/systemd/system/docker.service.d/http-proxy.conf_inis-tools-backup
-  # cp "$TMPFILE" /etc/systemd/system/docker.service.d/http-proxy.conf
+if [ "$platform" == "debian" ]; then
+
+  _it_std_consoleMessage "INFO" "Debian → systemd"
+  # Suppression de la conf spécifique au proxy INIST
+  rm /etc/systemd/system/docker.service.d/http-proxy.conf
+  # Prise en charge du changement de la conf et redémarrage du service
   systemctl daemon-reload
   sleep 1
   systemctl restart docker
-  sleep 1
-  /etc/init.d/docker restart
-elif [ $platform == "ubuntu" ]; then
+  
+elif [ "$platform" == "ubuntu" ]; then
+  #
+  echo "ExecStart=/usr/bin/docker daemon \$DOCKER_OPTS -H fd://" >> /etc/systemd/system/docker.service.d/http-proxy.conf
+  #
   ubuntuVersion=$(cat /etc/lsb-release | grep -i "DISTRIB_RELEASE" | cut -d"=" -f 2)
-  _it_std_consoleMessage "CHECK" "Ubuntu « $ubuntuVersion » détecté"
+  ubuntuMajor=$(echo "$ubuntuVersion" | cut -d"." -f 1)
+  ubuntuMinor=$(echo "$ubuntuVersion" | cut -d"." -f 2)
+  
   case $ubuntuVersion in
+  
+    # UPSTART (on considère qu'on utilise pas de version < 12.04)
     "12.04" | "12.10" | "13.04" | "13.10" | "14.04" | "14.10" )
-      _it_std_consoleMessage "CHECK" "Utilisation de « update-rc.d »"
-      sudo update-rc.d docker defaults
-      sleep 1
+      _it_std_consoleMessage "INFO" "Ubuntu $ubuntuVersion → utilisation de upstart"
+      # confUpstart <--- INUTILE !
       service docker restart
     ;;
+    
+    # SYSTEMD (toutes les autres version d'Ubuntu >= 15.04)
     * )
-      _it_std_consoleMessage "CHECK" "Utilisation de « systemctl »"
+      _it_std_consoleMessage "INFO" "Ubuntu $ubuntuVersion → utilisation de systemd"
+      # Suppression de la conf spécifique au proxy INIST
+      rm /etc/systemd/system/docker.service.d/http-proxy.conf
+      # Prise en charge du changement de la conf et redémarrage du service
       systemctl daemon-reload
       sleep 1
       systemctl restart docker
-      sleep 1
-      /etc/init.d/docker restart
     ;;
+    
   esac
+
 fi
 
 # ------------------------------------------------------------------------------

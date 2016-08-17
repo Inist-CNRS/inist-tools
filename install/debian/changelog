@@ -33,5 +33,6 @@ inist-tools (0.9.11RC) RC; urgency=medium
   * [DEV] Correction doc + correction proxy on pour APT + ajout messahe
     d'erreur sur commande incorrecte
   * [DEV] Màj des procédures docker-proxy-on et docker-proxy-off
+  * [DEV] Màj des scripts on et off pour docker
 
  -- Stanislas PERRIN <stanislas.perrin@inist.fr>  Tue, 21 Jun 2016 08:28:37 +0200

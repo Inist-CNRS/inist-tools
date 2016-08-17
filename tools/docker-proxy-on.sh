@@ -11,6 +11,8 @@
 #
 ################################################################################
 
+source "/opt/inist-tools/libs/std.rc"
+
 # ------------------------------------------------------------------------------
 # Variables globales
 # ------------------------------------------------------------------------------
@@ -50,6 +52,47 @@ printf "export http_proxy=\"$INIST_HTTP_PROXY\" # inist-tools\n" >> "$DOCKER_DEF
 printf "export https_proxy=\"$INIST_HTTPS_PROXY\" # inist-tools\n" >> "$DOCKER_DEFAULT_FILE" 2>&1
 
 
+function confSystemd {
+  # Modification de la conf
+  mkdir -p /etc/systemd/system/docker.service.d/
+  
+  if [ -f /etc/systemd/system/docker.service.d/http-proxy.conf ]; then
+    rm /etc/systemd/system/docker.service.d/http-proxy.conf
+  fi
+  
+  touch /etc/systemd/system/docker.service.d/http-proxy.conf
+  
+  echo "# inist-tools" >> /etc/systemd/system/docker.service.d/http-proxy.conf
+  echo "[Service]" >> /etc/systemd/system/docker.service.d/http-proxy.conf
+  echo "ExecStart=" >> /etc/systemd/system/docker.service.d/http-proxy.conf
+  echo "ExecStart=/usr/bin/docker daemon \$DOCKER_OPTS -H fd://" >> /etc/systemd/system/docker.service.d/http-proxy.conf
+  echo "EnvironmentFile=/etc/default/docker" >> /etc/systemd/system/docker.service.d/http-proxy.conf
+
+  # Prise en charge de la conf et redémarrage du service
+  systemctl daemon-reload
+  sleep 1
+  systemctl restart docker
+}
+
+function confUpstart {
+  # Modification de la conf
+  if [ -f /etc/init/docker.override ]; then
+    rm /etc/init/docker.override
+  fi
+  
+  touch /etc/init/docker.override
+  
+  echo "# inist-tools" >> /etc/init/docker.override
+  echo "[Service]" >> /etc/init/docker.override
+  echo "ExecStart=" >> /etc/init/docker.override
+  echo "ExecStart=/usr/bin/docker daemon \$DOCKER_OPTS -H fd://" >> /etc/init/docker.override
+  echo "EnvironmentFile=/etc/default/docker" >> /etc/init/docker.override
+
+  # Prise en charge de la conf et redémarrage du service
+  service docker restart
+}
+
+
 # ------------------------------------------------------------------------------
 # Service
 # ------------------------------------------------------------------------------
@@ -64,52 +107,38 @@ else
   platform="unknown"
 fi
 
-mkdir /etc/systemd/system/docker.service.d/
-touch /etc/systemd/system/docker.service.d/http-proxy.conf
-echo "# inist-tools" >> /etc/systemd/system/docker.service.d/http-proxy.conf
-echo "[Service]" >> /etc/systemd/system/docker.service.d/http-proxy.conf
-echo "EnvironmentFile=/etc/default/docker" >> /etc/systemd/system/docker.service.d/http-proxy.conf
 
 if [ "$platform" == "debian" ]; then
-  systemctl daemon-reload
-  sleep 1
-  systemctl restart docker
-  sleep 1
-  /etc/init.d/docker restart
+
+  _it_std_consoleMessage "INFO" "Debian → systemd"
+  confSystemd
+  
 elif [ "$platform" == "ubuntu" ]; then
   #
-  echo "ExecStart=/usr/bin/docker daemon \$DOCKER_OPTS -H fd:// # inist-tools" >> /etc/systemd/system/docker.service.d/http-proxy.conf
+  echo "ExecStart=/usr/bin/docker daemon \$DOCKER_OPTS -H fd://" >> /etc/systemd/system/docker.service.d/http-proxy.conf
   #
   ubuntuVersion=$(cat /etc/lsb-release | grep -i "DISTRIB_RELEASE" | cut -d"=" -f 2)
-  _it_std_consoleMessage "CHECK" "Ubuntu « $ubuntuVersion » détecté"
+  ubuntuMajor=$(echo "$ubuntuVersion" | cut -d"." -f 1)
+  ubuntuMinor=$(echo "$ubuntuVersion" | cut -d"." -f 2)
+  
   case $ubuntuVersion in
+  
+    # UPSTART (on considère qu'on utilise pas de version < 12.04)
     "12.04" | "12.10" | "13.04" | "13.10" | "14.04" | "14.10" )
-      _it_std_consoleMessage "CHECK" "Utilisation de « update-rc.d »"
-      sudo update-rc.d docker defaults
-      sleep 1
+      _it_std_consoleMessage "INFO" "Ubuntu $ubuntuVersion → utilisation de upstart"
+      # confUpstart <--- INUTILE !
       service docker restart
     ;;
+    
+    # SYSTEMD (toutes les autres version d'Ubuntu >= 15.04)
     * )
-      _it_std_consoleMessage "CHECK" "Utilisation de « systemctl »"
-      systemctl daemon-reload
-      sleep 1
-      systemctl restart docker
-      sleep 1
-      /etc/init.d/docker restart
+      _it_std_consoleMessage "INFO" "Ubuntu $ubuntuVersion → utilisation de systemd"
+      confSystemd
     ;;
+    
   esac
-#  touch /lib/systemd/system/docker.service
-#  echo "# inist-tools" >> /lib/systemd/system/docker.service
-#  echo "[Service] # inist-tools" >> /lib/systemd/system/docker.service
-#  echo "EnvironmentFile=/etc/default/docker # inist-tools" >> /lib/systemd/system/docker.service
-#  echo "ExecStart=/usr/bin/docker daemon \$DOCKER_OPTS -H fd:// # inist-tools" >> /lib/systemd/system/docker.service
-  
-fi
 
-# Temporisation
-sleep 3
-# Redémarrage du service
-service docker restart
+fi
 
 # ------------------------------------------------------------------------------
 # Sortie propre
