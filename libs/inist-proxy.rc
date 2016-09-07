@@ -39,7 +39,7 @@ function _it_inistProxy {
       export FTP_PROXY="http://proxyout.inist.fr:8080"
       
       # Positionnement de la variable d'environnement globale
-      echo "1" > "$IT_ENV_ISPROXY"
+      setEnv "systemProxy" "1"
       
       # Message en console
       _it_std_consoleMessage "INFO" "Proxy INIST activé"
@@ -58,7 +58,7 @@ function _it_inistProxy {
       unset "FTP_PROXY"
       
       # Positionnement de la variable d'environnement globale
-      echo "0" > "$IT_ENV_ISPROXY"
+      setEnv "systemProxy" "0"
       
       # Message en console
       _it_std_consoleMessage "INFO" "Proxy INIST désactivé"

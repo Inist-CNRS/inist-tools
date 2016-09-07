@@ -44,10 +44,43 @@ ICON_FIREFOX="$DIR_LIBS/gfx/firefox_64px.png"
 ICON_ICEWEASEL="$DIR_LIBS/gfx/iceweasel_64px.png"
 
 #-------------------------------------------------------------------------------
-# Variables d'« environnement » utilisant /run/shm (RAMdisk)
+# Variables d'« environnement » utilisant /opt/inist-tools/conf
 #-------------------------------------------------------------------------------
+#
+ENV_DIR="/opt/inist-tools/conf"
 # Stockage de l'état de la dernier commande 'inist proxy' (1 = on / 0 = off)
-IT_ENV_ISPROXY="/run/shm/it_env_isProxy"
+IT_ENV_ISPROXY="$ENV_DIR/.it_env_isProxy"
+# Stockage de l'état des différentes commandes proxy on/off
+IT_ENV_PROXY_APT="$ENV_DIR/.it_env_proxy_apt"
+IT_ENV_PROXY_BOWER="$ENV_DIR/.it_env_proxy_bower"
+IT_ENV_PROXY_DOCKER="$ENV_DIR/.it_env_proxy_docker"
+IT_ENV_PROXY_NPM="$ENV_DIR/.it_env_proxy_npm"
+IT_ENV_PROXY_KDE="$ENV_DIR/.it_env_proxy_kde"
+IT_ENV_PROXY_UNITY="$ENV_DIR/.it_env_proxy_unity"
+IT_ENV_PROXY_GNOME="$ENV_DIR/.it_env_proxy_gnome"
+
+function setEnv {
+  envName="$1"
+  envVal="$2"
+  if [ ! -z "$envName" ] && [ ! -z "$envVal" ]; then
+    return $FALSE
+  fi
+  (echo "$envVal" > "$ENV_DIR/.it_env_${envName}")
+}
+
+function getEnv {
+  envName="$1"
+  if [ ! -z "$envName" ]; then
+    return $FALSE
+  else
+    envFile="$ENV_DIR/.it_env_${envName}"
+  fi
+  if [ -f "$envFile" ]; then 
+    cat "$envFile"
+  else
+    echo "-1"
+  fi
+}
 
 #-------------------------------------------------------------------------------
 # Logging

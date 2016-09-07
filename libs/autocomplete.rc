@@ -16,6 +16,10 @@ _inist () {
 
   case "$cur" in
 
+    d*)
+      COMPREPLY=( $( compgen -W 'date' -- $cur ) )
+    ;;
+
     i*)
       COMPREPLY=( $( compgen -W 'info' -- $cur ) )
     ;;
@@ -33,7 +37,7 @@ _inist () {
     ;;
 
     s*)
-      COMPREPLY=( $( compgen -W 'sync' -- $cur ) )
+      COMPREPLY=( $( compgen -W 'status sync' -- $cur ) )
     ;;
     
     t*)
@@ -43,7 +47,7 @@ _inist () {
     proxy*)
       COMPREPLY=( $( compgen -W 'on off' -- $cur ) )
     ;;
-      
+  
     -*)
       COMPREPLY=( $( compgen -W '-h --help -v --version' -- $cur ) )
     ;;

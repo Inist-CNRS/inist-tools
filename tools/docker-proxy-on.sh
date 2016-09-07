@@ -17,6 +17,8 @@ source "/opt/inist-tools/libs/std.rc"
 # Variables globales
 # ------------------------------------------------------------------------------
 DOCKER_DEFAULT_FILE="/etc/default/docker"
+INIST_TOOLS_CONF_DIR="/etc/systemd/system/docker.service.d"
+INIST_TOOLS_CONF_FILE="$INIST_TOOLS_CONF_DIR/inist-tools.conf"
 
 # PROXY
 INIST_HTTP_PROXY="http://proxyout.inist.fr:8080"
@@ -35,38 +37,33 @@ cp "$DOCKER_DEFAULT_FILE" /etc/default/docker_inist-tools-backup
 # ------------------------------------------------------------------------------
 # conf docker
 # ------------------------------------------------------------------------------
-printf "" >> "$DOCKER_DEFAULT_FILE"
-
+printf "\n" >> "$DOCKER_DEFAULT_FILE"
 printf "# inist-tools\n" >> "$DOCKER_DEFAULT_FILE" 2>&1
-
-printf "DOCKER_OPTS=\"--dns 172.16.100.17 --dns 172.16.100.16\" # inist-tools" >> "$DOCKER_DEFAULT_FILE"
-
-printf "HTTP_PROXY=\"$INIST_HTTP_PROXY\" # inist-tools\n" >> "$DOCKER_DEFAULT_FILE" 2>&1
-printf "HTTPS_PROXY=\"$INIST_HTTPS_PROXY\" # inist-tools\n" >> "$DOCKER_DEFAULT_FILE" 2>&1
-printf "export HTTP_PROXY=\"$INIST_HTTP_PROXY\" # inist-tools\n" >> "$DOCKER_DEFAULT_FILE" 2>&1
-printf "export HTTPS_PROXY=\"$INIST_HTTPS_PROXY\" # inist-tools\n" >> "$DOCKER_DEFAULT_FILE" 2>&1
-
-printf "http_proxy=\"$INIST_HTTP_PROXY\" # inist-tools\n" >> "$DOCKER_DEFAULT_FILE" 2>&1
-printf "https_proxy=\"$INIST_HTTPS_PROXY\" # inist-tools\n" >> "$DOCKER_DEFAULT_FILE" 2>&1
-printf "export http_proxy=\"$INIST_HTTP_PROXY\" # inist-tools\n" >> "$DOCKER_DEFAULT_FILE" 2>&1
-printf "export https_proxy=\"$INIST_HTTPS_PROXY\" # inist-tools\n" >> "$DOCKER_DEFAULT_FILE" 2>&1
-
+printf "DOCKER_OPTS=\"--dns 172.16.100.17 --dns 172.16.100.16\"\n" >> "$DOCKER_DEFAULT_FILE" 2>&1
+printf "HTTP_PROXY=\"$INIST_HTTP_PROXY\"\n" >> "$DOCKER_DEFAULT_FILE" 2>&1
+printf "HTTPS_PROXY=\"$INIST_HTTPS_PROXY\"\n" >> "$DOCKER_DEFAULT_FILE" 2>&1
+printf "export HTTP_PROXY=\"$INIST_HTTP_PROXY\"\n" >> "$DOCKER_DEFAULT_FILE" 2>&1
+printf "export HTTPS_PROXY=\"$INIST_HTTPS_PROXY\"\n" >> "$DOCKER_DEFAULT_FILE" 2>&1
+printf "http_proxy=\"$INIST_HTTP_PROXY\"\n" >> "$DOCKER_DEFAULT_FILE" 2>&1
+printf "https_proxy=\"$INIST_HTTPS_PROXY\"\n" >> "$DOCKER_DEFAULT_FILE" 2>&1
+printf "export http_proxy=\"$INIST_HTTP_PROXY\"\n" >> "$DOCKER_DEFAULT_FILE" 2>&1
+printf "export https_proxy=\"$INIST_HTTPS_PROXY\"\n" >> "$DOCKER_DEFAULT_FILE" 2>&1
 
 function confSystemd {
   # Modification de la conf
-  mkdir -p /etc/systemd/system/docker.service.d/
+  mkdir -p "$INIST_TOOLS_CONF_DIR"
   
-  if [ -f /etc/systemd/system/docker.service.d/http-proxy.conf ]; then
-    rm /etc/systemd/system/docker.service.d/http-proxy.conf
+  if [ -f "$INIST_TOOLS_CONF_FILE" ]; then
+    rm "$INIST_TOOLS_CONF_FILE"
   fi
   
-  touch /etc/systemd/system/docker.service.d/http-proxy.conf
+  touch "$INIST_TOOLS_CONF_FILE"
   
-  echo "# inist-tools" >> /etc/systemd/system/docker.service.d/http-proxy.conf
-  echo "[Service]" >> /etc/systemd/system/docker.service.d/http-proxy.conf
-  echo "ExecStart=" >> /etc/systemd/system/docker.service.d/http-proxy.conf
-  echo "ExecStart=/usr/bin/docker daemon \$DOCKER_OPTS -H fd://" >> /etc/systemd/system/docker.service.d/http-proxy.conf
-  echo "EnvironmentFile=/etc/default/docker" >> /etc/systemd/system/docker.service.d/http-proxy.conf
+  echo "# inist-tools" >> "$INIST_TOOLS_CONF_FILE"
+  echo "[Service]" >> "$INIST_TOOLS_CONF_FILE"
+  echo "ExecStart=" >> "$INIST_TOOLS_CONF_FILE"
+  echo "ExecStart=/usr/bin/docker daemon \$DOCKER_OPTS -H fd://" >> "$INIST_TOOLS_CONF_FILE"
+  echo "EnvironmentFile=/etc/default/docker" >> "$INIST_TOOLS_CONF_FILE"
 
   # Prise en charge de la conf et redémarrage du service
   systemctl daemon-reload

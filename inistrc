@@ -97,7 +97,8 @@ function inist {
   #-----------------------------------------------------------------------------
 
   # On est poli, on dit bonjour...
-  _it_std_greeting
+  # _it_std_greeting
+  # finalement non, dire bonjour à chaque fois, ça saoule...
 
   # Aucun argument : affichage de l'aide
   if [ "$#" -lt 1 ]; then
@@ -115,8 +116,8 @@ function inist {
     info )
       # On charge la lib "network"
       source "$DIR_LIBS/network.rc"
-      #
       _it_network_info
+      return $TRUE
     ;;
 
     #---------------------------------------------------------------------------
@@ -233,6 +234,7 @@ function inist {
     #---------------------------------------------------------------------------
     on )
       inist proxy on
+      return $TRUE
     ;;
 
     #---------------------------------------------------------------------------
@@ -240,6 +242,7 @@ function inist {
     #---------------------------------------------------------------------------
     off )
       inist proxy off
+      return $TRUE
     ;;
 
     #---------------------------------------------------------------------------
@@ -260,6 +263,7 @@ function inist {
       _it_std_consoleMessage "INFO" "Synchronisation de la date/heure..."
       sudo "/opt/inist-tools/tools/timesync.sh"
       _it_std_consoleMessage "OK" "Heure synchronisée"
+      return $TRUE
     ;;
 
     #---------------------------------------------------------------------------
@@ -278,10 +282,12 @@ function inist {
         
         save )
           /opt/inist-tools/tools/powersave
+          return $TRUE
         ;;
         
         max )
           /opt/inist-tools/tools/powermax
+          return $TRUE
         ;;
         
         *)
@@ -294,10 +300,12 @@ function inist {
     
     powersave )
       /opt/inist-tools/tools/powersave
+      return $TRUE
     ;;
     
     powermax )
       /opt/inist-tools/tools/powermax
+      return $TRUE
     ;;
     
     #---------------------------------------------------------------------------
@@ -307,6 +315,7 @@ function inist {
       _it_std_consoleMessage "INFO" "Rechargement de INIST-TOOLS"
       source /opt/inist-tools/inistrc
       _it_std_consoleMessage "INFO" "INIST-TOOLS [$MODULE_VERSION] rechargé"
+      return $TRUE
     ;;
     
     #---------------------------------------------------------------------------
@@ -316,14 +325,23 @@ function inist {
       _it_std_consoleMessage "INFO" "Informations sur l'environnement..."
       source /opt/inist-tools/libs/misc.rc
       _it_misc_proxyStatus
+      return $TRUE
+    ;;
+
+    #---------------------------------------------------------------------------
+    # AIDE -- OPTION : -h | --help
+    #---------------------------------------------------------------------------
+    -h | --help )
+      _it_std_show_help
+      return $TRUE
     ;;
     
-
     #---------------------------------------------------------------------------
     # OPTION : --pid
     #---------------------------------------------------------------------------
     --pid )
       echo "$PID"
+      return $TRUE
     ;;
 
     #---------------------------------------------------------------------------
@@ -332,6 +350,7 @@ function inist {
     --version | -v )
       cat "$DIR_LIBS/gfx/cnrs.ansi"
       _it_std_show_version
+      return $TRUE
     ;;
 
     #---------------------------------------------------------------------------
@@ -349,16 +368,16 @@ function inist {
 #-------------------------------------------------------------------------------
 # Si la variable d'env it_env_isProxy est positionnée, on répercute son état
 #-------------------------------------------------------------------------------
-if [ -e "$IT_ENV_ISPROXY" ]; then
-  _it_std_consoleMessage "INFO" "Variable d'environnement isProxy trouvée"
-  is_Proxy=$(cat "$IT_ENV_ISPROXY")
-  source "$DIR_LIBS/inist-proxy.rc"
-  if [ "$is_Proxy" -eq 1 ]; then
-    _it_inistProxy "on"
-  elif [ "$is_Proxy" -eq 0 ]; then
-    _it_inistProxy "on"
-  else
-    _it_std_consoleMessage "WARNING" "Variable d'environnement vide ou contenant une valeur incohérente."
-  fi
+isSystemProxy=(getEnv "systemProxy")
+if [ "$isSystemProxy" -eq 1 ]; then
+  _it_inistProxy "on"
+elif [ "$isSystemProxy" -eq 0 ]; then
+  _it_inistProxy "on"
+else
+  _it_std_consoleMessage "WARNING" "Variable d'environnement vide ou contenant une valeur incohérente."
 fi
 
+#-------------------------------------------------------------------------------
+# FIN !
+# /!\ NE PAS METTRE D'EXIT #
+#-------------------------------------------------------------------------------

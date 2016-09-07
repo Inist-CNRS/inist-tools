@@ -1,0 +1,2 @@
+# Ignorer les fichiers servant à stocker l'environnement de inist-tools
+./.it_env_*
