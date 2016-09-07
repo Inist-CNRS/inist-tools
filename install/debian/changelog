@@ -38,5 +38,6 @@ inist-tools (0.9.11RC) RC; urgency=medium
   * [DEV] Ajout des fichiers pour proxypac
   * [DEV] Commit -- 17/08/2016 @ 13:18:23
   * [DEV] wip refactoring
+  * [DEV] update .gitignore
 
  -- Stanislas PERRIN <stanislas.perrin@inist.fr>  Tue, 21 Jun 2016 08:28:37 +0200
