@@ -37,7 +37,7 @@ _inist () {
     ;;
 
     s*)
-      COMPREPLY=( $( compgen -W 'status sync' -- $cur ) )
+      COMPREPLY=( $( compgen -W 'sync status' -- $cur ) )
     ;;
     
     t*)

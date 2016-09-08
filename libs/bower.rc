@@ -21,6 +21,9 @@ function _it_bower_proxy {
   case "$1" in
   
     on)
+      # Vérifier si cet état n'est pas celui en cours
+      _it_std_checkAction "bower" $TRUE
+    
       # Cherche le .bowerrc
       if [ -f "$BOWERRC" ]; then # .bowerrc existe
         # faire un backup de l'existant avant de le modifier
@@ -35,10 +38,18 @@ function _it_bower_proxy {
       # modifier le .bowerrc
       jq --arg inist_http_proxy "$INIST_HTTP_PROXY" '.proxy = $inist_http_proxy' "$BOWERRC" > "$TMPJSON" && cp "$TMPJSON" "$BOWERRC"
       jq --arg inist_https_proxy "$INIST_HTTPS_PROXY" '.["https-proxy"] = $inist_https_proxy' "$BOWERRC" > "$TMPJSON" && cp "$TMPJSON" "$BOWERRC"
+      
+      # Positionnement de la variable d'environnement globale
+      setITenv "bowerProxy" $TRUE
+      
+      # Message
       _it_std_consoleMessage "INFO" "Bower configuré pour utiliser le proxy INIST"
     ;;
     
     off)
+      # Vérifier si cet état n'est pas celui en cours
+      _it_std_checkAction "bower" $FALSE
+
       # Cherche le .bowerrc et n'agit que si .bowerrc existe
       if [ -f "$BOWERRC" ]; then # .bowerrc existe
         jq 'del(.proxy)' "$BOWERRC" > "$TMPJSON" && cp "$TMPJSON" "$BOWERRC"
@@ -51,6 +62,10 @@ function _it_bower_proxy {
           _it_std_consoleMessage "ERROR" "Impossible de supprimer la configuration proxy INIST de « $BOWERRC »"
           return $FALSE
         else
+          # Positionnement de la variable d'environnement globale
+          setITenv "bowerProxy" $FALSE
+          
+          # Message
           _it_std_consoleMessage "INFO" "Configuration proxy INIST supprimée de « $BOWERRC »"
         fi
       else

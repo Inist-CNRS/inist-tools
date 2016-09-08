@@ -48,37 +48,61 @@ ICON_ICEWEASEL="$DIR_LIBS/gfx/iceweasel_64px.png"
 #-------------------------------------------------------------------------------
 #
 ENV_DIR="/opt/inist-tools/conf"
-# Stockage de l'état de la dernier commande 'inist proxy' (1 = on / 0 = off)
-IT_ENV_ISPROXY="$ENV_DIR/.it_env_isProxy"
-# Stockage de l'état des différentes commandes proxy on/off
-IT_ENV_PROXY_APT="$ENV_DIR/.it_env_proxy_apt"
-IT_ENV_PROXY_BOWER="$ENV_DIR/.it_env_proxy_bower"
-IT_ENV_PROXY_DOCKER="$ENV_DIR/.it_env_proxy_docker"
-IT_ENV_PROXY_NPM="$ENV_DIR/.it_env_proxy_npm"
-IT_ENV_PROXY_KDE="$ENV_DIR/.it_env_proxy_kde"
-IT_ENV_PROXY_UNITY="$ENV_DIR/.it_env_proxy_unity"
-IT_ENV_PROXY_GNOME="$ENV_DIR/.it_env_proxy_gnome"
 
-function setEnv {
+function _it_std_setEnv {
   envName="$1"
   envVal="$2"
   if [ ! -z "$envName" ] && [ ! -z "$envVal" ]; then
-    return $FALSE
+    echo "$envVal" > "$ENV_DIR/.it_env_${envName}"
   fi
-  (echo "$envVal" > "$ENV_DIR/.it_env_${envName}")
+  return $FALSE
 }
 
-function getEnv {
+function _it_std_getEnv {
   envName="$1"
-  if [ ! -z "$envName" ]; then
+  if [ -z "$envName" ]; then
     return $FALSE
   else
     envFile="$ENV_DIR/.it_env_${envName}"
+    if [ -a "$envFile" ]; then 
+      cat "$envFile"
+    else
+      echo "-1"
+    fi
   fi
-  if [ -f "$envFile" ]; then 
-    cat "$envFile"
+}
+
+function _it_std_checkAction {
+  local app="$1"
+  local action="$2"
+  local message
+  
+  if [ -z "$app" ] || [ -z "$action" ]; then
+    return $FALSE
+  fi
+  
+  case "$action" in
+  
+    $TRUE)
+      message="proxy INIST on"
+    ;;
+    
+    $FALSE)
+      message="proxy INIST off"
+    ;;
+    
+    *)
+      message=""
+    ;;
+  
+  esac
+  
+  envValue=$(_it_std_getEnv "${app}Proxy")
+  if [ "$envValue" == "$action" ]; then
+    _it_std_consoleMessage "WARNING" "$app est déjà configuré $message"
+    return $FALSE
   else
-    echo "-1"
+    return $TRUE
   fi
 }
 
@@ -300,7 +324,6 @@ function _it_std_restore {
   fi
   
 }
-
 
 function _it_std_removeConf {
   FILE="$1"

@@ -48,6 +48,9 @@ function _it_browsers_firefox_proxy {
   # FIREFOX PROXY ON 
   # ----------------------------------------------------------------------------
   on)
+    # Vérifier si cet état n'est pas celui en cours
+    _it_std_checkAction "firefox" $TRUE
+
     _it_std_consoleMessage "INFO" "Configuration de Firefox pour le proxy INIST"
     # --------------------------------------------------------------------------
     # Backup du fichier avant toute modification
@@ -87,6 +90,11 @@ function _it_browsers_firefox_proxy {
     echo 'user_pref("network.proxy.ftp_port", 8080);'             >> $PREFS_JS
     echo 'user_pref("network.proxy.socks", "proxyout.inist.fr");' >> $PREFS_JS
     echo 'user_pref("network.proxy.socks_port", 8080);'           >> $PREFS_JS
+
+    # Positionnement de la variable d'environnement globale
+    _it_std_setEnv "firefoxProxy" $TRUE
+
+    # Message
     _it_std_consoleMessage "INFO" "Firefox est configuré pour le proxy INIST."
   ;;
 
@@ -94,11 +102,19 @@ function _it_browsers_firefox_proxy {
   # FIREFOX PROXY OFF
   # ----------------------------------------------------------------------------
   off)
+    # Vérifier si cet état n'est pas celui en cours
+    _it_std_checkAction "firefox" $FALSE
+
     _it_std_consoleMessage "INFO" "Déconfiguration de Firefox pour le proxy INIST"
     grep -vi "network\.proxy" $PREFS_JS > "$PREFS_JS.tmp"
     rm "$PREFS_JS"
     mv "$PREFS_JS.tmp" "$PREFS_JS"
     echo 'user_pref("network.proxy.type", 5);' >> $PREFS_JS
+    
+    # Positionnement de la variable d'environnement globale
+    _it_std_setEnv "firefoxProxy" $FALSE
+    
+    # Message
     _it_std_consoleMessage "INFO" "Firefox n'est plus configuré pour le proxy INIST."
   ;;
 

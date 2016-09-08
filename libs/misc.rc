@@ -26,6 +26,8 @@ function _it_misc_apt_proxy {
   case "$1" in
   
     on)
+      # Vérifier si cet état n'est pas celui en cours
+      _it_std_checkAction "apt" $TRUE
       _it_std_message "INFO" "Configuration de APT pour le proxy INIST"
       # fakeroot "$DIR_TOOLS/apt-proxy-on.sh"
       sudo "$DIR_TOOLS/apt-proxy-on.sh"
@@ -33,9 +35,13 @@ function _it_misc_apt_proxy {
       if [ $? -gt 0 ]; then
         _it_std_message "ERROR" "Impossible de modifier la configuration de APT"
       fi
+      # Positionnement de la variable d'environnement globale
+      _it_std_setEnv "aptProxy" $TRUE
     ;;
     
     off)
+      # Vérifier si cet état n'est pas celui en cours
+      _it_std_checkAction "apt" $FALSE
       _it_std_message "INFO" "Déconfiguration de APT pour le proxy INIST"
       # fakeroot "$DIR_TOOLS/apt-proxy-off.sh"
       sudo "$DIR_TOOLS/apt-proxy-off.sh"
@@ -43,6 +49,8 @@ function _it_misc_apt_proxy {
       if [ $? -gt 0 ]; then
         _it_std_message "ERROR" "Impossible de modifier la configuration de APT"
       fi
+      # Positionnement de la variable d'environnement globale
+      _it_std_setEnv "aptProxy" $FALSE
     ;;
     
     help)
@@ -73,9 +81,17 @@ function _it_misc_wget_proxy {
   case "$1" in
   
     on)
+      # Vérifier si cet état n'est pas celui en cours
+      _it_std_checkAction "wget" $TRUE
+      # Positionnement de la variable d'environnement globale
+      _it_std_setEnv "wgetProxy" $TRUE
     ;;
     
     off)
+      # Vérifier si cet état n'est pas celui en cours
+      _it_std_checkAction "wget" $FALSE
+      # Positionnement de la variable d'environnement globale
+      _it_std_setEnv "wgetProxy" $FALSE
     ;;
     
     help)
@@ -115,15 +131,23 @@ function _it_misc_npm_proxy {
   case "$1" in
     
     on)
+      # Vérifier si cet état n'est pas celui en cours
+      _it_std_checkAction "npm" $TRUE
       $NPM config set proxy "$INIST_HTTP_PROXY"
       $NPM config set https-proxy "$INIST_HTTPS_PROXY"
       _it_std_consoleMessage "INFO" "npm est paramétré pour le proxy INIST"
+      # Positionnement de la variable d'environnement globale
+      _it_std_setEnv "npmProxy" $TRUE
     ;;
     
     off)
+      # Vérifier si cet état n'est pas celui en cours
+      _it_std_checkAction "npm" $FALSE
       $NPM config rm proxy
       $NPM config rm https-proxy
       _it_std_consoleMessage "INFO" "npm n'est plus paramétré pour le proxy INIST"
+      # Positionnement de la variable d'environnement globale
+      _it_std_setEnv "npmProxy" $FALSE
     ;;
     
     help)

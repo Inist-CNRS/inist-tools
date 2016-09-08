@@ -21,8 +21,14 @@ function _it_docker_proxy {
   case "$1" in
   
     on)
+      # Vérifier si cet état n'est pas celui en cours
+      _it_std_checkAction "docker" $TRUE
+
       sudo /opt/inist-tools/tools/docker-proxy-on.sh
       if [ $? -eq 0 ]; then
+        # Positionnement de la variable d'environnement globale
+        setITenv "dockerProxy" $TRUE
+        # Message
         _it_std_consoleMessage "INFO" "Docker est configuré pour utiliser le proxy INIST"
       else
         _it_std_consoleMessage "ERROR" "La configuration de Docker pour le proxy INIST a échoué"
@@ -30,8 +36,14 @@ function _it_docker_proxy {
     ;;
     
     off)
+      # Vérifier si cet état n'est pas celui en cours
+      _it_std_checkAction "docker" $FALSE
+
       sudo /opt/inist-tools/tools/docker-proxy-off.sh
       if [ $? -eq 0 ]; then
+        # Positionnement de la variable d'environnement globale
+        setITenv "dockerProxy" $FALSE
+        # Message
         _it_std_consoleMessage "INFO" "Docker n'est plus configuré pour utiliser le proxy INIST"
       else
         _it_std_consoleMessage "ERROR" "La déconfiguration de Docker pour le proxy INIST a échoué"

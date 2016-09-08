@@ -191,6 +191,11 @@ function inist {
           _it_docker_proxy "$2"
         ;;
 
+        --wget )
+          source "$DIR_LIBS/misc.rc"
+          _it_misc_wget_proxy "$2"
+        ;;
+
         # Cas par défaut (application à tout le système)
         # On gère la commande sous forme « inist proxy [on|off] »
         # et par défaut (inist proxy) -> "on"
@@ -218,9 +223,9 @@ function inist {
             *)
               _it_std_consoleMessage "WARNING" "Commande ou option « $2 » inconnue dans ce contexte"
               return $FALSE
-              _it_std_consoleMessage "INFO" "Positionnement des variables d'environnement pour le proxy INIST"
-              source "$DIR_LIBS/inist-proxy.rc"
-              _it_inistProxy "on"
+              # _it_std_consoleMessage "INFO" "Positionnement des variables d'environnement pour le proxy INIST"
+              # source "$DIR_LIBS/inist-proxy.rc"
+              # _it_inistProxy "on"
             ;;
             
           esac
@@ -368,13 +373,15 @@ function inist {
 #-------------------------------------------------------------------------------
 # Si la variable d'env it_env_isProxy est positionnée, on répercute son état
 #-------------------------------------------------------------------------------
-isSystemProxy=(getEnv "systemProxy")
-if [ "$isSystemProxy" -eq 1 ]; then
+isSystemProxy=$(_it_std_getEnv "systemProxy")
+if [ "$isSystemProxy" == $TRUE ]; then
+  source "$DIR_LIBS/inist-proxy.rc"
   _it_inistProxy "on"
-elif [ "$isSystemProxy" -eq 0 ]; then
-  _it_inistProxy "on"
+elif [ "$isSystemProxy" == $FALSE ]; then
+  source "$DIR_LIBS/inist-proxy.rc"
+  _it_inistProxy "off"
 else
-  _it_std_consoleMessage "WARNING" "Variable d'environnement vide ou contenant une valeur incohérente."
+  _it_std_consoleMessage "WARNING" "Variable d'environnement vide ou contenant une valeur incohérente ($isSystemProxy)."
 fi
 
 #-------------------------------------------------------------------------------

@@ -24,14 +24,32 @@ function _it_desktop_kde_proxy {
   fi
   
   case $1 in
+  
     on)
+      # Vérifier si cet état n'est pas celui en cours
+      _it_std_checkAction "kde" $TRUE
+      
       it_std_message "INFO" "Configuration de KDE pour le proxy INIST"
       kwriteconfig --file kioslaverc --group 'Proxy Settings' --key ProxyType 2
       kwriteconfig --file kioslaverc --group 'Proxy Settings' --key 'Proxy Config Script' $INIST_PROXYPAC
+
+      # Positionnement de la variable d'environnement globale
+      setITenv "kdeProxy" $TRUE
+      # Message
+      _it_std_consoleMessage "INFO" "KDE est configuré pour utiliser le proxy INIST"
     ;;
+    
     off)
+      # Vérifier si cet état n'est pas celui en cours
+      _it_std_checkAction "kde" $FALSE
+
       it_std_message "INFO" "Déconfiguration de KDE pour le proxy INIST"
       kwriteconfig --file kioslaverc --group 'Proxy Settings' --key ProxyType 0
+
+      # Positionnement de la variable d'environnement globale
+      setITenv "kdeProxy" $FALSE
+      # Message
+      _it_std_consoleMessage "INFO" "KDE n'est plus configuré pour utiliser le proxy INIST"
     ;;
     help)
     ;;
@@ -49,16 +67,33 @@ function _it_desktop_gnome_proxy {
 
   case $1 in
     on)
-      _it_std_message "INFO" "Configuration de XFCE4 pour le proxy INIST"
+      # Vérifier si cet état n'est pas celui en cours
+      _it_std_checkAction "gnome" $TRUE
+
+      _it_std_message "INFO" "Configuration de GNOME pour le proxy INIST"
       gsettings set org.gnome.system.proxy mode 'manual'
       gsettings set org.gnome.system.proxy.http host "$INIST_PROXY_ADDRESS"
       gsettings set org.gnome.system.proxy.http port "$INIST_PROXY_PORT"
+
+      # Positionnement de la variable d'environnement globale
+      setITenv "gnomeProxy" $TRUE
+      # Message
+      _it_std_consoleMessage "INFO" "GNOME est configuré pour utiliser le proxy INIST"
     ;;
+    
     off)
-      _it_std_message "INFO" "Déconfiguration de XFCE4 pour le proxy INIST"
+      # Vérifier si cet état n'est pas celui en cours
+      _it_std_checkAction "gnome" $FALSE
+
+      _it_std_message "INFO" "Déconfiguration de GNOME pour le proxy INIST"
       gsettings reset org.gnome.system.proxy mode
       gsettings reset org.gnome.system.proxy.http host
       gsettings reset org.gnome.system.proxy.http port
+
+      # Positionnement de la variable d'environnement globale
+      setITenv "gnomeProxy" $FALSE
+      # Message
+      _it_std_consoleMessage "INFO" "GNOME n'est plus configuré pour utiliser le proxy INIST"
     ;;
     help)
       # C'est ici qu'on affiche l'aide
@@ -78,16 +113,33 @@ function _it_desktop_unity_proxy {
 
   case $1 in
     on)
+      # Vérifier si cet état n'est pas celui en cours
+      _it_std_checkAction "unity" $TRUE
+
       it_std_message "INFO" "Configuration de UNITY pour le proxy INIST"
       gsettings set org.gnome.system.proxy mode 'manual'
       gsettings set org.gnome.system.proxy.http host "$INIST_PROXY_ADDRESS"
       gsettings set org.gnome.system.proxy.http port "$INIST_PROXY_PORT"
+
+      # Positionnement de la variable d'environnement globale
+      setITenv "unityProxy" $TRUE
+      # Message
+      _it_std_consoleMessage "INFO" "UNITY est configuré pour utiliser le proxy INIST"
     ;;
+    
     off)
+      # Vérifier si cet état n'est pas celui en cours
+      _it_std_checkAction "unity" $FALSE
+
       it_std_message "INFO" "Déconfiguration de UNITY pour le proxy INIST"
       gsettings reset org.gnome.system.proxy mode
       gsettings reset org.gnome.system.proxy.http host
       gsettings reset org.gnome.system.proxy.http port
+
+      # Positionnement de la variable d'environnement globale
+      setITenv "gnomeProxy" $FALSE
+      # Message
+      _it_std_consoleMessage "INFO" "UNITY n'est plus configuré pour utiliser le proxy INIST"
     ;;
     help)
     ;;
@@ -106,16 +158,33 @@ function _it_dektop_xfce4_proxy {
 
   case $1 in
     on)
+      # Vérifier si cet état n'est pas celui en cours
+      _it_std_checkAction "xfce4" $TRUE
+
       _it_std_message "INFO" "Configuration de XFCE4 pour le proxy INIST"
       gsettings set org.gnome.system.proxy mode 'manual'
       gsettings set org.gnome.system.proxy.http host "$INIST_PROXY_ADDRESS"
       gsettings set org.gnome.system.proxy.http port "$INIST_PROXY_PORT"
+
+      # Positionnement de la variable d'environnement globale
+      setITenv "xfce4Proxy" $TRUE
+      # Message
+      _it_std_consoleMessage "INFO" "XFCE4 est configuré pour utiliser le proxy INIST"
+
     ;;
     off)
+      # Vérifier si cet état n'est pas celui en cours
+      _it_std_checkAction "xfce4" $FALSE
+
       _it_std_message "INFO" "Déconfiguration de XFCE4 pour le proxy INIST"
       gsettings reset org.gnome.system.proxy mode
       gsettings reset org.gnome.system.proxy.http host
       gsettings reset org.gnome.system.proxy.http port
+
+      # Positionnement de la variable d'environnement globale
+      setITenv "xfce4Proxy" $FALSE
+      # Message
+      _it_std_consoleMessage "INFO" "XFCE4 n'est plus configuré pour utiliser le proxy INIST"
     ;;
     help)
       # C'est ici qu'on affiche l'aide
