@@ -35,8 +35,8 @@ function _it_misc_apt_proxy {
       if [ $? -gt 0 ]; then
         _it_std_message "ERROR" "Impossible de modifier la configuration de APT"
       fi
-      # Positionnement de la variable d'environnement globale
-      _it_std_setEnv "aptProxy" $TRUE
+      #
+      _it_std_setAction "apt" $TRUE
     ;;
     
     off)
@@ -49,8 +49,8 @@ function _it_misc_apt_proxy {
       if [ $? -gt 0 ]; then
         _it_std_message "ERROR" "Impossible de modifier la configuration de APT"
       fi
-      # Positionnement de la variable d'environnement globale
-      _it_std_setEnv "aptProxy" $FALSE
+      #
+      _it_std_setAction "apt" $FALSE
     ;;
     
     help)
@@ -83,15 +83,15 @@ function _it_misc_wget_proxy {
     on)
       # Vérifier si cet état n'est pas celui en cours
       _it_std_checkAction "wget" $TRUE
-      # Positionnement de la variable d'environnement globale
-      _it_std_setEnv "wgetProxy" $TRUE
+      #
+      _it_std_setAction "wget" $TRUE
     ;;
     
     off)
       # Vérifier si cet état n'est pas celui en cours
       _it_std_checkAction "wget" $FALSE
-      # Positionnement de la variable d'environnement globale
-      _it_std_setEnv "wgetProxy" $FALSE
+      #
+      _it_std_setAction "wget" $FALSE
     ;;
     
     help)
@@ -136,8 +136,8 @@ function _it_misc_npm_proxy {
       $NPM config set proxy "$INIST_HTTP_PROXY"
       $NPM config set https-proxy "$INIST_HTTPS_PROXY"
       _it_std_consoleMessage "INFO" "npm est paramétré pour le proxy INIST"
-      # Positionnement de la variable d'environnement globale
-      _it_std_setEnv "npmProxy" $TRUE
+      #
+      _it_std_setAction "npm" $TRUE
     ;;
     
     off)
@@ -146,8 +146,8 @@ function _it_misc_npm_proxy {
       $NPM config rm proxy
       $NPM config rm https-proxy
       _it_std_consoleMessage "INFO" "npm n'est plus paramétré pour le proxy INIST"
-      # Positionnement de la variable d'environnement globale
-      _it_std_setEnv "npmProxy" $FALSE
+      #
+      _it_std_setAction "npm" $FALSE
     ;;
     
     help)

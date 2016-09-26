@@ -106,6 +106,39 @@ function _it_std_checkAction {
   fi
 }
 
+function _it_std_setAction {
+  local app="$1"
+  local action="$2"
+
+  if [ -z "$app" ] || [ -z "$action" ]; then
+    return $FALSE
+  fi
+  
+  case "$action" in
+  
+    $TRUE)
+      # Environnement
+      setITenv "${app}Proxy" $TRUE
+      # Message
+      _it_std_consoleMessage "INFO" "« $app » est configuré pour utiliser le proxy INIST"      
+    ;;
+  
+    $FALSE)
+      # Environnement
+      setITenv "${app}Proxy" $FALSE
+      # Message
+      _it_std_consoleMessage "INFO" "« $app » n'est plus configuré pour utiliser le proxy INIST"      
+    ;;
+  
+    *)
+      _it_std_consoleMessage "WARNING" "la commande « $action » est inconnue dans ce contexte..."
+      return $FALSE
+    ;;
+  
+  esac
+  
+}
+
 #-------------------------------------------------------------------------------
 # Logging
 # $1 : level/priorité (NOTICE, WARNING, ERROR, etc.)
