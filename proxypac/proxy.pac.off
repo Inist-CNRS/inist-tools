@@ -1,0 +1,17 @@
+/*******************************************************************************
+ * 
+ * inist-tools::proxy.pac
+ * (inspiré du proxy.pac de l'INIST)
+ * 
+ * 
+ ******************************************************************************/
+ 
+function IsASubDomain(host, domain) {
+  return (host.length >= domain.length && host.substring(host.length - domain.length) == domain);
+}
+ 
+function FindProxyForURL(url, host)
+{
+  return "DIRECT";
+}
+
