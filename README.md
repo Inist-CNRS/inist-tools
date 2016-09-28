@@ -81,6 +81,10 @@ Edition ➡️ Préférences ➡️ Avancé ➡️ Réseau ➡️ Connexion/Para
 Adresse de configuration automatique du proxy
 
      file:///opt/inist-tools/proxypac/proxy.pac
+     
+⚠️ Firefox ne recharge pas le fichier proxy.pac à chaque requête. Le changement
+de proxy avec la commande inist proxy on|off --browsers nécessite d'utiliser
+le bouton « actualiser » situé à droite du chemin vers le fichier proxy.pac.
 
 ### Tester les commande en cours de développement ###
 Du fait qu'inist-tools soit chargé au lancement, les modification faites sur le
