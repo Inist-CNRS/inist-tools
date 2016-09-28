@@ -129,6 +129,12 @@ function inist {
       # le gérer
 
       case "$3" in
+      
+        --browsers )
+          source "$DIR_LIBS/browsers.rc"
+          _it_browsers_proxy "$2"
+        ;;
+      
         # inist proxy on --firefox (ou --iceweasel)
         --firefox )
           source "$DIR_LIBS/browsers.rc"
@@ -361,7 +367,6 @@ function inist {
     #---------------------------------------------------------------------------
     # Options non gérées...
     #---------------------------------------------------------------------------
-
     * )
       _it_std_consoleMessage "WARNING" "Commande ou option « $1 » inconnue (ou peut-être mal saisie)."
       _it_std_show_help

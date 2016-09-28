@@ -62,6 +62,26 @@ Si vous modifiez ces marquage, la désinstallation échouera et cassera le paque
 sur votre système.
 </div>
 
+### Configuration des navigateurs ###
+Afin de permettre à vos navigateurs d'être paramétrés par inist-tools, vous
+devez configurer l'utilisation du fichier
+
+     /opt/inist-tools/proxypac.proxy.pac
+
+comme source pour le fichier proxy.pac.
+
+#### Chrome / Chromium ####
+Normalement Chrome/Chromium utilise le proxy système. Il est possible de forcer
+l'utilisation d'un fichier .pac en le lançant avec l'option
+
+      --proxy-pac=file:///opt/inist-tools/proxypac/proxy.pac
+      
+#### Firefox / IceWeasel ####
+Edition ➡️ Préférences ➡️ Avancé ➡️ Réseau ➡️ Connexion/Paramètres ➡️ 
+Adresse de configuration automatique du proxy
+
+     file:///opt/inist-tools/proxypac/proxy.pac
+
 ### Tester les commande en cours de développement ###
 Du fait qu'inist-tools soit chargé au lancement, les modification faites sur le
 fichier inistrc ne sont pas prises en compte avant le prochain rechargement

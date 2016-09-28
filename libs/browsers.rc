@@ -16,6 +16,50 @@ CHROMIUM=$(which chromium)
 TIMESTAMP=$(date +%F_%H-%M-%S)
 
 # ------------------------------------------------------------------------------
+# proxy.pac
+# ------------------------------------------------------------------------------
+function _it_browsers_proxy {
+  local proxyPac="/opt/inist-tools/proxypac/proxy.pac"
+  local proxyPacOn="/opt/inist-tools/proxypac/proxy.pac.on"
+  local proxyPacOff="/opt/inist-tools/proxypac/proxy.pac.off"
+  local proxyPacADSL="/opt/inist-tools/proxypac/outadsl.pac"
+  
+  case "$1" in
+  
+  on )
+    _it_std_checkAction "browsers" $TRUE
+    if [ -L "$proxyPac" ]; then
+      rm "$proxyPac"
+    fi
+    ln -s "$proxyPacOn" "$proxyPac"
+    _it_std_setAction "browsers" $TRUE
+  ;;
+  
+  off )
+    _it_std_checkAction "browsers" $FALSE
+    if [ -L "$proxyPac" ]; then
+      rm "$proxyPac"
+    fi
+    ln -s "$proxyPacOff" "$proxyPac"
+    _it_std_setAction "browsers" $FALSE
+  ;;
+
+  adsl )
+    if [ -L "$proxyPac" ]; then
+      rm "$proxyPac"
+    fi
+    ln -s "$proxyPacADSL" "$proxyPac"
+  ;;
+  
+  * )
+    return $TRUE
+  ;;
+  
+  esac
+  
+}
+
+# ------------------------------------------------------------------------------
 # FIREFOX
 # ------------------------------------------------------------------------------
 function _it_browsers_firefox_proxy {

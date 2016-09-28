@@ -118,16 +118,16 @@ function _it_std_setAction {
   
     $TRUE)
       # Environnement
-      setITenv "${app}Proxy" $TRUE
+      _it_std_setEnv "${app}Proxy" $TRUE
       # Message
-      _it_std_consoleMessage "INFO" "« $app » est configuré pour utiliser le proxy INIST"      
+      _it_std_consoleMessage "INFO" "« $app » est configuré pour utiliser le proxy INIST"
     ;;
   
     $FALSE)
       # Environnement
-      setITenv "${app}Proxy" $FALSE
+      _it_std_setEnv "${app}Proxy" $FALSE
       # Message
-      _it_std_consoleMessage "INFO" "« $app » n'est plus configuré pour utiliser le proxy INIST"      
+      _it_std_consoleMessage "INFO" "« $app » n'est plus configuré pour utiliser le proxy INIST"
     ;;
   
     *)
