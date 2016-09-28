@@ -1,2 +1,3 @@
 # Ignorer les fichiers servant à stocker l'environnement de inist-tools
 /conf/.it_env_*
+/proxypac/proxy.pac
