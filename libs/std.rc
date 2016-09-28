@@ -340,10 +340,10 @@ function _it_std_restore {
   fi
 
   # Recherche du fichier de backup
-  BACKUPFILE=$(find "$WHERETOFIND" -type f -name "*_itb")
+  BACKUPFILE=$(find "$WHERETOFIND" -type f -name "*_inist-tools-backup")
   
   if [ ! -z "$BACKUPFILE" ]; then
-    RESTOREDFILE=$(echo "$BACKUPFILE" | sed -e 's/_itb//g')
+    RESTOREDFILE=$(echo "$BACKUPFILE" | sed -e 's/_inist-tools-backup//g')
     if mv "$BACKUPFILE" "$RESTOREDFILE" ; then
       _it_std_consoleMessage "INFO" "Fichier « $RESTOREDFILE » restauré."
       return $TRUE;

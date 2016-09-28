@@ -61,6 +61,7 @@ test_npm_proxyOn () {
 #-------------------------------------------------------------------------------
 test_docker_proxyOff () {
   # _it_docker_proxy "off" >> /dev/null
+  echo "placeholder" >> /dev/null
 }
 
 test_docker_proxyOn () {
@@ -74,13 +75,13 @@ test_docker_proxyOn () {
 #-------------------------------------------------------------------------------
 test_file_backup () {
   _it_std_backup "/run/shm/inist-tools-backup-test"
-  out=$(ls -l "/run/shm/inist-tools-backup-test_itb" | wc -l)
+  out=$(ls -l "/run/shm/inist-tools-backup-test_inist-tools-backup" | wc -l)
   assertEquals "On doit trouver un fichier de backup." 1 "$out"
 }
 
 test_file_restore () {
   _it_std_restore "/run/shm/"
-  out1=$(find "/run/shm/" -type f -name "inist-tools-backup-test_itb" | wc -l)
+  out1=$(find "/run/shm/" -type f -name "inist-tools-backup-test_inist-tools-backup" | wc -l)
   out2=$(find "/run/shm/" -type f -name "inist-tools-backup-test" | wc -l)
   assertEquals "Le fichier de backup doit avoir été supprimé" 0 "$out1"
   assertEquals "Le fichier original doit avoir été restauré" 1 "$out2"

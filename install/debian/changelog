@@ -43,5 +43,6 @@ inist-tools (0.9.11RC) RC; urgency=medium
   * [DEV] Commit -- 26/09/2016 @ 13:08:01
   * [DEV] Màj doc
   * [DEV] Modifications mineures
+  * [DEV] Correction bug fonctions backup/restore de conf
 
  -- Stanislas PERRIN <stanislas.perrin@inist.fr>  Tue, 21 Jun 2016 08:28:37 +0200
