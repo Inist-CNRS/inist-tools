@@ -49,7 +49,7 @@ if [ "$platform" == "debian" ]; then
 
   _it_std_consoleMessage "INFO" "Debian → systemd"
   # Suppression de la conf spécifique au proxy INIST
-  rm /etc/systemd/system/docker.service.d/http-proxy.conf
+  rm /etc/systemd/system/docker.service.d/inist-tools.conf
   # Prise en charge du changement de la conf et redémarrage du service
   systemctl daemon-reload
   sleep 1
