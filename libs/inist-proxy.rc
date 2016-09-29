@@ -21,7 +21,11 @@
 function _it_inistProxy {
 
   case "$1" in
+  
     on)
+      
+      _it_std_checkAction "system" $TRUE
+
       # Exclusion du proxy
       export no_proxy="localhost,127.0.0.0/8,*.local,172.16.0.0/16"
       export NO_PROXY="localhost,127.0.0.0/8,*.local,172.16.0.0/16"
@@ -39,11 +43,14 @@ function _it_inistProxy {
       export FTP_PROXY="http://proxyout.inist.fr:8080"
       
       #
-      _it_std_setAction "systeme" $TRUE
+      _it_std_setAction "system" $TRUE
       
     ;;
     
     off)
+
+      _it_std_checkAction "system" $FALSE
+
       unset "no_proxy"
       unset "http_proxy"
       unset "https_proxy"
@@ -55,7 +62,7 @@ function _it_inistProxy {
       unset "FTP_PROXY"
       
       #
-      _it_std_setAction "systeme" $FALSE
+      _it_std_setAction "system" $FALSE
     ;;
     
     help)
@@ -65,6 +72,7 @@ function _it_inistProxy {
     *)
       # Rien
     ;;
+    
   esac
   
   # On affiche le résultat dans l'environnement

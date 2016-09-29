@@ -47,13 +47,12 @@ ICON_ICEWEASEL="$DIR_LIBS/gfx/iceweasel_64px.png"
 # Variables d'« environnement » utilisant /opt/inist-tools/conf
 #-------------------------------------------------------------------------------
 #
-ENV_DIR="/opt/inist-tools/conf"
-
 function _it_std_setEnv {
   envName="$1"
   envVal="$2"
   if [ ! -z "$envName" ] && [ ! -z "$envVal" ]; then
-    echo "$envVal" > "$ENV_DIR/.it_env_${envName}"
+    echo "$envVal" > "$DIR_ENV/.it_env_${envName}"
+    chmod 777 "$DIR_ENV/.it_env_${envName}"
   fi
   return $FALSE
 }
@@ -63,8 +62,8 @@ function _it_std_getEnv {
   if [ -z "$envName" ]; then
     return $FALSE
   else
-    envFile="$ENV_DIR/.it_env_${envName}"
-    if [ -a "$envFile" ]; then 
+    envFile="$DIR_ENV/.it_env_${envName}"
+    if [ -e "$envFile" ]; then 
       cat "$envFile"
     else
       echo "-1"
@@ -97,7 +96,7 @@ function _it_std_checkAction {
   
   esac
   
-  envValue=$(_it_std_getEnv "${app}Proxy")
+  envValue=$(_it_std_getEnv "${app}")
   if [ "$envValue" == "$action" ]; then
     _it_std_consoleMessage "WARNING" "$app est déjà configuré $message"
     return $FALSE
@@ -118,14 +117,14 @@ function _it_std_setAction {
   
     $TRUE)
       # Environnement
-      _it_std_setEnv "${app}Proxy" $TRUE
+      _it_std_setEnv "$app" $TRUE
       # Message
       _it_std_consoleMessage "INFO" "« $app » est configuré pour utiliser le proxy INIST"
     ;;
   
     $FALSE)
       # Environnement
-      _it_std_setEnv "${app}Proxy" $FALSE
+      _it_std_setEnv "$app" $FALSE
       # Message
       _it_std_consoleMessage "INFO" "« $app » n'est plus configuré pour utiliser le proxy INIST"
     ;;

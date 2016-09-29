@@ -25,6 +25,7 @@ DIR_CONF="$DIR_MODULE/conf"
 DIR_LIBS="$DIR_MODULE/libs"
 DIR_TOOLS="$DIR_MODULE/tools"
 DIR_INSTALL="$DIR_MODULE/install"
+DIR_ENV="/var/run/inist-tools"
 
 # Version en fonction du mode DEV ou DEB
 CURDIR=$( cd "$( dirname "$0" )" && pwd )
@@ -378,7 +379,7 @@ function inist {
 #-------------------------------------------------------------------------------
 # Si la variable d'env it_env_isProxy est positionnée, on répercute son état
 #-------------------------------------------------------------------------------
-isSystemProxy=$(_it_std_getEnv "systemProxy")
+isSystemProxy=$(_it_std_getEnv "system")
 if [ "$isSystemProxy" == $TRUE ]; then
   source "$DIR_LIBS/inist-proxy.rc"
   _it_inistProxy "on"
@@ -386,7 +387,9 @@ elif [ "$isSystemProxy" == $FALSE ]; then
   source "$DIR_LIBS/inist-proxy.rc"
   _it_inistProxy "off"
 else
-  _it_std_consoleMessage "WARNING" "Variable d'environnement vide ou contenant une valeur incohérente ($isSystemProxy)."
+  # "on" par défaut...
+  _it_inistProxy "on"
+  # _it_std_consoleMessage "WARNING" "Variable d'environnement vide ou contenant une valeur incohérente ($isSystemProxy)."
 fi
 
 #-------------------------------------------------------------------------------

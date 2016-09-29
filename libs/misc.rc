@@ -74,9 +74,9 @@ function _it_misc_wget_proxy {
   fi
   
   # On recherche un éventuel .wgetrc pour le backuper
-  if [ -f "$HOME/.wgetrc" ]; then
-    _it_std_backup "$HOME/.wgetrc"
-  fi
+  # if [ -f "$HOME/.wgetrc" ]; then
+  #   _it_std_backup "$HOME/.wgetrc"
+  # fi
   
   case "$1" in
   
