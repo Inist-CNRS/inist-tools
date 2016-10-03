@@ -224,6 +224,11 @@ function  _it_std_consoleMessage {
     erreur|ERREUR|error|ERROR)
       printf "${FG_BR_RED}[ERREUR]\t${FG_WHITE}$2${RESET_ALL}\n"
     ;;
+
+    # Aide
+    aide|AIDE|help|HELP)
+      printf "${FG_BLUE}[AIDE]\t\t${FG_WHITE}$2${RESET_ALL}\n"
+    ;;
     
     # Check/OK
     check|CHECK|ok|OK)

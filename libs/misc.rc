@@ -95,6 +95,8 @@ function _it_misc_wget_proxy {
     ;;
     
     help)
+      _it_std_consoleMessage "HELP" "Pour activer le proxy INIST pour wget, tapez « inist wget on »"
+      _it_std_consoleMessage "HELP" "Pour désactiver le proxy INIST pour wget, tapez « inist wget off »"
     ;;
     
     *)

@@ -160,22 +160,22 @@ function inist {
 
         --xfce )
           source "$DIR_LIBS/desktop.rc"
-          _it_dektop_xfce4_proxy "$2"
+          _it_desktop_xfce4_proxy "$2"
         ;;
 
         --gnome )
           source "$DIR_LIBS/desktop.rc"
-          _it_dektop_gnome_proxy "$2"
+          _it_desktop_gnome_proxy "$2"
         ;;
 
         --unity )
           source "$DIR_LIBS/desktop.rc"
-          _it_dektop_unity_proxy "$2"
+          _it_desktop_unity_proxy "$2"
         ;;
 
         --kde )
           source "$DIR_LIBS/desktop.rc"
-          _it_dektop_kde_proxy "$2"
+          _it_desktop_kde_proxy "$2"
         ;;
 
         --apt )
@@ -388,6 +388,7 @@ elif [ "$isSystemProxy" == $FALSE ]; then
   _it_inistProxy "off"
 else
   # "on" par défaut...
+  source "$DIR_LIBS/inist-proxy.rc"
   _it_inistProxy "on"
   # _it_std_consoleMessage "WARNING" "Variable d'environnement vide ou contenant une valeur incohérente ($isSystemProxy)."
 fi
