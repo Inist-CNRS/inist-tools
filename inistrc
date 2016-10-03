@@ -112,148 +112,100 @@ function inist {
   case $1 in
 
     #---------------------------------------------------------------------------
+    # Commande de paramétrage du proxy INIST
+    #---------------------------------------------------------------------------
+    env )
+      source "$DIR_LIBS/inist-proxy.rc"
+      _it_inistProxy "$2"
+    ;;
+
+    apt )
+      source "$DIR_LIBS/misc.rc"
+      _it_misc_apt_proxy "$2"
+    ;;
+    
+    bower )
+      source "$DIR_LIBS/bower.rc"
+      _it_bower_proxy "$2"
+    ;;
+
+    browsers )
+      source "$DIR_LIBS/browsers.rc"
+      _it_browsers_proxy "$2"
+    ;;
+    
+    chrome )
+      source "$DIR_LIBS/browsers.rc"
+      _it_browsers_chrome_proxy "$2"
+    ;;
+    
+    chromium )
+      source "$DIR_LIBS/browsers.rc"
+      _it_browsers_chromium_proxy "$2"
+    ;;
+    
+    docker )
+      source "$DIR_LIBS/docker.rc"
+      _it_docker_proxy "$2"
+    ;;
+    
+    firefox )
+      source "$DIR_LIBS/browsers.rc"
+      _it_browsers_firefox_proxy "$2"
+    ;;
+    
+    github )
+      _it_std_consoleMessage "WARNING" "Cette commande n'est pas encore implémentée."
+    ;;
+    
+    gnome )
+      source "$DIR_LIBS/desktop.rc"
+      _it_desktop_gnome_proxy "$2"
+    ;;
+    
+    iceweasel )
+      source "$DIR_LIBS/browsers.rc"
+      _it_browsers_iceweasel_proxy "$2"
+    ;;
+    
+    kde )
+      source "$DIR_LIBS/desktop.rc"
+      _it_desktop_kde_proxy "$2"
+    ;;
+    
+    npm )
+      source "$DIR_LIBS/misc.rc"
+      _it_misc_npm_proxy "$2"
+    ;;
+
+    shell )
+      source "$DIR_LIBS/misc.rc"
+      _it_inistProxy "$2"
+    ;;
+    
+    unity )
+      source "$DIR_LIBS/desktop.rc"
+      _it_desktop_unity_proxy "$2"
+    ;;
+    
+    wget )
+      source "$DIR_LIBS/misc.rc"
+      _it_misc_wget_proxy "$2"
+    ;;
+    
+    xfce )
+      source "$DIR_LIBS/desktop.rc"
+      _it_desktop_xfce4_proxy "$2"
+    ;;
+    
+    
+    #---------------------------------------------------------------------------
     # COMMANDE : info
     #---------------------------------------------------------------------------
-    info )
+    -i | --info )
       # On charge la lib "network"
       source "$DIR_LIBS/network.rc"
       _it_network_info
-      return $TRUE
-    ;;
-
-    #---------------------------------------------------------------------------
-    # COMMANDE : proxy
-    #---------------------------------------------------------------------------
-    proxy )
-
-      # $2 qui vaut on|off|help est directement passé à la fonction qui va 
-      # le gérer
-
-      case "$3" in
-      
-        --browsers )
-          source "$DIR_LIBS/browsers.rc"
-          _it_browsers_proxy "$2"
-        ;;
-      
-        # inist proxy on --firefox (ou --iceweasel)
-        --firefox )
-          source "$DIR_LIBS/browsers.rc"
-          _it_browsers_firefox_proxy "$2"
-        ;;
-
-        --iceweasel )
-          source "$DIR_LIBS/browsers.rc"
-          _it_browsers_iceweasel_proxy "$2"
-        ;;
-        
-        # inist proxy off --chrome (ou --chromium)
-        --chrome )
-          source "$DIR_LIBS/browsers.rc"
-          _it_browsers_chrome_proxy "$2"
-        ;;
-
-        --chromium )
-          source "$DIR_LIBS/browsers.rc"
-          _it_browsers_chromium_proxy "$2"
-        ;;
-
-        --xfce )
-          source "$DIR_LIBS/desktop.rc"
-          _it_desktop_xfce4_proxy "$2"
-        ;;
-
-        --gnome )
-          source "$DIR_LIBS/desktop.rc"
-          _it_desktop_gnome_proxy "$2"
-        ;;
-
-        --unity )
-          source "$DIR_LIBS/desktop.rc"
-          _it_desktop_unity_proxy "$2"
-        ;;
-
-        --kde )
-          source "$DIR_LIBS/desktop.rc"
-          _it_desktop_kde_proxy "$2"
-        ;;
-
-        --apt )
-          source "$DIR_LIBS/misc.rc"
-          _it_misc_apt_proxy "$2"
-        ;;
-
-        --npm )
-          source "$DIR_LIBS/misc.rc"
-          _it_misc_npm_proxy "$2"
-        ;;
-
-        --bower )
-          source "$DIR_LIBS/bower.rc"
-          _it_bower_proxy "$2"
-        ;;
-
-        --docker )
-          source "$DIR_LIBS/docker.rc"
-          _it_docker_proxy "$2"
-        ;;
-
-        --wget )
-          source "$DIR_LIBS/misc.rc"
-          _it_misc_wget_proxy "$2"
-        ;;
-
-        # Cas par défaut (application à tout le système)
-        # On gère la commande sous forme « inist proxy [on|off] »
-        # et par défaut (inist proxy) -> "on"
-        *)
-       
-          case "$2" in
-          
-            on)
-              _it_std_consoleMessage "INFO" "Positionnement des variables d'environnement pour le proxy INIST"
-              source "$DIR_LIBS/inist-proxy.rc"
-              _it_inistProxy "$2"
-            ;;
-            
-            off)
-              _it_std_consoleMessage "INFO" "Suppression des variables d'environnement pour le proxy INIST"
-              source "$DIR_LIBS/inist-proxy.rc"
-              _it_inistProxy "$2"
-            ;;
-            
-            --adsl)
-              source "$DIR_LIBS/adsl-proxy.rc"
-              _it_inistADSLProxy "$3"
-            ;;
-            
-            *)
-              _it_std_consoleMessage "WARNING" "Commande ou option « $2 » inconnue dans ce contexte"
-              return $FALSE
-              # _it_std_consoleMessage "INFO" "Positionnement des variables d'environnement pour le proxy INIST"
-              # source "$DIR_LIBS/inist-proxy.rc"
-              # _it_inistProxy "on"
-            ;;
-            
-          esac
-        ;;
-      esac
-
-    ;; # FIN CASE « proxy »
-
-    #---------------------------------------------------------------------------
-    # ON (alias inist proxy on)
-    #---------------------------------------------------------------------------
-    on )
-      inist proxy on
-      return $TRUE
-    ;;
-
-    #---------------------------------------------------------------------------
-    # OFF (alias inist proxy off)
-    #---------------------------------------------------------------------------
-    off )
-      inist proxy off
       return $TRUE
     ;;
 
@@ -271,7 +223,7 @@ function inist {
     #---------------------------------------------------------------------------
     # time|date|sync
     #---------------------------------------------------------------------------
-    time|date )
+    -t | --time | --date )
       _it_std_consoleMessage "INFO" "Synchronisation de la date/heure..."
       sudo "/opt/inist-tools/tools/timesync.sh"
       _it_std_consoleMessage "OK" "Heure synchronisée"
@@ -281,7 +233,7 @@ function inist {
     #---------------------------------------------------------------------------
     # daemon
     #---------------------------------------------------------------------------
-    daemon )
+    -d | --daemon )
       # source "/opt/inist-tools/libs/daemon.rc"
       # ToDo...
     ;;
@@ -290,15 +242,15 @@ function inist {
     # power
     #---------------------------------------------------------------------------
     power )
-      case "$3" in
+      case "$2" in
         
         save )
-          /opt/inist-tools/tools/powersave
+          /opt/inist-tools/tools/powersave.sh
           return $TRUE
         ;;
         
         max )
-          /opt/inist-tools/tools/powermax
+          /opt/inist-tools/tools/powermax.sh
           return $TRUE
         ;;
         
@@ -311,19 +263,19 @@ function inist {
     ;;
     
     powersave )
-      /opt/inist-tools/tools/powersave
+      /opt/inist-tools/tools/powersave.sh
       return $TRUE
     ;;
     
     powermax )
-      /opt/inist-tools/tools/powermax
+      /opt/inist-tools/tools/powermax.sh
       return $TRUE
     ;;
     
     #---------------------------------------------------------------------------
     # reload
     #---------------------------------------------------------------------------
-    reload )
+    -r | --reload )
       _it_std_consoleMessage "INFO" "Rechargement de INIST-TOOLS"
       source /opt/inist-tools/inistrc
       _it_std_consoleMessage "INFO" "INIST-TOOLS [$MODULE_VERSION] rechargé"
@@ -333,7 +285,7 @@ function inist {
     #---------------------------------------------------------------------------
     # status
     #---------------------------------------------------------------------------
-    status )
+    -s | --status )
       _it_std_consoleMessage "INFO" "Informations sur l'environnement..."
       source /opt/inist-tools/libs/misc.rc
       _it_misc_proxyStatus
@@ -359,7 +311,7 @@ function inist {
     #---------------------------------------------------------------------------
     # OPTION : --version
     #---------------------------------------------------------------------------
-    --version | -v )
+    -v | --version )
       cat "$DIR_LIBS/gfx/cnrs.ansi"
       _it_std_show_version
       return $TRUE
@@ -389,7 +341,7 @@ elif [ "$isSystemProxy" == $FALSE ]; then
 else
   # "on" par défaut...
   source "$DIR_LIBS/inist-proxy.rc"
-  _it_inistProxy "on"
+  _it_inistProxy "default"
   # _it_std_consoleMessage "WARNING" "Variable d'environnement vide ou contenant une valeur incohérente ($isSystemProxy)."
 fi
 

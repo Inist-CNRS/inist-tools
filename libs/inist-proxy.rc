@@ -64,6 +64,29 @@ function _it_inistProxy {
       #
       _it_std_setAction "system" $FALSE
     ;;
+
+    default)
+
+      # Exclusion du proxy
+      export no_proxy="localhost,127.0.0.0/8,*.local,172.16.0.0/16"
+      export NO_PROXY="localhost,127.0.0.0/8,*.local,172.16.0.0/16"
+
+      # HTTP
+      export http_proxy="http://proxyout.inist.fr:8080"
+      export HTTP_PROXY="http://proxyout.inist.fr:8080"
+
+      # HTTPS
+      export https_proxy="http://proxyout.inist.fr:8080"
+      export HTTPS_PROXY="http://proxyout.inist.fr:8080"
+      
+      # FTP
+      export ftp_proxy="http://proxyout.inist.fr:8080"
+      export FTP_PROXY="http://proxyout.inist.fr:8080"
+      
+      #
+      _it_std_setAction "system" $TRUE
+      
+    ;;
     
     help)
       # Aide (toDo)

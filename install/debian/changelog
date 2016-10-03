@@ -47,5 +47,6 @@ inist-tools (0.9.11RC) RC; urgency=medium
   * [DEV] Update .gitignore
   * [DEV] Correction bug suppression fichier (docker off)
   * [DEV] Correction d'un bug de chargement de la lib inist-proxy
+  * [DEV] Refonte de la façade des commandes
 
  -- Stanislas PERRIN <stanislas.perrin@inist.fr>  Tue, 21 Jun 2016 08:28:37 +0200
