@@ -125,13 +125,15 @@ function inist {
     ;;
 
     browsers )
-      source "$DIR_LIBS/browsers.rc"
-      _it_browsers_proxy "$2"
+      _it_std_consoleMessage "WARNING" "Cette commande n'est pas encore implémentée."
+      # source "$DIR_LIBS/browsers.rc"
+      # _it_browsers_proxy "$2"
     ;;
     
     chrome )
-      source "$DIR_LIBS/browsers.rc"
-      _it_browsers_chrome_proxy "$2"
+      _it_std_consoleMessage "WARNING" "Cette commande n'est pas encore implémentée."
+      # source "$DIR_LIBS/browsers.rc"
+      # _it_browsers_chrome_proxy "$2"
     ;;
     
     chromium )
@@ -140,7 +142,9 @@ function inist {
     ;;
 
     curl )
-      _it_std_consoleMessage "WARNING" "Cette commande n'est pas encore implémentée."
+      # _it_std_consoleMessage "WARNING" "Cette commande n'est pas encore implémentée."
+      source "$DIR_LIBS/misc.rc"
+      _it_misc_curl_proxy "$2"
     ;;
     
     docker )
@@ -154,8 +158,9 @@ function inist {
     ;;
     
     firefox )
-      source "$DIR_LIBS/browsers.rc"
-      _it_browsers_firefox_proxy "$2"
+      _it_std_consoleMessage "WARNING" "Cette commande n'est pas encore implémentée."
+      # source "$DIR_LIBS/browsers.rc"
+      # _it_browsers_firefox_proxy "$2"
     ;;
     
     github )
@@ -168,8 +173,9 @@ function inist {
     ;;
     
     iceweasel )
-      source "$DIR_LIBS/browsers.rc"
-      _it_browsers_iceweasel_proxy "$2"
+      _it_std_consoleMessage "WARNING" "Cette commande n'est pas encore implémentée."
+      # source "$DIR_LIBS/browsers.rc"
+      # _it_browsers_iceweasel_proxy "$2"
     ;;
     
     kde )

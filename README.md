@@ -63,6 +63,8 @@ sur votre système.
 </div>
 
 ### Configuration des navigateurs ###
+<h3> ⚠️ En cours de refactoring ⚠️ </h3>
+<strike>
 Afin de permettre à vos navigateurs d'être paramétrés par inist-tools, vous
 devez configurer l'utilisation du fichier
 
@@ -85,6 +87,7 @@ Adresse de configuration automatique du proxy
 ⚠️ Firefox ne recharge pas le fichier proxy.pac à chaque requête. Le changement
 de proxy avec la commande inist proxy on|off --browsers nécessite d'utiliser
 le bouton « actualiser » situé à droite du chemin vers le fichier proxy.pac.
+</strike>
 
 ### Tester les commande en cours de développement ###
 Du fait qu'inist-tools soit chargé au lancement, les modification faites sur le
@@ -105,31 +108,47 @@ ont été apportées disponible immédiatement.
 Une fois "sourcé", les commandes suivent les schémas suivants :
 
 ```bash
-$ inist <service> [off|on|help|status]
+$ inist <service> [commande]
 $ inist [-option|--option-longue]
 ```
 
-##### proxy #####
+##### Activer le proxy pour les services pris en charge #####
+
 ```bash
-$ inist proxy [on|off] [--firefox|--iceweasel|--chrome|--chromium]
+$ inist <service> [help|on|off|status]
 ```
-Active/désactive les variables d'environnement qui prennent en charge le proxy
-INIST<br>
-Avec [--firefox|--iceweasel|--chrome|--chromium], prend en charge la
-configuration spécifique des navigateurs.
+
+```bash
+  help        Informe des éventuelles particularités pour <service>
+  on | off    Positionne ou supprime le proxy INIST pour le service spécifié.
+  status      Indique l'état actuel du paramétrage du proxy pour le <service>
+```
+
+Par défaut, la commande inist <service> sans argument donne le statut actuel du
+proxy pour le service concerné.
+
+Les services pris en charge sont : 
+
+    apt, bower, chrome (à venir), chromium (à venir), curl, docker,
+    env (environnement système), firefox (à venir), github, gnome,
+    iceweasel (à venir) ,kde, npm, ntp, shell (alias de env), unity,
+    wget, xfce
 
 #### Options ####
 
 ```bash
-$ inist -h | --help
-```
-Fournit l'aide des commandes « inist-tools ».
+  -h, --help      Affiche l'aide
 
-```bash
-$ inist -v | --version
-```
+  -i, --info      Donne des informations sur votre configuration
 
-Renseigne sur la version actuelle de « inist-tools »
+  -r, --reload    Recharge inistrc pour prendre en compte les dernières
+                  modifications apportées à inistrc (orienté dev)
+
+  -s, --status    Renseigne sur l'état actuel du paramétrage du proxy INIST
+                  pour l'environnement système
+            
+  -v,--version    Affiche la version
+```
 
 ---
 
@@ -140,7 +159,7 @@ __Note__ : <br>
 que le fichier "inistrc" est sourcé au lancement de celle-ci. Toute modification
 du fichier inistrc ou des sous-commande nécessite à nouveau que le fichier
 inistrc soit sourcé pour être prise en compte.<br>
-Pour facilier cette opération, la commande 'inist reload' permet de recharger
+Pour facilier cette opération, la commande 'inist --reload' permet de recharger
 le fichier inistrc directement dans l'environnement courant.*
 
 ## Construire le package .deb ##

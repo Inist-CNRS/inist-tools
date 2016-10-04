@@ -27,28 +27,35 @@ function _it_desktop_kde_proxy {
   
     on)
       # Vérifier si cet état n'est pas celui en cours
-      _it_std_checkAction "kde" $TRUE
-      
-      it_std_message "INFO" "Configuration de KDE pour le proxy INIST"
-      kwriteconfig --file kioslaverc --group 'Proxy Settings' --key ProxyType 2
-      kwriteconfig --file kioslaverc --group 'Proxy Settings' --key 'Proxy Config Script' $INIST_PROXYPAC
-
-      #
-      _it_std_setAction "kde" $TRUE
+      if _it_std_checkAction "kde" $TRUE ; then
+        it_std_message "INFO" "Configuration de KDE pour le proxy INIST"
+        kwriteconfig --file kioslaverc --group 'Proxy Settings' --key ProxyType 2
+        kwriteconfig --file kioslaverc --group 'Proxy Settings' --key 'Proxy Config Script' $INIST_PROXYPAC
+        #
+        _it_std_setAction "kde" $TRUE
+      fi
     ;;
     
     off)
       # Vérifier si cet état n'est pas celui en cours
-      _it_std_checkAction "kde" $FALSE
-
-      it_std_message "INFO" "Déconfiguration de KDE pour le proxy INIST"
-      kwriteconfig --file kioslaverc --group 'Proxy Settings' --key ProxyType 0
-      
-      #
-      _it_std_setAction "kde" $FALSE
+      if _it_std_checkAction "kde" $FALSE ; then
+        it_std_message "INFO" "Déconfiguration de KDE pour le proxy INIST"
+        kwriteconfig --file kioslaverc --group 'Proxy Settings' --key ProxyType 0
+        #
+        _it_std_setAction "kde" $FALSE
+      fi
     ;;
     
     help)
+      _it_std_consoleMessage "HELP" "Configure kde pour le proxy INIST"
+    ;;
+    
+    status)
+      _it_std_getStatus "kde"
+    ;;
+
+    *)
+      _it_std_consoleMessage "WARNING" "Commande « $1 » non prise en charge"
     ;;
     
   esac
@@ -67,32 +74,38 @@ function _it_desktop_gnome_proxy {
   
     on)
       # Vérifier si cet état n'est pas celui en cours
-      _it_std_checkAction "gnome" $TRUE
-
-      _it_std_message "INFO" "Configuration de GNOME pour le proxy INIST"
-      gsettings set org.gnome.system.proxy mode 'manual'
-      gsettings set org.gnome.system.proxy.http host "$INIST_PROXY_ADDRESS"
-      gsettings set org.gnome.system.proxy.http port "$INIST_PROXY_PORT"
-
-      #
-      _it_std_setAction "gnome" $TRUE
+      if _it_std_checkAction "gnome" $TRUE ; then
+        _it_std_message "INFO" "Configuration de GNOME pour le proxy INIST"
+        gsettings set org.gnome.system.proxy mode 'manual'
+        gsettings set org.gnome.system.proxy.http host "$INIST_PROXY_ADDRESS"
+        gsettings set org.gnome.system.proxy.http port "$INIST_PROXY_PORT"
+        #
+        _it_std_setAction "gnome" $TRUE
+      fi
     ;;
     
     off)
       # Vérifier si cet état n'est pas celui en cours
-      _it_std_checkAction "gnome" $FALSE
-
-      _it_std_message "INFO" "Déconfiguration de GNOME pour le proxy INIST"
-      gsettings reset org.gnome.system.proxy mode
-      gsettings reset org.gnome.system.proxy.http host
-      gsettings reset org.gnome.system.proxy.http port
-
-      #
-      _it_std_setAction "gnome" $FALSE
+      if _it_std_checkAction "gnome" $FALSE ; then
+        _it_std_message "INFO" "Déconfiguration de GNOME pour le proxy INIST"
+        gsettings reset org.gnome.system.proxy mode
+        gsettings reset org.gnome.system.proxy.http host
+        gsettings reset org.gnome.system.proxy.http port
+        #
+        _it_std_setAction "gnome" $FALSE
+      fi
     ;;
     
     help)
-      # C'est ici qu'on affiche l'aide
+      _it_std_consoleMessage "HELP" "Configure gnome pour le proxy INIST"
+    ;;
+    
+    status)
+      _it_std_getStatus "gnome"
+    ;;
+
+    *)
+      _it_std_consoleMessage "WARNING" "Commande « $1 » non prise en charge"
     ;;
     
   esac
@@ -112,31 +125,38 @@ function _it_desktop_unity_proxy {
   
     on)
       # Vérifier si cet état n'est pas celui en cours
-      _it_std_checkAction "unity" $TRUE
-
-      it_std_message "INFO" "Configuration de UNITY pour le proxy INIST"
-      gsettings set org.gnome.system.proxy mode 'manual'
-      gsettings set org.gnome.system.proxy.http host "$INIST_PROXY_ADDRESS"
-      gsettings set org.gnome.system.proxy.http port "$INIST_PROXY_PORT"
-
-      #
-      _it_std_setAction "unity" $TRUE
+      if _it_std_checkAction "unity" $TRUE ; then
+        it_std_message "INFO" "Configuration de UNITY pour le proxy INIST"
+        gsettings set org.gnome.system.proxy mode 'manual'
+        gsettings set org.gnome.system.proxy.http host "$INIST_PROXY_ADDRESS"
+        gsettings set org.gnome.system.proxy.http port "$INIST_PROXY_PORT"
+        #
+        _it_std_setAction "unity" $TRUE
+      fi
     ;;
     
     off)
       # Vérifier si cet état n'est pas celui en cours
-      _it_std_checkAction "unity" $FALSE
-
-      it_std_message "INFO" "Déconfiguration de UNITY pour le proxy INIST"
-      gsettings reset org.gnome.system.proxy mode
-      gsettings reset org.gnome.system.proxy.http host
-      gsettings reset org.gnome.system.proxy.http port
-
-      #
-      _it_std_setAction "unity" $FALSE
+      if _it_std_checkAction "unity" $FALSE ; then
+        it_std_message "INFO" "Déconfiguration de UNITY pour le proxy INIST"
+        gsettings reset org.gnome.system.proxy mode
+        gsettings reset org.gnome.system.proxy.http host
+        gsettings reset org.gnome.system.proxy.http port
+        #
+        _it_std_setAction "unity" $FALSE
+      fi
     ;;
     
     help)
+      _it_std_consoleMessage "HELP" "Configure unity pour le proxy INIST"
+    ;;
+    
+    status)
+      _it_std_getStatus "unity"
+    ;;
+
+    *)
+      _it_std_consoleMessage "WARNING" "Commande « $1 » non prise en charge"
     ;;
     
   esac
@@ -156,32 +176,38 @@ function _it_dektop_xfce4_proxy {
   
     on)
       # Vérifier si cet état n'est pas celui en cours
-      _it_std_checkAction "xfce4" $TRUE
-
-      _it_std_message "INFO" "Configuration de XFCE4 pour le proxy INIST"
-      gsettings set org.gnome.system.proxy mode 'manual'
-      gsettings set org.gnome.system.proxy.http host "$INIST_PROXY_ADDRESS"
-      gsettings set org.gnome.system.proxy.http port "$INIST_PROXY_PORT"
-
-      #
-      _it_std_setAction "xfce4" $TRUE
+      if _it_std_checkAction "xfce4" $TRUE ; then
+        _it_std_message "INFO" "Configuration de XFCE4 pour le proxy INIST"
+        gsettings set org.gnome.system.proxy mode 'manual'
+        gsettings set org.gnome.system.proxy.http host "$INIST_PROXY_ADDRESS"
+        gsettings set org.gnome.system.proxy.http port "$INIST_PROXY_PORT"
+        #
+        _it_std_setAction "xfce4" $TRUE
+      fi
     ;;
 
     off)
       # Vérifier si cet état n'est pas celui en cours
-      _it_std_checkAction "xfce4" $FALSE
-
-      _it_std_message "INFO" "Déconfiguration de XFCE4 pour le proxy INIST"
-      gsettings reset org.gnome.system.proxy mode
-      gsettings reset org.gnome.system.proxy.http host
-      gsettings reset org.gnome.system.proxy.http port
-
-      #
-      _it_std_setAction "xfce4" $FALSE
+      if _it_std_checkAction "xfce4" $FALSE ; then
+        _it_std_message "INFO" "Déconfiguration de XFCE4 pour le proxy INIST"
+        gsettings reset org.gnome.system.proxy mode
+        gsettings reset org.gnome.system.proxy.http host
+        gsettings reset org.gnome.system.proxy.http port
+        #
+        _it_std_setAction "xfce4" $FALSE
+      fi
     ;;
 
     help)
-      # C'est ici qu'on affiche l'aide
+      _it_std_consoleMessage "HELP" "Configure xfce4 pour le proxy INIST"
+    ;;
+    
+    status)
+      _it_std_getStatus "xfce4"
+    ;;
+
+    *)
+      _it_std_consoleMessage "WARNING" "Commande « $1 » non prise en charge"
     ;;
 
   esac

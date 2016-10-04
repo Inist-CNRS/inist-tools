@@ -27,37 +27,40 @@ function _it_misc_apt_proxy {
   
     on)
       # Vérifier si cet état n'est pas celui en cours
-      _it_std_checkAction "apt" $TRUE
-      _it_std_message "INFO" "Configuration de APT pour le proxy INIST"
-      # fakeroot "$DIR_TOOLS/apt-proxy-on.sh"
-      sudo "$DIR_TOOLS/apt-proxy-on.sh"
-      # Si le code de retour > 0, c'est que ça n'a pas fonctionné
-      if [ $? -gt 0 ]; then
-        _it_std_message "ERROR" "Impossible de modifier la configuration de APT"
+      if _it_std_checkAction "apt" $TRUE ; then
+        _it_std_message "INFO" "Configuration de APT pour le proxy INIST"
+        # fakeroot "$DIR_TOOLS/apt-proxy-on.sh"
+        sudo "$DIR_TOOLS/apt-proxy-on.sh"
+        # Si le code de retour > 0, c'est que ça n'a pas fonctionné
+        if [ $? -gt 0 ]; then
+          _it_std_message "ERROR" "Impossible de modifier la configuration de APT"
+        fi
+        #
+        _it_std_setAction "apt" $TRUE
       fi
-      #
-      _it_std_setAction "apt" $TRUE
     ;;
     
     off)
       # Vérifier si cet état n'est pas celui en cours
-      _it_std_checkAction "apt" $FALSE
-      _it_std_message "INFO" "Déconfiguration de APT pour le proxy INIST"
-      # fakeroot "$DIR_TOOLS/apt-proxy-off.sh"
-      sudo "$DIR_TOOLS/apt-proxy-off.sh"
-      # Si le code de retour > 0, c'est que ça n'a pas fonctionné
-      if [ $? -gt 0 ]; then
-        _it_std_message "ERROR" "Impossible de modifier la configuration de APT"
+      if _it_std_checkAction "apt" $FALSE ; then
+        _it_std_message "INFO" "Déconfiguration de APT pour le proxy INIST"
+        # fakeroot "$DIR_TOOLS/apt-proxy-off.sh"
+        sudo "$DIR_TOOLS/apt-proxy-off.sh"
+        # Si le code de retour > 0, c'est que ça n'a pas fonctionné
+        if [ $? -gt 0 ]; then
+          _it_std_message "ERROR" "Impossible de modifier la configuration de APT"
+        fi
+        #
+        _it_std_setAction "apt" $FALSE
       fi
-      #
-      _it_std_setAction "apt" $FALSE
     ;;
     
     help)
       # Afficher l'aide de la commande
     ;;
     
-    *)
+    status)
+      _it_std_getStatus "apt"
     ;;
     
   esac
@@ -82,16 +85,18 @@ function _it_misc_wget_proxy {
   
     on)
       # Vérifier si cet état n'est pas celui en cours
-      _it_std_checkAction "wget" $TRUE
-      #
-      _it_std_setAction "wget" $TRUE
+      if _it_std_checkAction "wget" $TRUE ; then
+        #
+        _it_std_setAction "wget" $TRUE
+      fi
     ;;
     
     off)
       # Vérifier si cet état n'est pas celui en cours
-      _it_std_checkAction "wget" $FALSE
-      #
-      _it_std_setAction "wget" $FALSE
+      if _it_std_checkAction "wget" $FALSE ; then
+        #
+        _it_std_setAction "wget" $FALSE
+      fi
     ;;
     
     help)
@@ -99,7 +104,8 @@ function _it_misc_wget_proxy {
       _it_std_consoleMessage "HELP" "Pour désactiver le proxy INIST pour wget, tapez « inist wget off »"
     ;;
     
-    *)
+    status)
+      _it_std_getStatus "wget"
     ;;
   
   esac
@@ -114,7 +120,39 @@ function _it_misc_curl_proxy {
     _it_std_consoleMessage "ERREUR" "curl est introuvable (ou pas installé)"
     return $FALSE
   fi
+
+  curlConf="$HOME/.curlrc"
+  curlConfBackup="$HOME/.curlrc.backup"
   
+  
+  case $1 in
+  
+    on )
+      if _it_std_checkAction "curl" $TRUE ; then
+        if [ -a "$curlConf" ]; then
+          cp "$curlConf" "$curlConfBackup"
+        fi
+        echo "proxy = $INIST_HTTP_PROXY" > "$curlConf"
+        _it_std_setAction "curl" $TRUE
+      fi
+      
+    ;;
+    
+    off )
+      if _it_std_checkAction "curl" $FALSE ; then
+        rm "$curlConf"
+        if [ -f "$curlConfBackup" ]; then
+          cp "$curlConfBackup" "$curlConf"
+        fi
+        _it_std_setAction "curl" $FALSE
+      fi
+    ;;
+    
+    status)
+      _it_std_getStatus "curl"
+    ;;
+    
+  esac
   #
   # curl utilise les variables d'environnement
   #
@@ -134,28 +172,32 @@ function _it_misc_npm_proxy {
     
     on)
       # Vérifier si cet état n'est pas celui en cours
-      _it_std_checkAction "npm" $TRUE
-      $NPM config set proxy "$INIST_HTTP_PROXY"
-      $NPM config set https-proxy "$INIST_HTTPS_PROXY"
-      _it_std_consoleMessage "INFO" "npm est paramétré pour le proxy INIST"
-      #
-      _it_std_setAction "npm" $TRUE
+      if _it_std_checkAction "npm" $TRUE ; then
+        $NPM config set proxy "$INIST_HTTP_PROXY"
+        $NPM config set https-proxy "$INIST_HTTPS_PROXY"
+        _it_std_consoleMessage "INFO" "npm est paramétré pour le proxy INIST"
+        #
+        _it_std_setAction "npm" $TRUE
+      fi
     ;;
     
     off)
       # Vérifier si cet état n'est pas celui en cours
-      _it_std_checkAction "npm" $FALSE
-      $NPM config rm proxy
-      $NPM config rm https-proxy
-      _it_std_consoleMessage "INFO" "npm n'est plus paramétré pour le proxy INIST"
-      #
-      _it_std_setAction "npm" $FALSE
+      if _it_std_checkAction "npm" $FALSE ; then
+        $NPM config rm proxy
+        $NPM config rm https-proxy
+        _it_std_consoleMessage "INFO" "npm n'est plus paramétré pour le proxy INIST"
+        #
+        _it_std_setAction "npm" $FALSE
+      fi
     ;;
     
     help)
+      _it_std_consoleMessage "HELP" "Permet de paramétrer le proxy INIST pour npm"
     ;;
     
-    *)
+    status)
+      _it_std_getStatus "npm"
     ;;
     
   esac

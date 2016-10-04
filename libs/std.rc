@@ -83,11 +83,11 @@ function _it_std_checkAction {
   case "$action" in
   
     $TRUE)
-      message="proxy INIST on"
+      message="pour utiliser le proxy INIST"
     ;;
     
     $FALSE)
-      message="proxy INIST off"
+      message="pour ne pas utiliser le proxy INIST"
     ;;
     
     *)
@@ -96,9 +96,10 @@ function _it_std_checkAction {
   
   esac
   
-  envValue=$(_it_std_getEnv "${app}")
+  envValue=$(_it_std_getEnv "$app")
+  
   if [ "$envValue" == "$action" ]; then
-    _it_std_consoleMessage "WARNING" "$app est déjà configuré $message"
+    _it_std_consoleMessage "WARNING" "« app » est déjà configuré $message"
     return $FALSE
   else
     return $TRUE
@@ -136,6 +137,30 @@ function _it_std_setAction {
   
   esac
   
+}
+
+function _it_std_getStatus {
+  local app="$1"
+  local envValue=$(_it_std_getEnv "$app")
+  
+  case $envValue in
+  
+    $TRUE)
+      _it_std_consoleMessage "INFO" "« $app » est configuré pour utiliser le proxy INIST"
+      return $TRUE
+    ;;
+  
+    $FALSE)
+      _it_std_consoleMessage "INFO" "« $app » n'est pas configuré pour utiliser le proxy INIST"
+      return $TRUE
+    ;;
+  
+    *)
+      _it_std_consoleMessage "INFO" "Il n'y a pas d'information concernant la configuration du proxy INIST pour « $app »"
+      return $TRUE
+    ;;
+  
+  esac
 }
 
 #-------------------------------------------------------------------------------

@@ -27,21 +27,23 @@ function _it_browsers_proxy {
   case "$1" in
   
   on )
-    _it_std_checkAction "browsers" $TRUE
-    if [ -L "$proxyPac" ]; then
-      rm "$proxyPac"
+    if _it_std_checkAction "browsers" $TRUE ; then
+      if [ -L "$proxyPac" ]; then
+        rm "$proxyPac"
+      fi
+      ln -s "$proxyPacOn" "$proxyPac"
+      _it_std_setAction "browsers" $TRUE
     fi
-    ln -s "$proxyPacOn" "$proxyPac"
-    _it_std_setAction "browsers" $TRUE
   ;;
   
   off )
-    _it_std_checkAction "browsers" $FALSE
-    if [ -L "$proxyPac" ]; then
-      rm "$proxyPac"
+    if _it_std_checkAction "browsers" $FALSE ; then
+      if [ -L "$proxyPac" ]; then
+        rm "$proxyPac"
+      fi
+      ln -s "$proxyPacOff" "$proxyPac"
+      _it_std_setAction "browsers" $FALSE
     fi
-    ln -s "$proxyPacOff" "$proxyPac"
-    _it_std_setAction "browsers" $FALSE
   ;;
 
   adsl )
@@ -93,53 +95,54 @@ function _it_browsers_firefox_proxy {
   # ----------------------------------------------------------------------------
   on)
     # Vérifier si cet état n'est pas celui en cours
-    _it_std_checkAction "firefox" $TRUE
+    if _it_std_checkAction "firefox" $TRUE ; then
+      _it_std_consoleMessage "INFO" "Configuration de Firefox pour le proxy INIST"
+      # --------------------------------------------------------------------------
+      # Backup du fichier avant toute modification
+      # --------------------------------------------------------------------------
+      if [ -f "$BACKUP_FILE" ]; then
+        _it_std_consoleMessage "INFO" "Un ancien backup a été trouvé, on le supprime."
+        rm "$BACKUP_FILE"
+      fi
+      
+      # Copie (backup)
+      cp $PREFS_JS "$BACKUP_FILE"
+      
+      # Vérification
+      if [ $? -gt 0 ]; then
+        _it_std_consoleMessage "ERREUR" "Impossible de copier « $PREFS_JS » ➜ « $BACKUP_FILE" »
+        return $FALSE
+      else
+        _it_std_consoleMessage "INFO" "Configuration sauvegardée."
+      fi
+    
+      # --------------------------------------------------------------------------
+      # Modification du fichier de configuration
+      # --------------------------------------------------------------------------
+      # On supprime toute les conf de proxy
+      grep -vi "network\.proxy" $PREFS_JS > "$PREFS_JS.tmp"
+      rm "$PREFS_JS"
+      mv "$PREFS_JS.tmp" "$PREFS_JS"
+      # Et on configure pour le proxy INIST
+      echo 'user_pref("network.proxy.type", 1);' >> $PREFS_JS
+      echo 'user_pref("network.proxy.share_proxy_settings", true);' >> $PREFS_JS
+      echo 'user_pref("network.proxy.socks_version", 4);'           >> $PREFS_JS
+      echo 'user_pref("network.proxy.http", "proxyout.inist.fr");'  >> $PREFS_JS
+      echo 'user_pref("network.proxy.http_port", 8080);'            >> $PREFS_JS
+      echo 'user_pref("network.proxy.ssl", "proxyout.inist.fr");'   >> $PREFS_JS
+      echo 'user_pref("network.proxy.ssl_port", 8080);'             >> $PREFS_JS
+      echo 'user_pref("network.proxy.ftp", "proxyout.inist.fr");'   >> $PREFS_JS
+      echo 'user_pref("network.proxy.ftp_port", 8080);'             >> $PREFS_JS
+      echo 'user_pref("network.proxy.socks", "proxyout.inist.fr");' >> $PREFS_JS
+      echo 'user_pref("network.proxy.socks_port", 8080);'           >> $PREFS_JS
 
-    _it_std_consoleMessage "INFO" "Configuration de Firefox pour le proxy INIST"
-    # --------------------------------------------------------------------------
-    # Backup du fichier avant toute modification
-    # --------------------------------------------------------------------------
-    if [ -f "$BACKUP_FILE" ]; then
-      _it_std_consoleMessage "INFO" "Un ancien backup a été trouvé, on le supprime."
-      rm "$BACKUP_FILE"
+      # Message
+      _it_std_consoleMessage "INFO" "Firefox est configuré pour le proxy INIST."
+
+      # Positionnement de la variable d'environnement globale
+      _it_std_setEnv "firefoxProxy" $TRUE
     fi
-    
-    # Copie (backup)
-    cp $PREFS_JS "$BACKUP_FILE"
-    
-    # Vérification
-    if [ $? -gt 0 ]; then
-      _it_std_consoleMessage "ERREUR" "Impossible de copier « $PREFS_JS » ➜ « $BACKUP_FILE" »
-      return $FALSE
-    else
-      _it_std_consoleMessage "INFO" "Configuration sauvegardée."
-    fi
-    
-    # --------------------------------------------------------------------------
-    # Modification du fichier de configuration
-    # --------------------------------------------------------------------------
-    # On supprime toute les conf de proxy
-    grep -vi "network\.proxy" $PREFS_JS > "$PREFS_JS.tmp"
-    rm "$PREFS_JS"
-    mv "$PREFS_JS.tmp" "$PREFS_JS"
-    # Et on configure pour le proxy INIST
-    echo 'user_pref("network.proxy.type", 1);' >> $PREFS_JS
-    echo 'user_pref("network.proxy.share_proxy_settings", true);' >> $PREFS_JS
-    echo 'user_pref("network.proxy.socks_version", 4);'           >> $PREFS_JS
-    echo 'user_pref("network.proxy.http", "proxyout.inist.fr");'  >> $PREFS_JS
-    echo 'user_pref("network.proxy.http_port", 8080);'            >> $PREFS_JS
-    echo 'user_pref("network.proxy.ssl", "proxyout.inist.fr");'   >> $PREFS_JS
-    echo 'user_pref("network.proxy.ssl_port", 8080);'             >> $PREFS_JS
-    echo 'user_pref("network.proxy.ftp", "proxyout.inist.fr");'   >> $PREFS_JS
-    echo 'user_pref("network.proxy.ftp_port", 8080);'             >> $PREFS_JS
-    echo 'user_pref("network.proxy.socks", "proxyout.inist.fr");' >> $PREFS_JS
-    echo 'user_pref("network.proxy.socks_port", 8080);'           >> $PREFS_JS
 
-    # Positionnement de la variable d'environnement globale
-    _it_std_setEnv "firefoxProxy" $TRUE
-
-    # Message
-    _it_std_consoleMessage "INFO" "Firefox est configuré pour le proxy INIST."
   ;;
 
   # ----------------------------------------------------------------------------
@@ -147,21 +150,33 @@ function _it_browsers_firefox_proxy {
   # ----------------------------------------------------------------------------
   off)
     # Vérifier si cet état n'est pas celui en cours
-    _it_std_checkAction "firefox" $FALSE
+    if _it_std_checkAction "firefox" $FALSE ; then
+      _it_std_consoleMessage "INFO" "Déconfiguration de Firefox pour le proxy INIST"
+      grep -vi "network\.proxy" $PREFS_JS > "$PREFS_JS.tmp"
+      rm "$PREFS_JS"
+      mv "$PREFS_JS.tmp" "$PREFS_JS"
+      echo 'user_pref("network.proxy.type", 5);' >> $PREFS_JS
 
-    _it_std_consoleMessage "INFO" "Déconfiguration de Firefox pour le proxy INIST"
-    grep -vi "network\.proxy" $PREFS_JS > "$PREFS_JS.tmp"
-    rm "$PREFS_JS"
-    mv "$PREFS_JS.tmp" "$PREFS_JS"
-    echo 'user_pref("network.proxy.type", 5);' >> $PREFS_JS
-    
-    # Positionnement de la variable d'environnement globale
-    _it_std_setEnv "firefoxProxy" $FALSE
-    
-    # Message
-    _it_std_consoleMessage "INFO" "Firefox n'est plus configuré pour le proxy INIST."
+      # Message
+      _it_std_consoleMessage "INFO" "Firefox n'est plus configuré pour le proxy INIST."
+      
+      # Positionnement de la variable d'environnement globale
+      _it_std_setEnv "firefoxProxy" $FALSE
+    fi
   ;;
 
+  help)
+    _it_std_consoleMessage "HELP" "Configure firefox pour le proxy INIST"
+  ;;
+  
+  status)
+    _it_std_getStatus "firefox"
+  ;;
+
+  *)
+    _it_std_consoleMessage "WARNING" "Commande « $1 » non prise en charge"
+  ;;
+    
   esac
 
 }
@@ -184,6 +199,11 @@ function _it_browsers_iceweasel_proxy {
   off)
     _it_std_message "ICEWEASEL" "Déconfiguration de Iceweasel pour le proxy INIST"
   ;;
+
+  *)
+    _it_std_getStatus "iceweasel"
+  ;;
+  
   esac
   
 }
@@ -211,6 +231,11 @@ function _it_browsers_chrome_proxy {
   off)
     _it_std_message "CHROME" "Restauration de la configuration de Chrome"
   ;;
+
+  *)
+    _it_std_getStatus "chrome"
+  ;;
+
   esac
   
 }
@@ -233,6 +258,11 @@ function _it_browsers_chromium_proxy {
   off)
     _it_std_message "CHROMIUM" "Déconfiguration de Chromium pour le proxy INIST"
   ;;
+
+  *)
+    _it_std_getStatus "chromium"
+  ;;
+
   esac
   
 }

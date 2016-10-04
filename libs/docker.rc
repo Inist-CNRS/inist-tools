@@ -22,38 +22,40 @@ function _it_docker_proxy {
   
     on)
       # Vérifier si cet état n'est pas celui en cours
-      _it_std_checkAction "docker" $TRUE
-
-      sudo /opt/inist-tools/tools/docker-proxy-on.sh
-      
-      # Si la commande précédente a réussi...
-      if [ $? -eq 0 ]; then
-        _it_std_setAction "docker" $TRUE
-      else
-        _it_std_consoleMessage "ERROR" "La configuration de Docker pour le proxy INIST a échoué"
+      if _it_std_checkAction "docker" $TRUE ; then
+        sudo /opt/inist-tools/tools/docker-proxy-on.sh
+        # Si la commande précédente a réussi...
+        if [ $? -eq 0 ]; then
+          _it_std_setAction "docker" $TRUE
+        else
+          _it_std_consoleMessage "ERROR" "La configuration de Docker pour le proxy INIST a échoué"
+        fi
       fi
     ;;
     
     off)
       # Vérifier si cet état n'est pas celui en cours
-      _it_std_checkAction "docker" $FALSE
-
-      sudo /opt/inist-tools/tools/docker-proxy-off.sh
-      
-      # Si la commande précédente a réussi...
-      if [ $? -eq 0 ]; then
-        _it_std_setAction "docker" $FALSE
-      else
-        _it_std_consoleMessage "ERROR" "La déconfiguration de Docker pour le proxy INIST a échoué"
+      if _it_std_checkAction "docker" $FALSE ; then
+        sudo /opt/inist-tools/tools/docker-proxy-off.sh
+        # Si la commande précédente a réussi...
+        if [ $? -eq 0 ]; then
+          _it_std_setAction "docker" $FALSE
+        else
+          _it_std_consoleMessage "ERROR" "La déconfiguration de Docker pour le proxy INIST a échoué"
+        fi
       fi
     ;;
     
     help)
-      return $TRUE
+      _it_std_consoleMessage "HELP" "Configure docker pour le proxy INIST"
     ;;
     
+    status)
+      _it_std_getStatus "docker"
+    ;;
+
     *)
-      return $FALSE
+      _it_std_consoleMessage "WARNING" "Commande « $1 » non prise en charge"
     ;;
   
   esac

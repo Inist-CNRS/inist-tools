@@ -23,77 +23,67 @@ function _it_inistProxy {
   case "$1" in
   
     on)
-      
-      _it_std_checkAction "system" $TRUE
-
-      # Exclusion du proxy
-      export no_proxy="localhost,127.0.0.0/8,*.local,172.16.0.0/16"
-      export NO_PROXY="localhost,127.0.0.0/8,*.local,172.16.0.0/16"
-
-      # HTTP
-      export http_proxy="http://proxyout.inist.fr:8080"
-      export HTTP_PROXY="http://proxyout.inist.fr:8080"
-
-      # HTTPS
-      export https_proxy="http://proxyout.inist.fr:8080"
-      export HTTPS_PROXY="http://proxyout.inist.fr:8080"
-      
-      # FTP
-      export ftp_proxy="http://proxyout.inist.fr:8080"
-      export FTP_PROXY="http://proxyout.inist.fr:8080"
-      
-      #
-      _it_std_setAction "system" $TRUE
+      if _it_std_checkAction "system" $TRUE ; then
+        # Exclusion du proxy
+        export no_proxy="localhost,127.0.0.0/8,*.local,172.16.0.0/16"
+        export NO_PROXY="localhost,127.0.0.0/8,*.local,172.16.0.0/16"
+        # HTTP
+        export http_proxy="http://proxyout.inist.fr:8080"
+        export HTTP_PROXY="http://proxyout.inist.fr:8080"
+        # HTTPS
+        export https_proxy="http://proxyout.inist.fr:8080"
+        export HTTPS_PROXY="http://proxyout.inist.fr:8080"
+        # FTP
+        export ftp_proxy="http://proxyout.inist.fr:8080"
+        export FTP_PROXY="http://proxyout.inist.fr:8080"
+        #
+        _it_std_setAction "system" $TRUE
+      fi
       
     ;;
     
     off)
-
-      _it_std_checkAction "system" $FALSE
-
-      unset "no_proxy"
-      unset "http_proxy"
-      unset "https_proxy"
-      unset "ftp_proxy"
-
-      unset "NO_PROXY"
-      unset "HTTP_PROXY"
-      unset "HTTPS_PROXY"
-      unset "FTP_PROXY"
-      
-      #
-      _it_std_setAction "system" $FALSE
+      if _it_std_checkAction "system" $FALSE ; then
+        unset "no_proxy"
+        unset "http_proxy"
+        unset "https_proxy"
+        unset "ftp_proxy"
+        unset "NO_PROXY"
+        unset "HTTP_PROXY"
+        unset "HTTPS_PROXY"
+        unset "FTP_PROXY"
+        #
+        _it_std_setAction "system" $FALSE
+      fi
     ;;
 
     default)
-
       # Exclusion du proxy
       export no_proxy="localhost,127.0.0.0/8,*.local,172.16.0.0/16"
       export NO_PROXY="localhost,127.0.0.0/8,*.local,172.16.0.0/16"
-
       # HTTP
       export http_proxy="http://proxyout.inist.fr:8080"
       export HTTP_PROXY="http://proxyout.inist.fr:8080"
-
       # HTTPS
       export https_proxy="http://proxyout.inist.fr:8080"
       export HTTPS_PROXY="http://proxyout.inist.fr:8080"
-      
       # FTP
       export ftp_proxy="http://proxyout.inist.fr:8080"
       export FTP_PROXY="http://proxyout.inist.fr:8080"
-      
       #
       _it_std_setAction "system" $TRUE
-      
     ;;
     
     help)
-      # Aide (toDo)
+      _it_std_consoleMessage "HELP" "Configure le système et les shells pour le proxy INIST"
+    ;;
+    
+    status)
+      _it_std_getStatus "system"
     ;;
     
     *)
-      # Rien
+      _it_std_consoleMessage "WARNING" "Commande « $1 » non prise en charge"
     ;;
     
   esac

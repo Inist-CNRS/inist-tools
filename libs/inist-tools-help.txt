@@ -1,10 +1,13 @@
 Commandes :
 
-  inist <service> [on|off|help|status] 
+  inist <service> [help|on|off|status] 
   
   on | off    Positionne ou supprime le proxy INIST pour le service spécifié.
   help        Informe des éventuelles particularités pour <service>
   status      Indique l'état actuel du paramétrage du proxy pour le <service>
+  
+  Par défaut, la commande inist <service> sans argument donne le statut actuel
+  du proxy pour le service concerné.
   
   <services> disponibles :
   
