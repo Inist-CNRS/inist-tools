@@ -16,44 +16,69 @@ _inist () {
 
   case "$cur" in
 
+
+    a*)
+      COMPREPLY=( $( compgen -W 'apt' -- $cur ) )
+    ;;
+
+    b*)
+      COMPREPLY=( $( compgen -W 'bower' -- $cur ) )
+    ;;
+
+    c*)
+      COMPREPLY=( $( compgen -W 'chromium chrome curl' -- $cur ) )
+    ;;
+
     d*)
-      COMPREPLY=( $( compgen -W 'date' -- $cur ) )
+      COMPREPLY=( $( compgen -W 'docker ' -- $cur ) )
+    ;;
+
+    e*)
+      COMPREPLY=( $( compgen -W 'env' -- $cur ) )
+    ;;
+
+    f*)
+      COMPREPLY=( $( compgen -W 'firefox' -- $cur ) )
+    ;;
+
+    g*)
+      COMPREPLY=( $( compgen -W 'github gnome' -- $cur ) )
     ;;
 
     i*)
-      COMPREPLY=( $( compgen -W 'info' -- $cur ) )
+      COMPREPLY=( $( compgen -W 'iceweasel' -- $cur ) )
     ;;
 
-    o*)
-      COMPREPLY=( $( compgen -W 'on off' -- $cur ) )
-    ;;
-  
-    p*)
-      COMPREPLY=( $( compgen -W 'proxy' -- $cur ) )
+    k*)
+      COMPREPLY=( $( compgen -W 'kde' -- $cur ) )
     ;;
 
-    r*)
-      COMPREPLY=( $( compgen -W 'reload' -- $cur ) )
+    n*)
+      COMPREPLY=( $( compgen -W 'npm ntp' -- $cur ) )
     ;;
 
     s*)
-      COMPREPLY=( $( compgen -W 'sync status' -- $cur ) )
+      COMPREPLY=( $( compgen -W 'shell' -- $cur ) )
     ;;
     
-    t*)
-      COMPREPLY=( $( compgen -W 'time' -- $cur ) )
+    u*)
+      COMPREPLY=( $( compgen -W 'unity' -- $cur ) )
     ;;
 
-    proxy*)
-      COMPREPLY=( $( compgen -W 'on off' -- $cur ) )
+    w*)
+      COMPREPLY=( $( compgen -W 'wget' -- $cur ) )
+    ;;
+
+    x*)
+      COMPREPLY=( $( compgen -W 'xfce' -- $cur ) )
     ;;
   
     -*)
-      COMPREPLY=( $( compgen -W '-h --help -v --version' -- $cur ) )
+      COMPREPLY=( $( compgen -W '-h --help -i --info -r --reload -s --status  -v --version' -- $cur ) )
     ;;
 
     *)
-      COMPREPLY=( $( compgen -W 'info proxy reload time date sync -h --help -v --version' -- $cur ) )
+      COMPREPLY=( $( compgen -W 'apt bower chrome chromium curl docker env firefox github gnome iceweasel kde npm shell unity wget xfce' -- $cur ) )
     ;;
     
   esac

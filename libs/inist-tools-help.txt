@@ -1,29 +1,28 @@
 Commandes :
 
-  info      Donne des informations sur votre configuration
+  inist <service> [on|off|help|status] 
+  
+  on | off    Positionne ou supprime le proxy INIST pour le service spécifié.
+  help        Informe des éventuelles particularités pour <service>
+  status      Indique l'état actuel du paramétrage du proxy pour le <service>
+  
+  <services> disponibles :
+  
+    apt, bower, chrome (à venir), chromium (à venir), curl, docker,
+    env (environnement système), firefox (à venir), github, gnome,
+    iceweasel (à venir) ,kde, npm, ntp, shell (alias de env), unity,
+    wget, xfce
 
-  proxy     [on|off] [--chrome|--chromium|--firefox|--iceweasel|
-                      --kde|--unity|--gnome|--xfce| --apt|--npm|--bower|
-                      --docker]
-            Positionne ou supprime le proxy INIST pour la session en cours ou
-            pour le navigateur
-            Utilisée seule, cette commande positionne les variables
-            d'environnement pour utiliser le proxy INIST dans la session
-            courrante (shell).
-            on            : positionne les variables d'environnement pour le
-                            proxy INIST 
-            off           : supprime les variables d'environnement pour le
-                            proxy INIST 
-            on  --<appli> : configure <appli> pour utiliser le proxy INIST
-            off --<appli> : retire le proxy INIST de la configuration de <appli>
-
-  reload    recharge inistrc pour prendre en compte les dernières modifications 
-            apportées à inistrc (orienté dev)
-
-  time      synchronise la date et l'heure de la machine sur le serveur de temps
-            de l'INIST
-            
-  date      alias de sync
-            
 Options :
+
+  -h, --help      Cette aide
+
+  -i, --info      Donne des informations sur votre configuration
+
+  -r, --reload    Recharge inistrc pour prendre en compte les dernières
+                  modifications apportées à inistrc (orienté dev)
+
+  -s, --status    Renseigne sur l'état actuel du paramétrage du proxy INIST
+                  pour l'environnement système
+            
   -v,--version    Affiche la version

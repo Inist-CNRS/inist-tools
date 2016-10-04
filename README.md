@@ -102,10 +102,10 @@ ont été apportées disponible immédiatement.
 
 ## Commandes ##
 
-Une fois "sourcé", les commandes suivent le schéma suivant :
+Une fois "sourcé", les commandes suivent les schémas suivants :
 
 ```bash
-$ inist commande [-option|--option-longue]
+$ inist <service> [off|on|help|status]
 $ inist [-option|--option-longue]
 ```
 

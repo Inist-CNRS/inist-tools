@@ -114,11 +114,6 @@ function inist {
     #---------------------------------------------------------------------------
     # Commande de paramétrage du proxy INIST
     #---------------------------------------------------------------------------
-    env )
-      source "$DIR_LIBS/inist-proxy.rc"
-      _it_inistProxy "$2"
-    ;;
-
     apt )
       source "$DIR_LIBS/misc.rc"
       _it_misc_apt_proxy "$2"
@@ -143,10 +138,19 @@ function inist {
       source "$DIR_LIBS/browsers.rc"
       _it_browsers_chromium_proxy "$2"
     ;;
+
+    curl )
+      _it_std_consoleMessage "WARNING" "Cette commande n'est pas encore implémentée."
+    ;;
     
     docker )
       source "$DIR_LIBS/docker.rc"
       _it_docker_proxy "$2"
+    ;;
+
+    env )
+      source "$DIR_LIBS/inist-proxy.rc"
+      _it_inistProxy "$2"
     ;;
     
     firefox )
@@ -223,11 +227,19 @@ function inist {
     #---------------------------------------------------------------------------
     # time|date|sync
     #---------------------------------------------------------------------------
-    -t | --time | --date )
-      _it_std_consoleMessage "INFO" "Synchronisation de la date/heure..."
-      sudo "/opt/inist-tools/tools/timesync.sh"
-      _it_std_consoleMessage "OK" "Heure synchronisée"
-      return $TRUE
+    ntp )
+      case $2 in
+        # Synchro avec serveur ntp de l'INIST
+        sync )
+          _it_std_consoleMessage "INFO" "Synchronisation de la date/heure..."
+          sudo "/opt/inist-tools/tools/timesync.sh"
+          _it_std_consoleMessage "OK" "Heure synchronisée"
+          return $TRUE
+        ;;
+        * )
+          _it_std_consoleMessage "AIDE" "« inist ntp sync » pour synchroniser votre machine avec le serveur NTP de l'INIST"
+        ;;
+      esac
     ;;
 
     #---------------------------------------------------------------------------
