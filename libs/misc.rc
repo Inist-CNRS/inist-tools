@@ -25,7 +25,7 @@ function _it_misc_apt_proxy {
       if _it_std_checkAction "apt" $TRUE ; then
         _it_std_message "INFO" "Configuration de APT pour le proxy INIST"
         # fakeroot "$DIR_TOOLS/apt-proxy-on.sh"
-        sudo "$DIR_TOOLS/apt-proxy-on.sh"
+        $SUDO "$DIR_TOOLS/apt-proxy-on.sh"
         # Si le code de retour > 0, c'est que ça n'a pas fonctionné
         if [ $? -gt 0 ]; then
           _it_std_consoleMessage "ERROR" "Impossible de modifier la configuration de APT"
@@ -40,7 +40,7 @@ function _it_misc_apt_proxy {
       if _it_std_checkAction "apt" $FALSE ; then
         _it_std_consoleMessage "INFO" "Déconfiguration de APT pour le proxy INIST"
         # fakeroot "$DIR_TOOLS/apt-proxy-off.sh"
-        sudo "$DIR_TOOLS/apt-proxy-off.sh"
+        $SUDO "$DIR_TOOLS/apt-proxy-off.sh"
         # Si le code de retour > 0, c'est que ça n'a pas fonctionné
         if [ $? -gt 0 ]; then
           _it_std_consoleMessage "ERROR" "Impossible de modifier la configuration de APT"

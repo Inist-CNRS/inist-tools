@@ -241,7 +241,7 @@ function inist {
         # Synchro avec serveur ntp de l'INIST
         sync )
           _it_std_consoleMessage "INFO" "Synchronisation de la date/heure..."
-          SUDO "/opt/inist-tools/tools/timesync.sh"
+          $SUDO "/opt/inist-tools/tools/timesync.sh"
           _it_std_consoleMessage "OK" "Heure synchronisée"
           return $TRUE
         ;;

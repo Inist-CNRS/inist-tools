@@ -55,5 +55,6 @@ inist-tools (0.9.11RC) RC; urgency=medium
   * [DEV] Màj du postinst pour installer les dépendances du paquet deb
   * [DEV] Commit -- 05/10/2016 @ 13:53:43
   * [DEV] Adaptation des commandes sudo aux particularités de Debian
+  * [DEV] Factorisation de la commande sudo générique
 
  -- Stanislas PERRIN <stanislas.perrin@inist.fr>  Tue, 21 Jun 2016 08:28:37 +0200
