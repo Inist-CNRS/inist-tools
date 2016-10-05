@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+################################################################################
+#
+# INIST-TOOLS INSTALLATION : POST-INSTALLATION
+#
+################################################################################
+
+# ------------------------------------------------------------------------------
+# Installation des dépendances
+# ------------------------------------------------------------------------------
+# on exporte le proxy pour avoir accès au net
+export http_proxy=http://proxyout.inist.fr:8080
+export HTTP_PROXY=http://proxyout.inist.fr:8080
+export https_proxy=http://proxyout.inist.fr:8080
+export HTTPS_PROXY=http://proxyout.inist.fr:8080
+export no_proxy=localhost,127.0.0.0/8,*.local
+#
+apt-get install -y bash make ntpdate parallel jq
