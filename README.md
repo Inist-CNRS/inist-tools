@@ -6,6 +6,15 @@ Ubuntu) dans l'environnement INIST.
 ## INSTALLATION ##
 
 ### Utilisateur ###
+
+Avant toute installation, vous devez installer certaines dépendancess dont
+inist-tools a besoin pour fonctionner. Il suffit de coller la commande suivante
+dans une console :
+
+```bash
+$ sudo apt-get install -y make ntpdate parallel jq sudo libnotify-bin
+```
+
 Si vous êtes « utilisateur » et ne comptez pas développer inist-tools, vous
 trouverez dans le répertoire /releases le paquet .deb qui vous permettra
 d'installer les outils simplement avec la commande :
@@ -25,7 +34,8 @@ En tant que root, créer un lien symbolique vers le répertoire où a été clon
 inist-tools :
 
 ```bash
-/opt # ln -s /chemin/vers/le/clone/de/inist-tools .
+# cd /opt
+# ln -s /chemin/vers/le/clone/de/inist-tools .
 ```
 
 ### .bashrc ###
