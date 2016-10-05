@@ -23,8 +23,7 @@ function _it_misc_apt_proxy {
     on)
       # Vérifier si cet état n'est pas celui en cours
       if _it_std_checkAction "apt" $TRUE ; then
-        _it_std_message "INFO" "Configuration de APT pour le proxy INIST"
-        # fakeroot "$DIR_TOOLS/apt-proxy-on.sh"
+        _it_std_consoleMessage "INFO" "Configuration de APT pour le proxy INIST"
         $SUDO "$DIR_TOOLS/apt-proxy-on.sh"
         # Si le code de retour > 0, c'est que ça n'a pas fonctionné
         if [ $? -gt 0 ]; then
@@ -39,7 +38,6 @@ function _it_misc_apt_proxy {
       # Vérifier si cet état n'est pas celui en cours
       if _it_std_checkAction "apt" $FALSE ; then
         _it_std_consoleMessage "INFO" "Déconfiguration de APT pour le proxy INIST"
-        # fakeroot "$DIR_TOOLS/apt-proxy-off.sh"
         $SUDO "$DIR_TOOLS/apt-proxy-off.sh"
         # Si le code de retour > 0, c'est que ça n'a pas fonctionné
         if [ $? -gt 0 ]; then

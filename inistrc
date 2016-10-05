@@ -27,8 +27,7 @@ DIR_TOOLS="$DIR_MODULE/tools"
 DIR_INSTALL="$DIR_MODULE/install"
 DIR_ENV="/var/run/inist-tools"
 
-SUDOBIN=$(which sudo)
-SUDO="$SUDOBIN -u root"
+SUDO="$(which sudo) -u root"
 
 # Version en fonction du mode DEV ou DEB
 CURDIR=$( cd "$( dirname "$0" )" && pwd )

@@ -58,5 +58,6 @@ inist-tools (0.9.11RC) RC; urgency=medium
   * [DEV] Factorisation de la commande sudo générique
   * [DEV] Commit -- 05/10/2016 @ 15:25:38
   * [DEV] Ajustement des droits pour /var/run/inist-tools/
+  * [DEV] Correction d'un affichage
 
  -- Stanislas PERRIN <stanislas.perrin@inist.fr>  Tue, 21 Jun 2016 08:28:37 +0200
