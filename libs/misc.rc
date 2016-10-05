@@ -76,16 +76,16 @@ function _it_misc_wget_proxy {
     return $FALSE
   fi
   
-  # On recherche un éventuel .wgetrc pour le backuper
-  # if [ -f "$HOME/.wgetrc" ]; then
-  #   _it_std_backup "$HOME/.wgetrc"
-  # fi
+  wgetRCfile="$HOME/.wgetrc"
+  wgetProxy="http_proxy=$INIST_HTTP_PROXY\nuse_proxy=yes"
+  wgetProxyTmp="/run/shm/wgetProxy"
   
   case "$1" in
   
     on)
       # Vérifier si cet état n'est pas celui en cours
       if _it_std_checkAction "wget" $TRUE ; then
+        echo -e "$wgetProxy" >> "$wgetRCfile"
         #
         _it_std_setAction "wget" $TRUE
       fi
@@ -94,6 +94,11 @@ function _it_misc_wget_proxy {
     off)
       # Vérifier si cet état n'est pas celui en cours
       if _it_std_checkAction "wget" $FALSE ; then
+        # "Soustraire" la conf du proxy inist de .wgetrc
+        echo -e "$wgetProxy" > "$wgetProxyTmp"
+        wgetRCfileNew=$(grep -vf "$wgetProxyTmp" "$wgetRCfile")
+        echo "$wgetRCfileNew" > "$wgetRCfile"
+        rm "$wgetProxyTmp"
         #
         _it_std_setAction "wget" $FALSE
       fi
@@ -129,10 +134,7 @@ function _it_misc_curl_proxy {
   
     on )
       if _it_std_checkAction "curl" $TRUE ; then
-        if [ -a "$curlConf" ]; then
-          cp "$curlConf" "$curlConfBackup"
-        fi
-        echo "proxy = $INIST_HTTP_PROXY" > "$curlConf"
+        echo "proxy = $INIST_HTTP_PROXY" >> "$curlConf"
         _it_std_setAction "curl" $TRUE
       fi
       
@@ -140,10 +142,10 @@ function _it_misc_curl_proxy {
     
     off )
       if _it_std_checkAction "curl" $FALSE ; then
-        rm "$curlConf"
-        if [ -f "$curlConfBackup" ]; then
-          cp "$curlConfBackup" "$curlConf"
-        fi
+        # On soustrait la ligne contenant la conf du proxy INIST de la conf de curl...
+        curlConfNew=$(grep -v "proxyout\.inist\.fr" "$curlConf")
+        # ...et on réinject cette conf "nettoyée" dans ~/.curlrc
+        echo "$curlConfNew" > "$curlConf"
         _it_std_setAction "curl" $FALSE
       fi
     ;;

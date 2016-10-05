@@ -99,7 +99,7 @@ function _it_std_checkAction {
   envValue=$(_it_std_getEnv "$app")
   
   if [ "$envValue" == "$action" ]; then
-    _it_std_consoleMessage "WARNING" "« app » est déjà configuré $message"
+    _it_std_consoleMessage "WARNING" "« $app » est déjà configuré $message"
     return $FALSE
   else
     return $TRUE

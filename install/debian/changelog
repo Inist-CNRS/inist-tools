@@ -51,5 +51,6 @@ inist-tools (0.9.11RC) RC; urgency=medium
   * [DEV] Update autocomplétion + help
   * [DEV] Refactoring des fonctions proxy on/off pour les services +
     ajout des actions 'help' et 'status' pour chaque service
+  * [DEV] Ajout des services wget et curl
 
  -- Stanislas PERRIN <stanislas.perrin@inist.fr>  Tue, 21 Jun 2016 08:28:37 +0200
