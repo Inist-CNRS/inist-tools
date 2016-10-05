@@ -11,6 +11,18 @@
 USER=$(logname)
 
 # ------------------------------------------------------------------------------
+# Installation des dépendances
+# ------------------------------------------------------------------------------
+# on exporte le proxy pour avoir accès au net
+export http_proxy=http://proxyout.inist.fr:8080
+export HTTP_PROXY=http://proxyout.inist.fr:8080
+export https_proxy=http://proxyout.inist.fr:8080
+export HTTPS_PROXY=http://proxyout.inist.fr:8080
+export no_proxy=localhost,127.0.0.0/8,*.local
+#
+apt-get install -y bash make ntpdate parallel jq
+
+# ------------------------------------------------------------------------------
 # Protection des fichiers /etc/sudoers.d/*
 # ------------------------------------------------------------------------------
 chmod 600 /etc/sudoers.d/inist-tools
