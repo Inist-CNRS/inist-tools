@@ -27,6 +27,9 @@ DIR_TOOLS="$DIR_MODULE/tools"
 DIR_INSTALL="$DIR_MODULE/install"
 DIR_ENV="/var/run/inist-tools"
 
+SUDOBIN=$(which gksudo) || $(which kdesudo) || $(which sudo)
+SUDO="$SUDOBIN -u root"
+
 # Version en fonction du mode DEV ou DEB
 CURDIR=$( cd "$( dirname "$0" )" && pwd )
 DIR_IT=$(readlink -f "$CURDIR")
@@ -238,7 +241,7 @@ function inist {
         # Synchro avec serveur ntp de l'INIST
         sync )
           _it_std_consoleMessage "INFO" "Synchronisation de la date/heure..."
-          sudo "/opt/inist-tools/tools/timesync.sh"
+          SUDO "/opt/inist-tools/tools/timesync.sh"
           _it_std_consoleMessage "OK" "Heure synchronisée"
           return $TRUE
         ;;

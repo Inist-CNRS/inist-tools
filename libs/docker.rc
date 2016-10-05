@@ -23,7 +23,7 @@ function _it_docker_proxy {
     on)
       # Vérifier si cet état n'est pas celui en cours
       if _it_std_checkAction "docker" $TRUE ; then
-        sudo /opt/inist-tools/tools/docker-proxy-on.sh
+        SUDO /opt/inist-tools/tools/docker-proxy-on.sh
         # Si la commande précédente a réussi...
         if [ $? -eq 0 ]; then
           _it_std_setAction "docker" $TRUE
@@ -36,7 +36,7 @@ function _it_docker_proxy {
     off)
       # Vérifier si cet état n'est pas celui en cours
       if _it_std_checkAction "docker" $FALSE ; then
-        sudo /opt/inist-tools/tools/docker-proxy-off.sh
+        SUDO /opt/inist-tools/tools/docker-proxy-off.sh
         # Si la commande précédente a réussi...
         if [ $? -eq 0 ]; then
           _it_std_setAction "docker" $FALSE
