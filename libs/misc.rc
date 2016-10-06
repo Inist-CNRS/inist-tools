@@ -49,7 +49,7 @@ function _it_misc_apt_proxy {
     ;;
     
     help)
-      # Afficher l'aide de la commande
+      _it_std_consoleMessage "HELP" "Permet de configurer apt pour utiliser le proxy INIST"
     ;;
     
     status)

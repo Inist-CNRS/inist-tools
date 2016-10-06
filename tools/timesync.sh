@@ -14,9 +14,11 @@
 #-------------------------------------------------------------------------------
 MODULE_NAME="TIMESYNC"
 MODULE_DESC="Met à jour date et heure en synchronisant au serveur de temps de l'INIST"
-MODULE_VERSION=$(git describe --tags)
-MODULE_VERSION_SHORT=$(git describe --tags | cut -d"-" -f1 )
 CURDIR=$( cd "$( dirname "$0" )" && pwd )
+if [ $(which git) && $(git rev-parse) ]; then
+  MODULE_VERSION=$(git describe --tags)
+  MODULE_VERSION_SHORT=$(git describe --tags | cut -d"-" -f1)
+fi
 DIR_MODULE=$(readlink -f "$CURDIR")
 DIR_ROOT=$(readlink -f "$DIR_MODULE/..")
 DIR_CONF=$(readlink -f "$DIR_MODULE/../conf")

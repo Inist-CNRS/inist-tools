@@ -59,5 +59,8 @@ inist-tools (0.9.11RC) RC; urgency=medium
   * [DEV] Commit -- 05/10/2016 @ 15:25:38
   * [DEV] Ajustement des droits pour /var/run/inist-tools/
   * [DEV] Correction d'un affichage
+  * [DEV] Correction de plusieurs scripts qui cherchent à obtenir des
+    infos provenant de git alors que le répertoire n'est pas sous
+    contrôle de version
 
  -- Stanislas PERRIN <stanislas.perrin@inist.fr>  Tue, 21 Jun 2016 08:28:37 +0200

@@ -11,10 +11,20 @@ Commandes :
   
   <services> disponibles :
   
-    apt, bower, chrome (à venir), chromium (à venir), curl, docker,
-    env (environnement système), firefox (à venir), github, gnome,
-    iceweasel (à venir) ,kde, npm, ntp, shell (alias de env), unity,
-    wget, xfce
+    * apt     Paramètre le proxy inist pour apt
+    * bower   Paramètre le proxy inist pour bower
+    * curl    Paramètre le proxy inist pour curl
+    * docker  Paramètre le proxy inist pour docker
+    * env     Paramètre le proxy inist pour l'environnement et les shells
+    * gnome   Paramètre le proxy inist pour gnome
+    * kde     Paramètre le proxy inist pour kde
+    * npm     Paramètre le proxy inist pour npm
+    * ntp     Synchronise l'horloge de votre PC avec le serveur de temps de
+              l'INIST
+    * shell   (alias de env)
+    * unity   Paramètre le proxy inist pour unity
+    * wget    Paramètre le proxy inist pour wget
+    * xfce    Paramètre le proxy inist pour xfce
 
 Options :
 
