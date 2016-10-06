@@ -14,10 +14,10 @@ USER=$(logname)
 # ------------------------------------------------------------------------------
 # On redevient le user courant
 # ------------------------------------------------------------------------------
-su "$USER"
+# su "$USER"
 
 # ------------------------------------------------------------------------------
 # Suppression de l'intégration dans le .bashrc
 # ------------------------------------------------------------------------------
-grep -vi "# inist-tools" "$HOME/.bashrc" > /run/shm/bashrc.tmp
-mv /run/shm/bashrc.tmp "$HOME/.bashrc"
+# grep -vi "# inist-tools" "$HOME/.bashrc" > /run/shm/bashrc.tmp
+# mv /run/shm/bashrc.tmp "$HOME/.bashrc"
