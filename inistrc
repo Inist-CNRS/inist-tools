@@ -360,7 +360,7 @@ elif [ "$isSystemProxy" == $FALSE ]; then
 else
   # "on" par défaut...
   source "$DIR_LIBS/inist-proxy.rc"
-  _it_inistProxy "default"
+  _it_inistProxy "defaultOn"
   # _it_std_consoleMessage "WARNING" "Variable d'environnement vide ou contenant une valeur incohérente ($isSystemProxy)."
 fi
 

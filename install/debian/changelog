@@ -63,5 +63,7 @@ inist-tools (0.9.11RC) RC; urgency=medium
     infos provenant de git alors que le répertoire n'est pas sous
     contrôle de version
   * [DEV] Suppression des actions postrm
+  * [DEV] Correction de bug d'affichages + suppression de commandes
+    postinst problématiques
 
  -- Stanislas PERRIN <stanislas.perrin@inist.fr>  Tue, 21 Jun 2016 08:28:37 +0200

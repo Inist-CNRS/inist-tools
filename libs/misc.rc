@@ -55,7 +55,11 @@ function _it_misc_apt_proxy {
     status)
       _it_std_getStatus "apt"
     ;;
-    
+ 
+     *)
+      _it_std_consoleMessage "WARNING" "Commande « $1 » non prise en charge. Essayez on|off|help|status."
+    ;;
+   
   esac
 }
 
@@ -100,10 +104,15 @@ function _it_misc_wget_proxy {
     help)
       _it_std_consoleMessage "HELP" "Pour activer le proxy INIST pour wget, tapez « inist wget on »"
       _it_std_consoleMessage "HELP" "Pour désactiver le proxy INIST pour wget, tapez « inist wget off »"
+      _it_std_consoleMessage "HELP" "wget utilise aussi les variables d'environnement système positionnées avec <inist env on|off>"
     ;;
     
     status)
       _it_std_getStatus "wget"
+    ;;
+
+    *)
+      _it_std_consoleMessage "WARNING" "Commande « $1 » non prise en charge. Essayez on|off|help|status."
     ;;
   
   esac
@@ -142,11 +151,21 @@ function _it_misc_curl_proxy {
         _it_std_setAction "curl" $FALSE
       fi
     ;;
+
+    help)
+      _it_std_consoleMessage "HELP" "Pour activer le proxy INIST pour curl, tapez « inist wget on »"
+      _it_std_consoleMessage "HELP" "Pour désactiver le proxy INIST pour curl, tapez « inist wget off »"
+      _it_std_consoleMessage "HELP" "curl utilise aussi les variables d'environnement système positionnées avec <inist env on|off>"
+    ;;
     
     status)
       _it_std_getStatus "curl"
     ;;
     
+    *)
+      _it_std_consoleMessage "WARNING" "Commande « $1 » non prise en charge. Essayez on|off|help|status."
+    ;;
+
   esac
   #
   # curl utilise les variables d'environnement
@@ -193,6 +212,10 @@ function _it_misc_npm_proxy {
     
     status)
       _it_std_getStatus "npm"
+    ;;
+    
+    *)
+      _it_std_consoleMessage "WARNING" "Commande « $1 » non prise en charge. Essayez on|off|help|status."
     ;;
     
   esac

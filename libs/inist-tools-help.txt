@@ -13,7 +13,6 @@ Commandes :
   
     * apt     Paramètre le proxy inist pour apt
     * bower   Paramètre le proxy inist pour bower
-    * curl    Paramètre le proxy inist pour curl
     * docker  Paramètre le proxy inist pour docker
     * env     Paramètre le proxy inist pour l'environnement et les shells
     * gnome   Paramètre le proxy inist pour gnome
@@ -23,8 +22,14 @@ Commandes :
               l'INIST
     * shell   (alias de env)
     * unity   Paramètre le proxy inist pour unity
-    * wget    Paramètre le proxy inist pour wget
     * xfce    Paramètre le proxy inist pour xfce
+
+    * curl    Paramètre le proxy inist pour curl. Curl peut aussi fonctionner en
+              utilisant les variables d'environnement positionnée avec 
+              <inist env on>.
+    * wget    Paramètre le proxy inist pour wget. Wget peut aussi fonctionner en
+              utilisant les variables d'environnement positionnée avec 
+              <inist env on>.
 
 Options :
 

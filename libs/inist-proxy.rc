@@ -57,7 +57,7 @@ function _it_inistProxy {
       fi
     ;;
 
-    default)
+    defaultOn)
       # Exclusion du proxy
       export no_proxy="localhost,127.0.0.0/8,*.local,172.16.0.0/16"
       export NO_PROXY="localhost,127.0.0.0/8,*.local,172.16.0.0/16"
@@ -83,7 +83,7 @@ function _it_inistProxy {
     ;;
     
     *)
-      _it_std_consoleMessage "WARNING" "Commande « $1 » non prise en charge"
+      _it_std_consoleMessage "WARNING" "Commande « $1 » non prise en charge. Essayez on|off|help|status."
     ;;
     
   esac

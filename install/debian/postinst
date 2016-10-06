@@ -31,23 +31,23 @@ chmod 600 /etc/sudoers.d/inist-tools
 # Accès à /var/run/inist-tools pour le user courant
 # ------------------------------------------------------------------------------
 chown -R "$USER":"$USER" /var/run/inist-tools/
+chmod -R 777 /var/run/inist-tools/
 
 # ------------------------------------------------------------------------------
 # On redevient le user courant
 # ------------------------------------------------------------------------------
-su "$USER"
+# su "$USER"
 
 # ------------------------------------------------------------------------------
 # Installation dans le .bashrc de l'utilisateur
 # ------------------------------------------------------------------------------
-echo -e "\n" >> "$HOME/.bashrc"
-echo "# inist-tools" >> "$HOME/.bashrc"
-echo ". /opt/inist-tools/inistrc # inist-tools" >> "$HOME/.bashrc"
+# --- on laisse l'utilisateur modifier son propre .bashrc
+# echo -e "\n" >> "$HOME/.bashrc"
+# echo "# inist-tools" >> "$HOME/.bashrc"
+# echo ". /opt/inist-tools/inistrc # inist-tools" >> "$HOME/.bashrc"
 
-# On sort du "su"
-exit
 
 # ------------------------------------------------------------------------------
 # FIN !
 # ------------------------------------------------------------------------------
-exit 0
+# exit 0
