@@ -28,7 +28,7 @@ function _it_desktop_kde_proxy {
     on)
       # Vérifier si cet état n'est pas celui en cours
       if _it_std_checkAction "kde" $TRUE ; then
-        it_std_message "INFO" "Configuration de KDE pour le proxy INIST"
+        _it_std_consoleMessage "INFO" "Configuration de KDE pour le proxy INIST"
         kwriteconfig --file kioslaverc --group 'Proxy Settings' --key ProxyType 2
         kwriteconfig --file kioslaverc --group 'Proxy Settings' --key 'Proxy Config Script' $INIST_PROXYPAC
         #
@@ -39,7 +39,7 @@ function _it_desktop_kde_proxy {
     off)
       # Vérifier si cet état n'est pas celui en cours
       if _it_std_checkAction "kde" $FALSE ; then
-        it_std_message "INFO" "Déconfiguration de KDE pour le proxy INIST"
+        _it_std_consoleMessage "INFO" "Déconfiguration de KDE pour le proxy INIST"
         kwriteconfig --file kioslaverc --group 'Proxy Settings' --key ProxyType 0
         #
         _it_std_setAction "kde" $FALSE
@@ -55,7 +55,7 @@ function _it_desktop_kde_proxy {
     ;;
 
     *)
-      _it_std_consoleMessage "WARNING" "Commande « $1 » non prise en charge"
+      _it_std_consoleMessage "WARNING" "Commande « $1 » non prise en charge. Essayez on|off|help|status."
     ;;
     
   esac

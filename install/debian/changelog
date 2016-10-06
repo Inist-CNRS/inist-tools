@@ -65,5 +65,6 @@ inist-tools (0.9.11RC) RC; urgency=medium
   * [DEV] Suppression des actions postrm
   * [DEV] Correction de bug d'affichages + suppression de commandes
     postinst problématiques
+  * [DEV] Version 1.0
 
  -- Stanislas PERRIN <stanislas.perrin@inist.fr>  Tue, 21 Jun 2016 08:28:37 +0200
