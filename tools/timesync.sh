@@ -15,7 +15,7 @@
 MODULE_NAME="TIMESYNC"
 MODULE_DESC="Met à jour date et heure en synchronisant au serveur de temps de l'INIST"
 CURDIR=$( cd "$( dirname "$0" )" && pwd )
-if [ $(which git) && $(git rev-parse) ]; then
+if [ $(which git) ] && [ $(git rev-parse) ]; then
   MODULE_VERSION=$(git describe --tags)
   MODULE_VERSION_SHORT=$(git describe --tags | cut -d"-" -f1)
 fi

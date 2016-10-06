@@ -15,7 +15,7 @@
 MODULE_NAME="POWERSAVE"
 MODULE_DESC="Met tous les processeur de la machine en mode économie d'énergie."
 CURDIR=$( cd "$( dirname "$0" )" && pwd )
-if [ $(which git) && $(git rev-parse) ]; then
+if [ $(which git) ] && [ $(git rev-parse) ]; then
   MODULE_VERSION=$(git describe --tags)
   MODULE_VERSION_SHORT=$(git describe --tags | cut -d"-" -f1 )
 fi
