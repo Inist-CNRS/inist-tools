@@ -139,8 +139,9 @@ function inist {
     ;;
     
     chromium )
-      source "$DIR_LIBS/browsers.rc"
-      _it_browsers_chromium_proxy "$2"
+      _it_std_consoleMessage "WARNING" "Cette commande n'est pas encore implémentée."
+      # source "$DIR_LIBS/browsers.rc"
+      # _it_browsers_chromium_proxy "$2"
     ;;
 
     curl )
@@ -227,6 +228,7 @@ function inist {
     #         la commande « inist stuff »
     #---------------------------------------------------------------------------
     stuff )
+      _it_std_consoleMessage "WARNING" "Cette commande n'est pas encore implémentée."
       # source "$DIR_LIBS/stuff.rc"
       # _it_std_message "INFO" "STUFF : rangement..."
       # _it_stuff_tidy "$@"
@@ -237,6 +239,7 @@ function inist {
     #---------------------------------------------------------------------------
     ntp )
       case $2 in
+      
         # Synchro avec serveur ntp de l'INIST
         sync )
           _it_std_consoleMessage "INFO" "Synchronisation de la date/heure..."
@@ -244,9 +247,11 @@ function inist {
           _it_std_consoleMessage "OK" "Heure synchronisée"
           return $TRUE
         ;;
+        
         * )
           _it_std_consoleMessage "AIDE" "« inist ntp sync » pour synchroniser votre machine avec le serveur NTP de l'INIST"
         ;;
+        
       esac
     ;;
 
