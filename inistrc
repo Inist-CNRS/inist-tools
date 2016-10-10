@@ -30,8 +30,10 @@ DIR_ENV="$DIR_MODULE/env"
 SUDO="$(which sudo) -u root"
 
 # Version en fonction du mode DEV ou DEB
-CURDIR=$( cd "$( dirname "$0" )" && pwd )
-DIR_IT=$(readlink -f "$CURDIR")
+# CURDIR=$(cd "$(dirname "$PWD")" && pwd)
+# CURDIR=$(dirname "$(readlink -f "$0")")
+# DIR_IT=$(readlink -f "$CURDIR")
+DIR_IT=$(readlink -f "$DIR_MODULE")
 if [ -d "$DIR_IT/.git" ]; then
   MODULE_VERSION=$(cd "$DIR_IT" && git describe --tags)
   MODULE_VERSION_SHORT=$(cd "$DIR_IT" && git describe --tags | cut -d"-" -f1)
