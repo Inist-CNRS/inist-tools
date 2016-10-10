@@ -71,5 +71,6 @@ inist-tools (0.9.11RC) RC; urgency=medium
   * [DEV] Commit -- 10/10/2016 @ 10:07:13
   * [DEV] Modifications permettant d'utiliser /env dans /opt/inist-tools
     comme répertoire persistant pour l'environnement de l'appli
+  * [DEV] Ajout de /env à .gitignore
 
  -- Stanislas PERRIN <stanislas.perrin@inist.fr>  Tue, 21 Jun 2016 08:28:37 +0200

@@ -19,10 +19,10 @@ ENV_DIR="/opt/inist-tools/env"
 # Répertoire d'environnement
 # ------------------------------------------------------------------------------
 if [ ! -d "$ENV_DIR" ]; then
-   mkdir -p "$ENV_DIR"
+  mkdir -p "$ENV_DIR"
+  chown -R "$USER":"$USER" "$ENV_DIR"
+  chmod -R 777 "$ENV_DIR"
 fi
-chown -R "$USER":"$USER" "$ENV_DIR"
-chmod -R 777 "$ENV_DIR"
 
 # ------------------------------------------------------------------------------
 # Fin
