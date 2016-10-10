@@ -39,7 +39,7 @@ cp "$DOCKER_DEFAULT_FILE" /etc/default/docker_inist-tools-backup
 # ------------------------------------------------------------------------------
 printf "\n" >> "$DOCKER_DEFAULT_FILE"
 printf "# inist-tools\n" >> "$DOCKER_DEFAULT_FILE" 2>&1
-printf "DOCKER_OPTS=\"--dns 172.16.100.17 --dns 172.16.100.16\"\n" >> "$DOCKER_DEFAULT_FILE" 2>&1
+printf "DOCKER_OPTS=\"--dns 172.16.100.17 --dns 172.16.100.16 --insecure-registry vsregistry.intra.inist.fr:5000\"\n" >> "$DOCKER_DEFAULT_FILE" 2>&1
 printf "HTTP_PROXY=\"$INIST_HTTP_PROXY\"\n" >> "$DOCKER_DEFAULT_FILE" 2>&1
 printf "HTTPS_PROXY=\"$INIST_HTTPS_PROXY\"\n" >> "$DOCKER_DEFAULT_FILE" 2>&1
 printf "export HTTP_PROXY=\"$INIST_HTTP_PROXY\"\n" >> "$DOCKER_DEFAULT_FILE" 2>&1

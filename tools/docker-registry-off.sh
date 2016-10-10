@@ -15,7 +15,7 @@
 # Variables globales
 # ------------------------------------------------------------------------------
 DOCKER_DEFAULT_FILE="/etc/default/docker"
-INIST_CERT_FILE="/etc/docker/certs.d/vsregistry.intra.inist.fr:5000"
+INIST_CERT_FILE="/etc/docker/certs.d/vsregistry.intra.inist.fr:5000/ca.crt"
 
 rm -Rf "$INIST_CERT_FILE"
 
