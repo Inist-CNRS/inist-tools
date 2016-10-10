@@ -15,11 +15,11 @@
 # Variables globales
 # ------------------------------------------------------------------------------
 DOCKER_DEFAULT_FILE="/etc/default/docker"
-INIST_CERT_FILE="/etc/docker/certs.d/vsregistry.intra.inist.fr:5000/ca.crt"
+INIST_CERT_FILE="/etc/docker/certs.d/vsregistry.intra.inist.fr:5000"
 
 mkdir -p "$INIST_CERT_FILE"
 
-cat <<EOF > "$INIST_CERT_FILE"
+cat <<EOF > "$INIST_CERT_FILE/ca.crt"
 -----BEGIN CERTIFICATE-----
 MIIE+zCCA+OgAwIBAgIQCHC8xa8/25Wakctq7u/kZTANBgkqhkiG9w0BAQsFADBl
 MQswCQYDVQQGEwJVUzEVMBMGA1UEChMMRGlnaUNlcnQgSW5jMRkwFwYDVQQLExB3
