@@ -28,10 +28,14 @@ USER=$(logname)
 chmod 600 /etc/sudoers.d/inist-tools
 
 # ------------------------------------------------------------------------------
-# Accès à /var/run/inist-tools pour le user courant
+# Répêrtoire de stockage de l'environnement d'execution d'inist-tools
 # ------------------------------------------------------------------------------
-chown -R "$USER":"$USER" /var/run/inist-tools/
-chmod -R 777 /var/run/inist-tools/
+ENV_DIR="/opt/inist-tools/env"
+if [ ! -d "$ENV_DIR" ]; then
+   mkdir -p "$ENV_DIR"
+fi
+chown -R "$USER":"$USER" "$ENV_DIR"
+chmod -R 777 "$ENV_DIR"
 
 # ------------------------------------------------------------------------------
 # On redevient le user courant

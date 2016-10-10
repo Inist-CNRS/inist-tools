@@ -25,7 +25,7 @@ DIR_CONF="$DIR_MODULE/conf"
 DIR_LIBS="$DIR_MODULE/libs"
 DIR_TOOLS="$DIR_MODULE/tools"
 DIR_INSTALL="$DIR_MODULE/install"
-DIR_ENV="/var/run/inist-tools"
+DIR_ENV="$DIR_MODULE/env"
 
 SUDO="$(which sudo) -u root"
 
