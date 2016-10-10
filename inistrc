@@ -172,7 +172,9 @@ function inist {
     ;;
     
     github )
-      _it_std_consoleMessage "WARNING" "Cette commande n'est pas encore implémentée."
+      # _it_std_consoleMessage "WARNING" "Cette commande n'est pas encore implémentée."
+      source "$DIR_LIBS/github.rc"
+      _it_github_protocol "$2"
     ;;
     
     gnome )

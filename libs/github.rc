@@ -1,0 +1,46 @@
+#!/usr/bin/env bash
+################################################################################
+#
+# inist-tools / libs / github.rc
+# 
+# Bibliothèque de fonctions pour paramétrer l'utilisation de GitHub
+#
+# @author : INIST-CNRS/DPI
+#
+################################################################################
+
+function _it_github_protocol {
+  
+  case "$1" in
+  
+    on|https)
+      if _it_std_checkAction "github" $TRUE ; then
+        git config --global url."https://github.com/".insteadOf git@github.com:
+        git config --global credential.helper 'cache --timeout=3600'        
+        _it_std_setAction "github" $TRUE
+      fi
+    ;;
+    
+    off|ssh)
+      if _it_std_checkAction "github" $FALSE ; then
+        git config --global --remove-section url."https://github.com/"
+        git config --global --remove-section credential
+        _it_std_setAction "github" $FALSE
+      fi
+    ;;
+
+    help)
+      _it_std_consoleMessage "HELP" "Permet de configurer github pour traversers le proxy INIST en https ou l'utiliser directement en ssh."
+    ;;
+    
+    status)
+      _it_std_getStatus "github"
+    ;;
+ 
+     *)
+      _it_std_consoleMessage "WARNING" "Commande « $1 » non prise en charge. Essayez on|https|off|ssh|help|status."
+    ;;
+  
+  esac
+  
+}
