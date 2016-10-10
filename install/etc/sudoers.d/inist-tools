@@ -5,3 +5,4 @@ ALL	ALL=(root)	NOPASSWD:	/opt/inist-tools/tools/powermax.sh
 ALL	ALL=(root)	NOPASSWD:	/opt/inist-tools/tools/powersave.sh
 ALL	ALL=(root)	NOPASSWD:	/opt/inist-tools/tools/docker-proxy-on.sh
 ALL	ALL=(root)	NOPASSWD:	/opt/inist-tools/tools/docker-proxy-off.sh
+ALL	ALL=(root)	NOPASSWD:	/opt/inist-tools/tools/env-create.sh
