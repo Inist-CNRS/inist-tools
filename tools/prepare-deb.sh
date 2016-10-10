@@ -23,6 +23,7 @@ DIR_ROOT=$(readlink -f "$DIR_MODULE/..")
 DIR_CONF=$(readlink -f "$DIR_MODULE/../conf")
 DIR_LIBS=$(readlink -f "$DIR_MODULE/../libs")
 DIR_TOOLS=$(readlink -f "$DIR_MODULE/../tools")
+DIR_ENV=$(readlink -f "$DIR_MODULE/../env")
 DIR_PROXYPAC=$(readlink -f "$DIR_MODULE/../proxypac")
 DIR_INSTALL=$(readlink -f "$DIR_MODULE/../install")
 DIR_SYSINSTALL="$DIR_INSTALL/opt"
