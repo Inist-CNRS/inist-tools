@@ -244,6 +244,33 @@ function inist {
     ;;
 
     #---------------------------------------------------------------------------
+    # Meta-commandes ON/OFF
+    #---------------------------------------------------------------------------
+    on )
+      _it_std_consoleMessage "TITLE" "Basculement de toutes les applications pour utiliser le proxy INIST..."
+      inist apt on
+      inist bower on
+      inist curl on
+      inist docker on
+      inist env on
+      inist github on
+      inist npm on
+      inist wget on
+    ;;
+    
+    off )
+      _it_std_consoleMessage "TITLE" "Désactivation du proxy INIST pour toutes les applications..."
+      inist apt off
+      inist bower off
+      inist curl off
+      inist docker off
+      inist env off
+      inist github off
+      inist npm off
+      inist wget off
+    ;;
+
+    #---------------------------------------------------------------------------
     # time|date|sync
     #---------------------------------------------------------------------------
     ntp )
