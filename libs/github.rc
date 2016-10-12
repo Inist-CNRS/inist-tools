@@ -10,7 +10,11 @@
 ################################################################################
 
 function _it_github_protocol {
-  
+
+  if ! _it_std_check_command "git" ; then
+    return $FALSE
+  fi
+    
   case "$1" in
   
     on|https)

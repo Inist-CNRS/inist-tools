@@ -73,5 +73,7 @@ inist-tools (0.9.11RC) RC; urgency=medium
     comme répertoire persistant pour l'environnement de l'appli
   * [DEV] Ajout de /env à .gitignore
   * [DEV] Ajout des commandes 'inist on|off'
+  * [DEV] Correction du 'bug git' : ajout du test de présence du binaire
+    git avant d'accepter de le paramétrer
 
  -- Stanislas PERRIN <stanislas.perrin@inist.fr>  Tue, 21 Jun 2016 08:28:37 +0200
