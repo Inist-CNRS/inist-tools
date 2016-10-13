@@ -75,5 +75,7 @@ inist-tools (0.9.11RC) RC; urgency=medium
   * [DEV] Ajout des commandes 'inist on|off'
   * [DEV] Correction du 'bug git' : ajout du test de présence du binaire
     git avant d'accepter de le paramétrer
+  * [DEV] Réorg et complémentation de l'aide, conserver les paquets .deb
+    au fil du temps, homogéinité du design
 
  -- Stanislas PERRIN <stanislas.perrin@inist.fr>  Tue, 21 Jun 2016 08:28:37 +0200

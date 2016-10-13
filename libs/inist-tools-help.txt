@@ -11,18 +11,21 @@ Commandes :
   
   <services> disponibles :
   
-    * apt     Paramètre le proxy inist pour apt
-    * bower   Paramètre le proxy inist pour bower
-    * docker  Paramètre le proxy inist pour docker
-    * env     Paramètre le proxy inist pour l'environnement et les shells
-    * gnome   Paramètre le proxy inist pour gnome
-    * kde     Paramètre le proxy inist pour kde
-    * npm     Paramètre le proxy inist pour npm
-    * ntp     Synchronise l'horloge de votre PC avec le serveur de temps de
-              l'INIST
+    * env     Paramètre l'environnement et les shell pour le proxy INIST
     * shell   (alias de env)
-    * unity   Paramètre le proxy inist pour unity
-    * xfce    Paramètre le proxy inist pour xfce
+    * system  (alias de env)
+
+    * apt     Paramètre apt le proxy INIST
+    * docker  Paramètre docker le proxy INIST
+    * github  Paramètre github pour utiliser ssh ou https au travers du proxy INIST
+              Peut aussi s'utiliser avec "https" (on) et "ssh" (off)
+    * npm     Paramètre npm pour le proxy INIST
+    * bower   Paramètre bower pour le proxy INIST
+
+    * gnome   Paramètre gnome pour le proxy INIST
+    * kde     Paramètre kde pour le proxy INIST
+    * unity   Paramètre unity pour le proxy INIST
+    * xfce    Paramètre xfce pour le proxy INIST
 
     * curl    Paramètre le proxy inist pour curl. Curl peut aussi fonctionner en
               utilisant les variables d'environnement positionnée avec 
@@ -30,6 +33,9 @@ Commandes :
     * wget    Paramètre le proxy inist pour wget. Wget peut aussi fonctionner en
               utilisant les variables d'environnement positionnée avec 
               <inist env on>.
+              
+    * ntp     Synchronise l'horloge de votre PC avec le serveur de temps de
+              l'INIST
 
 Options :
 

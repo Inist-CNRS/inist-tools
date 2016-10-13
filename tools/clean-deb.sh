@@ -39,8 +39,6 @@ if [ -f "$DIR_INSTALL/debian/control" ]; then
   rm "$DIR_INSTALL/debian/control"
 fi
 
-
-
 # Suppression .deb généré
 # PACKAGE=$(find "$DIR_ROOT" -type f -name "*.deb")
 # if [ ! -z "$PACKAGE" ]; then

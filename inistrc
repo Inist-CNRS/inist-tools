@@ -204,6 +204,12 @@ function inist {
       source "$DIR_LIBS/misc.rc"
       _it_inistProxy "$2"
     ;;
+
+    system )
+      source "$DIR_LIBS/misc.rc"
+      _it_inistProxy "$2"
+    ;;
+
     
     unity )
       source "$DIR_LIBS/desktop.rc"

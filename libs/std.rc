@@ -257,17 +257,17 @@ function  _it_std_consoleMessage {
     
     # Check/OK
     check|CHECK|ok|OK)
-      printf "\t\t${FG_BR_GREEN}✔ ${FG_WHITE}$2\n${RESET_ALL}"
+      printf "\t\t${FG_BR_GREEN}✔ ${FG_WHITE}$2${RESET_ALL}\n"
     ;;
 
     # Check/OK
     nocheck|NOCHECK|nok|NOK)
-      printf "\t\t${FG_BR_RED}✘ ${FG_WHITE}$2\n${RESET_ALL}"
+      printf "\t\t${FG_BR_RED}✘ ${FG_WHITE}$2${RESET_ALL}\n"
     ;;
 
     # TITLE
     title|TITLE)
-      printf "${BG_GREEN}${FG_WHITE}$2${RESET_ALL}\n"
+      printf "${FG_GREEN}${FS_BOLD}$2${RESET_ALL}\n"
     ;;
     
     # Tout le reste...

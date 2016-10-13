@@ -189,7 +189,6 @@ function _it_misc_npm_proxy {
       if _it_std_checkAction "npm" $TRUE ; then
         $NPM config set proxy "$INIST_HTTP_PROXY"
         $NPM config set https-proxy "$INIST_HTTPS_PROXY"
-        _it_std_consoleMessage "INFO" "npm est paramétré pour le proxy INIST"
         #
         _it_std_setAction "npm" $TRUE
       fi
@@ -200,7 +199,6 @@ function _it_misc_npm_proxy {
       if _it_std_checkAction "npm" $FALSE ; then
         $NPM config rm proxy
         $NPM config rm https-proxy
-        _it_std_consoleMessage "INFO" "npm n'est plus paramétré pour le proxy INIST"
         #
         _it_std_setAction "npm" $FALSE
       fi

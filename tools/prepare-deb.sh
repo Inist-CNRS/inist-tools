@@ -31,10 +31,11 @@ DIR_SYSINSTALL="$DIR_INSTALL/opt"
 # ------------------------------------------------------------------------------
 # Nettoyage 
 # ------------------------------------------------------------------------------
-DEB_QUI_TRAINE=$(find "$DIR_ROOT" -type f -name "inist-tools_*.deb")
-if [ -f "$DEB_QUI_TRAINE" ]; then
-  rm "$DEB_QUI_TRAINE"
-fi
+# Finalement, on conserve les anciens builds...
+# DEB_QUI_TRAINE=$(find "$DIR_ROOT" -type f -name "inist-tools_*.deb")
+# if [ -f "$DEB_QUI_TRAINE" ]; then
+#  rm "$DEB_QUI_TRAINE"
+# fi
 
 if [ -d "$DIR_INSTALL/opt" ]; then
   rm -Rf "$DIR_INSTALL/opt"

@@ -12,7 +12,7 @@
 #-------------------------------------------------------------------------------
 # Environnement
 #-------------------------------------------------------------------------------
-MODULE_NAME="RELEASE-DEB"
+MODULE_NAME="PUBLISH-DEB"
 MODULE_DESC="Publie le .deb sur github"
 MODULE_VERSION=$(git describe --tags)
 MODULE_VERSION_SHORT=$(git describe --tags | cut -d"-" -f1)
@@ -32,7 +32,8 @@ DIR_SYSINSTALL="$DIR_INSTALL/opt"
 # Publication sur GitHub
 # ------------------------------------------------------------------------------
 # Trouver le .deb
-DOTDEB=$(find "$DIR_RELEASES" -type f -name "inist-tools_*.deb")
+# DOTDEB=$(find "$DIR_RELEASES" -type f -name "inist-tools_*.deb")
+DOTDEB="$DIR_RELEASES/inist-tools_$MODULE_VERSION_FOR_CONTROL.deb"
 if [ -z "$DOTDEB" ]; then
   _it_std_consoleMessage "ERROR" "Fichier .deb introuvable."
   exit 1

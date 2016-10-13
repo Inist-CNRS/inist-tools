@@ -12,6 +12,7 @@
 ################################################################################
 
 source "/opt/inist-tools/libs/std.rc"
+source "/opt/inist-tools/libs/ansicolors.rc"
 
 # ------------------------------------------------------------------------------
 # Variables globales
@@ -78,9 +79,9 @@ elif [ "$platform" == "ubuntu" ]; then
       # Suppression de la conf spécifique au proxy INIST
       rm /etc/systemd/system/docker.service.d/http-proxy.conf
       # Prise en charge du changement de la conf et redémarrage du service
-      systemctl daemon-reload
+      systemctl daemon-reload >> /dev/null 2>&1
       sleep 1
-      systemctl restart docker
+      systemctl restart docker >> /dev/null 2>&1
     ;;
     
   esac

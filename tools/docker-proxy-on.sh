@@ -12,6 +12,7 @@
 ################################################################################
 
 source "/opt/inist-tools/libs/std.rc"
+source "/opt/inist-tools/libs/ansicolors.rc"
 
 # ------------------------------------------------------------------------------
 # Variables globales
@@ -122,13 +123,13 @@ elif [ "$platform" == "ubuntu" ]; then
     "12.04" | "12.10" | "13.04" | "13.10" | "14.04" | "14.10" )
       _it_std_consoleMessage "INFO" "Ubuntu $ubuntuVersion → utilisation de upstart"
       # confUpstart <--- INUTILE !
-      service docker restart
+      service docker restart >> /dev/null 2>&1
     ;;
     
     # SYSTEMD (toutes les autres version d'Ubuntu >= 15.04)
     * )
       _it_std_consoleMessage "INFO" "Ubuntu $ubuntuVersion → utilisation de systemd"
-      confSystemd
+      confSystemd >> /dev/null 2>&1
     ;;
     
   esac
