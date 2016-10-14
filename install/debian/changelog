@@ -78,5 +78,7 @@ inist-tools (0.9.11RC) RC; urgency=medium
   * [DEV] Réorg et complémentation de l'aide, conserver les paquets .deb
     au fil du temps, homogéinité du design
   * [DEV] Ajout de inist st|status + autocomplete correspondant
+  * [DEV] Ajout de inist st|status + autocomplete correspondant -- màj
+    aide
 
  -- Stanislas PERRIN <stanislas.perrin@inist.fr>  Tue, 21 Jun 2016 08:28:37 +0200

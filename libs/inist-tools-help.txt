@@ -47,6 +47,6 @@ Options :
                   modifications apportées à inistrc (orienté dev)
 
   -s, --status    Renseigne sur l'état actuel du paramétrage du proxy INIST
-                  pour l'environnement système
+  st, status      pour l'environnement système
             
   -v,--version    Affiche la version
