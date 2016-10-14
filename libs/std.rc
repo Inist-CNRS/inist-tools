@@ -146,12 +146,12 @@ function _it_std_getStatus {
   case $envValue in
   
     $TRUE)
-      _it_std_consoleMessage "INFO" "« $app » est configuré pour utiliser le proxy INIST"
+      printf "${FG_BR_GREEN}%-7s${RESET_ALL} %-10s %-7s ${FG_BR_GREEN}%-1s${RESET_ALL}\n" "[INFO]" "$app" "→ on" "✔"
       return $TRUE
     ;;
   
     $FALSE)
-      _it_std_consoleMessage "INFO" "« $app » n'est pas configuré pour utiliser le proxy INIST"
+      printf "${FG_BR_GREEN}%-7s${RESET_ALL} %-10s %-7s ${FG_BR_RED}%-1s${RESET_ALL}\n" "[INFO]" "$app" "→ off" "✘"
       return $TRUE
     ;;
   
@@ -257,12 +257,12 @@ function  _it_std_consoleMessage {
     
     # Check/OK
     check|CHECK|ok|OK)
-      printf "\t\t${FG_BR_GREEN}✔ ${FG_WHITE}$2${RESET_ALL}\n"
+      printf "\t${FG_BR_GREEN}✔ ${FG_WHITE}$2${RESET_ALL}\n"
     ;;
 
-    # Check/OK
+    # NoCheck/NOK
     nocheck|NOCHECK|nok|NOK)
-      printf "\t\t${FG_BR_RED}✘ ${FG_WHITE}$2${RESET_ALL}\n"
+      printf "\t${FG_BR_RED}✘ ${FG_WHITE}$2${RESET_ALL}\n"
     ;;
 
     # TITLE

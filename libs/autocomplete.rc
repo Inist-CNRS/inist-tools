@@ -58,7 +58,7 @@ _inist () {
     ;;
 
     s*)
-      COMPREPLY=( $( compgen -W 'shell' -- $cur ) )
+      COMPREPLY=( $( compgen -W 'shell st status' -- $cur ) )
     ;;
     
     u*)

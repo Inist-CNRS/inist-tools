@@ -121,14 +121,14 @@ elif [ "$platform" == "ubuntu" ]; then
   
     # UPSTART (on considère qu'on utilise pas de version < 12.04)
     "12.04" | "12.10" | "13.04" | "13.10" | "14.04" | "14.10" )
-      _it_std_consoleMessage "INFO" "Ubuntu $ubuntuVersion → utilisation de upstart"
+      # _it_std_consoleMessage "INFO" "Ubuntu $ubuntuVersion → utilisation de upstart"
       # confUpstart <--- INUTILE !
       service docker restart >> /dev/null 2>&1
     ;;
     
     # SYSTEMD (toutes les autres version d'Ubuntu >= 15.04)
     * )
-      _it_std_consoleMessage "INFO" "Ubuntu $ubuntuVersion → utilisation de systemd"
+      # _it_std_consoleMessage "INFO" "Ubuntu $ubuntuVersion → utilisation de systemd"
       confSystemd >> /dev/null 2>&1
     ;;
     

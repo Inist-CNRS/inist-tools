@@ -352,11 +352,19 @@ function inist {
     #---------------------------------------------------------------------------
     # status
     #---------------------------------------------------------------------------
-    -s | --status )
-      _it_std_consoleMessage "INFO" "Informations sur l'environnement..."
-      source /opt/inist-tools/libs/misc.rc
-      _it_misc_proxyStatus
-      return $TRUE
+    -s | --status | st | status )
+      _it_std_consoleMessage "TITLE" "Informations sur l'environnement..."
+      inist apt status
+      inist bower status
+      inist curl status
+      inist docker status
+      inist env status
+      inist github status
+      inist npm status
+      inist wget status
+      # source /opt/inist-tools/libs/misc.rc
+      # _it_misc_proxyStatus
+      # return $TRUE
     ;;
 
     #---------------------------------------------------------------------------
