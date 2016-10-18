@@ -18,12 +18,14 @@ source "/opt/inist-tools/libs/ansicolors.rc"
 # Variables globales
 # ------------------------------------------------------------------------------
 DOCKER_DEFAULT_FILE="/etc/default/docker"
+INIST_TOOLS_CONF_DIR="/etc/systemd/system/docker.service.d"
+INIST_TOOLS_CONF_FILE="$INIST_TOOLS_CONF_DIR/inist-tools.conf"
 TMPFILE="/run/shm/tmpfile$$"
 
 # ------------------------------------------------------------------------------
 # 
 # ------------------------------------------------------------------------------
-grep -vi "# inist-tools" "$DOCKER_DEFAULT_FILE" > "$TMPFILE"
+grep -vi "inist\.fr" "$DOCKER_DEFAULT_FILE" | tr -s '\n' > "$TMPFILE"
 cp "$TMPFILE" "$DOCKER_DEFAULT_FILE"
 rm "$TMPFILE"
 
@@ -58,7 +60,8 @@ if [ "$platform" == "debian" ]; then
   
 elif [ "$platform" == "ubuntu" ]; then
   #
-  echo "ExecStart=/usr/bin/docker daemon \$DOCKER_OPTS -H fd://" >> /etc/systemd/system/docker.service.d/http-proxy.conf
+#  echo "ExecStart=/usr/bin/docker daemon \$DOCKER_OPTS -H fd://" >> /etc/systemd/system/docker.service.d/http-proxy.conf
+  echo "ExecStart=/usr/bin/docker daemon \$DOCKER_OPTS -H fd://" >> "$INIST_TOOLS_CONF_FILE"
   #
   ubuntuVersion=$(cat /etc/lsb-release | grep -i "DISTRIB_RELEASE" | cut -d"=" -f 2)
   ubuntuMajor=$(echo "$ubuntuVersion" | cut -d"." -f 1)
@@ -70,7 +73,14 @@ elif [ "$platform" == "ubuntu" ]; then
     "12.04" | "12.10" | "13.04" | "13.10" | "14.04" | "14.10" )
       # _it_std_consoleMessage "INFO" "Ubuntu $ubuntuVersion → utilisation de upstart"
       # confUpstart <--- INUTILE !
+      _it_std_consoleMessage "INFO" "Relance du daemon docker..."
       service docker restart >> /dev/null 2>&1
+      if [ $? == 0 ]; then
+        _it_std_consoleMessage "OK" "Docker redémarré"
+      else
+        _it_std_consoleMessage "NOK" "Docker n'est pas redémarré"
+        return $FALSE
+      fi
     ;;
     
     # SYSTEMD (toutes les autres version d'Ubuntu >= 15.04)
@@ -79,9 +89,23 @@ elif [ "$platform" == "ubuntu" ]; then
       # Suppression de la conf spécifique au proxy INIST
       rm /etc/systemd/system/docker.service.d/http-proxy.conf
       # Prise en charge du changement de la conf et redémarrage du service
+      _it_std_consoleMessage "INFO" "Relance du daemon docker..."
       systemctl daemon-reload >> /dev/null 2>&1
+      if [ $? == 0 ]; then
+        _it_std_consoleMessage "OK" "Daemon docker relancé avec succès"
+      else
+        _it_std_consoleMessage "NOK" "Daemon docker n'est pas reparti"
+        return $FALSE
+      fi
       sleep 1
+      _it_std_consoleMessage "INFO" "Redémarrage du daemon docker..."
       systemctl restart docker >> /dev/null 2>&1
+      if [ $? == 0 ]; then
+        _it_std_consoleMessage "OK" "Docker redémarré"
+      else
+        _it_std_consoleMessage "NOK" "Docker n'est pas redémarré"
+        return $FALSE
+      fi
     ;;
     
   esac

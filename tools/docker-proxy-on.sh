@@ -39,7 +39,6 @@ cp "$DOCKER_DEFAULT_FILE" /etc/default/docker_inist-tools-backup
 # conf docker
 # ------------------------------------------------------------------------------
 printf "\n" >> "$DOCKER_DEFAULT_FILE"
-printf "# inist-tools\n" >> "$DOCKER_DEFAULT_FILE" 2>&1
 printf "DOCKER_OPTS=\"--dns 172.16.100.17 --dns 172.16.100.16 --insecure-registry vsregistry.intra.inist.fr:5000\"\n" >> "$DOCKER_DEFAULT_FILE" 2>&1
 printf "HTTP_PROXY=\"$INIST_HTTP_PROXY\"\n" >> "$DOCKER_DEFAULT_FILE" 2>&1
 printf "HTTPS_PROXY=\"$INIST_HTTPS_PROXY\"\n" >> "$DOCKER_DEFAULT_FILE" 2>&1
@@ -87,7 +86,14 @@ function confUpstart {
   echo "EnvironmentFile=/etc/default/docker" >> /etc/init/docker.override
 
   # Prise en charge de la conf et redémarrage du service
+  _it_std_consoleMessage "INFO" "Relance du daemon docker..."
   service docker restart
+  if [ $? == 0 ]; then
+    _it_std_consoleMessage "OK" "Docker redémarré"
+  else
+    _it_std_consoleMessage "NOK" "Docker n'est pas redémarré"
+    return $FALSE
+  fi
 }
 
 
@@ -123,7 +129,14 @@ elif [ "$platform" == "ubuntu" ]; then
     "12.04" | "12.10" | "13.04" | "13.10" | "14.04" | "14.10" )
       # _it_std_consoleMessage "INFO" "Ubuntu $ubuntuVersion → utilisation de upstart"
       # confUpstart <--- INUTILE !
+      _it_std_consoleMessage "INFO" "Relance du daemon docker..."
       service docker restart >> /dev/null 2>&1
+      if [ $? == 0 ]; then
+        _it_std_consoleMessage "OK" "Docker redémarré"
+      else
+        _it_std_consoleMessage "NOK" "Docker n'est pas redémarré"
+        return $FALSE
+      fi
     ;;
     
     # SYSTEMD (toutes les autres version d'Ubuntu >= 15.04)

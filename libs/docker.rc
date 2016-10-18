@@ -10,7 +10,7 @@
 ################################################################################
 
 # ------------------------------------------------------------------------------
-# DOCKER
+# DOCKER :: configuration du proxy
 # ------------------------------------------------------------------------------
 function _it_docker_proxy {
   # Check si docker est installé
@@ -52,6 +52,10 @@ function _it_docker_proxy {
       _it_std_consoleMessage "HELP" "Configure docker pour le proxy INIST"
     ;;
     
+    install)
+      _it_docker_install
+    ;;
+    
     status)
       _it_std_getStatus "docker"
     ;;
@@ -61,4 +65,16 @@ function _it_docker_proxy {
     ;;
   
   esac
+}
+
+
+# ------------------------------------------------------------------------------
+# DOCKER :: installation
+# ------------------------------------------------------------------------------
+function _it_docker_install {
+  # Vérifier si Docker n'est pas déjà installé...
+  if _it_std_check_command "docker" ; then
+    _it_std_consoleMessage "WARNING" "Docker est déjà installé"
+    return $FALSE
+  fi
 }

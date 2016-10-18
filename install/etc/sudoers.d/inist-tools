@@ -8,3 +8,4 @@ ALL	ALL=(root)	NOPASSWD:	/opt/inist-tools/tools/docker-registry-on.sh
 ALL	ALL=(root)	NOPASSWD:	/opt/inist-tools/tools/docker-proxy-off.sh
 ALL	ALL=(root)	NOPASSWD:	/opt/inist-tools/tools/docker-registry-off.sh
 ALL	ALL=(root)	NOPASSWD:	/opt/inist-tools/tools/env-create.sh
+ALL	ALL=(root)	NOPASSWD:	/opt/inist-tools/tools/docker-install.sh
