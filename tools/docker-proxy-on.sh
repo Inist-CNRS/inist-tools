@@ -119,14 +119,14 @@ if [ "$platform" == "debian" ]; then
   
 elif [ "$platform" == "ubuntu" ]; then
 
-  ubuntuVersion=$(cat /etc/lsb-release | grep -i "DISTRIB_RELEASE" | cut -d"=" -f 2)
+  ubuntuVersion=$(cat /etc/lsb-release | grep -i "DISTRIB_RELEASE" | cut -d"=" -f 2 | tr -d".")
   ubuntuMajor=$(echo "$ubuntuVersion" | cut -d"." -f 1)
   ubuntuMinor=$(echo "$ubuntuVersion" | cut -d"." -f 2)
   
   case $ubuntuVersion in
   
     # UPSTART (on considère qu'on utilise pas de version < 12.04)
-    "12.04" | "12.10" | "13.04" | "13.10" | "14.04" | "14.10" )
+    "1204" | "1210" | "1304" | "1310" | "1404" | "1410" )
       # _it_std_consoleMessage "INFO" "Ubuntu $ubuntuVersion → utilisation de upstart"
       # confUpstart <--- INUTILE !
       _it_std_consoleMessage "ACTION" "relance du daemon docker..."

@@ -91,5 +91,6 @@ inist-tools (0.9.11RC) RC; urgency=medium
   * [DEV] Correction d'un bug àlc pour un ';' manquant...
   * [DEV] Correction du test de la présence de docker
   * [DEV] Correction de l'installeur docker
+  * [DEV] Correction de l'installeur docker - bis
 
  -- Stanislas PERRIN <stanislas.perrin@inist.fr>  Tue, 21 Jun 2016 08:28:37 +0200
