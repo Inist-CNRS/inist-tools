@@ -79,7 +79,7 @@ function _it_docker_install {
   # Vérifier si Docker n'est pas déjà installé...
   local isDocker=$(which docker)
   _it_std_consoleMessage "ACTION" "Installation de docker..."
-  if [ -n $isDocker ]; then
+  if [ ! -z $isDocker ]; then
     _it_std_consoleMessage "NOK" "docker est déjà installé."
     return $FALSE
   else
