@@ -137,8 +137,8 @@ apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E8
 if [ $? == 0 ]; then
   _it_std_consoleMessage "INFO" "Clef publique pour le dépôt 'docker' installée"
 else
-  _it_std_consoleMessage "ERROR" "Impossible d'installée la clef publique pour le dépôt 'docker'. Installation interrompue."
-  return $FALSE
+  _it_std_consoleMessage "ERROR" "Impossible d'installer la clef publique pour le dépôt 'docker'. Installation interrompue."
+  exit $FALSE
 fi
 
 # ------------------------------------------------------------------------------
