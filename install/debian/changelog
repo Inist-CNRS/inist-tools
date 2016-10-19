@@ -100,5 +100,7 @@ inist-tools (0.9.11RC) RC; urgency=medium
   * [DEV] Ajout de l'executable 'inistexec' dans le paquet distribué
   * [DEV] Ajout de l'installation de lsb-release sur Debian s'il est
     absent
+  * [DEV] Amélioration de la fonction de détection de la version de
+    Debian installée
 
  -- Stanislas PERRIN <stanislas.perrin@inist.fr>  Tue, 21 Jun 2016 08:28:37 +0200

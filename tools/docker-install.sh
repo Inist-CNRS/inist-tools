@@ -105,7 +105,9 @@ fi
 # ------------------------------------------------------------------------------
 if [ "$platform" == "debian" ]; then
 
-  if [ -z $(which lsb_release) ]; then
+  # Installation de lsb-release si le paquet est manquant
+  lsbRelease=$(which lsb_release)
+  if [ -z "$lsbRelease" ]; then
     _it_std_consoleMessage "ACTION" "Installation de lsb-release..."
     apt-get install -y lsb-release 2>&1 >> /dev/null
     if [ $? == 0 ]; then
@@ -118,7 +120,7 @@ if [ "$platform" == "debian" ]; then
 
   # Détection de la version de Debian (et c'est pas du gâteau...)
   # trouvé ici : https://gist.github.com/glenbot/2890869
-  debianCodename=$(cat /etc/lsb-release | grep DISTRIB_CODENAME | cut -d "=" -f2)
+  debianCodename=$(cat /etc/lsb-release | grep -i "codename" | tr -d "\t" | cut -d ":" -f2)
   debianCodename=$(echo "$debianCodename" | tr '[A-Z]' '[a-z]')
   
   case "$debianCodename" in
