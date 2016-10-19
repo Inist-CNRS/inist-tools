@@ -36,7 +36,7 @@ kernelVersion="$kernelMajor.$kernelMinor"
 # Test de la version du noyau. En dessous de 3.10, pas de docker : on sort !
 if [ "$kernelMajor" -lt 3 ] || [ "$kernelMinor" -lt 10 ]; then
   _it_std_consoleMessage "ERROR" "La version du noyau ($kernelVersion) ne supporte pas docker. Interruption de l'installation"
-  return $FALSE
+  exit $FALSE
 fi
 
 # ------------------------------------------------------------------------------
@@ -49,7 +49,7 @@ if [ $? == 0 ]; then
   _it_std_consoleMessage "OK" "installation de 'apt-transport-https' et de 'ca-certificates' a réussi"
 else
   _it_std_consoleMessage "NOK" "installation de 'apt-transport-https' et/ou de 'ca-certificates' échouée. Installation interrompue."
-  return $FALSE
+  exit $FALSE
 fi
 
 # ------------------------------------------------------------------------------
@@ -70,7 +70,7 @@ if [ $is_ubuntu ]; then
         _it_std_consoleMessage "OK" "installation des paquets du noyaux a réussie"
       else
         _it_std_consoleMessage "NOK" "installation des paquets du noyaux échouée. Installation interrompue."
-        return $FALSE
+        exit $FALSE
       fi
     ;;
     
@@ -82,13 +82,13 @@ if [ $is_ubuntu ]; then
         _it_std_consoleMessage "OK" "installation des paquets du noyaux réussie"
       else
         _it_std_consoleMessage "NOK" "installation des paquets du noyaux échouée. Installation interrompue."
-        return $FALSE
+        exit $FALSE
       fi
     ;; 
 
     *)
       _it_std_consoleMessage "ERROR" "Cette version d'ubuntu ($ubuntuVersion) n'est pas prise en charge"
-      return $FALSE
+      exit $FALSE
     ;;
 
   esac
@@ -122,7 +122,7 @@ if [ $is_debian ]; then
     
     *)
       _it_std_consoleMessage "ERROR" "Cette version ($debianCodename) de Debian n'est pas prise en charge. Interruption de l'installation."
-      return $FALSE
+      exit $FALSE
     ;;
     
   esac
@@ -132,6 +132,7 @@ fi
 # ------------------------------------------------------------------------------
 # Clés
 # ------------------------------------------------------------------------------
+/opt/inist-tools/inistexec env on
 _it_std_consoleMessage "ACTION" "Ajout de la clef publiques du dépôt docker..."
 apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
 if [ $? == 0 ]; then
@@ -150,7 +151,7 @@ if [ $? == 0 ]; then
   _it_std_consoleMessage "OK" "créé"
 else
   _it_std_consoleMessage "NOK" "échoué. Installation interrompue."
-  return $FALSE
+  exit $FALSE
 fi
 
 # ------------------------------------------------------------------------------
@@ -167,7 +168,7 @@ if [ $? == 0 ]; then
   _it_std_consoleMessage "OK" "installation des paquets du noyau réussie"
 else
   _it_std_consoleMessage "NOK" "installation des paquets du noyau échouée. Installation interrompue."
-  return $FALSE
+  exit $FALSE
 fi
 
 # ------------------------------------------------------------------------------
@@ -179,7 +180,7 @@ if [ $? == 0 ]; then
   _it_std_consoleMessage "OK" "service lancé"
 else
   _it_std_consoleMessage "NOK" "impossible de lancer le service. Installation interrompue."
-  return $FALSE
+  exit $FALSE
 fi
 
 # ------------------------------------------------------------------------------
@@ -191,7 +192,7 @@ if [ $? == 0 ]; then
   _it_std_consoleMessage "OK" "usergroup 'docker' créé avec succès"
 else
   _it_std_consoleMessage "NOK" "impossible de créer le usergroup 'docker'. Installation interrompue."
-  return $FALSE
+  exit $FALSE
 fi
 
 _it_std_consoleMessage "ACTION" "Ajout de '$USER' au groupe docker"
@@ -200,7 +201,7 @@ if [ $? == 0 ]; then
   _it_std_consoleMessage "OK" "$USER ajouté au usergroup 'docker' avec succès"
 else
   _it_std_consoleMessage "NOK" "impossible d'ajouter '$USER' au usergroup 'docker'. Installation interrompue."
-  return $FALSE
+  exit $FALSE
 fi
 
 _it_std_consoleMessage "WARNING" "N'oubliez pas de vous déloguer/reloguer pour que les modifications prennent effet"
@@ -214,14 +215,15 @@ if [ $? == 0 ]; then
   _it_std_consoleMessage "OK" "service relancé"
 else
   _it_std_consoleMessage "NOK" "impossible de relancer le service. Installation interrompue."
-  return $FALSE
+  exit $FALSE
 fi
 
 # ------------------------------------------------------------------------------
 # Installation de Docker-Compose
 # ------------------------------------------------------------------------------
-# On fait en sorte de pouvoir "sortir" de l'INIST ave curl...
-inist curl on
+# On fait en sorte de pouvoir "sortir" de l'INIST ave curl... (et comme on est
+# root durant l'installation, on passe par inistexec...)
+/opt/inist-tools/inistexec curl on
 
 _it_std_consoleMessage "ACTION" "Téléchargement de docker-compose..."
 curl -L https://github.com/docker/compose/releases/download/1.8.0/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
@@ -229,7 +231,7 @@ if [ $? == 0 ]; then
   _it_std_consoleMessage "OK" "docker-compose téléchargé"
 else
   _it_std_consoleMessage "NOK" "impossible de télécharger docker-compose. Vérifiez vos paramètres réseau (proxy)."
-  return $FALSE
+  exit $FALSE
 fi
 
 _it_std_consoleMessage "ACTION" "Rendre docker-compose executable..."
@@ -239,11 +241,11 @@ if [ -a /usr/local/bin/docker-compose ]; then
     _it_std_consoleMessage "OK" "docker-compose chmodé pluzix avec succès"
   else
     _it_std_consoleMessage "NOK" "impossible de chmoder docker-compose. Installation interrompue."
-    return $FALSE
+    exit $FALSE
   fi
 else
   _it_std_consoleMessage "NOK" "Fichier '/usr/local/bin/docker-compose' introuvable. A-t-il été correctement téléchargé ? Installation interrompue."
-  return $FALSE
+  exit $FALSE
 fi
 
 # ------------------------------------------------------------------------------
@@ -256,5 +258,5 @@ if [ $? == 0 ]; then
   _it_std_consoleMessage "OK" "docker-compose installé en version $dcVersion"
 else
   _it_std_consoleMessage "NOK" "installation échouée"
-  return $FALSE
+  exit $FALSE
 fi

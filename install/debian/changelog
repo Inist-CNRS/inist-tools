@@ -95,5 +95,7 @@ inist-tools (0.9.11RC) RC; urgency=medium
   * [DEV] Correction de l'installeur docker - ter
   * [DEV] Correction de l'installeur docker - pfff
   * [DEV] Modification des modalités de sortie de l'installeur docker
+  * [DEV] Correction d'un problème d'accès aux commandes inist-tools en
+    tant que root
 
  -- Stanislas PERRIN <stanislas.perrin@inist.fr>  Tue, 21 Jun 2016 08:28:37 +0200
