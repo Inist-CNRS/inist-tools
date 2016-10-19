@@ -13,12 +13,15 @@
 # DOCKER :: configuration du proxy
 # ------------------------------------------------------------------------------
 function _it_docker_proxy {
-  # Check si docker est installé
+  
+  # Si c'est la commande d'installation, on détourne immédiatement vers la
+  # fonction kivabien...
   if [ "$1" == "install" ]; then
     _it_docker_install
     return $TRUE
   fi
 
+  # Check si docker est installé
   if ! _it_std_check_command "docker" ; then
     return $FALSE
   fi
@@ -74,8 +77,14 @@ function _it_docker_proxy {
 # ------------------------------------------------------------------------------
 function _it_docker_install {
   # Vérifier si Docker n'est pas déjà installé...
-  if _it_std_check_command "docker" ; then
-    _it_std_consoleMessage "WARNING" "Docker est déjà installé"
+  local isDocker=$(which docker)
+  _it_std_consoleMessage "ACTION" "Installation de docker..."
+  if [ -n $isDocker ]; then
+    _it_std_consoleMessage "NOK" "docker est déjà installé."
     return $FALSE
+  else
+    _it_std_consoleMessage "Ok" "docker ne semble pas présent sur ce système. Installation..."
+    $SUDO /opt/inist-tools/tools/docker-install.sh
   fi
+
 }

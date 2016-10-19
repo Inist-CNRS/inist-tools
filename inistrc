@@ -159,7 +159,15 @@ function inist {
     
     docker )
       source "$DIR_LIBS/docker.rc"
-      _it_docker_proxy "$2"
+      case "$2" in
+        inst|install)
+          _it_docker_install
+        ;;
+        *)
+          _it_docker_proxy "$2"
+        ;;
+      esac
+      
     ;;
 
     env )
