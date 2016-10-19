@@ -51,6 +51,7 @@ mkdir -p "$DIR_INSTALL/opt/inist-tools"
 # Copie des fichiers utiles (et seulements ceux-là)
 # ------------------------------------------------------------------------------
 cp "$DIR_ROOT/inistrc" "$DIR_SYSINSTALL/inist-tools/"
+cp "$DIR_ROOT/inistexec" "$DIR_SYSINSTALL/inist-tools/"
 cp "$DIR_ROOT/README.md" "$DIR_SYSINSTALL/inist-tools/"
 cp -R "$DIR_CONF" "$DIR_SYSINSTALL/inist-tools/"
 cp -R "$DIR_LIBS" "$DIR_SYSINSTALL/inist-tools/"

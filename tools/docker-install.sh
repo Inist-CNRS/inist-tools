@@ -25,6 +25,11 @@ USER=$(logname)
 # ------------------------------------------------------------------------------
 is_debian=$(cat /etc/issue | grep -i "debian")
 is_ubuntu=$(cat /etc/issue | grep -i "ubuntu")
+if [ -n $debian ]; then
+  platform="debian"
+elif [ -n $ubuntu ]; then
+  platform="ubuntu"
+fi
 
 # ------------------------------------------------------------------------------
 # Quel noyaux (<3.10 pas supporté)
@@ -55,7 +60,7 @@ fi
 # ------------------------------------------------------------------------------
 # Si c'est une Ubuntu, quelle version ?
 # ------------------------------------------------------------------------------
-if [ $is_ubuntu ]; then
+if [ "$platform" == "ubuntu" ]; then
   ubuntuVersion=$(cat /etc/lsb-release | grep -i "DISTRIB_RELEASE" | cut -d"=" -f 2 | tr -d".")
   ubuntuMajor=$(echo "$ubuntuVersion" | cut -d"." -f 1)
   ubuntuMinor=$(echo "$ubuntuVersion" | cut -d"." -f 2)
@@ -98,7 +103,7 @@ fi
 # ------------------------------------------------------------------------------
 # Si c'est une Debian...
 # ------------------------------------------------------------------------------
-if [ $is_debian ]; then
+if [ "$platform" == "debian" ]; then
   # Détection de la version de Debian (et c'est pas du gâteau...)
   # trouvé ici : https://gist.github.com/glenbot/2890869
   debianCodename=$(cat /etc/lsb-release | grep DISTRIB_CODENAME | cut -d "=" -f2)
