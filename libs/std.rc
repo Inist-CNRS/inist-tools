@@ -254,15 +254,21 @@ function  _it_std_consoleMessage {
     aide|AIDE|help|HELP)
       printf "${FG_BLUE}[AIDE]\t\t${FG_WHITE}$2${RESET_ALL}\n"
     ;;
+
+    # Action (sert à indiquer une action en cours qui se terminera par un OK
+    # ou un NOK)
+    action|ACTION)
+      printf "${FG_BR_BLUE}[EN COURS]\t${FG_WHITE}$2${RESET_ALL}"
+    ;;
     
     # Check/OK
     check|CHECK|ok|OK)
-      printf "\t${FG_BR_GREEN}✔ ${FG_WHITE}$2${RESET_ALL}\n"
+      printf "${FG_BR_GREEN} ✔ ${FG_WHITE}$2${RESET_ALL}\n"
     ;;
 
     # NoCheck/NOK
     nocheck|NOCHECK|nok|NOK)
-      printf "\t${FG_BR_RED}✘ ${FG_WHITE}$2${RESET_ALL}\n"
+      printf "${FG_BR_RED} ✘ ${FG_WHITE}$2${RESET_ALL}\n"
     ;;
 
     # TITLE

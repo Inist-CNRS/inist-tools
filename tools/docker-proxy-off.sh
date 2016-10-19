@@ -73,12 +73,12 @@ elif [ "$platform" == "ubuntu" ]; then
     "12.04" | "12.10" | "13.04" | "13.10" | "14.04" | "14.10" )
       # _it_std_consoleMessage "INFO" "Ubuntu $ubuntuVersion → utilisation de upstart"
       # confUpstart <--- INUTILE !
-      _it_std_consoleMessage "INFO" "Relance du daemon docker..."
+      _it_std_consoleMessage "ACTION" "relance du daemon docker..."
       service docker restart >> /dev/null 2>&1
       if [ $? == 0 ]; then
-        _it_std_consoleMessage "OK" "Docker redémarré"
+        _it_std_consoleMessage "OK" "docker redémarré"
       else
-        _it_std_consoleMessage "NOK" "Docker n'est pas redémarré"
+        _it_std_consoleMessage "NOK" "docker n'est pas redémarré"
         return $FALSE
       fi
     ;;
@@ -89,21 +89,21 @@ elif [ "$platform" == "ubuntu" ]; then
       # Suppression de la conf spécifique au proxy INIST
       rm /etc/systemd/system/docker.service.d/http-proxy.conf
       # Prise en charge du changement de la conf et redémarrage du service
-      _it_std_consoleMessage "INFO" "Relance du daemon docker..."
+      _it_std_consoleMessage "ACTION" "relance du daemon docker..."
       systemctl daemon-reload >> /dev/null 2>&1
       if [ $? == 0 ]; then
-        _it_std_consoleMessage "OK" "Daemon docker relancé avec succès"
+        _it_std_consoleMessage "OK" "daemon docker relancé avec succès"
       else
-        _it_std_consoleMessage "NOK" "Daemon docker n'est pas reparti"
+        _it_std_consoleMessage "NOK" "daemon docker n'est pas reparti"
         return $FALSE
       fi
       sleep 1
-      _it_std_consoleMessage "INFO" "Redémarrage du daemon docker..."
+      _it_std_consoleMessage "ACTION" "redémarrage du daemon docker..."
       systemctl restart docker >> /dev/null 2>&1
       if [ $? == 0 ]; then
-        _it_std_consoleMessage "OK" "Docker redémarré"
+        _it_std_consoleMessage "OK" "docker redémarré"
       else
-        _it_std_consoleMessage "NOK" "Docker n'est pas redémarré"
+        _it_std_consoleMessage "NOK" "docker n'est pas redémarré"
         return $FALSE
       fi
     ;;

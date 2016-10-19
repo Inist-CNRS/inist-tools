@@ -83,5 +83,7 @@ inist-tools (0.9.11RC) RC; urgency=medium
   * [DEV] Correction d'un bug sur la gestion du proxy pour 'docker off'
     + ajout des infos utilisateurs sur l'état d'activation/désactivation
     du daemon docker
+  * [DEV] Ajout de la fonctionnalité d'installation de docker sur Ubuntu
+    et Debian
 
  -- Stanislas PERRIN <stanislas.perrin@inist.fr>  Tue, 21 Jun 2016 08:28:37 +0200

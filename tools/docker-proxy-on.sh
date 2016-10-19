@@ -86,12 +86,12 @@ function confUpstart {
   echo "EnvironmentFile=/etc/default/docker" >> /etc/init/docker.override
 
   # Prise en charge de la conf et redémarrage du service
-  _it_std_consoleMessage "INFO" "Relance du daemon docker..."
+  _it_std_consoleMessage "ACTION" "relance du daemon docker..."
   service docker restart
   if [ $? == 0 ]; then
-    _it_std_consoleMessage "OK" "Docker redémarré"
+    _it_std_consoleMessage "OK" "docker redémarré"
   else
-    _it_std_consoleMessage "NOK" "Docker n'est pas redémarré"
+    _it_std_consoleMessage "NOK" "docker n'est pas redémarré"
     return $FALSE
   fi
 }
@@ -129,12 +129,12 @@ elif [ "$platform" == "ubuntu" ]; then
     "12.04" | "12.10" | "13.04" | "13.10" | "14.04" | "14.10" )
       # _it_std_consoleMessage "INFO" "Ubuntu $ubuntuVersion → utilisation de upstart"
       # confUpstart <--- INUTILE !
-      _it_std_consoleMessage "INFO" "Relance du daemon docker..."
+      _it_std_consoleMessage "ACTION" "relance du daemon docker..."
       service docker restart >> /dev/null 2>&1
       if [ $? == 0 ]; then
-        _it_std_consoleMessage "OK" "Docker redémarré"
+        _it_std_consoleMessage "OK" "docker redémarré"
       else
-        _it_std_consoleMessage "NOK" "Docker n'est pas redémarré"
+        _it_std_consoleMessage "NOK" "docker n'est pas redémarré"
         return $FALSE
       fi
     ;;
