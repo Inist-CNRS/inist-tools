@@ -151,7 +151,7 @@ fi
 # ------------------------------------------------------------------------------
 # Clés
 # ------------------------------------------------------------------------------
-/opt/inist-tools/inistexec env on
+/opt/inist-tools/inistexec apt on
 _it_std_consoleMessage "ACTION" "Ajout de la clef publiques du dépôt docker..."
 apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
 if [ $? == 0 ]; then
