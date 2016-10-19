@@ -14,8 +14,10 @@
 # ------------------------------------------------------------------------------
 function _it_docker_proxy {
   # Check si docker est installé
-  if ! _it_std_check_command "docker" ; then
-    return $FALSE
+  if [ ! "$2" == "install" ]; then
+    if ! _it_std_check_command "docker" ; then
+      return $FALSE
+    fi
   fi
 
   case "$1" in
