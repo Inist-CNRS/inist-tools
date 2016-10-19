@@ -104,6 +104,18 @@ fi
 # Si c'est une Debian...
 # ------------------------------------------------------------------------------
 if [ "$platform" == "debian" ]; then
+
+  if [ -z $(which lsb_release) ]; then
+    _it_std_consoleMessage "ACTION" "Installation de lsb-release..."
+    apt-get install -y lsb-release 2>&1 >> /dev/null
+    if [ $? == 0 ]; then
+      _it_std_consoleMessage "OK" "lsb-release installé"
+    else
+      _it_std_consoleMessage "NOK" "lsb-relase pas installé."
+      exit $FALSE
+    fi
+  fi
+
   # Détection de la version de Debian (et c'est pas du gâteau...)
   # trouvé ici : https://gist.github.com/glenbot/2890869
   debianCodename=$(cat /etc/lsb-release | grep DISTRIB_CODENAME | cut -d "=" -f2)
