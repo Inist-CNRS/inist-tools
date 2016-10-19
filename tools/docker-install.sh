@@ -120,7 +120,7 @@ if [ "$platform" == "debian" ]; then
 
   # Détection de la version de Debian (et c'est pas du gâteau...)
   # trouvé ici : https://gist.github.com/glenbot/2890869
-  debianCodename=$(cat /etc/lsb-release | grep -i "codename" | tr -d "\t" | cut -d ":" -f2)
+  debianCodename=$(lsb_release -a | grep -i "codename" | tr -d "\t" | cut -d ":" -f2)
   debianCodename=$(echo "$debianCodename" | tr '[A-Z]' '[a-z]')
   
   case "$debianCodename" in
