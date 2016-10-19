@@ -86,5 +86,6 @@ inist-tools (0.9.11RC) RC; urgency=medium
   * [DEV] Ajout de la fonctionnalité d'installation de docker sur Ubuntu
     et Debian
   * [DEV] Correction du bug d'install de docker
+  * [DEV] Correction du bug d'install de docker - bis
 
  -- Stanislas PERRIN <stanislas.perrin@inist.fr>  Tue, 21 Jun 2016 08:28:37 +0200
