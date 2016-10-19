@@ -34,7 +34,7 @@ kernelMinor=$(uname -r | cut -d'.' -f2)
 kernelVersion="$kernelMajor.$kernelMinor"
 
 # Test de la version du noyau. En dessous de 3.10, pas de docker : on sort !
-if [ $kernelMajor < 3] || [$kernelMinor < 10 ]; then
+if [ $kernelMajor -lt 3] || [$kernelMinor -lt 10 ]; then
   _it_std_consoleMessage "ERROR" "La version du noyau ($kernelVersion) ne supporte pas docker. Interruption de l'installation"
   return $FALSE
 fi
@@ -62,7 +62,7 @@ if [ is_ubuntu ]; then
 
   case "$ubuntuVersion"
     
-    "14.04")
+    "14.04" )
       _it_std_consoleMessage "ACTION" "Installation des paquets du noyau..."
       sourceURL="deb https://apt.dockerproject.org/repo ubuntu-trusty main"
       apt-get install linux-image-extra-$(uname -r) linux-image-extra-virtual 2>&1 >> /dev/null
@@ -74,7 +74,7 @@ if [ is_ubuntu ]; then
       fi
     ;;
     
-    "16.04")
+    "16.04" )
       _it_std_consoleMessage "ACTION" "Installation des paquets du noyau..."
       sourceURL="deb https://apt.dockerproject.org/repo ubuntu-xenial main"
       apt-get install linux-image-extra-$(uname -r) linux-image-extra-virtual 2>&1 >> /dev/null
