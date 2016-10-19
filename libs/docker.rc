@@ -14,10 +14,13 @@
 # ------------------------------------------------------------------------------
 function _it_docker_proxy {
   # Check si docker est installé
-  if [ ! "$1" == "install" ]; then
-    if ! _it_std_check_command "docker" ; then
-      return $FALSE
-    fi
+  if [ "$1" == "install" ]; then
+    _it_docker_install
+    return $TRUE
+  fi
+
+  if ! _it_std_check_command "docker" ; then
+    return $FALSE
   fi
 
   case "$1" in
@@ -52,10 +55,6 @@ function _it_docker_proxy {
     
     help)
       _it_std_consoleMessage "HELP" "Configure docker pour le proxy INIST"
-    ;;
-    
-    install)
-      _it_docker_install
     ;;
     
     status)
