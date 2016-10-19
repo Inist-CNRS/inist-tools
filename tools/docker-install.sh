@@ -46,9 +46,9 @@ _it_std_consoleMessage "ACTION" "Màj dépôts et installation de 'apt-transport
 apt-get update -y 2>&1 >> /dev/null
 apt-get install -y apt-transport-https ca-certificates 2>&1 >> /dev/null
 if [ $? == 0 ]; then
-  _it_std_consoleMessage "OK" "L'installation de 'apt-transport-https' et de 'ca-certificates' a réussi"
+  _it_std_consoleMessage "OK" "installation de 'apt-transport-https' et de 'ca-certificates' a réussi"
 else
-  _it_std_consoleMessage "NOK" "L'installation de 'apt-transport-https' et de 'ca-certificates' a échoué. Installation interrompue."
+  _it_std_consoleMessage "NOK" "installation de 'apt-transport-https' et/ou de 'ca-certificates' échouée. Installation interrompue."
   return $FALSE
 fi
 
@@ -67,9 +67,9 @@ if [ $is_ubuntu ]; then
       sourceURL="deb https://apt.dockerproject.org/repo ubuntu-trusty main"
       apt-get install linux-image-extra-$(uname -r) linux-image-extra-virtual 2>&1 >> /dev/null
       if [ $? == 0 ]; then
-        _it_std_consoleMessage "OK" "L'installation des paquets du noyaux a réussi"
+        _it_std_consoleMessage "OK" "installation des paquets du noyaux a réussie"
       else
-        _it_std_consoleMessage "NOK" "L'installation des paquets du noyaux a échoué. Installation interrompue."
+        _it_std_consoleMessage "NOK" "installation des paquets du noyaux échouée. Installation interrompue."
         return $FALSE
       fi
     ;;
@@ -79,9 +79,9 @@ if [ $is_ubuntu ]; then
       sourceURL="deb https://apt.dockerproject.org/repo ubuntu-xenial main"
       apt-get install linux-image-extra-$(uname -r) linux-image-extra-virtual 2>&1 >> /dev/null
       if [ $? == 0 ]; then
-        _it_std_consoleMessage "OK" "L'installation des paquets du noyaux a réussi"
+        _it_std_consoleMessage "OK" "installation des paquets du noyaux réussie"
       else
-        _it_std_consoleMessage "NOK" "L'installation des paquets du noyaux a échoué. Installation interrompue."
+        _it_std_consoleMessage "NOK" "installation des paquets du noyaux échouée. Installation interrompue."
         return $FALSE
       fi
     ;; 
@@ -104,7 +104,7 @@ if [ $is_debian ]; then
   debianCodename=$(cat /etc/lsb-release | grep DISTRIB_CODENAME | cut -d "=" -f2)
   debianCodename=$(echo "$debianCodename" | tr '[A-Z]' '[a-z]')
   
-  case "$debianCodename"
+  case "$debianCodename" in
   
     wheezy)
       echo "deb http://http.debian.net/debian wheezy-backports main" > /etc/apt/sources.list.d/backports.list
@@ -164,9 +164,9 @@ apt-cache policy docker-engine 2>&1 >> /dev/null
 apt-get update -y 2>&1 >> /dev/null
 apt-get install -y docker-engine 2>&1 >> /dev/null
 if [ $? == 0 ]; then
-  _it_std_consoleMessage "OK" "l'installation des paquets du noyaux a réussi"
+  _it_std_consoleMessage "OK" "installation des paquets du noyau réussie"
 else
-  _it_std_consoleMessage "NOK" "l'installation des paquets du noyaux a échoué. Installation interrompue."
+  _it_std_consoleMessage "NOK" "installation des paquets du noyau échouée. Installation interrompue."
   return $FALSE
 fi
 
@@ -242,7 +242,7 @@ if [ -a /usr/local/bin/docker-compose ]; then
     return $FALSE
   fi
 else
-  _it_std_consoleMessage "NOK" "Fichier '' introuvable. A-t-il été correctement téléchargé ? Installation interrompue."
+  _it_std_consoleMessage "NOK" "Fichier '/usr/local/bin/docker-compose' introuvable. A-t-il été correctement téléchargé ? Installation interrompue."
   return $FALSE
 fi
 
