@@ -34,7 +34,7 @@ kernelMinor=$(uname -r | cut -d'.' -f2)
 kernelVersion="$kernelMajor.$kernelMinor"
 
 # Test de la version du noyau. En dessous de 3.10, pas de docker : on sort !
-if [ $kernelMajor -lt 3 ] || [$kernelMinor -lt 10 ]; then
+if [ "$kernelMajor" -lt 3 ] || [ "$kernelMinor" -lt 10 ]; then
   _it_std_consoleMessage "ERROR" "La version du noyau ($kernelVersion) ne supporte pas docker. Interruption de l'installation"
   return $FALSE
 fi
@@ -55,12 +55,12 @@ fi
 # ------------------------------------------------------------------------------
 # Si c'est une Ubuntu, quelle version ?
 # ------------------------------------------------------------------------------
-if [ is_ubuntu ]; then
+if [ $is_ubuntu ]; then
   ubuntuVersion=$(cat /etc/lsb-release | grep -i "DISTRIB_RELEASE" | cut -d"=" -f 2 | tr -d".")
   ubuntuMajor=$(echo "$ubuntuVersion" | cut -d"." -f 1)
   ubuntuMinor=$(echo "$ubuntuVersion" | cut -d"." -f 2)
 
-  case "$ubuntuVersion"
+  case "$ubuntuVersion" in
     
     "1404" )
       _it_std_consoleMessage "ACTION" "Installation des paquets du noyau..."
@@ -98,7 +98,7 @@ fi
 # ------------------------------------------------------------------------------
 # Si c'est une Debian...
 # ------------------------------------------------------------------------------
-if [ is_debian ]; then
+if [ $is_debian ]; then
   # Détection de la version de Debian (et c'est pas du gâteau...)
   # trouvé ici : https://gist.github.com/glenbot/2890869
   debianCodename=$(cat /etc/lsb-release | grep DISTRIB_CODENAME | cut -d "=" -f2)
