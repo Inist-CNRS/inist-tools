@@ -11,31 +11,56 @@ Commandes :
   
   <services> disponibles :
   
-    * env     Paramètre l'environnement et les shell pour le proxy INIST
-    * shell   (alias de env)
-    * system  (alias de env)
+    shell   <on|off|help|status>
+            Paramètre l'environnement et les shells pour le proxy INIST
+          
+    env     <on|off|help|status>
+            (alias de shell)
+    
+    system  <on|off|help|status>
+            (alias de shell)
 
-    * apt     Paramètre apt le proxy INIST
-    * docker  Paramètre docker le proxy INIST
-    * github  Paramètre github pour utiliser ssh ou https au travers du proxy INIST
-              Peut aussi s'utiliser avec "https" (on) et "ssh" (off)
-    * npm     Paramètre npm pour le proxy INIST
-    * bower   Paramètre bower pour le proxy INIST
+    apt     <on|off|help|status>
+            Paramètre apt le proxy INIST
+          
+    docker  <on|off|help|status>
+            Paramètre docker le proxy INIST
+    
+    github  <on|https|off|ssh|help|status>
+            Paramètre github pour utiliser ssh ou https au travers du proxy 
+            INIST. Peut aussi s'utiliser avec "https" (on) et "ssh" (off).
+            
+    npm     <on|off|help|status>
+            Paramètre npm pour le proxy INIST
+    
+    bower   <on|off|help|status>
+            Paramètre bower pour le proxy INIST
 
-    * gnome   Paramètre gnome pour le proxy INIST
-    * kde     Paramètre kde pour le proxy INIST
-    * unity   Paramètre unity pour le proxy INIST
-    * xfce    Paramètre xfce pour le proxy INIST
+    gnome   <on|off|help|status>
+            Paramètre gnome pour le proxy INIST
+            
+    kde     <on|off|help|status>
+            Paramètre kde pour le proxy INIST
+            
+    unity   <on|off|help|status>
+            Paramètre unity pour le proxy INIST
+            
+    xfce    <on|off|help|status>
+            Paramètre xfce pour le proxy INIST
 
-    * curl    Paramètre le proxy inist pour curl. Curl peut aussi fonctionner en
-              utilisant les variables d'environnement positionnée avec 
-              <inist env on>.
-    * wget    Paramètre le proxy inist pour wget. Wget peut aussi fonctionner en
-              utilisant les variables d'environnement positionnée avec 
-              <inist env on>.
+    curl    <on|off|help|status>
+            Paramètre le proxy inist pour curl. Curl peut aussi fonctionner en
+            utilisant les variables d'environnement positionnée avec
+            <inist env on>.
+            
+    wget    <on|off|help|status>
+            Paramètre le proxy inist pour wget. Wget peut aussi fonctionner en
+            utilisant les variables d'environnement positionnée avec 
+            <inist env on>.
               
-    * ntp     Synchronise l'horloge de votre PC avec le serveur de temps de
-              l'INIST
+    ntp     <sync>
+            Synchronise l'horloge de votre PC avec le serveur de temps de
+            l'INIST
 
 Options :
 

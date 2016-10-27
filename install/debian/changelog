@@ -105,5 +105,6 @@ inist-tools (0.9.11RC) RC; urgency=medium
   * [DEV] Proxy pour apt-key
   * [DEV] Proxy pour apt-key
   * [DEV] bug àlc
+  * [DEV] Màj doc en-ligne
 
  -- Stanislas PERRIN <stanislas.perrin@inist.fr>  Tue, 21 Jun 2016 08:28:37 +0200
