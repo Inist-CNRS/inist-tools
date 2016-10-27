@@ -9,7 +9,13 @@
 # ------------------------------------------------------------------------------
 # Variables globales
 # ------------------------------------------------------------------------------
-USER=$(logname)
+# Désactivé le 27/10/2016 suite à un bug-report.
+# Inutilisé pour l'instant. Devra être remplacé si son utilisation se justifie
+# dans le futur.
+# Note : <logname> ne renvoit rien dans les terminaux des environnements
+#        graphiques (konsole, terminator, xterm) d'une Ubuntu 16.04 (bug
+#        connu).
+# USER=$(logname)
 
 # ------------------------------------------------------------------------------
 # On redevient le user courant

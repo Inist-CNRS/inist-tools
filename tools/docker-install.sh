@@ -18,7 +18,8 @@ source "/opt/inist-tools/libs/ansicolors.rc"
 # Variables globales
 # ------------------------------------------------------------------------------
 dockerSourceList="/etc/apt/sources.list.d/docker.list"
-USER=$(logname)
+# USER=$(logname)
+USER=$(who am i | awk '{print $1}' | head -1)
 
 # ------------------------------------------------------------------------------
 # Quel Linux ?
