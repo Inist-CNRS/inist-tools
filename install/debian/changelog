@@ -111,5 +111,6 @@ inist-tools (0.9.11RC) RC; urgency=medium
     16.04
   * [DEV] Màj README.md
   * [DEV] Modification du message d'info
+  * [DEV] Remplacement de 'env' par 'shell' (plus parlant)
 
  -- Stanislas PERRIN <stanislas.perrin@inist.fr>  Tue, 21 Jun 2016 08:28:37 +0200
