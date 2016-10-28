@@ -113,5 +113,6 @@ inist-tools (0.9.11RC) RC; urgency=medium
   * [DEV] Modification du message d'info
   * [DEV] Remplacement de 'env' par 'shell' (plus parlant)
   * [DEV] Remplacement de 'env' par 'shell' (plus parlant) -- bis
+  * [DEV] Documentation de 'inist docker install'
 
  -- Stanislas PERRIN <stanislas.perrin@inist.fr>  Tue, 21 Jun 2016 08:28:37 +0200
