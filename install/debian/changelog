@@ -110,5 +110,6 @@ inist-tools (0.9.11RC) RC; urgency=medium
     résultat est fantaisiste dans une console graphique sous Ubuntu
     16.04
   * [DEV] Màj README.md
+  * [DEV] Modification du message d'info
 
  -- Stanislas PERRIN <stanislas.perrin@inist.fr>  Tue, 21 Jun 2016 08:28:37 +0200

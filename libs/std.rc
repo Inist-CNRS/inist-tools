@@ -120,14 +120,14 @@ function _it_std_setAction {
       # Environnement
       _it_std_setEnv "$app" $TRUE
       # Message
-      _it_std_consoleMessage "INFO" "« $app » est configuré pour utiliser le proxy INIST"
+      _it_std_consoleMessage "INFO" "« $app » est configuré pour fonctionner à l'INIST"
     ;;
   
     $FALSE)
       # Environnement
       _it_std_setEnv "$app" $FALSE
       # Message
-      _it_std_consoleMessage "INFO" "« $app » n'est plus configuré pour utiliser le proxy INIST"
+      _it_std_consoleMessage "INFO" "« $app » n'est plus configuré pour fonctionner à l'INIST"
     ;;
   
     *)
