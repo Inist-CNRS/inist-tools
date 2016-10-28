@@ -20,7 +20,16 @@ trouverez dans le répertoire /releases le paquet .deb qui vous permettra
 d'installer les outils simplement avec la commande :
 
 ```bash
-$ dpkg -i inist-tools_x_y_z.deb
+$ sudo dpkg -i inist-tools_x_y_z.deb
+```
+
+### .bashrc ###
+Une fois l'installation terminée, pour mettre à disposition la commande inistr
+dans votre environnement, ajoutez les lignes suivantes :
+
+```bash
+# INIST-TOOLS
+. /opt/inist-tools/inistrc
 ```
 
 ### Développeur ###
