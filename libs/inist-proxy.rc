@@ -43,7 +43,7 @@ function _it_inistProxy {
     ;;
     
     off)
-      if _it_std_checkAction "system" $FALSE ; then
+      if _it_std_checkAction "shell" $FALSE ; then
         unset "no_proxy"
         unset "http_proxy"
         unset "https_proxy"
@@ -53,7 +53,7 @@ function _it_inistProxy {
         unset "HTTPS_PROXY"
         unset "FTP_PROXY"
         #
-        _it_std_setAction "system" $FALSE
+        _it_std_setAction "shell" $FALSE
       fi
     ;;
 
