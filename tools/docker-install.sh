@@ -40,7 +40,7 @@ kernelMinor=$(uname -r | cut -d'.' -f2)
 kernelVersion="$kernelMajor.$kernelMinor"
 
 # Test de la version du noyau. En dessous de 3.10, pas de docker : on sort !
-if [ "$kernelMajor" -lt 3 ] || [ "$kernelMinor" -lt 10 ]; then
+if [ "$kernelMajor" -lt 3 ] && [ "$kernelMinor" -lt 10 ]; then
   _it_std_consoleMessage "ERROR" "La version du noyau ($kernelVersion) ne supporte pas docker. Interruption de l'installation"
   exit $FALSE
 fi
@@ -114,7 +114,7 @@ if [ "$platform" == "debian" ]; then
     if [ $? == 0 ]; then
       _it_std_consoleMessage "OK" "lsb-release installé"
     else
-      _it_std_consoleMessage "NOK" "lsb-relase pas installé."
+      _it_std_consoleMessage "NOK" "lsb-relase non installé"
       exit $FALSE
     fi
   fi
@@ -152,7 +152,8 @@ fi
 # ------------------------------------------------------------------------------
 # Clés
 # ------------------------------------------------------------------------------
-/opt/inist-tools/inistexec apt on
+# APT on (c'est plus pratique)
+/opt/inist-tools/inistexec apt on 2>&1 >> /dev/null
 _it_std_consoleMessage "ACTION" "Ajout de la clef publiques du dépôt docker..."
 apt-key adv --keyserver-options http-proxy=http://proxyout.inist.fr:8080 --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D 2>&1 >> /dev/null
 if [ $? == 0 ]; then
@@ -243,7 +244,7 @@ fi
 # ------------------------------------------------------------------------------
 # On fait en sorte de pouvoir "sortir" de l'INIST ave curl... (et comme on est
 # root durant l'installation, on passe par inistexec...)
-/opt/inist-tools/inistexec curl on
+/opt/inist-tools/inistexec curl on 2>&1 >> /dev/null
 
 _it_std_consoleMessage "ACTION" "Téléchargement de docker-compose..."
 curl -L https://github.com/docker/compose/releases/download/1.8.0/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
@@ -280,3 +281,13 @@ else
   _it_std_consoleMessage "NOK" "installation échouée"
   exit $FALSE
 fi
+
+# ------------------------------------------------------------------------------
+# Positionner docker à "on"
+# ------------------------------------------------------------------------------
+/opt/inist-tools/inistexec docker on
+
+# ------------------------------------------------------------------------------
+# Fin !
+# ------------------------------------------------------------------------------
+exit 0
