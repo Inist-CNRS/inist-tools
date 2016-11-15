@@ -41,6 +41,8 @@ cp "$DOCKER_DEFAULT_FILE" /etc/default/docker_inist-tools-backup
 # ------------------------------------------------------------------------------
 if [ -a "$DOCKEROPTS_CONF_FILE" ]; then
   DOCKER_OPTS_CUSTOM=$(cat "$DOCKEROPTS_CONF_FILE")
+else
+  DOCKER_OPTS_CUSTOM=""
 fi
 
 # ------------------------------------------------------------------------------
