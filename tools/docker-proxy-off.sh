@@ -63,7 +63,7 @@ elif [ "$platform" == "ubuntu" ]; then
 #  echo "ExecStart=/usr/bin/docker daemon \$DOCKER_OPTS -H fd://" >> /etc/systemd/system/docker.service.d/http-proxy.conf
   echo "ExecStart=/usr/bin/docker daemon \$DOCKER_OPTS -H fd://" >> "$INIST_TOOLS_CONF_FILE"
   #
-  ubuntuVersion=$(cat /etc/lsb-release | grep -i "DISTRIB_RELEASE" | cut -d"=" -f 2 | tr -d".")
+  ubuntuVersion=$(cat /etc/lsb-release | grep -i "DISTRIB_RELEASE" | cut -d"=" -f 2 | tr --delete ".")
   ubuntuMajor=$(echo "$ubuntuVersion" | cut -d"." -f 1)
   ubuntuMinor=$(echo "$ubuntuVersion" | cut -d"." -f 2)
   
@@ -104,7 +104,7 @@ elif [ "$platform" == "ubuntu" ]; then
         _it_std_consoleMessage "OK" "docker redémarré"
       else
         _it_std_consoleMessage "NOK" "docker n'est pas redémarré"
-        return $FALSE
+        exit $FALSE
       fi
     ;;
     

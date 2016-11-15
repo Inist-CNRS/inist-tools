@@ -115,5 +115,7 @@ inist-tools (0.9.11RC) RC; urgency=medium
   * [DEV] Remplacement de 'env' par 'shell' (plus parlant) -- bis
   * [DEV] Documentation de 'inist docker install'
   * [DEV] Commit -- 14/11/2016 @ 09:12:00
+  * [DEV] Correction : bug sur la persistance des options pour
+    shell/system + bug d'affichage du status pour shell/system
 
  -- Stanislas PERRIN <stanislas.perrin@inist.fr>  Tue, 21 Jun 2016 08:28:37 +0200
