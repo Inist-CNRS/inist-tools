@@ -20,7 +20,7 @@ XFCE4=$(which xfce4-session)
 function _it_desktop_kde_proxy {
   if [ -z $KDE ]; then
     _it_std_consoleMessage "ERROR" "KDE n'est pas installé."
-    exit $FALSE
+    return $FALSE
   fi
   
   case $1 in
@@ -67,7 +67,7 @@ function _it_desktop_kde_proxy {
 function _it_desktop_gnome_proxy {
   if [ -z $GNOME ]; then
     _it_std_consoleMessage "ERROR" "Gnome n'est pas installé."
-    exit $FALSE
+    return $FALSE
   fi
 
   case $1 in
@@ -118,7 +118,7 @@ function _it_desktop_gnome_proxy {
 function _it_desktop_unity_proxy {
   if [ -z $UNITY ]; then
     _it_std_consoleMessage "ERROR" "Unity n'est pas installé."
-    exit $FALSE
+    return $FALSE
   fi
 
   case $1 in
@@ -169,7 +169,7 @@ function _it_desktop_unity_proxy {
 function _it_dektop_xfce4_proxy {
   if [ -z $XFCE4 ]; then
     _it_std_consoleMessage "ERROR" "XFCE4 n'est pas installé."
-    exit $FALSE
+    return $FALSE
   fi
 
   case $1 in
