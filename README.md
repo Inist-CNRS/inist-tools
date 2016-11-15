@@ -259,3 +259,18 @@ Construit le .deb et le publie sur le dépôt GitHub du projet dans /releases.
 
 #### test ####
 Lance tous les tests (unitaires et fonctionnels) du répertoire /tests.
+
+
+## CONFIGURATION ##
+### Docker Opts ###
+Si vous utilisez des options particulières au lancement de docker, vous pouvez
+les préciser dans le fichier ```/opt/inist-tools/conf/docker-opts.conf```
+**sur une
+seule ligne** telles que vous les auriez ajoutées vous-même dans le fichier
+/etc/default/docker.
+
+Exemple :
+
+```
+-g /data/docker
+```

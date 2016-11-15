@@ -20,6 +20,7 @@ source "/opt/inist-tools/libs/ansicolors.rc"
 DOCKER_DEFAULT_FILE="/etc/default/docker"
 INIST_TOOLS_CONF_DIR="/etc/systemd/system/docker.service.d"
 INIST_TOOLS_CONF_FILE="$INIST_TOOLS_CONF_DIR/inist-tools.conf"
+DOCKEROPTS_CONF_FILE="/opt/inist-tools/conf/docker-opts.conf"
 
 # PROXY
 INIST_HTTP_PROXY="http://proxyout.inist.fr:8080"
@@ -36,10 +37,17 @@ INIST_PROXY_PORT="8080"
 cp "$DOCKER_DEFAULT_FILE" /etc/default/docker_inist-tools-backup
 
 # ------------------------------------------------------------------------------
+# Docker-opts personnalisés
+# ------------------------------------------------------------------------------
+if [ -a "$DOCKEROPTS_CONF_FILE" ]; then
+  DOCKER_OPTS_CUSTOM=$(cat "$DOCKEROPTS_CONF_FILE")
+fi
+
+# ------------------------------------------------------------------------------
 # conf docker
 # ------------------------------------------------------------------------------
 printf "\n" >> "$DOCKER_DEFAULT_FILE"
-printf "DOCKER_OPTS=\"--dns 172.16.100.17 --dns 172.16.100.16 --insecure-registry vsregistry.intra.inist.fr:5000\"\n" >> "$DOCKER_DEFAULT_FILE" 2>&1
+printf "DOCKER_OPTS=\"--dns 172.16.100.17 --dns 172.16.100.16 --insecure-registry vsregistry.intra.inist.fr:5000 $DOCKER_OPTS_CUSTOM\"\n" >> "$DOCKER_DEFAULT_FILE" 2>&1
 printf "HTTP_PROXY=\"$INIST_HTTP_PROXY\"\n" >> "$DOCKER_DEFAULT_FILE" 2>&1
 printf "HTTPS_PROXY=\"$INIST_HTTPS_PROXY\"\n" >> "$DOCKER_DEFAULT_FILE" 2>&1
 printf "export HTTP_PROXY=\"$INIST_HTTP_PROXY\"\n" >> "$DOCKER_DEFAULT_FILE" 2>&1
@@ -48,6 +56,8 @@ printf "http_proxy=\"$INIST_HTTP_PROXY\"\n" >> "$DOCKER_DEFAULT_FILE" 2>&1
 printf "https_proxy=\"$INIST_HTTPS_PROXY\"\n" >> "$DOCKER_DEFAULT_FILE" 2>&1
 printf "export http_proxy=\"$INIST_HTTP_PROXY\"\n" >> "$DOCKER_DEFAULT_FILE" 2>&1
 printf "export https_proxy=\"$INIST_HTTPS_PROXY\"\n" >> "$DOCKER_DEFAULT_FILE" 2>&1
+
+
 
 function confSystemd {
   # Modification de la conf
