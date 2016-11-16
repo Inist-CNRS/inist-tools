@@ -48,6 +48,8 @@ fi
 # ------------------------------------------------------------------------------
 # Màj paquets
 # ------------------------------------------------------------------------------
+# apt on, évidemment
+inist apt on
 _it_std_consoleMessage "ACTION" "Màj dépôts et installation de 'apt-transport-https' et de 'ca-certificates'"
 apt-get update -y 2>&1 >> /dev/null
 apt-get install -y apt-transport-https ca-certificates 2>&1 >> /dev/null
