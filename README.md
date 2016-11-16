@@ -8,16 +8,15 @@ Ubuntu) dans l'environnement INIST.
 ### Utilisateur ###
 
 Avant toute installation, vous devez installer certaines dépendancess dont
-inist-tools a besoin pour fonctionner. Il suffit de coller la commande suivante
+inist-tools a besoin pour fonctionner. Il suffit de coller en tant que root la commande suivante
 dans une console :
 
 ```bash
-$ sudo apt-get install -y make ntpdate parallel jq sudo libnotify-bin
+$ apt-get install -y make ntpdate parallel jq sudo libnotify-bin
 ```
 
 Si vous êtes « utilisateur » et ne comptez pas développer inist-tools, vous
-trouverez dans le répertoire /releases le paquet .deb qui vous permettra
-d'installer les outils simplement avec la commande :
+trouverez dans le répertoire [/releases](https://github.com/Inist-CNRS/inist-tools/tree/master/releases) le paquet .deb qui vous permettra d'installer les outils simplement avec la commande :
 
 ```bash
 $ sudo dpkg -i inist-tools_x_y_z.deb
