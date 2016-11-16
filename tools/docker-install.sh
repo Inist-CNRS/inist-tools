@@ -37,11 +37,11 @@ fi
 # ------------------------------------------------------------------------------
 kernelMajor=$(uname -r | cut -d'.' -f1)
 kernelMinor=$(uname -r | cut -d'.' -f2)
-kernelVersion="$kernelMajor.$kernelMinor"
+kernelVersion="$kernelMajor$kernelMinor"
 
 # Test de la version du noyau. En dessous de 3.10, pas de docker : on sort !
-if [ "$kernelMajor" -lt 3 ] && [ "$kernelMinor" -lt 10 ]; then
-  _it_std_consoleMessage "ERROR" "La version du noyau ($kernelVersion) ne supporte pas docker. Interruption de l'installation"
+if [ "$kernelVersion" -lt 309 ] then
+  _it_std_consoleMessage "ERROR" "La version du noyau ($$kernelMajor.$kernelMinor) ne supporte pas docker. Interruption de l'installation"
   exit $FALSE
 fi
 
