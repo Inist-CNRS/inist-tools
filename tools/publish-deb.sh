@@ -44,6 +44,9 @@ PACKAGENAME=$(basename "$DOTDEB")
 # Ajouter le .deb au dépôt
 git add "$DIR_RELEASES/$PACKAGENAME"
 
+# Ajouter le #latest au dépôt
+git add "$DIR_RELEASES/inist-tools_#latest.deb"
+
 # Comitter
 git commit -a -m "Publication du package « $PACKAGENAME » [$MODULE_VERSION]"
 

@@ -120,5 +120,7 @@ inist-tools (0.9.11RC) RC; urgency=medium
   * [DEV] Ajout d'une valeur par défaut à vide pour DOCKER_OPTS_CUSTOM
   * [DEV] Correction de nombreux bugs dans docker-install + démasquage
     des logs d'installation pour analyse
+  * [DEV] Ajout de la version 'latest' à chaque publication d'un nouveau
+    package pour faciliter le téléchargement depuis la doc dans github
 
  -- Stanislas PERRIN <stanislas.perrin@inist.fr>  Tue, 21 Jun 2016 08:28:37 +0200
