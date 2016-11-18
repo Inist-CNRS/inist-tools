@@ -279,7 +279,7 @@ fi
 /opt/inist-tools/inistexec curl on 2>&1 >> /dev/null
 
 _it_std_consoleMessage "ACTION" "Téléchargement de docker-compose..."
-curl -L https://github.com/docker/compose/releases/download/1.8.0/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
+curl -L https://github.com/docker/compose/releases/download/1.9.0/docker-compose-`uname -s`-`uname -m` > /usr/local/bin/docker-compose
 if [ $? == 0 ]; then
   _it_std_consoleMessage "OK" "docker-compose téléchargé"
 else
