@@ -48,7 +48,6 @@ if [ -a "$DIR_RELEASES/inist-tools_#latest.deb" ]; then
 fi
 
 cp "$DIR_RELEASES/inist-tools_$MODULE_VERSION_FOR_CONTROL.deb" "$DIR_RELEASES/inist-tools_#latest.deb"
-git add "$DIR_RELEASES/inist-tools_#latest.deb"
 
 # ------------------------------------------------------------------------------
 # FIN !
