@@ -13,14 +13,13 @@ BOWERRC="$HOME/.bowerrc"
 TMPJSON="/tmp/tmpjson"
 
 function _it_bower_proxy {
-  # Check si bower est installé
-  if ! _it_std_check_command "bower" ; then
-    return $FALSE
-  fi
-
   case "$1" in
   
     on)
+      # Check si bower est installé
+      if ! _it_std_check_command "bower" ; then
+        return $FALSE
+      fi
       # Vérifier si cet état n'est pas celui en cours
       if _it_std_checkAction "bower" $TRUE ; then
         # Cherche le .bowerrc
@@ -44,6 +43,10 @@ function _it_bower_proxy {
     ;;
     
     off)
+      # Check si bower est installé
+      if ! _it_std_check_command "bower" ; then
+        return $FALSE
+      fi
       # Vérifier si cet état n'est pas celui en cours
       if _it_std_checkAction "bower" $FALSE ; then
 

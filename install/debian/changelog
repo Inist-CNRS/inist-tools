@@ -118,5 +118,7 @@ inist-tools (0.9.11RC) RC; urgency=medium
   * [DEV] Correction : bug sur la persistance des options pour
     shell/system + bug d'affichage du status pour shell/system
   * [DEV] Ajout d'une valeur par défaut à vide pour DOCKER_OPTS_CUSTOM
+  * [DEV] Correction de nombreux bugs dans docker-install + démasquage
+    des logs d'installation pour analyse
 
  -- Stanislas PERRIN <stanislas.perrin@inist.fr>  Tue, 21 Jun 2016 08:28:37 +0200

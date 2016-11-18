@@ -67,12 +67,6 @@ function _it_misc_apt_proxy {
 # WGET
 # ------------------------------------------------------------------------------
 function _it_misc_wget_proxy {
-  WGET=$(which wget)
-  if [ -z "$WGET" ]; then
-    _it_std_consoleMessage "ERREUR" "wget est introuvable (ou pas installé)"
-    return $FALSE
-  fi
-  
   wgetRCfile="$HOME/.wgetrc"
   wgetProxy="http_proxy=$INIST_HTTP_PROXY\nuse_proxy=yes"
   wgetProxyTmp="/run/shm/wgetProxy"
@@ -80,6 +74,10 @@ function _it_misc_wget_proxy {
   case "$1" in
   
     on)
+      # Check si wget est installé
+      if ! _it_std_check_command "wget" ; then
+        return $FALSE
+      fi
       # Vérifier si cet état n'est pas celui en cours
       if _it_std_checkAction "wget" $TRUE ; then
         echo -e "$wgetProxy" >> "$wgetRCfile"
@@ -89,6 +87,10 @@ function _it_misc_wget_proxy {
     ;;
     
     off)
+      # Check si wget est installé
+      if ! _it_std_check_command "wget" ; then
+        return $FALSE
+      fi
       # Vérifier si cet état n'est pas celui en cours
       if _it_std_checkAction "wget" $FALSE ; then
         # "Soustraire" la conf du proxy inist de .wgetrc
@@ -122,19 +124,17 @@ function _it_misc_wget_proxy {
 # CURL
 # ------------------------------------------------------------------------------
 function _it_misc_curl_proxy {
-  CURL=$(which curl)
-  if [ -z "$CURL" ]; then
-    _it_std_consoleMessage "ERREUR" "curl est introuvable (ou pas installé)"
-    return $FALSE
-  fi
-
   curlConf="$HOME/.curlrc"
   curlConfBackup="$HOME/.curlrc.backup"
-  
-  
+    
   case $1 in
   
     on )
+      # Check si curl est installé
+      if ! _it_std_check_command "curl" ; then
+        return $FALSE
+      fi
+      # Vérifier si cet état n'est pas celui en cours
       if _it_std_checkAction "curl" $TRUE ; then
         echo "proxy = $INIST_HTTP_PROXY" >> "$curlConf"
         _it_std_setAction "curl" $TRUE
@@ -143,6 +143,11 @@ function _it_misc_curl_proxy {
     ;;
     
     off )
+      # Check si curl est installé
+      if ! _it_std_check_command "curl" ; then
+        return $FALSE
+      fi
+      # Vérifier si cet état n'est pas celui en cours
       if _it_std_checkAction "curl" $FALSE ; then
         # On soustrait la ligne contenant la conf du proxy INIST de la conf de curl...
         curlConfNew=$(grep -v "proxyout\.inist\.fr" "$curlConf")
@@ -176,15 +181,13 @@ function _it_misc_curl_proxy {
 # NPM
 # ------------------------------------------------------------------------------
 function _it_misc_npm_proxy {
-  NPM=$(which npm)
-  if [ -z "$NPM" ]; then
-    _it_std_consoleMessage "ERREUR" "npm est introuvable (ou pas installé)"
-    return $FALSE
-  fi
-  
   case "$1" in
     
     on)
+      # Check si npm est installé
+      if ! _it_std_check_command "npm" ; then
+        return $FALSE
+      fi
       # Vérifier si cet état n'est pas celui en cours
       if _it_std_checkAction "npm" $TRUE ; then
         $NPM config set proxy "$INIST_HTTP_PROXY"
@@ -195,6 +198,10 @@ function _it_misc_npm_proxy {
     ;;
     
     off)
+      # Check si npm est installé
+      if ! _it_std_check_command "npm" ; then
+        return $FALSE
+      fi
       # Vérifier si cet état n'est pas celui en cours
       if _it_std_checkAction "npm" $FALSE ; then
         $NPM config rm proxy

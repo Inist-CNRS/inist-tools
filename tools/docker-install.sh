@@ -26,9 +26,9 @@ TIMESTAMP=$(date +'%F @ %R')
 # ------------------------------------------------------------------------------
 # Création du log pour cette session
 # ------------------------------------------------------------------------------
-echo -e "\n------------------------------------------------------------------------------\n" >> "$INSTALL_LOG"
-echo -e "$TIMESTAMP\n" >> "$INSTALL_LOG"
-echo -e "------------------------------------------------------------------------------\n" >> "$INSTALL_LOG"
+# echo -e "\n------------------------------------------------------------------------------\n" >> "$INSTALL_LOG"
+# echo -e "$TIMESTAMP\n" >> "$INSTALL_LOG"
+# echo -e "------------------------------------------------------------------------------\n" >> "$INSTALL_LOG"
 
 # ------------------------------------------------------------------------------
 # Quel Linux ?
@@ -46,22 +46,29 @@ fi
 # ------------------------------------------------------------------------------
 kernelMajor=$(uname -r | cut -d'.' -f1)
 kernelMinor=$(uname -r | cut -d'.' -f2)
-kernelVersion="$kernelMajor$kernelMinor"
+kernelVersion="$kernelMajor.$kernelMinor"
 
 # Test de la version du noyau. En dessous de 3.10, pas de docker : on sort !
-if [ "$kernelVersion" -lt 309 ] then
-  _it_std_consoleMessage "ERROR" "La version du noyau ($$kernelMajor.$kernelMinor) ne supporte pas docker. Interruption de l'installation"
+if [ "$kernelMajor" -lt 3 ]; then
+  _it_std_consoleMessage "ERROR" "La version du noyau ($kernelVersion) ne supporte pas docker. Interruption de l'installation"
   exit $FALSE
+else
+  if [ "$kernelMajor" -lt 10 ]; then
+    _it_std_consoleMessage "ERROR" "La version du noyau ($kernelVersion) ne supporte pas docker. Interruption de l'installation"
+    exit $FALSE
+  fi
 fi
 
 # ------------------------------------------------------------------------------
 # Màj paquets
 # ------------------------------------------------------------------------------
 # apt on, évidemment
-inist apt on
+/opt/inist-tools/inistexec apt on 2>&1 >> /dev/null
 _it_std_consoleMessage "ACTION" "Màj dépôts et installation de 'apt-transport-https' et de 'ca-certificates'"
-apt-get update -y 2>&1 >> /dev/null
-apt-get install -y apt-transport-https ca-certificates 2>&1 >> "$INSTALL_LOG"
+# apt-get update -y 2>&1 >> /dev/null
+apt-get update -y
+# apt-get install -y apt-transport-https ca-certificates 2>&1 >> "$INSTALL_LOG"
+apt-get install -y apt-transport-https ca-certificates
 if [ $? == 0 ]; then
   _it_std_consoleMessage "OK" "installation de 'apt-transport-https' et de 'ca-certificates' a réussi"
 else
@@ -82,7 +89,8 @@ if [ "$platform" == "ubuntu" ]; then
     "1404" )
       _it_std_consoleMessage "ACTION" "Installation des paquets du noyau..."
       sourceURL="deb https://apt.dockerproject.org/repo ubuntu-trusty main"
-      apt-get install linux-image-extra-$(uname -r) linux-image-extra-virtual 2>&1 >> "$INSTALL_LOG"
+      # apt-get install linux-image-extra-$(uname -r) linux-image-extra-virtual 2>&1 >> "$INSTALL_LOG"
+      apt-get install linux-image-extra-$(uname -r) linux-image-extra-virtual
       if [ $? == 0 ]; then
         _it_std_consoleMessage "OK" "installation des paquets du noyaux a réussie"
       else
@@ -94,7 +102,8 @@ if [ "$platform" == "ubuntu" ]; then
     "1604" )
       _it_std_consoleMessage "ACTION" "Installation des paquets du noyau..."
       sourceURL="deb https://apt.dockerproject.org/repo ubuntu-xenial main"
-      apt-get install linux-image-extra-$(uname -r) linux-image-extra-virtual 2>&1 >> "$INSTALL_LOG"
+      # apt-get install linux-image-extra-$(uname -r) linux-image-extra-virtual 2>&1 >> "$INSTALL_LOG"
+      apt-get install linux-image-extra-$(uname -r) linux-image-extra-virtual
       if [ $? == 0 ]; then
         _it_std_consoleMessage "OK" "installation des paquets du noyaux réussie"
       else
@@ -121,7 +130,8 @@ if [ "$platform" == "debian" ]; then
   lsbRelease=$(which lsb_release)
   if [ -z "$lsbRelease" ]; then
     _it_std_consoleMessage "ACTION" "Installation de lsb-release..."
-    apt-get install -y lsb-release 2>&1 >> "$INSTALL_LOG"
+    # apt-get install -y lsb-release 2>&1 >> "$INSTALL_LOG"
+    apt-get install -y lsb-release
       _it_std_consoleMessage "OK" "lsb-release installé"
     else
       _it_std_consoleMessage "NOK" "lsb-relase non installé"
@@ -138,7 +148,8 @@ if [ "$platform" == "debian" ]; then
   
     wheezy)
       echo "deb http://http.debian.net/debian wheezy-backports main" > /etc/apt/sources.list.d/backports.list
-      apt-get update -y 2>&1 >> "$INSTALL_LOG"
+      # apt-get update -y 2>&1 >> "$INSTALL_LOG"
+      apt-get update -y
       sourceURL="deb https://apt.dockerproject.org/repo debian-wheezy main"
     ;;
     
@@ -162,10 +173,9 @@ fi
 # ------------------------------------------------------------------------------
 # Clés
 # ------------------------------------------------------------------------------
-# APT on (c'est plus pratique)
-/opt/inist-tools/inistexec apt on 2>&1 >> /dev/null
 _it_std_consoleMessage "ACTION" "Ajout de la clef publiques du dépôt docker..."
-apt-key adv --keyserver-options http-proxy=http://proxyout.inist.fr:8080 --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D 2>&1 >> "$INSTALL_LOG"
+# apt-key adv --keyserver-options http-proxy=http://proxyout.inist.fr:8080 --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D 2>&1 >> "$INSTALL_LOG"
+apt-key adv --keyserver-options http-proxy=http://proxyout.inist.fr:8080 --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D
 if [ $? == 0 ]; then
   _it_std_consoleMessage "INFO" "Clef publique pour le dépôt 'docker' installée"
 else
@@ -189,12 +199,18 @@ fi
 # Install de Docker proprement-dit
 # ------------------------------------------------------------------------------
 _it_std_consoleMessage "ACTION" "Installation de docker..."
-apt-get update -y 2>&1 >> "$INSTALL_LOG"
-apt-get purge -y "lxc-docker*" 2>&1 >> "$INSTALL_LOG"
-apt-get purge "docker.io*" 2>&1 >> "$INSTALL_LOG"
-apt-cache policy docker-engine 2>&1 >> "$INSTALL_LOG"
-apt-get update -y 2>&1 >> "$INSTALL_LOG"
-apt-get install -y docker-engine 2>&1 >> "$INSTALL_LOG"
+# apt-get update -y 2>&1 >> "$INSTALL_LOG"
+apt-get update -y
+# apt-get purge -y "lxc-docker*" 2>&1 >> "$INSTALL_LOG"
+apt-get purge -y "lxc-docker*"
+# apt-get purge "docker.io*" 2>&1 >> "$INSTALL_LOG"
+apt-get purge "docker.io*"
+# apt-cache policy docker-engine 2>&1 >> "$INSTALL_LOG"
+apt-cache policy docker-engine
+# apt-get update -y 2>&1 >> "$INSTALL_LOG"
+apt-get update -y
+# apt-get install -y docker-engine 2>&1 >> "$INSTALL_LOG"
+apt-get install -y
 if [ $? == 0 ]; then
   _it_std_consoleMessage "OK" "installation des paquets du noyau réussie"
 else
@@ -206,7 +222,8 @@ fi
 # Lancement du service...
 # ------------------------------------------------------------------------------
 _it_std_consoleMessage "ACTION" "Lancement du service docker..."
-service docker start 2>&1 >> "$INSTALL_LOG"
+# service docker start 2>&1 >> "$INSTALL_LOG"
+service docker start
 if [ $? == 0 ]; then
   _it_std_consoleMessage "OK" "service lancé"
 else
@@ -245,7 +262,8 @@ _it_std_consoleMessage "WARNING" "N'oubliez pas de vous déloguer/reloguer pour 
 # ReLancement du service...
 # ------------------------------------------------------------------------------
 _it_std_consoleMessage "ACTION" "ReLancement du service docker..."
-service docker restart 2>&1 >> "$INSTALL_LOG"
+# service docker restart 2>&1 >> "$INSTALL_LOG"
+service docker restart
 if [ $? == 0 ]; then
   _it_std_consoleMessage "OK" "service relancé"
 else
@@ -287,7 +305,8 @@ fi
 # Vérification de la version de docker-compose (== est bien installé)
 # ------------------------------------------------------------------------------
 _it_std_consoleMessage "ACTION" "Vérification de l'installation de docker-compose..."
-docker-compose --version 2>&1 >> "$INSTALL_LOG"
+# docker-compose --version 2>&1 >> "$INSTALL_LOG"
+docker-compose --version
 if [ $? == 0 ]; then
   dcVersion=$(docker-compose --version)
   _it_std_consoleMessage "OK" "docker-compose installé en version $dcVersion"

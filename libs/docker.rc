@@ -21,14 +21,13 @@ function _it_docker_proxy {
     return $TRUE
   fi
 
-  # Check si docker est installé
-  if ! _it_std_check_command "docker" ; then
-    return $FALSE
-  fi
-
   case "$1" in
   
     on)
+      # Check si docker est installé
+      if ! _it_std_check_command "docker" ; then
+        return $FALSE
+      fi
       # Vérifier si cet état n'est pas celui en cours
       if _it_std_checkAction "docker" $TRUE ; then
         $SUDO /opt/inist-tools/tools/docker-registry-on.sh
@@ -43,6 +42,10 @@ function _it_docker_proxy {
     ;;
     
     off)
+      # Check si docker est installé
+      if ! _it_std_check_command "docker" ; then
+        return $FALSE
+      fi
       # Vérifier si cet état n'est pas celui en cours
       if _it_std_checkAction "docker" $FALSE ; then
         $SUDO /opt/inist-tools/tools/docker-registry-off.sh
