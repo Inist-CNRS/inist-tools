@@ -274,7 +274,7 @@ fi
 # Installation de CURL parce que sur une debian from scratch ben... y'a pas
 # CURL d'installé (si si, je vous jure !)
 # ------------------------------------------------------------------------------
-apt-get istall -y curl
+apt-get install -y curl
 
 # ------------------------------------------------------------------------------
 # Installation de Docker-Compose
