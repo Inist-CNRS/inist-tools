@@ -128,5 +128,7 @@ inist-tools (0.9.11RC) RC; urgency=medium
     release pour Debian
   * [DEV] Correction du bug #latest
   * [DEV] Correction du bug #latest #2
+  * [DEV] Bug sur l'évaluation de la version du kernel dans docker-
+    install
 
  -- Stanislas PERRIN <stanislas.perrin@inist.fr>  Tue, 21 Jun 2016 08:28:37 +0200

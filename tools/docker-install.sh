@@ -53,7 +53,7 @@ if [ "$kernelMajor" -lt 3 ]; then
   _it_std_consoleMessage "ERROR" "La version du noyau ($kernelVersion) ne supporte pas docker. Interruption de l'installation"
   exit $FALSE
 else
-  if [ "$kernelMajor" -lt 10 ]; then
+  if [ "$kernelMinor" -lt 10 ]; then
     _it_std_consoleMessage "ERROR" "La version du noyau ($kernelVersion) ne supporte pas docker. Interruption de l'installation"
     exit $FALSE
   fi
