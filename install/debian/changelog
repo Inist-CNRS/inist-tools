@@ -127,5 +127,6 @@ inist-tools (0.9.11RC) RC; urgency=medium
   * [DEV] Correction d'un bug d'information sur l'installation de lsb-
     release pour Debian
   * [DEV] Correction du bug #latest
+  * [DEV] Correction du bug #latest #2
 
  -- Stanislas PERRIN <stanislas.perrin@inist.fr>  Tue, 21 Jun 2016 08:28:37 +0200
