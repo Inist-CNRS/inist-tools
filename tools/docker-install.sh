@@ -314,7 +314,7 @@ _it_std_consoleMessage "ACTION" "Vérification de l'installation de docker-compo
 docker-compose --version
 if [ $? == 0 ]; then
   dcVersion=$(docker-compose --version)
-  _it_std_consoleMessage "OK" "docker-compose installé en version $dcVersion"
+  _it_std_consoleMessage "OK" "docker-compose installé $dcVersion"
 else
   _it_std_consoleMessage "NOK" "installation échouée"
   exit $FALSE
