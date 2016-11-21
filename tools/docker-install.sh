@@ -203,13 +203,13 @@ apt-get update -y
 # apt-get purge -y "lxc-docker*" 2>&1 >> "$INSTALL_LOG"
 apt-get purge -y "lxc-docker*"
 # apt-get purge "docker.io*" 2>&1 >> "$INSTALL_LOG"
-apt-get purge "docker.io*"
+apt-get purge -y "docker.io*"
 # apt-cache policy docker-engine 2>&1 >> "$INSTALL_LOG"
 apt-cache policy docker-engine
 # apt-get update -y 2>&1 >> "$INSTALL_LOG"
 apt-get update -y
 # apt-get install -y docker-engine 2>&1 >> "$INSTALL_LOG"
-apt-get install -y
+apt-get install -y docker-engine
 if [ $? == 0 ]; then
   _it_std_consoleMessage "OK" "installation des paquets du noyau réussie"
 else
