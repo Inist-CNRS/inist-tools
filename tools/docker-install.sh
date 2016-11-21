@@ -271,6 +271,12 @@ else
 fi
 
 # ------------------------------------------------------------------------------
+# Installation de CURL parce que sur une debian from scratch ben... y'a pas
+# CURL d'installé (si si, je vous jure !)
+# ------------------------------------------------------------------------------
+apt-get istall -y curl
+
+# ------------------------------------------------------------------------------
 # Installation de Docker-Compose
 # ------------------------------------------------------------------------------
 # On fait en sorte de pouvoir "sortir" de l'INIST ave curl... (et comme on est
