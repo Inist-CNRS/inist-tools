@@ -15,7 +15,8 @@
 # ------------------------------------------------------------------------------
 # USER=$(logname)
 USER=$(who am i | awk '{print $1}' | head -1)
-GROUP=$(id -g -n "$USER")
+ID=$(which id)
+GROUP=$($ID -g -n "$USER")
 ENV_DIR="/opt/inist-tools/env"
 CONF_DIR="/opt/inist-tools/conf"
 

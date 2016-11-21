@@ -123,5 +123,6 @@ inist-tools (0.9.11RC) RC; urgency=medium
   * [DEV] Ajout de la version 'latest' à chaque publication d'un nouveau
     package pour faciliter le téléchargement depuis la doc dans github
   * [DEV] Commit -- 18/11/2016 @ 09:03:22
+  * [DEV] Correction du bug 'id' dans env-create.sh
 
  -- Stanislas PERRIN <stanislas.perrin@inist.fr>  Tue, 21 Jun 2016 08:28:37 +0200
