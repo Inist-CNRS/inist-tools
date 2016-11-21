@@ -21,7 +21,7 @@ trouverez dans le répertoire [/releases](https://github.com/Inist-CNRS/inist-to
 ```bash
 $ sudo dpkg -i inist-tools_x_y_z.deb
 ```
-Pour accéder directement à la dernière release, [pouvez suivre ce lien](https://github.com/Inist-CNRS/inist-tools/blob/master/releases/inist-tools_latest.deb)
+Pour accéder directement à la dernière release, [vous pouvez suivre ce lien](https://github.com/Inist-CNRS/inist-tools/blob/master/releases/inist-tools_latest.deb).
 
 ### .bashrc ###
 Une fois l'installation terminée, pour mettre à disposition la commande inistr
