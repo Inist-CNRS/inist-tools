@@ -126,5 +126,6 @@ inist-tools (0.9.11RC) RC; urgency=medium
   * [DEV] Correction du bug 'id' dans env-create.sh
   * [DEV] Correction d'un bug d'information sur l'installation de lsb-
     release pour Debian
+  * [DEV] Correction du bug #latest
 
  -- Stanislas PERRIN <stanislas.perrin@inist.fr>  Tue, 21 Jun 2016 08:28:37 +0200

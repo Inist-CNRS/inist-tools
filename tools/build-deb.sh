@@ -43,11 +43,11 @@ fakeroot dpkg-deb --build "$DIR_INSTALL" "$DIR_RELEASES/inist-tools_$MODULE_VERS
 #-------------------------------------------------------------------------------
 # Création de la copie pour le lien « latest »
 #-------------------------------------------------------------------------------
-if [ -a "$DIR_RELEASES/inist-tools_#latest.deb" ]; then
-  git rm "$DIR_RELEASES/inist-tools_#latest.deb"
+if [ -a "$DIR_RELEASES/inist-tools_latest.deb" ]; then
+  git rm "$DIR_RELEASES/inist-tools_latest.deb"
 fi
 
-cp "$DIR_RELEASES/inist-tools_$MODULE_VERSION_FOR_CONTROL.deb" "$DIR_RELEASES/inist-tools_#latest.deb"
+cp "$DIR_RELEASES/inist-tools_$MODULE_VERSION_FOR_CONTROL.deb" "$DIR_RELEASES/inist-tools_latest.deb"
 
 # ------------------------------------------------------------------------------
 # FIN !
