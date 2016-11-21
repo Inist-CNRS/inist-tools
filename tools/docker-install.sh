@@ -135,7 +135,6 @@ if [ "$platform" == "debian" ]; then
       _it_std_consoleMessage "OK" "lsb-release installé"
     else
       _it_std_consoleMessage "OK" "lsb-relase déjà installé"
-      exit $FALSE
     fi
   fi
 
