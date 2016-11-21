@@ -131,5 +131,6 @@ inist-tools (0.9.11RC) RC; urgency=medium
   * [DEV] Bug sur l'évaluation de la version du kernel dans docker-
     install
   * [DEV] Un exit mal placé...
+  * [DEV] Mise-au-point docker-install #1
 
  -- Stanislas PERRIN <stanislas.perrin@inist.fr>  Tue, 21 Jun 2016 08:28:37 +0200

@@ -132,11 +132,11 @@ if [ "$platform" == "debian" ]; then
     _it_std_consoleMessage "ACTION" "Installation de lsb-release..."
     # apt-get install -y lsb-release 2>&1 >> "$INSTALL_LOG"
     apt-get install -y lsb-release
-      _it_std_consoleMessage "OK" "lsb-release installé"
-    else
-      _it_std_consoleMessage "OK" "lsb-relase déjà installé"
-    fi
+    _it_std_consoleMessage "OK" "lsb-release installé"
+  else
+    _it_std_consoleMessage "OK" "lsb-relase déjà installé"
   fi
+
 
   # Détection de la version de Debian (et c'est pas du gâteau...)
   # trouvé ici : https://gist.github.com/glenbot/2890869
