@@ -76,6 +76,10 @@ function _it_std_checkAction {
   local action="$2"
   local message
   
+  # if [ $app == "proxyForAll" ]; then
+  #   
+  # fi
+  
   if [ -z "$app" ] || [ -z "$action" ]; then
     return $FALSE
   fi

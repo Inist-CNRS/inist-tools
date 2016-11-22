@@ -149,10 +149,12 @@ function _it_misc_curl_proxy {
       fi
       # Vérifier si cet état n'est pas celui en cours
       if _it_std_checkAction "curl" $FALSE ; then
-        # On soustrait la ligne contenant la conf du proxy INIST de la conf de curl...
-        curlConfNew=$(grep -v "proxyout\.inist\.fr" "$curlConf")
-        # ...et on réinject cette conf "nettoyée" dans ~/.curlrc
-        echo "$curlConfNew" > "$curlConf"
+        if [ -a "$curlConf" ]; then
+          # On soustrait la ligne contenant la conf du proxy INIST de la conf de curl...
+          curlConfNew=$(grep -v "proxyout\.inist\.fr" "$curlConf")
+          # ...et on réinject cette conf "nettoyée" dans ~/.curlrc
+          echo "$curlConfNew" > "$curlConf"
+        fi
         _it_std_setAction "curl" $FALSE
       fi
     ;;

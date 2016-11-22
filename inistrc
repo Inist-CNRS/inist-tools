@@ -262,26 +262,28 @@ function inist {
     #---------------------------------------------------------------------------
     on )
       _it_std_consoleMessage "TITLE" "Basculement de toutes les applications pour utiliser le proxy INIST..."
-      inist shell on
-      inist apt on
-      inist docker on
-      inist github on
+      # inist shell on
+      # inist apt on
+      # inist docker on
+      # inist github on
       inist npm on
-      inist bower on
-      inist curl on
-      inist wget on
+      # inist bower on
+      # inist curl on
+      # inist wget on
+      # _it_std_setAction "proxyForAll" $TRUE
     ;;
     
     off )
       _it_std_consoleMessage "TITLE" "Désactivation du proxy INIST pour toutes les applications..."
-      inist shell off
-      inist apt off
-      inist docker off
-      inist github off
+      # inist shell off
+      # inist apt off
+      # inist docker off
+      # inist github off
       inist npm off
-      inist bower off
-      inist curl off
-      inist wget off
+      # inist bower off
+      # inist curl off
+      # inist wget off
+      # _it_std_setAction "proxyForAll" $FALSE
     ;;
 
     #---------------------------------------------------------------------------
