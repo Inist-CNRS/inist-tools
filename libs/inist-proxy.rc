@@ -23,9 +23,6 @@ function _it_inistProxy {
   case "$1" in
   
     on)
-      if _it_std_checkAction "proxyForAll" $TRUE ; then
-        return $TRUE
-      fi
       if _it_std_checkAction "shell" $TRUE ; then
         # Exclusion du proxy
         export no_proxy="localhost,127.0.0.0/8,*.local,172.16.0.0/16"
@@ -73,8 +70,17 @@ function _it_inistProxy {
       # FTP
       export ftp_proxy="http://proxyout.inist.fr:8080"
       export FTP_PROXY="http://proxyout.inist.fr:8080"
-      #
-      _it_std_setAction "shell" $TRUE
+    ;;
+
+    defaultOff)
+      unset "no_proxy"
+      unset "http_proxy"
+      unset "https_proxy"
+      unset "ftp_proxy"
+      unset "NO_PROXY"
+      unset "HTTP_PROXY"
+      unset "HTTPS_PROXY"
+      unset "FTP_PROXY"
     ;;
     
     help)

@@ -184,6 +184,7 @@ function _it_misc_curl_proxy {
 # ------------------------------------------------------------------------------
 function _it_misc_npm_proxy {
   NPM=$(which npm)
+  
   case "$1" in
   
     on)

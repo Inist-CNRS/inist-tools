@@ -262,28 +262,26 @@ function inist {
     #---------------------------------------------------------------------------
     on )
       _it_std_consoleMessage "TITLE" "Basculement de toutes les applications pour utiliser le proxy INIST..."
-      # inist shell on
-      # inist apt on
-      # inist docker on
-      # inist github on
+      inist shell on
+      inist apt on
+      inist docker on
+      inist github on
       inist npm on
-      # inist bower on
-      # inist curl on
-      # inist wget on
-      # _it_std_setAction "proxyForAll" $TRUE
+      inist bower on
+      inist curl on
+      inist wget on
     ;;
     
     off )
       _it_std_consoleMessage "TITLE" "Désactivation du proxy INIST pour toutes les applications..."
-      # inist shell off
-      # inist apt off
-      # inist docker off
-      # inist github off
+      inist shell off
+      inist apt off
+      inist docker off
+      inist github off
       inist npm off
-      # inist bower off
-      # inist curl off
-      # inist wget off
-      # _it_std_setAction "proxyForAll" $FALSE
+      inist bower off
+      inist curl off
+      inist wget off
     ;;
 
     #---------------------------------------------------------------------------
@@ -415,13 +413,13 @@ function inist {
 #-------------------------------------------------------------------------------
 # Si la variable d'env it_env_isProxy est positionnée, on répercute son état
 #-------------------------------------------------------------------------------
-isSystemProxy=$(_it_std_getEnv "system")
+isSystemProxy=$(_it_std_getEnv "shell")
 if [ "$isSystemProxy" == $TRUE ]; then
   source "$DIR_LIBS/inist-proxy.rc"
-  _it_inistProxy "on"
+  _it_inistProxy "defaultOn"
 elif [ "$isSystemProxy" == $FALSE ]; then
   source "$DIR_LIBS/inist-proxy.rc"
-  _it_inistProxy "off"
+  _it_inistProxy "defaultOff"
 else
   # "on" par défaut...
   source "$DIR_LIBS/inist-proxy.rc"
