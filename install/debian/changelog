@@ -141,5 +141,6 @@ inist-tools (0.9.11RC) RC; urgency=medium
   * [DEV] Correction du bug qui apparaît si le fichier .curlrc n'existe
     pas au moment d'un 'inist off'
   * [DEV] Correction du bug de droit sur le chmod dans _it_std_setEnv()
+  * [DEV] Correction du bug sur la commande npm pas assignée
 
  -- Stanislas PERRIN <stanislas.perrin@inist.fr>  Tue, 21 Jun 2016 08:28:37 +0200

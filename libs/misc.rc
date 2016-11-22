@@ -183,8 +183,9 @@ function _it_misc_curl_proxy {
 # NPM
 # ------------------------------------------------------------------------------
 function _it_misc_npm_proxy {
+  NPM=$(which npm)
   case "$1" in
-    
+  
     on)
       # Check si npm est installé
       if ! _it_std_check_command "npm" ; then
@@ -192,8 +193,8 @@ function _it_misc_npm_proxy {
       fi
       # Vérifier si cet état n'est pas celui en cours
       if _it_std_checkAction "npm" $TRUE ; then
-        $NPM config set proxy "$INIST_HTTP_PROXY"
-        $NPM config set https-proxy "$INIST_HTTPS_PROXY"
+        "$NPM" config set proxy "$INIST_HTTP_PROXY"
+        "$NPM" config set https-proxy "$INIST_HTTPS_PROXY"
         #
         _it_std_setAction "npm" $TRUE
       fi
@@ -206,8 +207,8 @@ function _it_misc_npm_proxy {
       fi
       # Vérifier si cet état n'est pas celui en cours
       if _it_std_checkAction "npm" $FALSE ; then
-        $NPM config rm proxy
-        $NPM config rm https-proxy
+        "$NPM" config rm proxy
+        "$NPM" config rm https-proxy
         #
         _it_std_setAction "npm" $FALSE
       fi
