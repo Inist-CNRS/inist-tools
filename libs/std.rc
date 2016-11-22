@@ -52,7 +52,7 @@ function _it_std_setEnv {
   envVal="$2"
   if [ ! -z "$envName" ] && [ ! -z "$envVal" ]; then
     echo "$envVal" > "$DIR_ENV/.it_env_${envName}"
-    chmod 777 "$DIR_ENV/.it_env_${envName}"
+    # chmod 777 "$DIR_ENV/.it_env_${envName}"
   fi
   return $FALSE
 }
