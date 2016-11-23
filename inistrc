@@ -85,7 +85,7 @@ fi
 #-------------------------------------------------------------------------------
 # Check sur le répertoire /env de l'appli
 #-------------------------------------------------------------------------------
-$SUDO /opt/inist-tools/tools/env-create.sh
+# 
 
 #-------------------------------------------------------------------------------
 # COMMANDE [+option[s]]
@@ -260,7 +260,15 @@ function inist {
     #---------------------------------------------------------------------------
     # Meta-commandes ON/OFF
     #---------------------------------------------------------------------------
-    on )
+    on)
+      cat /opt/inist-tools/conf/servicesOn | parallel --gnu /opt/inist-tools/inistexec {} on
+    ;;
+
+    off)
+      cat /opt/inist-tools/conf/servicesOff | parallel --gnu /opt/inist-tools/inistexec {} off
+    ;;
+    
+    onOLD )
       _it_std_consoleMessage "TITLE" "Basculement de toutes les applications pour utiliser le proxy INIST..."
       inist shell on
       inist apt on
@@ -272,7 +280,7 @@ function inist {
       inist wget on
     ;;
     
-    off )
+    offOLD )
       _it_std_consoleMessage "TITLE" "Désactivation du proxy INIST pour toutes les applications..."
       inist shell off
       inist apt off

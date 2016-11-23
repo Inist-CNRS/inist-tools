@@ -144,5 +144,6 @@ inist-tools (0.9.11RC) RC; urgency=medium
   * [DEV] Correction du bug sur la commande npm pas assignée
   * [DEV] Suppression du warning concernant le shell à l'ouverture d'une
     console
+  * [DEV] Parallélisation des 'inist' on et 'inist off'
 
  -- Stanislas PERRIN <stanislas.perrin@inist.fr>  Tue, 21 Jun 2016 08:28:37 +0200
