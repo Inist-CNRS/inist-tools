@@ -147,5 +147,7 @@ inist-tools (0.9.11RC) RC; urgency=medium
   * [DEV] Parallélisation des 'inist' on et 'inist off'
   * [DEV] Correction du bug de test de la version de noyau dans docker-
     install
+  * [DEV] Correction du bug de test de la version de noyau dans docker-
+    install #2
 
  -- Stanislas PERRIN <stanislas.perrin@inist.fr>  Tue, 21 Jun 2016 08:28:37 +0200
