@@ -68,7 +68,12 @@ function _it_docker_proxy {
     ;;
 
     *)
-      _it_std_consoleMessage "WARNING" "Commande « $1 » non prise en charge"
+      if [ -z "$1" ]; then
+        commande="commande vide"
+      else
+        commande="$1"
+      fi
+      _it_std_consoleMessage "WARNING" "Commande « $commande » non prise en charge. Essayez on | off | help | status."
     ;;
   
   esac

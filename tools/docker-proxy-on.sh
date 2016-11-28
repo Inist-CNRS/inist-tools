@@ -78,9 +78,11 @@ function confSystemd {
   echo "EnvironmentFile=/etc/default/docker" >> "$INIST_TOOLS_CONF_FILE"
 
   # Prise en charge de la conf et redémarrage du service
-  systemctl daemon-reload
-  sleep 1
-  systemctl restart docker
+  /opt/inist-tools/tools/service-restart.sh "docker" &
+  
+  # systemctl daemon-reload
+  # sleep 1
+  # systemctl restart docker
 }
 
 function confUpstart {
@@ -98,14 +100,17 @@ function confUpstart {
   echo "EnvironmentFile=/etc/default/docker" >> /etc/init/docker.override
 
   # Prise en charge de la conf et redémarrage du service
-  _it_std_consoleMessage "ACTION" "relance du daemon docker..."
-  service docker restart
-  if [ $? == 0 ]; then
-    _it_std_consoleMessage "OK" "docker redémarré"
-  else
-    _it_std_consoleMessage "NOK" "docker n'est pas redémarré"
-    return $FALSE
-  fi
+  # _it_std_consoleMessage "ACTION" "relance du daemon docker..."
+  
+  # Redémarrage du service docker
+  /opt/inist-tools/tools/service-restart.sh "docker" &
+  
+  #if [ $? == 0 ]; then
+    #_it_std_consoleMessage "OK" "docker redémarré"
+  #else
+    #_it_std_consoleMessage "NOK" "docker n'est pas redémarré"
+    #return $FALSE
+  #fi
 }
 
 
@@ -126,7 +131,7 @@ fi
 
 if [ "$platform" == "debian" ]; then
 
-  _it_std_consoleMessage "INFO" "Debian → systemd"
+  # _it_std_consoleMessage "INFO" "Debian → systemd"
   confSystemd
   
 elif [ "$platform" == "ubuntu" ]; then
@@ -141,20 +146,24 @@ elif [ "$platform" == "ubuntu" ]; then
     "1204" | "1210" | "1304" | "1310" | "1404" | "1410" )
       # _it_std_consoleMessage "INFO" "Ubuntu $ubuntuVersion → utilisation de upstart"
       # confUpstart <--- INUTILE !
-      _it_std_consoleMessage "ACTION" "relance du daemon docker..."
-      service docker restart >> /dev/null 2>&1
-      if [ $? == 0 ]; then
-        _it_std_consoleMessage "OK" "docker redémarré"
-      else
-        _it_std_consoleMessage "NOK" "docker n'est pas redémarré"
-        exit $FALSE
-      fi
+      # _it_std_consoleMessage "ACTION" "relance du daemon docker..."
+      
+      # Redémarrage du service docker
+      /opt/inist-tools/tools/service-restart.sh "docker" &
+
+      # if [ $? == 0 ]; then
+      #   _it_std_consoleMessage "OK" "docker redémarré"
+      # else
+      #   _it_std_consoleMessage "NOK" "docker n'est pas redémarré"
+      #   exit $FALSE
+      # fi
     ;;
     
     # SYSTEMD (toutes les autres version d'Ubuntu >= 15.04)
     * )
       # _it_std_consoleMessage "INFO" "Ubuntu $ubuntuVersion → utilisation de systemd"
-      confSystemd >> /dev/null 2>&1
+      confSystemd
+      # >> /dev/null 2>&1
     ;;
     
   esac

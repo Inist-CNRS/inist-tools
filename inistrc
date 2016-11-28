@@ -261,11 +261,11 @@ function inist {
     # Meta-commandes ON/OFF
     #---------------------------------------------------------------------------
     on)
-      cat /opt/inist-tools/conf/servicesOn | parallel --gnu /opt/inist-tools/inistexec {} on
+      cat /opt/inist-tools/conf/servicesOn | parallel --gnu --no-notice /opt/inist-tools/inistexec {} on
     ;;
 
     off)
-      cat /opt/inist-tools/conf/servicesOff | parallel --gnu /opt/inist-tools/inistexec {} off
+      cat /opt/inist-tools/conf/servicesOff | parallel --gnu --no-notice /opt/inist-tools/inistexec {} off
     ;;
     
     onOLD )

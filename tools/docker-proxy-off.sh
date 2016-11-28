@@ -54,9 +54,13 @@ if [ "$platform" == "debian" ]; then
   # Suppression de la conf spécifique au proxy INIST
   rm /etc/systemd/system/docker.service.d/inist-tools.conf
   # Prise en charge du changement de la conf et redémarrage du service
-  systemctl daemon-reload
-  sleep 1
-  systemctl restart docker
+  
+  # Redémarrage du service docker
+  /opt/inist-tools/tools/service-restart.sh "docker" &
+  
+  #systemctl daemon-reload
+  #sleep 1
+  #systemctl restart docker
   
 elif [ "$platform" == "ubuntu" ]; then
   #
@@ -73,14 +77,17 @@ elif [ "$platform" == "ubuntu" ]; then
     "1204" | "1210" | "1304" | "1310" | "1404" | "1410" )
       # _it_std_consoleMessage "INFO" "Ubuntu $ubuntuVersion → utilisation de upstart"
       # confUpstart <--- INUTILE !
-      _it_std_consoleMessage "ACTION" "relance du daemon docker..."
-      service docker restart >> /dev/null 2>&1
-      if [ $? == 0 ]; then
-        _it_std_consoleMessage "OK" "docker redémarré"
-      else
-        _it_std_consoleMessage "NOK" "docker n'est pas redémarré"
-        return $FALSE
-      fi
+      # _it_std_consoleMessage "ACTION" "relance du daemon docker..."
+
+      # Redémarrage du service docker
+      /opt/inist-tools/tools/service-restart.sh "docker" &
+      
+      ##if [ $? == 0 ]; then
+        ##_it_std_consoleMessage "OK" "docker redémarré"
+      ##else
+        ##_it_std_consoleMessage "NOK" "docker n'est pas redémarré"
+        ##return $FALSE
+      ##fi
     ;;
     
     # SYSTEMD (toutes les autres version d'Ubuntu >= 15.04)
@@ -88,24 +95,31 @@ elif [ "$platform" == "ubuntu" ]; then
       # _it_std_consoleMessage "INFO" "Ubuntu $ubuntuVersion → utilisation de systemd"
       # Suppression de la conf spécifique au proxy INIST
       rm /etc/systemd/system/docker.service.d/http-proxy.conf
+
+      # Redémarrage du service docker
+      /opt/inist-tools/tools/service-restart.sh "docker" &
+      
       # Prise en charge du changement de la conf et redémarrage du service
-      _it_std_consoleMessage "ACTION" "relance du daemon docker..."
-      systemctl daemon-reload >> /dev/null 2>&1
-      if [ $? == 0 ]; then
-        _it_std_consoleMessage "OK" "daemon docker relancé avec succès"
-      else
-        _it_std_consoleMessage "NOK" "daemon docker n'est pas reparti"
-        return $FALSE
-      fi
-      sleep 1
-      _it_std_consoleMessage "ACTION" "redémarrage du daemon docker..."
-      systemctl restart docker >> /dev/null 2>&1
-      if [ $? == 0 ]; then
-        _it_std_consoleMessage "OK" "docker redémarré"
-      else
-        _it_std_consoleMessage "NOK" "docker n'est pas redémarré"
-        exit $FALSE
-      fi
+      ##_it_std_consoleMessage "ACTION" "relance du daemon docker..."
+      ##systemctl daemon-reload >> /dev/null 2>&1
+      ##
+      ##if [ $? == 0 ]; then
+        ##_it_std_consoleMessage "OK" "daemon docker relancé avec succès"
+      ##else
+        ##_it_std_consoleMessage "NOK" "daemon docker n'est pas reparti"
+        ##return $FALSE
+      ##fi
+      ##
+      ##sleep 1
+      ##
+      ##_it_std_consoleMessage "ACTION" "redémarrage du daemon docker..."
+      ##systemctl restart docker >> /dev/null 2>&1
+      ##if [ $? == 0 ]; then
+        ##_it_std_consoleMessage "OK" "docker redémarré"
+      ##else
+        ##_it_std_consoleMessage "NOK" "docker n'est pas redémarré"
+        ##exit $FALSE
+      ##fi
     ;;
     
   esac

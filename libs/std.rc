@@ -176,54 +176,55 @@ function _it_std_message {
   local MESSAGE="[INIST-TOOLS ($MODULE_VERSION)] $2"
   local MSG_TITLE="[INIST-TOOLS : $1]"
   local MSG_CONTENT="$2"
+  local expire="1500"
   
   case "$1" in
   
     # INFORMATION
     info|INFO)
-      logger -s -p "$1" "$MESSAGE"
-      notify-send --icon="$ICON_CNRS" --urgency=low "INFORMATION" "$MESSAGE"
+      # logger -s -p "$1" "$MESSAGE"
+      notify-send --expire-time="$expire" --icon="$ICON_CNRS" --urgency=low "INFORMATION" "$MSG_CONTENT"
     ;;
     
     # ALERTE !
     warning|WARNING)
-      logger -s -p "$1" "$MESSAGE"
-      notify-send --icon=stock_dialog-warning --urgency=normal "ATTENTION !" "$MESSAGE"
+      # logger -s -p "$1" "$MESSAGE"
+      notify-send --icon=stock_dialog-warning --urgency=normal "ATTENTION !" "$MSG_CONTENT"
     ;;
     
     # ERREUR !
     error|ERROR)
-      logger -s -p "$1" "$MESSAGE"
-      notify-send --icon=stock_dialog-error --urgency=critical "ERREUR !" "$MESSAGE"
+      # logger -s -p "$1" "$MESSAGE"
+      notify-send --icon=stock_dialog-error --urgency=critical "ERREUR !" "$MSG_CONTENT"
     ;;
     
     # FIREFOX
     firefox|FIREFOX)
-      logger -s "$MESSAGE"
+      # logger -s "$MESSAGE"
       notify-send --icon="$ICON_FIREFOX" --urgency=low "MSG_TITLE" "$MSG_CONTENT"
     ;;
 
     # ICEWEASEL
     iceweasel|ICEWEASEL)
-      logger -s "$MESSAGE"
+      # logger -s "$MESSAGE"
       notify-send --icon="$ICON_ICEWEASEL" --urgency=low "MSG_TITLE" "$MSG_CONTENT"
     ;;
 
     # CHROME
     chrome|CHROME)
-      logger -s "$MESSAGE"
+      # logger -s "$MESSAGE"
       notify-send --icon="$ICON_CHROME" --urgency=low "MSG_TITLE" "$MSG_CONTENT"
     ;;
 
     # CHROMIUM
     chromium|CHROMIUM)
-      logger -s "$MESSAGE"
+      # logger -s "$MESSAGE"
       notify-send --icon="$ICON_CHROMIUM" --urgency=low "MSG_TITLE" "$MSG_CONTENT"
     ;;
  
     # Autre cas
     *)
-      logger -s "$MESSAGE"
+      # logger -s "$MESSAGE"
       notify-send --icon="$ICON_CNRS" --urgency=low "$MSG_TITLE" "$MSG_CONTENT"
     ;;
     
@@ -414,6 +415,27 @@ function _it_std_removeConf {
   else
     return $FALSE
   fi
+}
+
+#-------------------------------------------------------------------------------
+# Lanceur de service en background
+#-------------------------------------------------------------------------------
+function _it_service {
+  SERVICENAME="$1"
+  SERVICEACTION="$2"
+  
+  if [ -z "$SERVICENAME" ]; then
+    _it_std_consoleMessage "ERROR" "Nom du service manquant"
+    return $FALSE
+  fi
+
+  if [ -z "$SERVICEACTION" ]; then
+    _it_std_consoleMessage "ERROR" "Commande du service « $SERVICENAME » manquante"
+    return $FALSE
+  fi
+  
+  $SUDO service "$SERVICENAME" "$SERVICEACTION"
+  
 }
 
 #-------------------------------------------------------------------------------
