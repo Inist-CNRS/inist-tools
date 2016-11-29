@@ -149,5 +149,7 @@ inist-tools (0.9.11RC) RC; urgency=medium
     install
   * [DEV] Correction du bug de test de la version de noyau dans docker-
     install #2
+  * [DEV] Amélioration du rendu de la main sur inist on|off et
+    suppression du message de parallel
 
  -- Stanislas PERRIN <stanislas.perrin@inist.fr>  Tue, 21 Jun 2016 08:28:37 +0200

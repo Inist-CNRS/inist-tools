@@ -260,15 +260,15 @@ function inist {
     #---------------------------------------------------------------------------
     # Meta-commandes ON/OFF
     #---------------------------------------------------------------------------
-    on)
+    onOLD)
       cat /opt/inist-tools/conf/servicesOn | parallel --gnu --no-notice /opt/inist-tools/inistexec {} on
     ;;
 
-    off)
+    offOLD)
       cat /opt/inist-tools/conf/servicesOff | parallel --gnu --no-notice /opt/inist-tools/inistexec {} off
     ;;
     
-    onOLD )
+    on )
       _it_std_consoleMessage "TITLE" "Basculement de toutes les applications pour utiliser le proxy INIST..."
       inist shell on
       inist apt on
@@ -280,7 +280,7 @@ function inist {
       inist wget on
     ;;
     
-    offOLD )
+    off )
       _it_std_consoleMessage "TITLE" "Désactivation du proxy INIST pour toutes les applications..."
       inist shell off
       inist apt off
