@@ -43,6 +43,48 @@ ICON_CHROMIUM="$DIR_LIBS/gfx/chromium_64px.png"
 ICON_FIREFOX="$DIR_LIBS/gfx/firefox_64px.png"
 ICON_ICEWEASEL="$DIR_LIBS/gfx/iceweasel_64px.png"
 
+
+#-------------------------------------------------------------------------------
+# Détermination de la plateforme et de sa version et la version du noyau
+#-------------------------------------------------------------------------------
+
+# --- Distribution
+is_debian=$(cat /etc/issue | grep -i "debian")
+is_ubuntu=$(cat /etc/issue | grep -i "ubuntu")
+
+if [ "$is_debian" ]; then
+  HOST_SYSTEM="debian"
+elif [ "$is_ubuntu" ]; then
+  HOST_SYSTEM="ubuntu"
+else
+  HOST_SYSTEM="autre"
+fi
+
+HOST_SYSTEM_VERSION=$(uname -mrs)
+
+# --- Version de la distribution
+if [ $HOST_SYSTEM == 'ubuntu' ]; then
+  osReleaseVersion=$(cat /etc/os-release | grep "VERSION=")
+  # un joli bashisme pour la forme (merci askUbuntu)
+  HOST_SYSTEM_CODENAME=$(echo ${osReleaseVersion/*, /} | cut -d '"' -f 1)
+  # HOST_SYSTEM_VERSION_RAW=$(cat /etc/lsb-release | grep -i "DISTRIB_RELEASE" | cut -d "=" -f 2 | tr --delete ".")
+  HOST_SYSTEM_VERSION_RAW=$(cat /etc/lsb-release | grep -i "DISTRIB_RELEASE" | cut -d "=" -f 2)
+  HOST_SYSTEM_VERSION_MAJOR=$(echo "$HOST_SYSTEM_VERSION_RAW" | cut -d"." -f 1)
+  HOST_SYSTEM_VERSION_MINOR=$(echo "$HOST_SYSTEM_VERSION_RAW" | cut -d"." -f 2)
+  HOST_SYSTEM_VERSION="$HOST_SYSTEM_VERSION_MAJOR.$HOST_SYSTEM_VERSION_MINOR"
+elif [ $HOST_SYSTEM == 'debian' ]; then
+  debianCodename=$(lsb_release -a | grep -i "codename" | tr -d "\t" | cut -d ":" -f2)
+  HOST_SYSTEM_CODENAME=$(echo "$debianCodename" | tr '[A-Z]' '[a-z]')
+  HOST_SYSTEM_VERSION=$(cat /etc/debian_version)
+  HOST_SYSTEM_VERSION_MAJOR=$(echo "$HOST_SYSTEM_VERSION" | cut -d"." -f 1)
+  HOST_SYSTEM_VERSION_MINOR=$(echo "$HOST_SYSTEM_VERSION" | cut -d"." -f 2)
+fi
+  
+# --- Version du noyau
+HOST_KERNEL_MAJOR=$(uname -r | cut -d'.' -f1)
+HOST_KERNEL_MINOR=$(uname -r | cut -d'.' -f2)
+HOST_KERNEL="$kernelMajor.$kernelMinor"
+
 #-------------------------------------------------------------------------------
 # Variables d'« environnement » utilisant /opt/inist-tools/conf
 #-------------------------------------------------------------------------------
@@ -303,7 +345,7 @@ function _it_std_greeting {
 # Affichage de la version
 #-------------------------------------------------------------------------------
 function _it_std_show_version {
-  echo -e "$MODULE_NAME est en version ${FG_BR_BLUE}${BG_BLUE}${FS_BOLD}$MODULE_VERSION${RESET_ALL}\nSystème : $HOST_SYSTEM\nVersion : $HOST_SYSTEM_VERSION\n"
+  echo -e "$MODULE_NAME est en version ${FG_BR_BLUE}${BG_BLUE}${FS_BOLD}$MODULE_VERSION${RESET_ALL}\nSystème : $HOST_SYSTEM\nVersion : $HOST_SYSTEM_VERSION ($HOST_SYSTEM_CODENAME)\n"
 }
 
 #-------------------------------------------------------------------------------

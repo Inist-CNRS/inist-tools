@@ -39,7 +39,34 @@ fi
 # ------------------------------------------------------------------------------
 # Lancement du service
 # ------------------------------------------------------------------------------
-$SERVICE $ServiceName restart 2>&1 >> /dev/null &
+case "$HOST_SYSTEM" in
+
+  ubuntu)
+    case "$HOST_SYSTEM_VERSION" in
+    
+      "12.04" | "12.10" | "13.04" | "13.10" | "14.04" | "14.10" )
+        $SERVICE $ServiceName restart 2>&1 >> /dev/null
+      ;;
+      
+      *)
+        systemctl daemon-reload 2>&1 >> /dev/null
+        sleep 1
+        systemctl restart "$ServiceName" 2>&1 >> /dev/null
+      ;;
+  ;;
+  
+  debian)
+    systemctl daemon-reload 2>&1 >> /dev/null
+    sleep 1
+    systemctl restart "$ServiceName" 2>&1 >> /dev/null
+  ;;
+  
+  *)
+    _it_std_consoleMessage "ERROR" "Je ne sais pas comment redémarrer « $ServiceName » sur ce système !"
+    exit $FALSE
+  ;;
+  
+esac
 
 # ------------------------------------------------------------------------------
 # On attend de trouver le service dans un ps pour dire qu'il est lancé...

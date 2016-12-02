@@ -60,115 +60,46 @@ printf "export http_proxy=\"$INIST_HTTP_PROXY\"\n" >> "$DOCKER_DEFAULT_FILE" 2>&
 printf "export https_proxy=\"$INIST_HTTPS_PROXY\"\n" >> "$DOCKER_DEFAULT_FILE" 2>&1
 
 
-
-function confSystemd {
-  # Modification de la conf
-  mkdir -p "$INIST_TOOLS_CONF_DIR"
-  
-  if [ -f "$INIST_TOOLS_CONF_FILE" ]; then
-    rm "$INIST_TOOLS_CONF_FILE"
-  fi
-  
-  touch "$INIST_TOOLS_CONF_FILE"
-  
-  echo "# inist-tools" >> "$INIST_TOOLS_CONF_FILE"
-  echo "[Service]" >> "$INIST_TOOLS_CONF_FILE"
-  echo "ExecStart=" >> "$INIST_TOOLS_CONF_FILE"
-  echo "ExecStart=/usr/bin/docker daemon \$DOCKER_OPTS -H fd://" >> "$INIST_TOOLS_CONF_FILE"
-  echo "EnvironmentFile=/etc/default/docker" >> "$INIST_TOOLS_CONF_FILE"
-
-  # Prise en charge de la conf et redémarrage du service
-  /opt/inist-tools/tools/service-restart.sh "docker" &
-  
-  # systemctl daemon-reload
-  # sleep 1
-  # systemctl restart docker
-}
-
-function confUpstart {
-  # Modification de la conf
-  if [ -f /etc/init/docker.override ]; then
-    rm /etc/init/docker.override
-  fi
-  
-  touch /etc/init/docker.override
-  
-  echo "# inist-tools" >> /etc/init/docker.override
-  echo "[Service]" >> /etc/init/docker.override
-  echo "ExecStart=" >> /etc/init/docker.override
-  echo "ExecStart=/usr/bin/docker daemon \$DOCKER_OPTS -H fd://" >> /etc/init/docker.override
-  echo "EnvironmentFile=/etc/default/docker" >> /etc/init/docker.override
-
-  # Prise en charge de la conf et redémarrage du service
-  # _it_std_consoleMessage "ACTION" "relance du daemon docker..."
-  
-  # Redémarrage du service docker
-  /opt/inist-tools/tools/service-restart.sh "docker" &
-  
-  #if [ $? == 0 ]; then
-    #_it_std_consoleMessage "OK" "docker redémarré"
-  #else
-    #_it_std_consoleMessage "NOK" "docker n'est pas redémarré"
-    #return $FALSE
-  #fi
-}
-
-
 # ------------------------------------------------------------------------------
 # Service
 # ------------------------------------------------------------------------------
-is_debian=$(cat /etc/issue | grep -i "debian")
-is_ubuntu=$(cat /etc/issue | grep -i "ubuntu")
+case "$HOST_SYSTEM" in
 
-if [ "$is_debian" ]; then
-  platform="debian"
-elif [ "$is_ubuntu" ]; then
-  platform="ubuntu"
-else
-  platform="unknown"
-fi
+  debian)
+    # Modification de la conf
+    mkdir -p "$INIST_TOOLS_CONF_DIR"
+    
+    if [ -a "$INIST_TOOLS_CONF_FILE" ]; then
+      rm "$INIST_TOOLS_CONF_FILE"
+    fi
+    
+    touch "$INIST_TOOLS_CONF_FILE"
+    
+    echo "# inist-tools" >> "$INIST_TOOLS_CONF_FILE"
+    echo "[Service]" >> "$INIST_TOOLS_CONF_FILE"
+    echo "ExecStart=" >> "$INIST_TOOLS_CONF_FILE"
+    echo "ExecStart=/usr/bin/docker daemon \$DOCKER_OPTS -H fd://" >> "$INIST_TOOLS_CONF_FILE"
+    echo "EnvironmentFile=/etc/default/docker" >> "$INIST_TOOLS_CONF_FILE"
 
-
-if [ "$platform" == "debian" ]; then
-
-  # _it_std_consoleMessage "INFO" "Debian → systemd"
-  confSystemd
+    # Prise en charge de la conf et redémarrage du service
+    /opt/inist-tools/tools/service-restart.sh "docker" &
+  ;;
   
-elif [ "$platform" == "ubuntu" ]; then
-
-  ubuntuVersion=$(cat /etc/lsb-release | grep -i "DISTRIB_RELEASE" | cut -d"=" -f 2 | tr --delete ".")
-  ubuntuMajor=$(echo "$ubuntuVersion" | cut -d"." -f 1)
-  ubuntuMinor=$(echo "$ubuntuVersion" | cut -d"." -f 2)
-  
-  case $ubuntuVersion in
-  
-    # UPSTART (on considère qu'on utilise pas de version < 12.04)
-    "1204" | "1210" | "1304" | "1310" | "1404" | "1410" )
-      # _it_std_consoleMessage "INFO" "Ubuntu $ubuntuVersion → utilisation de upstart"
-      # confUpstart <--- INUTILE !
-      # _it_std_consoleMessage "ACTION" "relance du daemon docker..."
+  ubuntu)
+    case "$HOST_SYSTEM_VERSION" in
+    
+      "12.04" | "12.10" | "13.04" | "13.10" | "14.04" | "14.10" )
+        /opt/inist-tools/tools/service-restart.sh "docker" &
+      ;;
       
-      # Redémarrage du service docker
-      /opt/inist-tools/tools/service-restart.sh "docker" &
-
-      # if [ $? == 0 ]; then
-      #   _it_std_consoleMessage "OK" "docker redémarré"
-      # else
-      #   _it_std_consoleMessage "NOK" "docker n'est pas redémarré"
-      #   exit $FALSE
-      # fi
-    ;;
-    
-    # SYSTEMD (toutes les autres version d'Ubuntu >= 15.04)
-    * )
-      # _it_std_consoleMessage "INFO" "Ubuntu $ubuntuVersion → utilisation de systemd"
-      confSystemd
-      # >> /dev/null 2>&1
-    ;;
-    
-  esac
-
-fi
+      *)
+        confSystemd
+      ;;
+      
+    esac
+  ;;
+  
+esac
 
 # ------------------------------------------------------------------------------
 # Sortie propre

@@ -151,5 +151,6 @@ inist-tools (0.9.11RC) RC; urgency=medium
     install #2
   * [DEV] Amélioration du rendu de la main sur inist on|off et
     suppression du message de parallel
+  * [DEV] Gros refactoring docker-proxy
 
  -- Stanislas PERRIN <stanislas.perrin@inist.fr>  Tue, 21 Jun 2016 08:28:37 +0200

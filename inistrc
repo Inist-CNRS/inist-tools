@@ -48,20 +48,6 @@ else
   MODULE_VERSION_SHORT="inconnue"
 fi
 
-# Détermination du système sur lequel on se trouve...
-is_debian=$(cat /etc/issue | grep -i "debian")
-is_ubuntu=$(cat /etc/issue | grep -i "ubuntu")
-
-if [ "$is_debian" ]; then
-  HOST_SYSTEM="debian"
-elif [ "$is_ubuntu" ]; then
-  HOST_SYSTEM="ubuntu"
-else
-  HOST_SYSTEM="autre"
-fi
-# ...et de sa version précise
-HOST_SYSTEM_VERSION=$(uname -mrs)
-
 #-----------------------------------------------------------------------------
 # Chargement libs + conf
 #-----------------------------------------------------------------------------
