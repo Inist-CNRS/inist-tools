@@ -53,6 +53,7 @@ case "$HOST_SYSTEM" in
         sleep 1
         systemctl restart "$ServiceName" 2>&1 >> /dev/null
       ;;
+    esac
   ;;
   
   debian)
