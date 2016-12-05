@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 ################################################################################
 #
-# inist-tools / libs / desktop.rc
+# inist-tools / libs / misc.rc
 # 
 # Bibliothèque de fonctions de configuration des divers applicatifs
 # Debian/Ubuntu hors browsers et environnements de bureau
