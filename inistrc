@@ -28,6 +28,7 @@ DIR_INSTALL="$DIR_MODULE/install"
 DIR_ENV="$DIR_MODULE/env"
 
 SUDO="$(which sudo) -u root"
+NET_IP=""
 
 # Version en fonction du mode DEV ou DEB
 # CURDIR=$(cd "$(dirname "$PWD")" && pwd)
@@ -192,6 +193,11 @@ function inist {
     npm )
       source "$DIR_LIBS/misc.rc"
       _it_misc_npm_proxy "$2"
+    ;;
+    
+    postfix )
+      source "$DIR_LIBS/mail.rc"
+      _it_mail_postfix "$2"
     ;;
 
     shell )

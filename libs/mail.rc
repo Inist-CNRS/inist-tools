@@ -12,6 +12,50 @@
 # ------------------------------------------------------------------------------
 #
 # ------------------------------------------------------------------------------
-function _it_postfix {
-  
+function _it_mail_postfix {
+
+  # Vérifier si postfix a été installé ET paramétré
+  if [ ! -a /etc/postfix/main.cf ]; then
+    _it_std_consoleMessage "ERROR" "Postfix ne semble pas être correctement configuré sur votre machine. Essayez 'sudo dpkg-reconfigure postfix'."
+    _it_std_consoleMessage "WARNING" "Penser à demander à la DSI l'autorisation de l'adresse ip de sa machine () sur smtpout.intra.inist.fr."
+    return $FALSE
+  fi
+
+  case "$1" in
+   
+    on)
+      if ! _it_std_check_command "postfix" ; then
+        return $FALSE
+      fi
+      # Vérifier si cet état n'est pas celui en cours
+      if _it_std_checkAction "postfix" $TRUE ; then
+        $SUDO postconf -e "relayhost=smtpout.intra.inist.fr"
+        /opt/inist-tools/tools/service-restart.sh "postfix" &
+      fi
+    ;;
+    
+    off)
+      if ! _it_std_check_command "postfix" ; then
+        return $FALSE
+      fi
+      # Vérifier si cet état n'est pas celui en cours
+      if _it_std_checkAction "postfix" $FALSE ; then
+        $SUDO postconf -e "relayhost=''"
+        /opt/inist-tools/tools/service-restart.sh "postfix" &
+      fi
+    ;;
+    
+    help)
+      _it_std_consoleMessage "HELP" "Configure postfix comme relay de smtpout.intra.inist.fr"
+    ;;
+    
+    status)
+      _it_std_getStatus "postfix"
+    ;;
+
+    *)
+      _it_std_consoleMessage "WARNING" "Commande « $1 » non prise en charge"
+    ;;
+    
+  esac
 }
