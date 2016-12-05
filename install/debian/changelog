@@ -154,5 +154,6 @@ inist-tools (0.9.11RC) RC; urgency=medium
   * [DEV] Gros refactoring docker-proxy
   * [DEV] Gros refactoring docker-proxy : correction d'un esac manquant
   * [DEV] Correction du bug d'affichage lsb_release sous Debian
+  * [DEV] Ajout de la lib qui gère les fonction 'mail'
 
  -- Stanislas PERRIN <stanislas.perrin@inist.fr>  Tue, 21 Jun 2016 08:28:37 +0200
