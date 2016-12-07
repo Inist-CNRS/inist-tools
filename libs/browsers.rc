@@ -12,7 +12,7 @@
 FIREFOX=$(which firefox)
 ICEWEASEL=$(which iceweasel)
 CHROME=$(which chrome)
-CHROMIUM=$(which chromium)
+CHROMIUM=$(which chromium-browser)
 TIMESTAMP=$(date +%F_%H-%M-%S)
 
 # ------------------------------------------------------------------------------
@@ -245,24 +245,34 @@ function _it_browsers_chrome_proxy {
 # CHROMIUM
 # ------------------------------------------------------------------------------
 function _it_browsers_chromium_proxy {
-  if [ -z $CHROMIUM ]; then
-    _it_std_message "ERROR" "Chrome n'est pas installé."
-    return $FALSE
-  fi
 
   case "$1" in
   on)
-    _it_std_message "CHROMIUM" "Configuration de Chromium pour le proxy INIST"
-    
+    if _it_std_check_command "chromium-browser"; then
+      _it_std_message "CHROMIUM" "Lancement de Chromium pour utiliser le proxy INIST..."
+      $CHROMIUM --proxy-pac-url="file://opt/inist-tools/proxypac/proxy.pac.on" 2>&1 >>/dev/null & 
+    fi
   ;;
+  
   off)
-    _it_std_message "CHROMIUM" "Déconfiguration de Chromium pour le proxy INIST"
+    if _it_std_check_command "chromium-browser"; then
+      _it_std_message "CHROMIUM" "Lancement de Chromium sans utiliser le proxy INIST..."
+      $CHROMIUM --proxy-pac-url="file://opt/inist-tools/proxypac/proxy.pac.off" 2>&1 >>/dev/null &
+    fi
   ;;
 
-  *)
-    _it_std_getStatus "chromium"
+  help)
+    _it_std_consoleMessage "HELP" "Permet de lancer chromium utilisant le proxy INIST avec <on> ou sans avec <off>."
+  ;;
+  
+  status)
+    _it_std_consoleMessage "INFO" "N/A"
   ;;
 
+   *)
+    _it_std_consoleMessage "WARNING" "Commande « $1 » non prise en charge. Essayez on|off|help|status."
+  ;;
+ 
   esac
   
 }

@@ -157,5 +157,8 @@ inist-tools (0.9.11RC) RC; urgency=medium
   * [DEV] Ajout de la lib qui gère les fonction 'mail'
   * [DEV] Ajout du fichier de conf pour lighttpd (qui délivre proxy.pac
     aux navigateurs)
+  * [DEV] Correction d'un bug d'affichage dans la fonction
+    _it_std_message + ajout des commandes permettant de lancer chromium
+    avec/sans prise en charge du proxy
 
  -- Stanislas PERRIN <stanislas.perrin@inist.fr>  Tue, 21 Jun 2016 08:28:37 +0200

@@ -242,25 +242,25 @@ function _it_std_message {
     # FIREFOX
     firefox|FIREFOX)
       # logger -s "$MESSAGE"
-      notify-send --icon="$ICON_FIREFOX" --urgency=low "MSG_TITLE" "$MSG_CONTENT"
+      notify-send --icon="$ICON_FIREFOX" --urgency=low "$MSG_TITLE" "$MSG_CONTENT"
     ;;
 
     # ICEWEASEL
     iceweasel|ICEWEASEL)
       # logger -s "$MESSAGE"
-      notify-send --icon="$ICON_ICEWEASEL" --urgency=low "MSG_TITLE" "$MSG_CONTENT"
+      notify-send --icon="$ICON_ICEWEASEL" --urgency=low "$MSG_TITLE" "$MSG_CONTENT"
     ;;
 
     # CHROME
     chrome|CHROME)
       # logger -s "$MESSAGE"
-      notify-send --icon="$ICON_CHROME" --urgency=low "MSG_TITLE" "$MSG_CONTENT"
+      notify-send --icon="$ICON_CHROME" --urgency=low "$MSG_TITLE" "$MSG_CONTENT"
     ;;
 
     # CHROMIUM
     chromium|CHROMIUM)
       # logger -s "$MESSAGE"
-      notify-send --icon="$ICON_CHROMIUM" --urgency=low "MSG_TITLE" "$MSG_CONTENT"
+      notify-send --icon="$ICON_CHROMIUM" --urgency=low "$MSG_TITLE" "$MSG_CONTENT"
     ;;
  
     # Autre cas

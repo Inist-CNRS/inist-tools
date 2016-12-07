@@ -59,7 +59,12 @@ Commandes :
             Paramètre le proxy inist pour wget. Wget peut aussi fonctionner en
             utilisant les variables d'environnement positionnée avec 
             <inist env on>.
-              
+
+    postfix <on|off|help|status>
+            Paramètre postfix pour relayer les mails vers smtpout.intra.inist.fr
+            Pour pouvoir relayer des mails vers le smtp de l'INIST, vous devez
+            en faire la demande à la DSI.
+
     ntp     <sync>
             Synchronise l'horloge de votre PC avec le serveur de temps de
             l'INIST.
