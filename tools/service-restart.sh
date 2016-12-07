@@ -45,21 +45,21 @@ case "$HOST_SYSTEM" in
     case "$HOST_SYSTEM_VERSION" in
     
       "12.04" | "12.10" | "13.04" | "13.10" | "14.04" | "14.10" )
-        $SERVICE $ServiceName restart 2>&1 >> /dev/null
+        $SERVICE $ServiceName restart > /dev/null 2>&1
       ;;
       
       *)
-        systemctl daemon-reload 2>&1 >> /dev/null
+        systemctl daemon-reload > /dev/null 2>&1
         sleep 1
-        systemctl restart "$ServiceName" 2>&1 >> /dev/null
+        systemctl restart "$ServiceName" > /dev/null 2>&1
       ;;
     esac
   ;;
   
   debian)
-    systemctl daemon-reload 2>&1 >> /dev/null
+    systemctl daemon-reload > /dev/null 2>&1 
     sleep 1
-    systemctl restart "$ServiceName" 2>&1 >> /dev/null
+    systemctl restart "$ServiceName" > /dev/null 2>&1
   ;;
   
   *)

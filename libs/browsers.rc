@@ -250,14 +250,14 @@ function _it_browsers_chromium_proxy {
   on)
     if _it_std_check_command "chromium-browser"; then
       _it_std_message "CHROMIUM" "Lancement de Chromium pour utiliser le proxy INIST..."
-      $CHROMIUM --proxy-pac-url="file://opt/inist-tools/proxypac/proxy.pac.on" 2>&1 >>/dev/null & 
+      $CHROMIUM --proxy-pac-url="file://opt/inist-tools/proxypac/proxy.pac.on" &>/dev/null & 
     fi
   ;;
   
   off)
     if _it_std_check_command "chromium-browser"; then
       _it_std_message "CHROMIUM" "Lancement de Chromium sans utiliser le proxy INIST..."
-      $CHROMIUM --proxy-pac-url="file://opt/inist-tools/proxypac/proxy.pac.off" 2>&1 >>/dev/null &
+      $CHROMIUM --proxy-pac-url="file://opt/inist-tools/proxypac/proxy.pac.off" &>/dev/null &
     fi
   ;;
 

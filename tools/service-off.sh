@@ -39,7 +39,7 @@ fi
 # ------------------------------------------------------------------------------
 # Lancement du service
 # ------------------------------------------------------------------------------
-$SERVICE $ServiceName stop 2>&1 >> /dev/null &
+$SERVICE $ServiceName stop > /dev/null 2>&1 &
 
 # ------------------------------------------------------------------------------
 # On attend de trouver le service dans un ps pour dire qu'il est lancé...
