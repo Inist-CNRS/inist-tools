@@ -43,6 +43,8 @@ ICON_CHROMIUM="$DIR_LIBS/gfx/chromium_64px.png"
 ICON_FIREFOX="$DIR_LIBS/gfx/firefox_64px.png"
 ICON_ICEWEASEL="$DIR_LIBS/gfx/iceweasel_64px.png"
 
+# RÉSEAU
+HOST_IP_ADDRESS=$(hostname -I | cut -d " " -f1)
 
 #-------------------------------------------------------------------------------
 # Détermination de la plateforme et de sa version et la version du noyau
