@@ -1,9 +1,9 @@
 #!/usr/bin/env bash
 ################################################################################
 #
-# inist-tools / tools / powersave.sh
+# inist-tools / tools / poweondemand.sh
 #
-# Mets le PC en mode économie (fréquence proc au minimum)
+# Mets le PC en mode "à la demande"
 #
 # @author : INIST-CNRS/DPI
 #
@@ -18,8 +18,8 @@ source "/opt/inist-tools/libs/ansicolors.rc"
 #-------------------------------------------------------------------------------
 # Environnement
 #-------------------------------------------------------------------------------
-MODULE_NAME="POWERSAVE"
-MODULE_DESC="Met tous les processeur de la machine en mode économie d'énergie."
+MODULE_NAME="POWERONDEMAND"
+MODULE_DESC="Met tous les processeur de la machine en mode à la demande."
 DIR_MODULE=$(readlink -f "$CURDIR")
 DIR_ROOT=$(readlink -f "$DIR_MODULE/..")
 DIR_CONF=$(readlink -f "$DIR_MODULE/../conf")
@@ -31,4 +31,4 @@ DIR_SYSINSTALL="$DIR_INSTALL/opt"
 #-------------------------------------------------------------------------------
 # Turboooooooo !
 #-------------------------------------------------------------------------------
-seq 0 7 | parallel --gnu cpufreq-set -c {} -g powersave
+seq 0 7 | parallel --gnu cpufreq-set -c {} -g ondemand

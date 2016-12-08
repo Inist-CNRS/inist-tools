@@ -93,10 +93,6 @@ function inist {
   # Gestion des arguments 
   #-----------------------------------------------------------------------------
 
-  # On est poli, on dit bonjour...
-  # _it_std_greeting
-  # finalement non, dire bonjour à chaque fois, ça saoule...
-
   # Aucun argument : affichage de l'aide
   if [ "$#" -lt 1 ]; then
     _it_std_consoleMessage "WARNING" "Nombre d'argument incorrect !"
@@ -320,12 +316,17 @@ function inist {
       case "$2" in
         
         save )
-          /opt/inist-tools/tools/powersave.sh
+          $SUDO "/opt/inist-tools/tools/powersave.sh"
+          return $TRUE
+        ;;
+
+        auto )
+          $SUDO "/opt/inist-tools/tools/powerondemand.sh"
           return $TRUE
         ;;
         
         max )
-          /opt/inist-tools/tools/powermax.sh
+          $SUDO "/opt/inist-tools/tools/powermax.sh"
           return $TRUE
         ;;
         

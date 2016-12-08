@@ -161,5 +161,6 @@ inist-tools (0.9.11RC) RC; urgency=medium
     _it_std_message + ajout des commandes permettant de lancer chromium
     avec/sans prise en charge du proxy
   * [DEV] Commit -- 07/12/2016 @ 16:04:03
+  * [DEV] Commit -- 08/12/2016 @ 17:44:28
 
  -- Stanislas PERRIN <stanislas.perrin@inist.fr>  Tue, 21 Jun 2016 08:28:37 +0200

@@ -9,16 +9,17 @@
 #
 ################################################################################
 
+# ------------------------------------------------------------------------------
+# Ressources
+# ------------------------------------------------------------------------------
+source "/opt/inist-tools/libs/std.rc"
+source "/opt/inist-tools/libs/ansicolors.rc"
+
 #-------------------------------------------------------------------------------
 # Environnement
 #-------------------------------------------------------------------------------
 MODULE_NAME="POWERMAX"
 MODULE_DESC="Met tous les processeur de la machine en mode « performance »."
-CURDIR=$( cd "$( dirname "$0" )" && pwd )
-if [ $(which git) ] && [ $(git rev-parse) ]; then
-  MODULE_VERSION=$(git describe --tags)
-  MODULE_VERSION_SHORT=$(git describe --tags | cut -d"-" -f1 )
-fi
 DIR_MODULE=$(readlink -f "$CURDIR")
 DIR_ROOT=$(readlink -f "$DIR_MODULE/..")
 DIR_CONF=$(readlink -f "$DIR_MODULE/../conf")
