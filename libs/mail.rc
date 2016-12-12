@@ -24,9 +24,6 @@ function _it_mail_postfix {
   case "$1" in
    
     on)
-      if ! _it_std_check_command "postfix" ; then
-        return $FALSE
-      fi
       # Vérifier si cet état n'est pas celui en cours
       if _it_std_checkAction "postfix" $TRUE ; then
         $SUDO postconf -e "relayhost=smtpout.intra.inist.fr"
@@ -35,9 +32,6 @@ function _it_mail_postfix {
     ;;
     
     off)
-      if ! _it_std_check_command "postfix" ; then
-        return $FALSE
-      fi
       # Vérifier si cet état n'est pas celui en cours
       if _it_std_checkAction "postfix" $FALSE ; then
         $SUDO postconf -X "relayhost"
