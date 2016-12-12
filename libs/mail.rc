@@ -15,7 +15,7 @@
 function _it_mail_postfix {
 
   # Vérifier si postfix a été installé ET paramétré
-  if [ ! -a /etc/postfix/main.cf ]; then
+  if [ ! -f /etc/postfix/main.cf ]; then
     _it_std_consoleMessage "ERROR" "Postfix ne semble pas être correctement configuré sur votre machine. Essayez 'sudo dpkg-reconfigure postfix'."
     _it_std_consoleMessage "WARNING" "Penser à demander à la DSI l'autorisation de l'adresse ip de sa machine ($HOST_IP_ADDRESS) sur smtpout.intra.inist.fr."
     return $FALSE
@@ -30,7 +30,7 @@ function _it_mail_postfix {
       # Vérifier si cet état n'est pas celui en cours
       if _it_std_checkAction "postfix" $TRUE ; then
         $SUDO postconf -e "relayhost=smtpout.intra.inist.fr"
-        /opt/inist-tools/tools/service-restart.sh "postfix" &
+        $SUDO /opt/inist-tools/tools/service-restart.sh "postfix" &
       fi
     ;;
     
@@ -40,8 +40,8 @@ function _it_mail_postfix {
       fi
       # Vérifier si cet état n'est pas celui en cours
       if _it_std_checkAction "postfix" $FALSE ; then
-        $SUDO postconf -e "relayhost=''"
-        /opt/inist-tools/tools/service-restart.sh "postfix" &
+        $SUDO postconf -X "relayhost"
+        $SUDO /opt/inist-tools/tools/service-restart.sh "postfix" &
       fi
     ;;
     

@@ -57,6 +57,10 @@ _inist () {
       COMPREPLY=( $( compgen -W 'npm ntp' -- $cur ) )
     ;;
 
+    p*)
+      COMPREPLY=( $( compgen -W 'postfix' -- $cur ) )
+    ;;
+
     s*)
       COMPREPLY=( $( compgen -W 'shell st status' -- $cur ) )
     ;;
