@@ -26,16 +26,14 @@ function _it_mail_postfix {
     on)
       # Vérifier si cet état n'est pas celui en cours
       if _it_std_checkAction "postfix" $TRUE ; then
-        $SUDO postconf -e "relayhost=smtpout.intra.inist.fr"
-        $SUDO /opt/inist-tools/tools/service-restart.sh "postfix" &
+        $SUDO /opt/inist-tools/tools/postfix-relay-on.sh
       fi
     ;;
     
     off)
       # Vérifier si cet état n'est pas celui en cours
       if _it_std_checkAction "postfix" $FALSE ; then
-        $SUDO postconf -X "relayhost"
-        $SUDO /opt/inist-tools/tools/service-restart.sh "postfix" &
+        $SUDO /opt/inist-tools/tools/postfix-relay-off.sh
       fi
     ;;
     
