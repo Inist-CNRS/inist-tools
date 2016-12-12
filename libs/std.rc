@@ -14,6 +14,13 @@
 # Initialisation de variables globales
 #-------------------------------------------------------------------------------
 
+DIR_MODULE="/opt/inist-tools" # fixé "en dur" en fonction du chemin définitif
+DIR_CONF="$DIR_MODULE/conf"
+DIR_LIBS="$DIR_MODULE/libs"
+DIR_TOOLS="$DIR_MODULE/tools"
+DIR_INSTALL="$DIR_MODULE/install"
+DIR_ENV="$DIR_MODULE/env"
+
 # TRUE or FALSE ?
 TRUE=0
 FALSE=1
@@ -45,6 +52,9 @@ ICON_ICEWEASEL="$DIR_LIBS/gfx/iceweasel_64px.png"
 
 # RÉSEAU
 HOST_IP_ADDRESS=$(hostname -I | cut -d " " -f1)
+
+# User / Group / Sudo
+SUDO="$(which sudo) -u root"
 
 #-------------------------------------------------------------------------------
 # Détermination de la plateforme et de sa version et la version du noyau
@@ -218,13 +228,14 @@ function _it_std_message {
   local MSG_TITLE="[INIST-TOOLS : $1]"
   local MSG_CONTENT="$2"
   local expire="1500"
+  local USER_LOGIN=$(_it_std_getEnv "USER_LOGIN")
   
   case "$1" in
   
     # INFORMATION
     info|INFO)
       # logger -s -p "$1" "$MESSAGE"
-      notify-send --expire-time="$expire" --icon="$ICON_CNRS" --urgency=low "INFORMATION" "$MSG_CONTENT"
+      sudo -u "$USER_LOGIN" notify-send --expire-time="$expire" --icon="$ICON_CNRS" --urgency=low "INFORMATION" "$MSG_CONTENT"
     ;;
     
     # ALERTE !

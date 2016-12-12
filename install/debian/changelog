@@ -162,5 +162,7 @@ inist-tools (0.9.11RC) RC; urgency=medium
     avec/sans prise en charge du proxy
   * [DEV] Commit -- 07/12/2016 @ 16:04:03
   * [DEV] Commit -- 08/12/2016 @ 17:44:28
+  * [DEV] Suppression de tout ce qui est en relation avec les
+    navigateurs web
 
  -- Stanislas PERRIN <stanislas.perrin@inist.fr>  Tue, 21 Jun 2016 08:28:37 +0200

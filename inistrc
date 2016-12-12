@@ -27,9 +27,6 @@ DIR_TOOLS="$DIR_MODULE/tools"
 DIR_INSTALL="$DIR_MODULE/install"
 DIR_ENV="$DIR_MODULE/env"
 
-SUDO="$(which sudo) -u root"
-NET_IP=""
-
 # Version en fonction du mode DEV ou DEB
 # CURDIR=$(cd "$(dirname "$PWD")" && pwd)
 # CURDIR=$(dirname "$(readlink -f "$0")")
@@ -68,6 +65,15 @@ else
   logger -s "[$MODULE_NAME] [ERROR] Impossible de charger la configuration de $MODULE_NAME depuis « $DIR_LIBS ». Fin."
   return 1
 fi
+
+#-------------------------------------------------------------------------------
+# Utilisateur + Groupe -> environnement pour réutilisation en sudo
+#-------------------------------------------------------------------------------
+USER_LOGIN=$(who am i | awk '{print $1}' | head -1)
+ID=$(which id)
+USER_GROUP=$($ID -g -n "$USER_LOGIN")
+_it_std_setEnv "USER_LOGIN" "$USER_LOGIN"
+_it_std_setEnv "USER_GROUP" "$USER_GROUP"
 
 #-------------------------------------------------------------------------------
 # Check sur le répertoire /env de l'appli
@@ -116,24 +122,6 @@ function inist {
       _it_bower_proxy "$2"
     ;;
 
-    browsers )
-      # _it_std_consoleMessage "WARNING" "Cette commande n'est pas encore implémentée."
-      source "$DIR_LIBS/browsers.rc"
-      _it_browsers_proxy "$2"
-    ;;
-    
-    chrome )
-      _it_std_consoleMessage "WARNING" "Cette commande n'est pas encore implémentée."
-      # source "$DIR_LIBS/browsers.rc"
-      # _it_browsers_chrome_proxy "$2"
-    ;;
-    
-    chromium )
-      # _it_std_consoleMessage "WARNING" "Cette commande n'est pas encore implémentée."
-      source "$DIR_LIBS/browsers.rc"
-      _it_browsers_chromium_proxy "$2"
-    ;;
-
     curl )
       # _it_std_consoleMessage "WARNING" "Cette commande n'est pas encore implémentée."
       source "$DIR_LIBS/misc.rc"
@@ -157,13 +145,7 @@ function inist {
       source "$DIR_LIBS/inist-proxy.rc"
       _it_inistProxy "$2"
     ;;
-    
-    firefox )
-      _it_std_consoleMessage "WARNING" "Cette commande n'est pas encore implémentée."
-      # source "$DIR_LIBS/browsers.rc"
-      # _it_browsers_firefox_proxy "$2"
-    ;;
-    
+  
     github )
       # _it_std_consoleMessage "WARNING" "Cette commande n'est pas encore implémentée."
       source "$DIR_LIBS/github.rc"

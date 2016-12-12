@@ -14,7 +14,7 @@
 # Variables globales
 # ------------------------------------------------------------------------------
 # USER=$(logname)
-USER=$(who am i | awk '{print $1}' | head -1)
+USER_LOGIN=$(who am i | awk '{print $1}' | head -1)
 ID=$(which id)
 GROUP=$($ID -g -n "$USER")
 ENV_DIR="/opt/inist-tools/env"
