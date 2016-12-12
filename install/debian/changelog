@@ -165,5 +165,6 @@ inist-tools (0.9.11RC) RC; urgency=medium
   * [DEV] Suppression de tout ce qui est en relation avec les
     navigateurs web
   * [DEV] Corrections postfix
+  * [DEV] Commit -- 12/12/2016 @ 08:43:50
 
  -- Stanislas PERRIN <stanislas.perrin@inist.fr>  Tue, 21 Jun 2016 08:28:37 +0200
