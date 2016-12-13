@@ -168,5 +168,6 @@ inist-tools (0.9.11RC) RC; urgency=medium
   * [DEV] Commit -- 12/12/2016 @ 08:43:50
   * [DEV] Commit -- 12/12/2016 @ 11:40:24
   * [DEV] Refactoring commandes postfix
+  * [DEV] Commit -- 13/12/2016 @ 09:34:46
 
  -- Stanislas PERRIN <stanislas.perrin@inist.fr>  Tue, 21 Jun 2016 08:28:37 +0200

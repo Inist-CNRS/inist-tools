@@ -28,7 +28,9 @@ DIR_TOOLS=$(readlink -f "$DIR_MODULE/../tools")
 DIR_INSTALL=$(readlink -f "$DIR_MODULE/../install")
 DIR_SYSINSTALL="$DIR_INSTALL/opt"
 
+CORECOUNT=$(grep -c ^processor /proc/cpuinfo)
+
 #-------------------------------------------------------------------------------
 # Turboooooooo !
 #-------------------------------------------------------------------------------
-seq 0 7 | parallel --gnu cpufreq-set -c {} -g performance
+seq 0 $CORECOUNT | parallel --gnu cpufreq-set -c {} -g performance > /dev/null 2>&1
