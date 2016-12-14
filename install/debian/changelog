@@ -174,5 +174,6 @@ inist-tools (0.9.11RC) RC; urgency=medium
     recommandations de Sylvain
   * [DEV] Màj doc sur la conf des navigateurs
   * [DEV] Implémentation de la commande 'inist desktop'
+  * [DEV] Implémentation de la commande 'inist desktop' #2
 
  -- Stanislas PERRIN <stanislas.perrin@inist.fr>  Tue, 21 Jun 2016 08:28:37 +0200

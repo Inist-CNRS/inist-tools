@@ -166,7 +166,8 @@ function _it_desktop_unity_proxy {
 # ------------------------------------------------------------------------------
 # XFCE
 # ------------------------------------------------------------------------------
-function _it_dektop_xfce4_proxy {
+function _it_desktop_xfce4_proxy {
+  
   if [ -z $XFCE4 ]; then
     _it_std_consoleMessage "ERROR" "XFCE4 n'est pas installé."
     return $FALSE

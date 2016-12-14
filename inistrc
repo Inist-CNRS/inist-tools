@@ -208,24 +208,26 @@ function inist {
     #---------------------------------------------------------------------------
     desktop )
 
-      case "$DESKTOP_SESSION" in
+      DESKTOPSESSION=$(env | grep "XDG_CURRENT_DESKTOP" | cut -d "=" -f 2)
       
-        gnome)
+      case "$DESKTOPSESSION" in
+      
+        gnome | GNOME)
           source "$DIR_LIBS/desktop.rc"
           _it_desktop_gnome_proxy "$2"
         ;;
         
-        xfce )
+        xfce | XFCE )
           source "$DIR_LIBS/desktop.rc"
           _it_desktop_xfce4_proxy "$2"
         ;;
 
-        kde )
+        kde | KDE )
           source "$DIR_LIBS/desktop.rc"
           _it_desktop_kde_proxy "$2"
         ;;
         
-        unity )
+        unity | UNITY )
           source "$DIR_LIBS/desktop.rc"
           _it_desktop_unity_proxy "$2"
         ;;
