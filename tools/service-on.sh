@@ -54,7 +54,7 @@ do
   fi
 done
 
-_it_std_message "INFO" "Le service « $ServiceName » est démarré"
+notify-send --expire-time=1500 --icon="/opt/inist-tools/libs/gfx/cnrs_64px.png" --urgency=low "INFORMATION" "Le service « $ServiceName » est démarré"
 
 # ------------------------------------------------------------------------------
 # Fin
