@@ -235,7 +235,7 @@ function _it_std_message {
     # INFORMATION
     info|INFO)
       # logger -s -p "$1" "$MESSAGE"
-      sudo -u "$USER_LOGIN" notify-send --expire-time="$expire" --icon="$ICON_CNRS" --urgency=low "INFORMATION" "$MSG_CONTENT"
+      notify-send --expire-time="$expire" --icon="$ICON_CNRS" --urgency=low "INFORMATION" "$MSG_CONTENT"
     ;;
     
     # ALERTE !

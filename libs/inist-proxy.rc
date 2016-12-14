@@ -25,8 +25,8 @@ function _it_inistProxy {
     on)
       if _it_std_checkAction "shell" $TRUE ; then
         # Exclusion du proxy
-        export no_proxy="localhost,127.0.0.0/8,*.local,172.16.0.0/16"
-        export NO_PROXY="localhost,127.0.0.0/8,*.local,172.16.0.0/16"
+        export no_proxy="localhost,127.0.0.0/8,*.local,172.16.0.0/16,.inist.fr,.local"
+        export NO_PROXY="localhost,127.0.0.0/8,*.local,172.16.0.0/16,.inist.fr,.local"
         # HTTP
         export http_proxy="http://proxyout.inist.fr:8080"
         export HTTP_PROXY="http://proxyout.inist.fr:8080"
@@ -59,8 +59,8 @@ function _it_inistProxy {
 
     defaultOn)
       # Exclusion du proxy
-      export no_proxy="localhost,127.0.0.0/8,*.local,172.16.0.0/16"
-      export NO_PROXY="localhost,127.0.0.0/8,*.local,172.16.0.0/16"
+      export no_proxy="localhost,127.0.0.0/8,*.local,172.16.0.0/16,.inist.fr,.local"
+      export NO_PROXY="localhost,127.0.0.0/8,*.local,172.16.0.0/16,.inist.fr,.local"
       # HTTP
       export http_proxy="http://proxyout.inist.fr:8080"
       export HTTP_PROXY="http://proxyout.inist.fr:8080"
