@@ -187,7 +187,6 @@ function inist {
       source "$DIR_LIBS/misc.rc"
       _it_inistProxy "$2"
     ;;
-
     
     unity )
       source "$DIR_LIBS/desktop.rc"
@@ -204,6 +203,40 @@ function inist {
       _it_desktop_xfce4_proxy "$2"
     ;;
     
+    #---------------------------------------------------------------------------
+    # COMMANDE : desktop
+    #---------------------------------------------------------------------------
+    desktop )
+
+      case "$DESKTOP_SESSION" in
+      
+        gnome)
+          source "$DIR_LIBS/desktop.rc"
+          _it_desktop_gnome_proxy "$2"
+        ;;
+        
+        xfce )
+          source "$DIR_LIBS/desktop.rc"
+          _it_desktop_xfce4_proxy "$2"
+        ;;
+
+        kde )
+          source "$DIR_LIBS/desktop.rc"
+          _it_desktop_kde_proxy "$2"
+        ;;
+        
+        unity )
+          source "$DIR_LIBS/desktop.rc"
+          _it_desktop_unity_proxy "$2"
+        ;;
+        
+        * )
+          _it_std_consoleMessage "WARNING" "Votre environnement de bureau n'a pas pu être identifié"
+        ;;
+        
+      esac
+
+    ;;
     
     #---------------------------------------------------------------------------
     # COMMANDE : info

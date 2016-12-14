@@ -173,5 +173,6 @@ inist-tools (0.9.11RC) RC; urgency=medium
   * [DEV] Ajout de .local et de .inist.fr au no_proxy suite aux
     recommandations de Sylvain
   * [DEV] Màj doc sur la conf des navigateurs
+  * [DEV] Implémentation de la commande 'inist desktop'
 
  -- Stanislas PERRIN <stanislas.perrin@inist.fr>  Tue, 21 Jun 2016 08:28:37 +0200
