@@ -82,31 +82,24 @@ sur votre système.
 </div>
 
 ### Configuration des navigateurs ###
-<h3> ⚠️ En cours de refactoring ⚠️ </h3>
-<strike>
-Afin de permettre à vos navigateurs d'être paramétrés par inist-tools, vous
-devez configurer l'utilisation du fichier
+Du fait de la diversité des configuration des navigateurs et de l'impossibilité
+de les unifier, inist-tools ne prend pas en charge le proxy pour les navigateurs
+web.
 
-     /opt/inist-tools/proxypac.proxy.pac
+Vous pouvez explorer les pistes suivantes pour gérer le proxy dans vos
+navigateurs :
 
-comme source pour le fichier proxy.pac.
+#### FireFox (IceWeasel) ####
+[Proxy Switcher *(cliquer ici depuis FireFox/IceWeasel)*](https://addons.mozilla.org/firefox/downloads/latest/proxy-switcher/addon-654096-latest.xpi?src=dp-btn-primary)
 
-#### Chrome / Chromium ####
-Normalement Chrome/Chromium utilise le proxy système. Il est possible de forcer
-l'utilisation d'un fichier .pac en le lançant avec l'option
+#### Chrome/Chromium ####
+[SwhitchySharp *(cliquer ici depuis Chrome/Chromium)*](https://chrome.google.com/webstore/detail/proxy-switchysharp/dpplabbmogkhghncfbfdeeokoefdjegm)
 
-      --proxy-pac=file:///opt/inist-tools/proxypac/proxy.pac
-      
-#### Firefox / IceWeasel ####
-Edition ➡️ Préférences ➡️ Avancé ➡️ Réseau ➡️ Connexion/Paramètres ➡️ 
-Adresse de configuration automatique du proxy
-
-     file:///opt/inist-tools/proxypac/proxy.pac
-     
-⚠️ Firefox ne recharge pas le fichier proxy.pac à chaque requête. Le changement
-de proxy avec la commande inist proxy on|off --browsers nécessite d'utiliser
-le bouton « actualiser » situé à droite du chemin vers le fichier proxy.pac.
-</strike>
+#### 📃 Note ####
+Tous les navigateurs sont capables de prendre en charge la configuration de
+l'environnement. Ainsi, si vous utilisez l'option « proxy système » des
+extensions, les navigateurs utiliseront le proxy spécifié avec la commande
+````inist shell````.
 
 ### Tester les commande en cours de développement ###
 Du fait qu'inist-tools soit chargé au lancement, les modification faites sur le
