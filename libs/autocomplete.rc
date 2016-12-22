@@ -26,27 +26,19 @@ _inist () {
     ;;
 
     c*)
-      COMPREPLY=( $( compgen -W 'chromium chrome curl' -- $cur ) )
+      COMPREPLY=( $( compgen -W 'curl' -- $cur ) )
     ;;
 
     d*)
-      COMPREPLY=( $( compgen -W 'docker ' -- $cur ) )
+      COMPREPLY=( $( compgen -W 'desktop docker ' -- $cur ) )
     ;;
 
     e*)
       COMPREPLY=( $( compgen -W 'env' -- $cur ) )
     ;;
 
-    f*)
-      COMPREPLY=( $( compgen -W 'firefox' -- $cur ) )
-    ;;
-
     g*)
       COMPREPLY=( $( compgen -W 'github gnome' -- $cur ) )
-    ;;
-
-    i*)
-      COMPREPLY=( $( compgen -W 'iceweasel' -- $cur ) )
     ;;
 
     k*)

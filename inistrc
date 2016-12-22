@@ -70,10 +70,19 @@ fi
 # Utilisateur + Groupe -> environnement pour réutilisation en sudo
 #-------------------------------------------------------------------------------
 USER_LOGIN=$(who am i | awk '{print $1}' | head -1)
+if [ -z "$USER_LOGIN" ]; then
+  USER_LOGIN=$(echo $USER);
+fi
 ID=$(which id)
 USER_GROUP=$($ID -g -n "$USER_LOGIN")
 _it_std_setEnv "USER_LOGIN" "$USER_LOGIN"
 _it_std_setEnv "USER_GROUP" "$USER_GROUP"
+
+#-------------------------------------------------------------------------------
+# Environnement de bureau
+#-------------------------------------------------------------------------------
+DESKTOPSESSION=$(env | grep "XDG_CURRENT_DESKTOP" | cut -d "=" -f 2)
+DESKTOPSESSION=$(echo "$DESKTOPSESSION" | tr '[:upper:]' '[:lower:]')
 
 #-------------------------------------------------------------------------------
 # Check sur le répertoire /env de l'appli
@@ -207,8 +216,6 @@ function inist {
     # COMMANDE : desktop
     #---------------------------------------------------------------------------
     desktop )
-
-      DESKTOPSESSION=$(env | grep "XDG_CURRENT_DESKTOP" | cut -d "=" -f 2)
       
       case "$DESKTOPSESSION" in
       
@@ -381,6 +388,7 @@ function inist {
     -s | --status | st | status )
       _it_std_consoleMessage "TITLE" "Informations sur l'environnement..."
       inist shell status
+      inist "$DESKTOPSESSION" status
       inist apt status
       inist docker status
       inist github status

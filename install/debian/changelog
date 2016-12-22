@@ -175,5 +175,8 @@ inist-tools (0.9.11RC) RC; urgency=medium
   * [DEV] Màj doc sur la conf des navigateurs
   * [DEV] Implémentation de la commande 'inist desktop'
   * [DEV] Implémentation de la commande 'inist desktop' #2
+  * [DEV] Harmonisation des no_proxy, ajout desktop dans 'inist status',
+    ajout autocomplete pour 'inist deskt..', suppression de
+    l'autocomplete pour les navigateurs
 
  -- Stanislas PERRIN <stanislas.perrin@inist.fr>  Tue, 21 Jun 2016 08:28:37 +0200
