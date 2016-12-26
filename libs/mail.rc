@@ -26,15 +26,17 @@ function _it_mail_postfix {
     on)
       # Vérifier si cet état n'est pas celui en cours
       if _it_std_checkAction "postfix" $TRUE ; then
-        $SUDO /opt/inist-tools/tools/postfix-relay-on.sh
+        $SUDO "/opt/inist-tools/tools/postfix-relay-on.sh"
       fi
+      _it_std_setAction "postfix" $TRUE
     ;;
     
     off)
       # Vérifier si cet état n'est pas celui en cours
       if _it_std_checkAction "postfix" $FALSE ; then
-        $SUDO /opt/inist-tools/tools/postfix-relay-off.sh
+        $SUDO "/opt/inist-tools/tools/postfix-relay-off.sh"
       fi
+      _it_std_setAction "postfix" $FALSE
     ;;
     
     help)

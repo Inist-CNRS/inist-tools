@@ -283,6 +283,7 @@ function inist {
     on )
       _it_std_consoleMessage "TITLE" "Basculement de toutes les applications pour utiliser le proxy INIST..."
       inist shell on
+      inist "$DESKTOPSESSION" on
       inist apt on
       inist docker on
       inist github on
@@ -295,6 +296,7 @@ function inist {
     off )
       _it_std_consoleMessage "TITLE" "Désactivation du proxy INIST pour toutes les applications..."
       inist shell off
+      inist "$DESKTOPSESSION" off
       inist apt off
       inist docker off
       inist github off
@@ -363,12 +365,17 @@ function inist {
     ;;
     
     powersave )
-      /opt/inist-tools/tools/powersave.sh
+      $SUDO "/opt/inist-tools/tools/powersave.sh"
+      return $TRUE
+    ;;
+
+    powerauto )
+      $SUDO "/opt/inist-tools/tools/powerondemand.sh"
       return $TRUE
     ;;
     
     powermax )
-      /opt/inist-tools/tools/powermax.sh
+      SUDO "/opt/inist-tools/tools/powermax.sh"
       return $TRUE
     ;;
     
@@ -396,6 +403,9 @@ function inist {
       inist bower status
       inist curl status
       inist wget status
+      if [ -f /etc/postfix/main.cf ]; then
+        inist postfix status
+      fi
       # source /opt/inist-tools/libs/misc.rc
       # _it_misc_proxyStatus
       # return $TRUE

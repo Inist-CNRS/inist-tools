@@ -178,5 +178,7 @@ inist-tools (0.9.11RC) RC; urgency=medium
   * [DEV] Harmonisation des no_proxy, ajout desktop dans 'inist status',
     ajout autocomplete pour 'inist deskt..', suppression de
     l'autocomplete pour les navigateurs
+  * [DEV] Activation inist desktop quand inist on / amélioration des
+    messages postfix
 
  -- Stanislas PERRIN <stanislas.perrin@inist.fr>  Tue, 21 Jun 2016 08:28:37 +0200

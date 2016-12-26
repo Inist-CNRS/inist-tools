@@ -156,6 +156,8 @@ function _it_std_checkAction {
   if [ "$envValue" == "$action" ]; then
     _it_std_consoleMessage "WARNING" "« $app » est déjà configuré $message"
     return $FALSE
+  elif [ -z "$envValue" ]; then
+    _it_std_consoleMessage "WARNING" "Il n'y a pas d'informations concernant la configuration de « $app »."
   else
     return $TRUE
   fi
