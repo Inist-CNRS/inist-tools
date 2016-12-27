@@ -180,5 +180,6 @@ inist-tools (0.9.11RC) RC; urgency=medium
     l'autocomplete pour les navigateurs
   * [DEV] Activation inist desktop quand inist on / amélioration des
     messages postfix
+  * [DEV] Premier jet de la doc pour les plugins de navigateurs
 
  -- Stanislas PERRIN <stanislas.perrin@inist.fr>  Tue, 21 Jun 2016 08:28:37 +0200
