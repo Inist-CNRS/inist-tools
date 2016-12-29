@@ -182,5 +182,6 @@ inist-tools (0.9.11RC) RC; urgency=medium
     messages postfix
   * [DEV] Premier jet de la doc pour les plugins de navigateurs
   * [DEV] Ajout du fichier man pour inist-tools
+  * [DEV] Commit -- 29/12/2016 @ 11:07:38
 
  -- Stanislas PERRIN <stanislas.perrin@inist.fr>  Tue, 21 Jun 2016 08:28:37 +0200
