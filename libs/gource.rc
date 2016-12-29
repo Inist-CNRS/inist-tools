@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+################################################################################
+#
+# inist-tools / libs / gource.rc
+# 
+# Bibliothèque de fonctions de génération d'animation "gource"
+#
+# @author : INIST-CNRS/DPI
+#
+################################################################################
+
+# ------------------------------------------------------------------------------
+#
+# ------------------------------------------------------------------------------
+function _it_gourc {
+
+  # Vérifier si gource est installé
+  # $1 project name
+  # $2 sprint name
+  # $3 sprint start
+  # $4 sprint end
+  
+  case "$1" in
+   
+    help)
+      _it_std_consoleMessage "HELP" "Permet de créer une animation gource à partir d'un dépôt git."
+    ;;
+    
+    status)
+      _it_std_getStatus "postfix"
+    ;;
+
+    *)
+      # Traitement du dépôt pour en faire une animation "gource"
+      _it_std_consoleMessage "WARNING" "Commande « $1 » non prise en charge"
+    ;;
+    
+  esac
+}
