@@ -93,10 +93,12 @@ navigateurs :
 [Proxy Switcher *(cliquer ici depuis FireFox/IceWeasel)*](https://addons.mozilla.org/firefox/downloads/latest/proxy-switcher/addon-654096-latest.xpi?src=dp-btn-primary)
 
 *Configurez le plugin de cette manière :*
+
 ![webproxy_firefox_01](https://cloud.githubusercontent.com/assets/6779966/21498903/3c7bdc76-cc31-11e6-821d-8c9629cd4042.png)
 
 *En cliquant sur « edit » (en haut à droite), vous pouvez changer le nom du
 profil en INIST ou INIST-PROXY ou tout autre nom à votre convenance :*
+
 ![webproxy_firefox_02](https://cloud.githubusercontent.com/assets/6779966/21499033/7e166b8c-cc32-11e6-8ebb-12aff451e41b.png)
 
 
@@ -104,10 +106,13 @@ profil en INIST ou INIST-PROXY ou tout autre nom à votre convenance :*
 [SwhitchySharp *(cliquer ici depuis Chrome/Chromium)*](https://chrome.google.com/webstore/detail/proxy-switchysharp/dpplabbmogkhghncfbfdeeokoefdjegm)
 
 *Accédez à la configuration du plugin :*
+
 ![webproxy_chrome_01](https://cloud.githubusercontent.com/assets/6779966/21499712/8649dba8-cc38-11e6-8975-ac0b25e08f65.png)
 
 *Modifiez la configuration ainsi :*
+
 ![webproxy_chrome_02](https://cloud.githubusercontent.com/assets/6779966/21499715/89df9820-cc38-11e6-83dd-917c6616556b.png)
+
 
 
 #### 📃 Note ####

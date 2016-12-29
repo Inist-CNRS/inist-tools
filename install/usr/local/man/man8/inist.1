@@ -1,0 +1,93 @@
+.\" Documentation pour inist-tools.
+.\" Contact : stanislas.perrin@inist.fr 
+.TH man 8 "29 Décembre 2016" "1.0" "page man de inist-tools"
+.SH NAME
+inist \- permet de gérer le proxy INIST dans les applications linux courantes
+Commandes :
+.SH SYNOPSIS
+.B inist <service> [help|on|off|status] 
+  
+  on | off    Positionne ou supprime le proxy INIST pour le service spécifié.
+  help        Informe des éventuelles particularités pour <service>
+  status      Indique l'état actuel du paramétrage du proxy pour le <service>
+  
+  Par défaut, la commande inist <service> sans argument donne le statut actuel
+  du proxy pour le service concerné.
+  
+  <services> disponibles :
+  
+    shell   <on|off|help|status>
+            Paramètre l'environnement et les shells pour le proxy INIST.
+          
+    env     <on|off|help|status>
+            (alias de shell)
+    
+    system  <on|off|help|status>
+            (alias de shell)
+
+    apt     <on|off|help|status>
+            Paramètre apt le proxy INIST.
+          
+    docker  <on|off|help|status|install>
+            Paramètre docker le proxy INIST
+            <install> permet d'installer Docker et Docker-compose sur votre
+            machine.
+    
+    github  <on|https|off|ssh|help|status>
+            Paramètre github pour utiliser ssh ou https au travers du proxy 
+            INIST. Peut aussi s'utiliser avec "https" (on) et "ssh" (off).
+            
+    npm     <on|off|help|status>
+            Paramètre npm pour le proxy INIST.
+    
+    bower   <on|off|help|status>
+            Paramètre bower pour le proxy INIST.
+
+    gnome   <on|off|help|status>
+            Paramètre gnome pour le proxy INIST.
+            
+    kde     <on|off|help|status>
+            Paramètre kde pour le proxy INIST.
+            
+    unity   <on|off|help|status>
+            Paramètre unity pour le proxy INIST.
+            
+    xfce    <on|off|help|status>
+            Paramètre xfce pour le proxy INIST.
+
+    curl    <on|off|help|status>
+            Paramètre le proxy inist pour curl. Curl peut aussi fonctionner en
+            utilisant les variables d'environnement positionnée avec
+            <inist env on>.
+            
+    wget    <on|off|help|status>
+            Paramètre le proxy inist pour wget. Wget peut aussi fonctionner en
+            utilisant les variables d'environnement positionnée avec 
+            <inist env on>.
+
+    postfix <on|off|help|status>
+            Paramètre postfix pour relayer les mails vers smtpout.intra.inist.fr
+            Pour pouvoir relayer des mails vers le smtp de l'INIST, vous devez
+            en faire la demande à la DSI.
+
+    ntp     <sync>
+            Synchronise l'horloge de votre PC avec le serveur de temps de
+            l'INIST.
+
+.SH OPTIONS
+  -h, --help      Cette aide
+
+  -i, --info      Donne des informations sur votre configuration
+
+  -r, --reload    Recharge inistrc pour prendre en compte les dernières
+                  modifications apportées à inistrc (orienté dev)
+
+  -s, --status    Renseigne sur l'état actuel du paramétrage du proxy INIST
+  st, status      pour l'environnement système
+            
+  -v,--version    Affiche la version
+
+.SH BUGS
+Pas de bugs connus.
+.SH AUTHOR
+Stanislas PERRIN pour l'INIST-CNRS (stanislas.perrin@inist.fr)
