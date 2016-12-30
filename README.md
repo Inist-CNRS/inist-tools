@@ -160,9 +160,9 @@ proxy pour le service concerné.
 
 Les services pris en charge sont : 
 
-    apt, bower, chrome (à venir), chromium (à venir), curl, docker,
-    env (environnement système), firefox (à venir), github, gnome,
-    iceweasel (à venir) ,kde, npm, ntp, shell (alias de env), unity,
+    apt, bower, curl, docker,
+    env (environnement système), github, gnome,
+    kde, npm, ntp, shell (alias de env), unity,
     wget, xfce
 
 #### Options ####
