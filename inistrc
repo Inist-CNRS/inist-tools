@@ -117,9 +117,14 @@ function inist {
   
   # On teste si le contexte demandé est le proxy ADSL
   # dans ce cas on bascule 
-  case $3 in
+  IT_PROXY=$(_it_std_getEnv "it_proxy")
+  if [ $IT_PROXY == -1 ]; then
+    _it_std_setEnv "it_proxy" "INIST"
+    IT_PROXY="INIST"
+  fi
+  case $IT_PROXY in
 
-    --adsl )
+    ADSL )
       INIST_HTTP_PROXY="$INIST_HTTP_ADSL_PROXY"
       INIST_HTTPS_PROXY="$INIST_HTTPS_ADSL_PROXY"
       INIST_FTP_PROXY="$INIST_FTP_ADSL_PROXY"
@@ -130,7 +135,7 @@ function inist {
       PROXY="2"
     ;;
     
-    * )
+    INIST )
       INIST_HTTP_PROXY="http://proxyout.inist.fr:8080"
       INIST_HTTPS_PROXY="http://proxyout.inist.fr:8080"
       INIST_FTP_PROXY="http://proxyout.inist.fr:8080"
@@ -268,7 +273,7 @@ function inist {
         ;;
         
         * )
-          _it_std_consoleMessage "WARNING" "Votre environnement de bureau n'a pas pu être identifié"
+          _it_std_consoleMessage "WARNING" "Votre environnement de bureau ($DESKTOPSESSION) n'est pas pris en charge."
         ;;
         
       esac
@@ -368,6 +373,28 @@ function inist {
     #---------------------------------------------------------------------------
     gource)
       # ToDo...
+    ;;
+    
+    #---------------------------------------------------------------------------
+    # Choix du proxy
+    #---------------------------------------------------------------------------
+    --proxy=adsl | --proxy=ADSL)
+      _it_std_setEnv "it_proxy" "ADSL"
+      IT_PROXY="$PROXY_ADSL"
+    ;;
+    
+    --proxy=inist | --proxy=INIST)
+      _it_std_setEnv "it_proxy" "INIST"
+      IT_PROXY="$PROXY_INIST"
+    ;;
+    
+    --proxy)
+      IT_PROXY=$(_it_std_getEnv "it_proxy")
+      if [ $IT_PROXY == -1 ]; then
+        _it_std_setEnv "it_proxy" "INIST"
+        IT_PROXY="$PROXY_INIST"
+      fi
+      _it_std_consoleMessage "INFO" "Choix courant de proxy : $IT_PROXY"
     ;;
     
     #---------------------------------------------------------------------------
