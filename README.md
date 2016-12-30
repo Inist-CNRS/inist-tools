@@ -111,8 +111,7 @@ profil en INIST ou INIST-PROXY ou tout autre nom à votre convenance :*
 
 *Modifiez la configuration ainsi :*
 
-![webproxy_chrome_02](https://cloud.githubusercontent.com/assets/6779966/21499715/89df9820-cc38-11e6-83dd-917c6616556b.png)
-
+![webproxy_chrome_02](https://cloud.githubusercontent.com/assets/6779966/21565351/f7ee2f56-ce96-11e6-9d3f-b74f12e34805.png)
 
 
 #### 📃 Note ####

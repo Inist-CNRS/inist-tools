@@ -70,7 +70,7 @@ _inist () {
     ;;
   
     -*)
-      COMPREPLY=( $( compgen -W '-h --help -i --info -r --reload -s --status  -v --version' -- $cur ) )
+      COMPREPLY=( $( compgen -W '-h --help -i --info -r --reload -s --status  -v --version' --proxy=adsl --proxy=inist -- $cur ) )
     ;;
 
     *)

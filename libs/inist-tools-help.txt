@@ -74,6 +74,15 @@ Options :
   -h, --help      Cette aide
 
   -i, --info      Donne des informations sur votre configuration
+  
+  --proxy         Permet de savoir quel proxy est configuré pour les prochaines
+                  commandes
+  
+  --proxy=adsl    Permet de spécifier que ce sera le proxy ADSL qui sera
+                  utilisé dans les futures commandes
+  
+  --proxy=inist   Permet de spécifier que ce sera le proxy INIST qui sera 
+                  utilisé pour les futures commandes (défaut)
 
   -r, --reload    Recharge inistrc pour prendre en compte les dernières
                   modifications apportées à inistrc (orienté dev)
