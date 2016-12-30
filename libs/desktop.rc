@@ -19,7 +19,7 @@ XFCE4=$(which xfce4-session)
 # ------------------------------------------------------------------------------
 function _it_desktop_kde_proxy {
   if [ -z $KDE ]; then
-    _it_std_consoleMessage "ERROR" "KDE n'est pas installé."
+    _it_std_consoleMessage "ERROR" "$DESKTOPSESSION n'est pas installé."
     return $FALSE
   fi
   
@@ -27,31 +27,31 @@ function _it_desktop_kde_proxy {
   
     on)
       # Vérifier si cet état n'est pas celui en cours
-      if _it_std_checkAction "kde" $TRUE ; then
-        _it_std_consoleMessage "INFO" "Configuration de KDE pour le proxy INIST"
+      if _it_std_checkAction "$DESKTOPSESSION" $TRUE ; then
+        _it_std_consoleMessage "INFO" "Configuration de $DESKTOPSESSION pour le proxy INIST"
         kwriteconfig --file kioslaverc --group 'Proxy Settings' --key ProxyType 2
         kwriteconfig --file kioslaverc --group 'Proxy Settings' --key 'Proxy Config Script' $INIST_PROXYPAC
         #
-        _it_std_setAction "kde" $TRUE
+        _it_std_setAction "$DESKTOPSESSION" $TRUE
       fi
     ;;
     
     off)
       # Vérifier si cet état n'est pas celui en cours
-      if _it_std_checkAction "kde" $FALSE ; then
-        _it_std_consoleMessage "INFO" "Déconfiguration de KDE pour le proxy INIST"
+      if _it_std_checkAction "$DESKTOPSESSION" $FALSE ; then
+        _it_std_consoleMessage "INFO" "Déconfiguration de $DESKTOPSESSION pour le proxy INIST"
         kwriteconfig --file kioslaverc --group 'Proxy Settings' --key ProxyType 0
         #
-        _it_std_setAction "kde" $FALSE
+        _it_std_setAction "$DESKTOPSESSION" $FALSE
       fi
     ;;
     
     help)
-      _it_std_consoleMessage "HELP" "Configure kde pour le proxy INIST"
+      _it_std_consoleMessage "HELP" "Configure $DESKTOPSESSION pour le proxy INIST"
     ;;
     
     status)
-      _it_std_getStatus "kde"
+      _it_std_getStatus "$DESKTOPSESSION"
     ;;
 
     *)
@@ -66,7 +66,7 @@ function _it_desktop_kde_proxy {
 # ------------------------------------------------------------------------------
 function _it_desktop_gnome_proxy {
   if [ -z $GNOME ]; then
-    _it_std_consoleMessage "ERROR" "Gnome n'est pas installé."
+    _it_std_consoleMessage "ERROR" "$DESKTOPSESSION n'est pas installé."
     return $FALSE
   fi
 
@@ -74,34 +74,34 @@ function _it_desktop_gnome_proxy {
   
     on)
       # Vérifier si cet état n'est pas celui en cours
-      if _it_std_checkAction "gnome" $TRUE ; then
-        _it_std_message "INFO" "Configuration de GNOME pour le proxy INIST"
+      if _it_std_checkAction "$DESKTOPSESSION" $TRUE ; then
+        _it_std_message "INFO" "Configuration de $DESKTOPSESSION pour le proxy INIST"
         gsettings set org.gnome.system.proxy mode 'manual'
         gsettings set org.gnome.system.proxy.http host "$INIST_PROXY_ADDRESS"
         gsettings set org.gnome.system.proxy.http port "$INIST_PROXY_PORT"
         #
-        _it_std_setAction "gnome" $TRUE
+        _it_std_setAction "$DESKTOPSESSION" $TRUE
       fi
     ;;
     
     off)
       # Vérifier si cet état n'est pas celui en cours
-      if _it_std_checkAction "gnome" $FALSE ; then
-        _it_std_message "INFO" "Déconfiguration de GNOME pour le proxy INIST"
+      if _it_std_checkAction "$DESKTOPSESSION" $FALSE ; then
+        _it_std_message "INFO" "Déconfiguration de $DESKTOPSESSION pour le proxy INIST"
         gsettings reset org.gnome.system.proxy mode
         gsettings reset org.gnome.system.proxy.http host
         gsettings reset org.gnome.system.proxy.http port
         #
-        _it_std_setAction "gnome" $FALSE
+        _it_std_setAction "$DESKTOPSESSION" $FALSE
       fi
     ;;
     
     help)
-      _it_std_consoleMessage "HELP" "Configure gnome pour le proxy INIST"
+      _it_std_consoleMessage "HELP" "Configure $DESKTOPSESSION pour le proxy INIST"
     ;;
     
     status)
-      _it_std_getStatus "gnome"
+      _it_std_getStatus "$DESKTOPSESSION"
     ;;
 
     *)
@@ -117,7 +117,7 @@ function _it_desktop_gnome_proxy {
 # ------------------------------------------------------------------------------
 function _it_desktop_unity_proxy {
   if [ -z $UNITY ]; then
-    _it_std_consoleMessage "ERROR" "Unity n'est pas installé."
+    _it_std_consoleMessage "ERROR" "$DESKTOPSESSION n'est pas installé."
     return $FALSE
   fi
 
@@ -125,34 +125,34 @@ function _it_desktop_unity_proxy {
   
     on)
       # Vérifier si cet état n'est pas celui en cours
-      if _it_std_checkAction "unity" $TRUE ; then
-        it_std_message "INFO" "Configuration de UNITY pour le proxy INIST"
+      if _it_std_checkAction "$DESKTOPSESSION" $TRUE ; then
+        it_std_message "INFO" "Configuration de $DESKTOPSESSION pour le proxy INIST"
         gsettings set org.gnome.system.proxy mode 'manual'
         gsettings set org.gnome.system.proxy.http host "$INIST_PROXY_ADDRESS"
         gsettings set org.gnome.system.proxy.http port "$INIST_PROXY_PORT"
         #
-        _it_std_setAction "unity" $TRUE
+        _it_std_setAction "$DESKTOPSESSION" $TRUE
       fi
     ;;
     
     off)
       # Vérifier si cet état n'est pas celui en cours
-      if _it_std_checkAction "unity" $FALSE ; then
-        it_std_message "INFO" "Déconfiguration de UNITY pour le proxy INIST"
+      if _it_std_checkAction "$DESKTOPSESSION" $FALSE ; then
+        it_std_message "INFO" "Déconfiguration de $DESKTOPSESSION pour le proxy INIST"
         gsettings reset org.gnome.system.proxy mode
         gsettings reset org.gnome.system.proxy.http host
         gsettings reset org.gnome.system.proxy.http port
         #
-        _it_std_setAction "unity" $FALSE
+        _it_std_setAction "$DESKTOPSESSION" $FALSE
       fi
     ;;
     
     help)
-      _it_std_consoleMessage "HELP" "Configure unity pour le proxy INIST"
+      _it_std_consoleMessage "HELP" "Configure $DESKTOPSESSION pour le proxy INIST"
     ;;
     
     status)
-      _it_std_getStatus "unity"
+      _it_std_getStatus "$DESKTOPSESSION"
     ;;
 
     *)
@@ -169,7 +169,7 @@ function _it_desktop_unity_proxy {
 function _it_desktop_xfce4_proxy {
   
   if [ -z $XFCE4 ]; then
-    _it_std_consoleMessage "ERROR" "XFCE4 n'est pas installé."
+    _it_std_consoleMessage "ERROR" "$DESKTOPSESSION n'est pas installé."
     return $FALSE
   fi
 
@@ -177,34 +177,34 @@ function _it_desktop_xfce4_proxy {
   
     on)
       # Vérifier si cet état n'est pas celui en cours
-      if _it_std_checkAction "xfce4" $TRUE ; then
-        _it_std_message "INFO" "Configuration de XFCE4 pour le proxy INIST"
+      if _it_std_checkAction "$DESKTOPSESSION" $TRUE ; then
+        _it_std_message "INFO" "Configuration de $DESKTOPSESSION pour le proxy INIST"
         gsettings set org.gnome.system.proxy mode 'manual'
         gsettings set org.gnome.system.proxy.http host "$INIST_PROXY_ADDRESS"
         gsettings set org.gnome.system.proxy.http port "$INIST_PROXY_PORT"
         #
-        _it_std_setAction "xfce4" $TRUE
+        _it_std_setAction "$DESKTOPSESSION" $TRUE
       fi
     ;;
 
     off)
       # Vérifier si cet état n'est pas celui en cours
-      if _it_std_checkAction "xfce4" $FALSE ; then
-        _it_std_message "INFO" "Déconfiguration de XFCE4 pour le proxy INIST"
+      if _it_std_checkAction "$DESKTOPSESSION" $FALSE ; then
+        _it_std_message "INFO" "Déconfiguration de $DESKTOPSESSION pour le proxy INIST"
         gsettings reset org.gnome.system.proxy mode
         gsettings reset org.gnome.system.proxy.http host
         gsettings reset org.gnome.system.proxy.http port
         #
-        _it_std_setAction "xfce4" $FALSE
+        _it_std_setAction "$DESKTOPSESSION" $FALSE
       fi
     ;;
 
     help)
-      _it_std_consoleMessage "HELP" "Configure xfce4 pour le proxy INIST"
+      _it_std_consoleMessage "HELP" "Configure $DESKTOPSESSION pour le proxy INIST"
     ;;
     
     status)
-      _it_std_getStatus "xfce4"
+      _it_std_getStatus "$DESKTOPSESSION"
     ;;
 
     *)

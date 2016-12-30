@@ -25,17 +25,17 @@ function _it_inistProxy {
     on)
       if _it_std_checkAction "shell" $TRUE ; then
         # Exclusion du proxy
-        export no_proxy="localhost,127.0.0.0/8,172.16.0.0/16,*.inist.fr,*.local"
-        export NO_PROXY="localhost,127.0.0.0/8,172.16.0.0/16,*.inist.fr,*.local"
+        export no_proxy="$INIST_NO_PROXY"
+        export NO_PROXY="$INIST_NO_PROXY"
         # HTTP
-        export http_proxy="http://proxyout.inist.fr:8080"
-        export HTTP_PROXY="http://proxyout.inist.fr:8080"
+        export http_proxy="$INIST_HTTP_PROXY"
+        export HTTP_PROXY="$INIST_HTTP_PROXY"
         # HTTPS
-        export https_proxy="http://proxyout.inist.fr:8080"
-        export HTTPS_PROXY="http://proxyout.inist.fr:8080"
+        export https_proxy="$INIST_HTTPS_PROXY"
+        export HTTPS_PROXY="$INIST_HTTPS_PROXY"
         # FTP
-        export ftp_proxy="http://proxyout.inist.fr:8080"
-        export FTP_PROXY="http://proxyout.inist.fr:8080"
+        export ftp_proxy="$INIST_FTP_PROXY"
+        export FTP_PROXY="$INIST_FTP_PROXY"
         #
         _it_std_setAction "shell" $TRUE
       fi
@@ -59,17 +59,17 @@ function _it_inistProxy {
 
     defaultOn)
       # Exclusion du proxy
-      export no_proxy="localhost,127.0.0.0/8,172.16.0.0/16,*.inist.fr,*.local"
-      export NO_PROXY="localhost,127.0.0.0/8,172.16.0.0/16,*.inist.fr,*.local"
+      export no_proxy="$INIST_NO_PROXY"
+      export NO_PROXY="$INIST_NO_PROXY"
       # HTTP
-      export http_proxy="http://proxyout.inist.fr:8080"
-      export HTTP_PROXY="http://proxyout.inist.fr:8080"
+      export http_proxy="$INIST_HTTP_PROXY"
+      export HTTP_PROXY="$INIST_HTTP_PROXY"
       # HTTPS
-      export https_proxy="http://proxyout.inist.fr:8080"
-      export HTTPS_PROXY="http://proxyout.inist.fr:8080"
+      export https_proxy="$INIST_HTTPS_PROXY"
+      export HTTPS_PROXY="$INIST_HTTPS_PROXY"
       # FTP
-      export ftp_proxy="http://proxyout.inist.fr:8080"
-      export FTP_PROXY="http://proxyout.inist.fr:8080"
+      export ftp_proxy="$INIST_FTP_PROXY"
+      export FTP_PROXY="$INIST_FTP_PROXY"
     ;;
 
     defaultOff)

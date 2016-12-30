@@ -115,6 +115,34 @@ function inist {
     return $FALSE
   fi
   
+  # On teste si le contexte demandé est le proxy ADSL
+  # dans ce cas on bascule 
+  case $3 in
+
+    --adsl )
+      INIST_HTTP_PROXY="$INIST_HTTP_ADSL_PROXY"
+      INIST_HTTPS_PROXY="$INIST_HTTPS_ADSL_PROXY"
+      INIST_FTP_PROXY="$INIST_FTP_ADSL_PROXY"
+      INIST_PROXYPAC="$INIST_ADSL_PROXYPAC"
+      INIST_NO_PROXY="localhost,127.0.0.0/8,*.local,172.16.0.0/16"
+      INIST_PROXY_ADDRESS="$INIST_ADSL_PROXY_ADDRESS"
+      INIST_PROXY_PORT="$INIST_ADSL_PROXY_PORT"
+      PROXY="2"
+    ;;
+    
+    * )
+      INIST_HTTP_PROXY="http://proxyout.inist.fr:8080"
+      INIST_HTTPS_PROXY="http://proxyout.inist.fr:8080"
+      INIST_FTP_PROXY="http://proxyout.inist.fr:8080"
+      INIST_PROXYPAC="http://proxypac.intra.inist.fr/proxy.pac"
+      INIST_NO_PROXY="localhost,127.0.0.0/8,*.local,172.16.0.0/16"
+      INIST_PROXY_ADDRESS="http://proxyout.inist.fr"
+      INIST_PROXY_PORT="8080"
+      PROXY="0"
+    ;;
+  
+  esac
+  
   # ligne commande = arguments de la fonction
   case $1 in
 
@@ -339,7 +367,7 @@ function inist {
     # gource
     #---------------------------------------------------------------------------
     gource)
-      
+      # ToDo...
     ;;
     
     #---------------------------------------------------------------------------
@@ -469,6 +497,22 @@ else
   _it_inistProxy "defaultOn"
   # _it_std_consoleMessage "WARNING" "Variable d'environnement vide ou contenant une valeur incohérente ($isSystemProxy)."
 fi
+
+#-------------------------------------------------------------------------------
+# Liste des services actifs
+#-------------------------------------------------------------------------------
+ACTIVE_SERVICES=''
+for service in shell "$DESKTOPSESSION" apt docker github npm bower curl wget 
+do
+  isActive=$(_it_std_getEnv "$service")
+  if [ "$isActive" == $TRUE ]; then
+    ACTIVE_SERVICES="$ACTIVE_SERVICES ${FG_BR_GREEN}✔ ${RESET_ALL}$service"
+  else
+    ACTIVE_SERVICES="$ACTIVE_SERVICES ${FG_BR_RED}✘ ${RESET_ALL}$service"
+  fi
+done
+
+_it_std_consoleMessage "INFO" "État des services : $ACTIVE_SERVICES"
 
 #-------------------------------------------------------------------------------
 # FIN !
