@@ -115,10 +115,13 @@ profil en INIST ou INIST-PROXY ou tout autre nom à votre convenance :*
 
 
 #### 📃 Note ####
+
 Tous les navigateurs sont capables de prendre en charge la configuration de
 l'environnement. Ainsi, si vous utilisez l'option « proxy système » des
-extensions, les navigateurs utiliseront le proxy spécifié avec la commande
-````inist shell````.
+extensions, les navigateurs utiliseront le proxy spécifié avec la commande ``inist shell``.
+
+A noter que Chrome et Chromium se basent sur la configuration du desktop qui est donc réglable par ``inist desktop <on|off>``
+
 
 ### Tester les commande en cours de développement ###
 Du fait qu'inist-tools soit chargé au lancement, les modification faites sur le
