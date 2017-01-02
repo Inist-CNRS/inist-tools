@@ -187,5 +187,7 @@ inist-tools (0.9.11RC) RC; urgency=medium
     lancement d'une nouvelle console
   * [DEV] Prise en charge du proxy ADSL
   * [DEV] Correction screenshot README + màj doc + maà man
+  * [DEV] Correction man + ajout 0.0.0.0 dans no_proxy + changement
+    intitulé de l'info et du contenu à l'ouverture d'un nouveau shell
 
  -- Stanislas PERRIN <stanislas.perrin@inist.fr>  Tue, 21 Jun 2016 08:28:37 +0200

@@ -534,12 +534,12 @@ do
   isActive=$(_it_std_getEnv "$service")
   if [ "$isActive" == $TRUE ]; then
     ACTIVE_SERVICES="$ACTIVE_SERVICES ${FG_BR_GREEN}✔ ${RESET_ALL}$service"
-  else
-    ACTIVE_SERVICES="$ACTIVE_SERVICES ${FG_BR_RED}✘ ${RESET_ALL}$service"
   fi
 done
 
-_it_std_consoleMessage "INFO" "État des services : $ACTIVE_SERVICES"
+if [ ! -z "$ACTIVE_SERVICES" ]; then
+  _it_std_consoleMessage "INFO" "Services INIST actifs : $ACTIVE_SERVICES"
+fi
 
 #-------------------------------------------------------------------------------
 # FIN !
