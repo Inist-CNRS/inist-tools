@@ -89,6 +89,41 @@ DESKTOPSESSION=$(echo "$DESKTOPSESSION" | tr '[:upper:]' '[:lower:]')
 #-------------------------------------------------------------------------------
 # 
 
+
+#-------------------------------------------------------------------------------
+# On teste si le contexte demandé est le proxy ADSL
+# dans ce cas on bascule 
+#-------------------------------------------------------------------------------
+IT_PROXY=$(_it_std_getEnv "it_proxy")
+if [ $IT_PROXY == -1 ]; then
+  _it_std_setEnv "it_proxy" "INIST"
+  IT_PROXY="INIST"
+fi
+
+case $IT_PROXY in
+
+  ADSL )
+    INIST_HTTP_PROXY="$INIST_HTTP_ADSL_PROXY"
+    INIST_HTTPS_PROXY="$INIST_HTTPS_ADSL_PROXY"
+    INIST_FTP_PROXY="$INIST_FTP_ADSL_PROXY"
+    INIST_PROXYPAC="$INIST_ADSL_PROXYPAC"
+    INIST_NO_PROXY="localhost,127.0.0.0/8,*.local,172.16.0.0/16"
+    INIST_PROXY_ADDRESS="$INIST_ADSL_PROXY_ADDRESS"
+    INIST_PROXY_PORT="$INIST_ADSL_PROXY_PORT"
+  ;;
+  
+  INIST )
+    INIST_HTTP_PROXY="http://proxyout.inist.fr:8080"
+    INIST_HTTPS_PROXY="http://proxyout.inist.fr:8080"
+    INIST_FTP_PROXY="http://proxyout.inist.fr:8080"
+    INIST_PROXYPAC="http://proxypac.intra.inist.fr/proxy.pac"
+    INIST_NO_PROXY="localhost,127.0.0.0/8,*.local,172.16.0.0/16"
+    INIST_PROXY_ADDRESS="http://proxyout.inist.fr"
+    INIST_PROXY_PORT="8080"
+  ;;
+
+esac
+
 #-------------------------------------------------------------------------------
 # COMMANDE [+option[s]]
 #-------------------------------------------------------------------------------
@@ -114,39 +149,6 @@ function inist {
     _it_std_show_help
     return $FALSE
   fi
-  
-  # On teste si le contexte demandé est le proxy ADSL
-  # dans ce cas on bascule 
-  IT_PROXY=$(_it_std_getEnv "it_proxy")
-  if [ $IT_PROXY == -1 ]; then
-    _it_std_setEnv "it_proxy" "INIST"
-    IT_PROXY="INIST"
-  fi
-  case $IT_PROXY in
-
-    ADSL )
-      INIST_HTTP_PROXY="$INIST_HTTP_ADSL_PROXY"
-      INIST_HTTPS_PROXY="$INIST_HTTPS_ADSL_PROXY"
-      INIST_FTP_PROXY="$INIST_FTP_ADSL_PROXY"
-      INIST_PROXYPAC="$INIST_ADSL_PROXYPAC"
-      INIST_NO_PROXY="localhost,127.0.0.0/8,*.local,172.16.0.0/16"
-      INIST_PROXY_ADDRESS="$INIST_ADSL_PROXY_ADDRESS"
-      INIST_PROXY_PORT="$INIST_ADSL_PROXY_PORT"
-      PROXY="2"
-    ;;
-    
-    INIST )
-      INIST_HTTP_PROXY="http://proxyout.inist.fr:8080"
-      INIST_HTTPS_PROXY="http://proxyout.inist.fr:8080"
-      INIST_FTP_PROXY="http://proxyout.inist.fr:8080"
-      INIST_PROXYPAC="http://proxypac.intra.inist.fr/proxy.pac"
-      INIST_NO_PROXY="localhost,127.0.0.0/8,*.local,172.16.0.0/16"
-      INIST_PROXY_ADDRESS="http://proxyout.inist.fr"
-      INIST_PROXY_PORT="8080"
-      PROXY="0"
-    ;;
-  
-  esac
   
   # ligne commande = arguments de la fonction
   case $1 in
@@ -539,6 +541,7 @@ done
 
 if [ ! -z "$ACTIVE_SERVICES" ]; then
   _it_std_consoleMessage "INFO" "Services INIST actifs : $ACTIVE_SERVICES"
+  _it_std_consoleMessage "INFO" "Proxy courant : $IT_PROXY"
 fi
 
 #-------------------------------------------------------------------------------
