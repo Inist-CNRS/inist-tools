@@ -74,7 +74,7 @@ _inist () {
     ;;
 
     *)
-      COMPREPLY=( $( compgen -W 'apt bower chrome chromium curl docker env firefox github gnome iceweasel kde npm shell unity wget xfce' -- $cur ) )
+      COMPREPLY=( $( compgen -W 'apt bower curl docker env github gnome kde npm shell unity wget xfce --help --info --reload --status --version --proxy=adsl --proxy=inist ' -- $cur ) )
     ;;
     
   esac
