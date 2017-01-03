@@ -22,8 +22,8 @@ source "/opt/inist-tools/libs/ansicolors.rc"
 # ------------------------------------------------------------------------------
 # 
 # ------------------------------------------------------------------------------
-postconf -e "relayhost=smtpout.intra.inist.fr"
-/opt/inist-tools/tools/service-restart.sh "postfix" &
+$SUDO postconf -e "relayhost=smtpout.intra.inist.fr"
+$SUDO /opt/inist-tools/tools/service-restart.sh "postfix" &
 
 # ------------------------------------------------------------------------------
 # Sortie propre

@@ -10,15 +10,45 @@
 ################################################################################
 
 # ------------------------------------------------------------------------------
-#
+# _it_gource
 # ------------------------------------------------------------------------------
-function _it_gourc {
+function _it_gource {
 
-  # Vérifier si gource est installé
-  # $1 project name
-  # $2 sprint name
-  # $3 sprint start
-  # $4 sprint end
+  # On doit pouvoir trouver ces valeurs dans l'environnement (via un export
+  # par exemple)
+  # IT_GOURCE_PROJECTNAME
+  # IT_GOURCE_SPRINTNAME
+  # IT_GOURCE_SPRINTSTART
+  # IT_GOURCE_SPRINTEND
+  
+  if [ -z "$IT_GOURCE_PROJECTNAME" ]; then
+    _it_std_consoleMessage "ERROR" "La variable d'environnement 'IT_GOURCE_PROJECTNAME' n'est pas renseignée. Essayez « export IT_GOURCE_PROJECTNAME=\"nom du projet\" »."
+    return $FALSE
+  fi
+
+  if [ -z "$IT_GOURCE_SPRINTNAME" ]; then
+    _it_std_consoleMessage "ERROR" "La variable d'environnement 'IT_GOURCE_SPRINTNAME' n'est pas renseignée. Essayez « export IT_GOURCE_SPRINTNAME=\"nom du sprint\" »."
+    return $FALSE
+  fi
+
+  if [ -z "$IT_GOURCE_SPRINTSTART" ]; then
+    _it_std_consoleMessage "ERROR" "La variable d'environnement 'IT_GOURCE_SPRINTSTART' n'est pas renseignée. Essayez « export IT_GOURCE_SPRINTSTART=\"2017-01-01\" »."
+    return $FALSE
+  fi
+
+  if [ -z "$IT_GOURCE_SPRINTEND" ]; then
+    _it_std_consoleMessage "ERROR" "La variable d'environnement 'IT_GOURCE_SPRINTEND' n'est pas renseignée. Essayez « export IT_GOURCE_SPRINTEND=\"2017-03-10\" »."
+    return $FALSE
+  fi
+
+  # -------------------------------
+  # Variables locales à la fonction
+  # -------------------------------
+  local tmpDir = "/tmp/$IT_GOURCE_PROJECTNAME/$IT_GOURCE_SPRINTNAME"
+  
+  # -----------------
+  # Vérifier le dépôt
+  # -----------------
   
   case "$1" in
    
@@ -26,10 +56,6 @@ function _it_gourc {
       _it_std_consoleMessage "HELP" "Permet de créer une animation gource à partir d'un dépôt git."
     ;;
     
-    status)
-      _it_std_getStatus "postfix"
-    ;;
-
     *)
       # Traitement du dépôt pour en faire une animation "gource"
       _it_std_consoleMessage "WARNING" "Commande « $1 » non prise en charge"

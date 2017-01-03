@@ -192,5 +192,6 @@ inist-tools (0.9.11RC) RC; urgency=medium
   * [DEV] Màj autocomplete
   * [DEV] Ajout de l'info sur le proxy courant à l'ouverture d'un
     nouveau shell
+  * [DEV] Corrections autour de la commande postfix
 
  -- Stanislas PERRIN <stanislas.perrin@inist.fr>  Tue, 21 Jun 2016 08:28:37 +0200
