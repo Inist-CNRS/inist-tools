@@ -219,7 +219,7 @@ function _it_browsers_chrome_proxy {
 
   local CHROME_CONFDIR="/home/$USER/.config/chrome"
   if [ ! -d $CHROME_CONFDIR ]; then
-    it_std_message "ERROR" "Le répertoire de configuration de Chrome n'est pas disponible."
+    _it_std_message "ERROR" "Le répertoire de configuration de Chrome n'est pas disponible."
     return $FALSE
   fi
 

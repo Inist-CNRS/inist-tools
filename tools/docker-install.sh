@@ -81,14 +81,14 @@ fi
 # ------------------------------------------------------------------------------
 # Si c'est une Ubuntu, quelle version ?
 # ------------------------------------------------------------------------------
-if [ "$platform" == "ubuntu" ]; then
+if [ $HOST_SYSTEM == "ubuntu" ]; then
   ubuntuVersion=$(cat /etc/lsb-release | grep -i "DISTRIB_RELEASE" | cut -d"=" -f 2 | tr -d".")
   ubuntuMajor=$(echo "$ubuntuVersion" | cut -d"." -f 1)
   ubuntuMinor=$(echo "$ubuntuVersion" | cut -d"." -f 2)
 
-  case "$ubuntuVersion" in
+  case "$HOST_SYSTEM_VERSION" in
     
-    "1404" )
+    "14.04" )
       _it_std_consoleMessage "ACTION" "Installation des paquets du noyau..."
       sourceURL="deb https://apt.dockerproject.org/repo ubuntu-trusty main"
       # apt-get install linux-image-extra-$(uname -r) linux-image-extra-virtual 2>&1 >> "$INSTALL_LOG"
@@ -101,7 +101,7 @@ if [ "$platform" == "ubuntu" ]; then
       fi
     ;;
     
-    "1604" )
+    "16.04" )
       _it_std_consoleMessage "ACTION" "Installation des paquets du noyau..."
       sourceURL="deb https://apt.dockerproject.org/repo ubuntu-xenial main"
       # apt-get install linux-image-extra-$(uname -r) linux-image-extra-virtual 2>&1 >> "$INSTALL_LOG"
@@ -126,7 +126,7 @@ fi
 # ------------------------------------------------------------------------------
 # Si c'est une Debian...
 # ------------------------------------------------------------------------------
-if [ "$platform" == "debian" ]; then
+if [ $HOST_SYSTEM == "debian" ]; then
 
   # Installation de lsb-release si le paquet est manquant
   lsbRelease=$(which lsb_release)
@@ -142,10 +142,10 @@ if [ "$platform" == "debian" ]; then
 
   # Détection de la version de Debian (et c'est pas du gâteau...)
   # trouvé ici : https://gist.github.com/glenbot/2890869
-  debianCodename=$(lsb_release -a | grep -i "codename" | tr -d "\t" | cut -d ":" -f2)
-  debianCodename=$(echo "$debianCodename" | tr '[A-Z]' '[a-z]')
+  # debianCodename=$(lsb_release -a | grep -i "codename" | tr -d "\t" | cut -d ":" -f2)
+  # debianCodename=$(echo "$debianCodename" | tr '[A-Z]' '[a-z]')
   
-  case "$debianCodename" in
+  case "$HOST_SYSTEM_CODENAME" in
   
     wheezy)
       echo "deb http://http.debian.net/debian wheezy-backports main" > /etc/apt/sources.list.d/backports.list

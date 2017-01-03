@@ -83,6 +83,9 @@ if [ $HOST_SYSTEM == 'ubuntu' ]; then
   HOST_SYSTEM_VERSION_MAJOR=$(echo "$HOST_SYSTEM_VERSION_RAW" | cut -d"." -f 1)
   HOST_SYSTEM_VERSION_MINOR=$(echo "$HOST_SYSTEM_VERSION_RAW" | cut -d"." -f 2)
   HOST_SYSTEM_VERSION="$HOST_SYSTEM_VERSION_MAJOR.$HOST_SYSTEM_VERSION_MINOR"
+  if [ $HOST_SYSTEM_VERSION == "16.04" ]; then
+      HOST_SYSTEM_CODENAME=$(echo ${osReleaseVersion/*, /} | cut -d '"' -f 2)
+  fi
 elif [ $HOST_SYSTEM == 'debian' ]; then
   debianCodename=$(lsb_release -a 2>/dev/null | grep -i "codename" | tr -d "\t" | cut -d ":" -f2)
   HOST_SYSTEM_CODENAME=$(echo "$debianCodename" | tr '[A-Z]' '[a-z]')

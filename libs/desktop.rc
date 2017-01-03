@@ -126,7 +126,7 @@ function _it_desktop_unity_proxy {
     on)
       # Vérifier si cet état n'est pas celui en cours
       if _it_std_checkAction "$DESKTOPSESSION" $TRUE ; then
-        it_std_message "INFO" "Configuration de $DESKTOPSESSION pour le proxy INIST"
+        _it_std_message "INFO" "Configuration de $DESKTOPSESSION pour le proxy INIST"
         gsettings set org.gnome.system.proxy mode 'manual'
         gsettings set org.gnome.system.proxy.http host "$INIST_PROXY_ADDRESS"
         gsettings set org.gnome.system.proxy.http port "$INIST_PROXY_PORT"
