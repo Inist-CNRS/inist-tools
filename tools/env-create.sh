@@ -6,6 +6,9 @@
 # Créé le répertoire de stockage des variables d'environnement persistantes
 # Permet la modifiction par l'utilisateur des fichiers de configuration
 #
+# Doit être appellé depuis /opt/inist-tools/inistrc -> dépendance des vars
+# USER_LOGIN et USER_GROUP
+#
 # @author : INIST-CNRS/DPI
 #
 ################################################################################
@@ -13,28 +16,22 @@
 # ------------------------------------------------------------------------------
 # Variables globales
 # ------------------------------------------------------------------------------
-# USER=$(logname)
-USER_LOGIN=$(who am i | awk '{print $1}' | head -1)
-ID=$(which id)
-GROUP=$($ID -g -n "$USER")
-ENV_DIR="/opt/inist-tools/env"
-CONF_DIR="/opt/inist-tools/conf"
 
 # ------------------------------------------------------------------------------
 # Répertoire d'environnement
 # ------------------------------------------------------------------------------
-if [ ! -d "$ENV_DIR" ]; then
-  mkdir -p "$ENV_DIR"
+if [ ! -d "$DIR_ENV" ]; then
+  mkdir -p "$DIR_ENV"
   # chown -R "$USER":"$USER" "$ENV_DIR"
-  chown -R "$USER":"$GROUP" "$ENV_DIR"
-  chmod -R 777 "$ENV_DIR"
+  chown -R "$USER_LOGIN":"$USER_GROUP" "$DIR_ENV"
+  chmod -R 777 "$DIR_ENV"
 fi
 
 # ------------------------------------------------------------------------------
 # Répertoire de configuration
 # ------------------------------------------------------------------------------
-chown -R "$USER":"$GROUP" "$CONF_DIR"
-chmod -R 755 "$CONF_DIR"
+chown -R "$USER":"$GROUP" "$DIR_CONF"
+chmod -R 755 "$DIR_CONF"
 
 # ------------------------------------------------------------------------------
 # Fin
