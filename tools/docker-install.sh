@@ -23,6 +23,13 @@ USER=$(who am i | awk '{print $1}' | head -1)
 INSTALL_LOG="/tmp/inist-tools-docker-install.log"
 TIMESTAMP=$(date +'%F @ %R')
 
+USER_LOGIN=$(who am i | awk '{print $1}' | head -1)
+if [ -z "$USER_LOGIN" ]; then
+  USER_LOGIN=$(echo $USER);
+fi
+ID=$(which id)
+USER_GROUP=$($ID -g -n "$USER_LOGIN")
+
 # ------------------------------------------------------------------------------
 # Création du log pour cette session
 # ------------------------------------------------------------------------------
@@ -82,9 +89,9 @@ fi
 # Si c'est une Ubuntu, quelle version ?
 # ------------------------------------------------------------------------------
 if [ $HOST_SYSTEM == "ubuntu" ]; then
-  ubuntuVersion=$(cat /etc/lsb-release | grep -i "DISTRIB_RELEASE" | cut -d"=" -f 2 | tr -d".")
-  ubuntuMajor=$(echo "$ubuntuVersion" | cut -d"." -f 1)
-  ubuntuMinor=$(echo "$ubuntuVersion" | cut -d"." -f 2)
+  # ubuntuVersion=$(cat /etc/lsb-release | grep -i "DISTRIB_RELEASE" | cut -d"=" -f 2 | tr -d ".")
+  # ubuntuMajor=$(echo "$ubuntuVersion" | cut -d "." -f 1)
+  # ubuntuMinor=$(echo "$ubuntuVersion" | cut -d "." -f 2)
 
   case "$HOST_SYSTEM_VERSION" in
     
