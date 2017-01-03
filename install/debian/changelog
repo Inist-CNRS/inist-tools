@@ -198,5 +198,7 @@ inist-tools (0.9.11RC) RC; urgency=medium
   * [DEV] Correction sur env_create.sh
   * [DEV] Commit -- 03/01/2017 @ 14:20:06
   * [DEV] Correction liées aux spécificités de Ubuntu 16.04
+  * [DEV] Correction du problème de USER vide au moment du useradd dans
+    docker-install.sh
 
  -- Stanislas PERRIN <stanislas.perrin@inist.fr>  Tue, 21 Jun 2016 08:28:37 +0200

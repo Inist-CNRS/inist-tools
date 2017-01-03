@@ -249,11 +249,11 @@ else
 fi
 
 _it_std_consoleMessage "ACTION" "Ajout de '$USER' au groupe docker"
-usermod -aG docker "$USER"
+usermod -aG docker "$USER_LOGIN"
 if [ $? == 0 ]; then
-  _it_std_consoleMessage "OK" "$USER ajouté au usergroup 'docker' avec succès"
+  _it_std_consoleMessage "OK" "$USER_LOGIN ajouté au usergroup 'docker' avec succès"
 else
-  _it_std_consoleMessage "NOK" "impossible d'ajouter '$USER' au usergroup 'docker'. Installation interrompue."
+  _it_std_consoleMessage "NOK" "impossible d'ajouter '$USER_LOGIN' au usergroup 'docker'. Installation interrompue."
   exit $FALSE
 fi
 
