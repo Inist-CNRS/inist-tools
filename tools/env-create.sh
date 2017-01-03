@@ -16,6 +16,26 @@
 # ------------------------------------------------------------------------------
 # Variables globales
 # ------------------------------------------------------------------------------
+export PATH="$PATH:/opt/inist-tools"
+PID="$$"
+PARENT_COMMAND="$(ps -o comm= $PPID)"
+MODULE_NAME="INIST-TOOLS"
+DIR_MODULE="/opt/inist-tools" # fixé "en dur" en fonction du chemin définitif
+DIR_CONF="$DIR_MODULE/conf"
+DIR_LIBS="$DIR_MODULE/libs"
+DIR_TOOLS="$DIR_MODULE/tools"
+DIR_INSTALL="$DIR_MODULE/install"
+DIR_ENV="$DIR_MODULE/env"
+
+#-------------------------------------------------------------------------------
+# Utilisateur + Groupe -> environnement pour réutilisation en sudo
+#-------------------------------------------------------------------------------
+USER_LOGIN=$(who am i | awk '{print $1}' | head -1)
+if [ -z "$USER_LOGIN" ]; then
+  USER_LOGIN=$(echo $USER);
+fi
+ID=$(which id)
+USER_GROUP=$($ID -g -n "$USER_LOGIN")
 
 # ------------------------------------------------------------------------------
 # Répertoire d'environnement
