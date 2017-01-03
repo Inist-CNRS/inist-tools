@@ -88,7 +88,7 @@ DESKTOPSESSION=$(echo "$DESKTOPSESSION" | tr '[:upper:]' '[:lower:]')
 # Check sur le répertoire /env de l'appli
 #-------------------------------------------------------------------------------
 # 
-/opt/inist-tools/tools/env-create.sh
+$SUDO /opt/inist-tools/tools/env-create.sh
 
 #-------------------------------------------------------------------------------
 # On teste si le contexte demandé est le proxy ADSL
