@@ -23,12 +23,8 @@ USER=$(who am i | awk '{print $1}' | head -1)
 INSTALL_LOG="/tmp/inist-tools-docker-install.log"
 TIMESTAMP=$(date +'%F @ %R')
 
-USER_LOGIN=$(who am i | awk '{print $1}' | head -1)
-if [ -z "$USER_LOGIN" ]; then
-  USER_LOGIN=$(echo $USER);
-fi
-ID=$(which id)
-USER_GROUP=$($ID -g -n "$USER_LOGIN")
+USER_LOGIN=$(_it_std_getEnv "USER_LOGIN")
+USER_GROUP=$(_it_std_getEnv "USER_GROUP")
 
 # ------------------------------------------------------------------------------
 # Création du log pour cette session

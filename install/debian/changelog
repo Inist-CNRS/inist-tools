@@ -202,5 +202,7 @@ inist-tools (0.9.11RC) RC; urgency=medium
     docker-install.sh
   * [DEV] Correction sur la valeur de USER_LOGIN pour l'install de
     docker
+  * [DEV] Changement de stratégie pour obtenir user/group dans
+    l'installeur de docker
 
  -- Stanislas PERRIN <stanislas.perrin@inist.fr>  Tue, 21 Jun 2016 08:28:37 +0200

@@ -75,8 +75,13 @@ if [ -z "$USER_LOGIN" ]; then
 fi
 ID=$(which id)
 USER_GROUP=$($ID -g -n "$USER_LOGIN")
-_it_std_setEnv "USER_LOGIN" "$USER_LOGIN"
-_it_std_setEnv "USER_GROUP" "$USER_GROUP"
+# On ne sauvegarde ces infos dans l'environnement de inist-tools que si le 
+# user n'est pas root, pour pouvoir l'utiliser à l'avenir dans les scripts
+# lancés en tant que root
+if [ $USER_LOGIN != "root" ]; then
+  _it_std_setEnv "USER_LOGIN" "$USER_LOGIN"
+  _it_std_setEnv "USER_GROUP" "$USER_GROUP"
+fi
 
 #-------------------------------------------------------------------------------
 # Environnement de bureau
