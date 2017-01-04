@@ -86,14 +86,33 @@ case "$HOST_SYSTEM" in
   ;;
   
   ubuntu)
+    /opt/inist-tools/tools/service-restart.sh "docker" &
+    
     case "$HOST_SYSTEM_VERSION" in
     
       "12.04" | "12.10" | "13.04" | "13.10" | "14.04" | "14.10" )
-        /opt/inist-tools/tools/service-restart.sh "docker" &
+        #/opt/inist-tools/tools/service-restart.sh "docker" &
       ;;
       
       *)
-        confSystemd
+        # Modification de la conf
+        mkdir -p "$INIST_TOOLS_CONF_DIR"
+        
+        if [ -a "$INIST_TOOLS_CONF_FILE" ]; then
+          rm "$INIST_TOOLS_CONF_FILE"
+        fi
+        
+        touch "$INIST_TOOLS_CONF_FILE"
+        
+        echo "# inist-tools" >> "$INIST_TOOLS_CONF_FILE"
+        echo "[Service]" >> "$INIST_TOOLS_CONF_FILE"
+        echo "ExecStart=" >> "$INIST_TOOLS_CONF_FILE"
+        echo "ExecStart=/usr/bin/docker daemon \$DOCKER_OPTS -H fd://" >> "$INIST_TOOLS_CONF_FILE"
+        echo "EnvironmentFile=/etc/default/docker" >> "$INIST_TOOLS_CONF_FILE"
+
+        # Prise en charge de la conf et redémarrage du service
+        /opt/inist-tools/tools/service-restart.sh "docker" &
+
       ;;
       
     esac
