@@ -204,5 +204,6 @@ inist-tools (0.9.11RC) RC; urgency=medium
     docker
   * [DEV] Changement de stratégie pour obtenir user/group dans
     l'installeur de docker
+  * [DEV] Correction d'un bug sur un test de comparaison de chaîne
 
  -- Stanislas PERRIN <stanislas.perrin@inist.fr>  Tue, 21 Jun 2016 08:28:37 +0200
