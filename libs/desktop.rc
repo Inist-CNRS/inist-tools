@@ -82,6 +82,8 @@ function _it_desktop_gnome_proxy {
         gsettings set org.gnome.system.proxy mode 'manual'
         gsettings set org.gnome.system.proxy.http host "$INIST_PROXY_ADDRESS"
         gsettings set org.gnome.system.proxy.http port "$INIST_PROXY_PORT"
+        gsettings set org.gnome.system.proxy.https host "$INIST_PROXY_ADDRESS"
+        gsettings set org.gnome.system.proxy.https port "$INIST_PROXY_PORT"
         #
         _it_std_setAction "$DESKTOPSESSION" $TRUE
       fi
@@ -94,6 +96,8 @@ function _it_desktop_gnome_proxy {
         gsettings reset org.gnome.system.proxy mode
         gsettings reset org.gnome.system.proxy.http host
         gsettings reset org.gnome.system.proxy.http port
+        gsettings reset org.gnome.system.proxy.https host
+        gsettings reset org.gnome.system.proxy.https port
         #
         _it_std_setAction "$DESKTOPSESSION" $FALSE
       fi
@@ -136,6 +140,8 @@ function _it_desktop_unity_proxy {
         gsettings set org.gnome.system.proxy mode 'manual'
         gsettings set org.gnome.system.proxy.http host "$INIST_PROXY_ADDRESS"
         gsettings set org.gnome.system.proxy.http port "$INIST_PROXY_PORT"
+        gsettings set org.gnome.system.proxy.https host "$INIST_PROXY_ADDRESS"
+        gsettings set org.gnome.system.proxy.https port "$INIST_PROXY_PORT"
         #
         _it_std_setAction "$DESKTOPSESSION" $TRUE
       fi
@@ -148,6 +154,8 @@ function _it_desktop_unity_proxy {
         gsettings reset org.gnome.system.proxy mode
         gsettings reset org.gnome.system.proxy.http host
         gsettings reset org.gnome.system.proxy.http port
+        gsettings reset org.gnome.system.proxy.https host
+        gsettings reset org.gnome.system.proxy.https port
         #
         _it_std_setAction "$DESKTOPSESSION" $FALSE
       fi
@@ -191,6 +199,8 @@ function _it_desktop_xfce4_proxy {
         gsettings set org.gnome.system.proxy mode 'manual'
         gsettings set org.gnome.system.proxy.http host "$INIST_PROXY_ADDRESS"
         gsettings set org.gnome.system.proxy.http port "$INIST_PROXY_PORT"
+        gsettings set org.gnome.system.proxy.https host "$INIST_PROXY_ADDRESS"
+        gsettings set org.gnome.system.proxy.https port "$INIST_PROXY_PORT"
         #
         _it_std_setAction "$DESKTOPSESSION" $TRUE
       fi
@@ -203,6 +213,8 @@ function _it_desktop_xfce4_proxy {
         gsettings reset org.gnome.system.proxy mode
         gsettings reset org.gnome.system.proxy.http host
         gsettings reset org.gnome.system.proxy.http port
+        gsettings reset org.gnome.system.proxy.https host
+        gsettings reset org.gnome.system.proxy.https port
         #
         _it_std_setAction "$DESKTOPSESSION" $FALSE
       fi
