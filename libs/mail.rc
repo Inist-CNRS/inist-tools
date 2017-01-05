@@ -48,7 +48,10 @@ function _it_mail_postfix {
     ;;
 
     *)
-      _it_std_consoleMessage "WARNING" "Commande « $1 » non prise en charge"
+      if [ -z "$1" ]; then 
+        $1="vide"
+      fi
+      _it_std_consoleMessage "WARNING" "Commande « $1 » non prise en charge. Essayez on|off|help|status."
     ;;
     
   esac

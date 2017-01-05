@@ -389,11 +389,13 @@ function inist {
     --proxy=adsl | --proxy=ADSL)
       _it_std_setEnv "it_proxy" "ADSL"
       IT_PROXY="$PROXY_ADSL"
+      _it_std_consoleMessage "WARNING" "N'oubliez pas de faire inist off puis inist on pour activer l'usage du proxy ADSL"
     ;;
     
     --proxy=inist | --proxy=INIST)
       _it_std_setEnv "it_proxy" "INIST"
       IT_PROXY="$PROXY_INIST"
+      _it_std_consoleMessage "WARNING" "N'oubliez pas de faire inist off puis inist on pour activer l'usage du proxy INIST"
     ;;
     
     --proxy)
@@ -476,6 +478,7 @@ function inist {
       if [ -f /etc/postfix/main.cf ]; then
         inist postfix status
       fi
+      _it_std_consoleMessage "INFO" "Proxy courant : $IT_PROXY"
       # source /opt/inist-tools/libs/misc.rc
       # _it_misc_proxyStatus
       # return $TRUE

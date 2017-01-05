@@ -55,6 +55,9 @@ function _it_desktop_kde_proxy {
     ;;
 
     *)
+      if [ -z "$1" ]; then 
+        $1="vide"
+      fi
       _it_std_consoleMessage "WARNING" "Commande « $1 » non prise en charge. Essayez on|off|help|status."
     ;;
     
@@ -105,7 +108,10 @@ function _it_desktop_gnome_proxy {
     ;;
 
     *)
-      _it_std_consoleMessage "WARNING" "Commande « $1 » non prise en charge"
+      if [ -z "$1" ]; then 
+        $1="vide"
+      fi
+      _it_std_consoleMessage "WARNING" "Commande « $1 » non prise en charge. Essayez on|off|help|status."
     ;;
     
   esac
@@ -156,7 +162,10 @@ function _it_desktop_unity_proxy {
     ;;
 
     *)
-      _it_std_consoleMessage "WARNING" "Commande « $1 » non prise en charge"
+      if [ -z "$1" ]; then 
+        $1="vide"
+      fi
+      _it_std_consoleMessage "WARNING" "Commande « $1 » non prise en charge. Essayez on|off|help|status."
     ;;
     
   esac
@@ -208,7 +217,10 @@ function _it_desktop_xfce4_proxy {
     ;;
 
     *)
-      _it_std_consoleMessage "WARNING" "Commande « $1 » non prise en charge"
+      if [ -z "$1" ]; then 
+        $1="vide"
+      fi
+      _it_std_consoleMessage "WARNING" "Commande « $1 » non prise en charge. Essayez on|off|help|status."
     ;;
 
   esac

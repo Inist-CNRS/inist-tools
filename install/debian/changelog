@@ -207,5 +207,7 @@ inist-tools (0.9.11RC) RC; urgency=medium
   * [DEV] Correction d'un bug sur un test de comparaison de chaîne
   * [DEV] Correction de la prise en charge de la conf pour docker pour
     les versions d'Ubuntu > 14.10
+  * [DEV] Ajout d'informations sur le proxy courant + ajout d'aide en
+    cas d'option incorrecte
 
  -- Stanislas PERRIN <stanislas.perrin@inist.fr>  Tue, 21 Jun 2016 08:28:37 +0200
