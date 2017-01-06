@@ -9,19 +9,18 @@
 # Variables globales
 # ------------------------------------------------------------------------------
 # USER=$(logname)
-USER=$(who am i | awk '{print $1}' | head -1)
+USER_LOGIN=$(who am i | awk '{print $1}' | head -1)
+if [ -z "$USER_LOGIN" ]; then
+  USER_LOGIN=$(echo $USER);
+fi
+ID=$(which id)
+USER_GROUP=$($ID -g -n "$USER_LOGIN")
 
 # ------------------------------------------------------------------------------
 # Installation des dépendances
 # ------------------------------------------------------------------------------
-# on exporte le proxy pour avoir accès au net
-# export http_proxy=http://proxyout.inist.fr:8080
-# export HTTP_PROXY=http://proxyout.inist.fr:8080
-# export https_proxy=http://proxyout.inist.fr:8080
-# export HTTPS_PROXY=http://proxyout.inist.fr:8080
-# export no_proxy=localhost,127.0.0.0/8,*.local
-#
-# apt-get install -y make ntpdate parallel jq sudo libnotify-bin
+/opt/inist-tools/inistexec apt on
+apt-get install -y make ntpdate parallel jq sudo libnotify-bin
 
 # ------------------------------------------------------------------------------
 # Protection des fichiers /etc/sudoers.d/*
@@ -35,22 +34,10 @@ ENV_DIR="/opt/inist-tools/env"
 if [ ! -d "$ENV_DIR" ]; then
    mkdir -p "$ENV_DIR"
 fi
-chown -R "$USER":"$USER" "$ENV_DIR"
+if [ "$USER_LOGIN" != "root" ]; then
+  chown -R "$USER_LOGIN":"$USER_GROUP" "$ENV_DIR"
+fi
 chmod -R 777 "$ENV_DIR"
-
-# ------------------------------------------------------------------------------
-# On redevient le user courant
-# ------------------------------------------------------------------------------
-# su "$USER"
-
-# ------------------------------------------------------------------------------
-# Installation dans le .bashrc de l'utilisateur
-# ------------------------------------------------------------------------------
-# --- on laisse l'utilisateur modifier son propre .bashrc
-# echo -e "\n" >> "$HOME/.bashrc"
-# echo "# inist-tools" >> "$HOME/.bashrc"
-# echo ". /opt/inist-tools/inistrc # inist-tools" >> "$HOME/.bashrc"
-
 
 # ------------------------------------------------------------------------------
 # FIN !

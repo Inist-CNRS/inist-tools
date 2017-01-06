@@ -81,6 +81,8 @@ USER_GROUP=$($ID -g -n "$USER_LOGIN")
 if [ "$USER_LOGIN" != "root" ]; then
   _it_std_setEnv "USER_LOGIN" "$USER_LOGIN"
   _it_std_setEnv "USER_GROUP" "$USER_GROUP"
+  chown -R "$USER_LOGIN":"$USER_GROUP" "$DIR_ENV"
+  chmod -R 777 "$DIR_ENV"
 fi
 
 #-------------------------------------------------------------------------------
