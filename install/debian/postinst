@@ -30,14 +30,16 @@ chmod 600 /etc/sudoers.d/inist-tools
 # ------------------------------------------------------------------------------
 # Répêrtoire de stockage de l'environnement d'execution d'inist-tools
 # ------------------------------------------------------------------------------
-ENV_DIR="/opt/inist-tools/env"
-if [ ! -d "$ENV_DIR" ]; then
-   mkdir -p "$ENV_DIR"
+DIR_ENV="/opt/inist-tools/env"
+DIR_CONF="/opt/inist-tools/conf"
+if [ ! -d "$DIR_ENV" ]; then
+   mkdir -p "$DIR_ENV"
 fi
 if [ "$USER_LOGIN" != "root" ]; then
-  chown -R "$USER_LOGIN":"$USER_GROUP" "$ENV_DIR"
+  chown -R "$USER_LOGIN":"$USER_GROUP" "$DIR_ENV"
+  chown -R "$USER_LOGIN":"$USER_GROUP" "$DIR_CONF"
 fi
-chmod -R 777 "$ENV_DIR"
+chmod -R 777 "$DIR_ENV"
 
 # ------------------------------------------------------------------------------
 # FIN !

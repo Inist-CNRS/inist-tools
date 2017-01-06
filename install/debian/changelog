@@ -209,5 +209,7 @@ inist-tools (0.9.11RC) RC; urgency=medium
     les versions d'Ubuntu > 14.10
   * [DEV] Ajout d'informations sur le proxy courant + ajout d'aide en
     cas d'option incorrecte
+  * [DEV] Correction du problème de changement de propriétaires de /env
+    et /conf
 
  -- Stanislas PERRIN <stanislas.perrin@inist.fr>  Tue, 21 Jun 2016 08:28:37 +0200

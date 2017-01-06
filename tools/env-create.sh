@@ -28,29 +28,37 @@ DIR_INSTALL="$DIR_MODULE/install"
 DIR_ENV="$DIR_MODULE/env"
 
 #-------------------------------------------------------------------------------
-# Utilisateur + Groupe -> environnement pour réutilisation en sudo
+# Utilisateur + Groupe passés en argument du script
 #-------------------------------------------------------------------------------
-USER_LOGIN=$(who am i | awk '{print $1}' | head -1)
-if [ -z "$USER_LOGIN" ]; then
-  USER_LOGIN=$(echo $USER);
+if [ ! -z "$1" ]; then
+  USER_LOGIN="$1"
+else
+  exit 1
 fi
-ID=$(which id)
-USER_GROUP=$($ID -g -n "$USER_LOGIN")
+
+if [ ! -z "$2" ]; then
+  USER_GROUP="$2"
+else
+  exit 1
+fi
+
+if [ "$USER_LOGIN" == "root" ]; then
+  exit 1
+fi
 
 # ------------------------------------------------------------------------------
 # Répertoire d'environnement
 # ------------------------------------------------------------------------------
 if [ ! -d "$DIR_ENV" ]; then
   mkdir -p "$DIR_ENV"
-  # chown -R "$USER":"$USER" "$ENV_DIR"
-  chown -R "$USER_LOGIN":"$USER_GROUP" "$DIR_ENV"
-  chmod -R 777 "$DIR_ENV"
 fi
+chown -R "$USER_LOGIN":"$USER_GROUP" "$DIR_ENV"
+chmod -R 777 "$DIR_ENV"
 
 # ------------------------------------------------------------------------------
 # Répertoire de configuration
 # ------------------------------------------------------------------------------
-chown -R "$USER":"$GROUP" "$DIR_CONF"
+chown -R "$USER_LOGIN":"$USER_GROUP" "$DIR_CONF"
 chmod -R 755 "$DIR_CONF"
 
 # ------------------------------------------------------------------------------

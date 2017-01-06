@@ -81,8 +81,7 @@ USER_GROUP=$($ID -g -n "$USER_LOGIN")
 if [ "$USER_LOGIN" != "root" ]; then
   _it_std_setEnv "USER_LOGIN" "$USER_LOGIN"
   _it_std_setEnv "USER_GROUP" "$USER_GROUP"
-  chown -R "$USER_LOGIN":"$USER_GROUP" "$DIR_ENV"
-  chmod -R 777 "$DIR_ENV"
+  $SUDO "/opt/inist-tools/tools/env-create.sh" "$USER_LOGIN" "$USER_GROUP"
 fi
 
 #-------------------------------------------------------------------------------
@@ -90,12 +89,6 @@ fi
 #-------------------------------------------------------------------------------
 DESKTOPSESSION=$(env | grep "XDG_CURRENT_DESKTOP" | cut -d "=" -f 2)
 DESKTOPSESSION=$(echo "$DESKTOPSESSION" | tr '[:upper:]' '[:lower:]')
-
-#-------------------------------------------------------------------------------
-# Check sur le répertoire /env de l'appli
-#-------------------------------------------------------------------------------
-# 
-$SUDO /opt/inist-tools/tools/env-create.sh
 
 #-------------------------------------------------------------------------------
 # On teste si le contexte demandé est le proxy ADSL
@@ -451,6 +444,14 @@ function inist {
     powermax )
       SUDO "/opt/inist-tools/tools/powermax.sh"
       return $TRUE
+    ;;
+
+    #---------------------------------------------------------------------------
+    # update
+    #---------------------------------------------------------------------------
+    update )
+      $SUDO "/opt/inist-tools/tools/inist-tools-update.sh"
+      inist -r
     ;;
     
     #---------------------------------------------------------------------------
