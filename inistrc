@@ -2,7 +2,7 @@
 #
 #   # #   # #  ###  #####     #####  ###   ###  #     ###
 #   # ##  # # #       #         #   #   # #   # #    #
-#   # # # # #  ###    #   ###   #   #   # #   # #     ### 
+#   # # # # #  ###    #   ###   #   #   # #   # #     ###
 #   # #  ## #     #   #         #   #   # #   # #        #
 #   # #   # #  ###    #         #    ###   ###  ##### ###
 #
@@ -75,7 +75,7 @@ if [ -z "$USER_LOGIN" ]; then
 fi
 ID=$(which id)
 USER_GROUP=$($ID -g -n "$USER_LOGIN")
-# On ne sauvegarde ces infos dans l'environnement de inist-tools que si le 
+# On ne sauvegarde ces infos dans l'environnement de inist-tools que si le
 # user n'est pas root, pour pouvoir l'utiliser à l'avenir dans les scripts
 # lancés en tant que root
 if [ "$USER_LOGIN" != "root" ]; then
@@ -92,7 +92,7 @@ DESKTOPSESSION=$(echo "$DESKTOPSESSION" | tr '[:upper:]' '[:lower:]')
 
 #-------------------------------------------------------------------------------
 # On teste si le contexte demandé est le proxy ADSL
-# dans ce cas on bascule 
+# dans ce cas on bascule
 #-------------------------------------------------------------------------------
 IT_PROXY=$(_it_std_getEnv "it_proxy")
 if [ $IT_PROXY == -1 ]; then
@@ -111,7 +111,7 @@ case $IT_PROXY in
     INIST_PROXY_ADDRESS="$INIST_ADSL_PROXY_ADDRESS"
     INIST_PROXY_PORT="$INIST_ADSL_PROXY_PORT"
   ;;
-  
+
   INIST )
     INIST_HTTP_PROXY="http://proxyout.inist.fr:8080"
     INIST_HTTPS_PROXY="http://proxyout.inist.fr:8080"
@@ -140,7 +140,7 @@ function inist {
   fi
 
   #-----------------------------------------------------------------------------
-  # Gestion des arguments 
+  # Gestion des arguments
   #-----------------------------------------------------------------------------
 
   # Aucun argument : affichage de l'aide
@@ -149,7 +149,7 @@ function inist {
     _it_std_show_help
     return $FALSE
   fi
-  
+
   # ligne commande = arguments de la fonction
   case $1 in
 
@@ -160,7 +160,7 @@ function inist {
       source "$DIR_LIBS/misc.rc"
       _it_misc_apt_proxy "$2"
     ;;
-    
+
     bower )
       source "$DIR_LIBS/bower.rc"
       _it_bower_proxy "$2"
@@ -171,7 +171,7 @@ function inist {
       source "$DIR_LIBS/misc.rc"
       _it_misc_curl_proxy "$2"
     ;;
-    
+
     docker )
       source "$DIR_LIBS/docker.rc"
       case "$2" in
@@ -182,41 +182,41 @@ function inist {
           _it_docker_proxy "$2"
         ;;
       esac
-      
+
     ;;
 
     env )
       source "$DIR_LIBS/inist-proxy.rc"
       _it_inistProxy "$2"
     ;;
-  
+
     github )
       # _it_std_consoleMessage "WARNING" "Cette commande n'est pas encore implémentée."
       source "$DIR_LIBS/github.rc"
       _it_github_protocol "$2"
     ;;
-    
+
     gnome )
       source "$DIR_LIBS/desktop.rc"
       _it_desktop_gnome_proxy "$2"
     ;;
-    
+
     iceweasel )
       _it_std_consoleMessage "WARNING" "Cette commande n'est pas encore implémentée."
       # source "$DIR_LIBS/browsers.rc"
       # _it_browsers_iceweasel_proxy "$2"
     ;;
-    
+
     kde )
       source "$DIR_LIBS/desktop.rc"
       _it_desktop_kde_proxy "$2"
     ;;
-    
+
     npm )
       source "$DIR_LIBS/misc.rc"
       _it_misc_npm_proxy "$2"
     ;;
-    
+
     postfix )
       source "$DIR_LIBS/mail.rc"
       _it_mail_postfix "$2"
@@ -231,34 +231,34 @@ function inist {
       source "$DIR_LIBS/misc.rc"
       _it_inistProxy "$2"
     ;;
-    
+
     unity )
       source "$DIR_LIBS/desktop.rc"
       _it_desktop_unity_proxy "$2"
     ;;
-    
+
     wget )
       source "$DIR_LIBS/misc.rc"
       _it_misc_wget_proxy "$2"
     ;;
-    
+
     xfce )
       source "$DIR_LIBS/desktop.rc"
       _it_desktop_xfce4_proxy "$2"
     ;;
-    
+
     #---------------------------------------------------------------------------
     # COMMANDE : desktop
     #---------------------------------------------------------------------------
     desktop )
-      
+
       case "$DESKTOPSESSION" in
-      
+
         gnome | GNOME)
           source "$DIR_LIBS/desktop.rc"
           _it_desktop_gnome_proxy "$2"
         ;;
-        
+
         xfce | XFCE )
           source "$DIR_LIBS/desktop.rc"
           _it_desktop_xfce4_proxy "$2"
@@ -268,20 +268,20 @@ function inist {
           source "$DIR_LIBS/desktop.rc"
           _it_desktop_kde_proxy "$2"
         ;;
-        
+
         unity | UNITY )
           source "$DIR_LIBS/desktop.rc"
           _it_desktop_unity_proxy "$2"
         ;;
-        
+
         * )
           _it_std_consoleMessage "WARNING" "Votre environnement de bureau ($DESKTOPSESSION) n'est pas pris en charge."
         ;;
-        
+
       esac
 
     ;;
-    
+
     #---------------------------------------------------------------------------
     # COMMANDE : info
     #---------------------------------------------------------------------------
@@ -314,31 +314,21 @@ function inist {
     offOLD)
       cat /opt/inist-tools/conf/servicesOff | parallel --gnu --no-notice /opt/inist-tools/inistexec {} off
     ;;
-    
+
     on )
       _it_std_consoleMessage "TITLE" "Basculement de toutes les applications pour utiliser le proxy INIST..."
-      inist shell on
-      inist "$DESKTOPSESSION" on
-      inist apt on
-      inist docker on
-      inist github on
-      inist npm on
-      inist bower on
-      inist curl on
-      inist wget on
+	  for service in shell ${INIST_SERVICES:="desktop apt docker github npm curl bower wget"}
+	  do
+		inist $service on
+	  done;
     ;;
-    
+
     off )
       _it_std_consoleMessage "TITLE" "Désactivation du proxy INIST pour toutes les applications..."
-      inist shell off
-      inist "$DESKTOPSESSION" off
-      inist apt off
-      inist docker off
-      inist github off
-      inist npm off
-      inist bower off
-      inist curl off
-      inist wget off
+	  for service in shell ${INIST_SERVICES:="desktop apt docker github npm curl bower wget"}
+	  do
+		inist $service off
+	  done;
     ;;
 
     #---------------------------------------------------------------------------
@@ -346,7 +336,7 @@ function inist {
     #---------------------------------------------------------------------------
     ntp )
       case $2 in
-      
+
         # Synchro avec serveur ntp de l'INIST
         sync )
           _it_std_consoleMessage "INFO" "Synchronisation de la date/heure..."
@@ -354,11 +344,11 @@ function inist {
           _it_std_consoleMessage "OK" "Heure synchronisée"
           return $TRUE
         ;;
-        
+
         * )
           _it_std_consoleMessage "AIDE" "« inist ntp sync » pour synchroniser votre machine avec le serveur NTP de l'INIST"
         ;;
-        
+
       esac
     ;;
 
@@ -377,7 +367,7 @@ function inist {
       source "/opt/inist-tools/libs/gource.rc"
       _it_gource "$2"
     ;;
-    
+
     #---------------------------------------------------------------------------
     # Choix du proxy
     #---------------------------------------------------------------------------
@@ -386,13 +376,13 @@ function inist {
       IT_PROXY="$PROXY_ADSL"
       _it_std_consoleMessage "WARNING" "N'oubliez pas de faire inist off puis inist on pour activer l'usage du proxy ADSL"
     ;;
-    
+
     --proxy=inist | --proxy=INIST)
       _it_std_setEnv "it_proxy" "INIST"
       IT_PROXY="$PROXY_INIST"
       _it_std_consoleMessage "WARNING" "N'oubliez pas de faire inist off puis inist on pour activer l'usage du proxy INIST"
     ;;
-    
+
     --proxy)
       IT_PROXY=$(_it_std_getEnv "it_proxy")
       if [ $IT_PROXY == -1 ]; then
@@ -401,13 +391,13 @@ function inist {
       fi
       _it_std_consoleMessage "INFO" "Choix courant de proxy : $IT_PROXY"
     ;;
-    
+
     #---------------------------------------------------------------------------
     # power
     #---------------------------------------------------------------------------
     power )
       case "$2" in
-        
+
         save )
           $SUDO "/opt/inist-tools/tools/powersave.sh"
           return $TRUE
@@ -417,20 +407,20 @@ function inist {
           $SUDO "/opt/inist-tools/tools/powerondemand.sh"
           return $TRUE
         ;;
-        
+
         max )
           $SUDO "/opt/inist-tools/tools/powermax.sh"
           return $TRUE
         ;;
-        
+
         *)
           _it_std_consoleMessage "WARNING" "L'option « $3 » n'est pas reconnue pour la commande « power »"
           return $FALSE
         ;;
-        
+
       esac
     ;;
-    
+
     powersave )
       $SUDO "/opt/inist-tools/tools/powersave.sh"
       return $TRUE
@@ -440,7 +430,7 @@ function inist {
       $SUDO "/opt/inist-tools/tools/powerondemand.sh"
       return $TRUE
     ;;
-    
+
     powermax )
       SUDO "/opt/inist-tools/tools/powermax.sh"
       return $TRUE
@@ -453,7 +443,7 @@ function inist {
       $SUDO "/opt/inist-tools/tools/inist-tools-update.sh"
       inist -r
     ;;
-    
+
     #---------------------------------------------------------------------------
     # reload
     #---------------------------------------------------------------------------
@@ -463,7 +453,7 @@ function inist {
       _it_std_consoleMessage "INFO" "INIST-TOOLS [$MODULE_VERSION] rechargé"
       return $TRUE
     ;;
-    
+
     #---------------------------------------------------------------------------
     # status
     #---------------------------------------------------------------------------
@@ -494,7 +484,7 @@ function inist {
       _it_std_show_help
       return $TRUE
     ;;
-    
+
     #---------------------------------------------------------------------------
     # OPTION : --pid
     #---------------------------------------------------------------------------
@@ -518,7 +508,7 @@ function inist {
     * )
       _it_std_consoleMessage "WARNING" "Commande ou option « $1 » inconnue (ou peut-être mal saisie)."
     ;;
-    
+
   esac
 }
 
@@ -543,7 +533,7 @@ fi
 # Liste des services actifs
 #-------------------------------------------------------------------------------
 ACTIVE_SERVICES=''
-for service in shell "$DESKTOPSESSION" apt docker github npm bower curl wget 
+for service in shell ${INIST_SERVICES:="desktop apt docker github npm curl bower wget"}
 do
   isActive=$(_it_std_getEnv "$service")
   if [ "$isActive" == $TRUE ]; then
