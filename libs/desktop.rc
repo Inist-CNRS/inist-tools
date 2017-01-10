@@ -150,7 +150,7 @@ function _it_desktop_unity_proxy {
     off)
       # Vérifier si cet état n'est pas celui en cours
       if _it_std_checkAction "$DESKTOPSESSION" $FALSE ; then
-        it_std_message "INFO" "Déconfiguration de $DESKTOPSESSION pour le proxy INIST"
+        _it_std_message "INFO" "Déconfiguration de $DESKTOPSESSION pour le proxy INIST"
         gsettings reset org.gnome.system.proxy mode
         gsettings reset org.gnome.system.proxy.http host
         gsettings reset org.gnome.system.proxy.http port
