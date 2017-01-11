@@ -2,6 +2,7 @@
 /**
  * Get the istex repository list for the github RESTful API
  * (need to run "npm install" before use)
+ * 
  */
 
 var request = require('superagent');

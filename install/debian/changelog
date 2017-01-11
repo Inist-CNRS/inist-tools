@@ -211,5 +211,8 @@ inist-tools (0.9.11RC) RC; urgency=medium
     cas d'option incorrecte
   * [DEV] Correction du problème de changement de propriétaires de /env
     et /conf
+  * [DEV] Corrections bugs/manques multiples, problèmes de droits sur
+    des fichiers de conf, installation de docker qui posait problème
+    sous Ubuntu 16.04
 
  -- Stanislas PERRIN <stanislas.perrin@inist.fr>  Tue, 21 Jun 2016 08:28:37 +0200

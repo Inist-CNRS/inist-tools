@@ -450,8 +450,20 @@ function inist {
     # update
     #---------------------------------------------------------------------------
     update )
-      $SUDO "/opt/inist-tools/tools/inist-tools-update.sh"
-      inist -r
+      _it_std_consoleMessage "WARNING" "Êtes-vous sûr(e) de vouloir mettre à jour votre version d'inist-tools ? [oui/NON]"
+      read reponse
+      case "$reponse" in
+        o|O|oui|OUI )
+          _it_std_consoleMessage "ACTION" "Mise à jour en cours..."
+          # $SUDO "/opt/inist-tools/tools/inist-tools-update.sh"
+          # /opt/inist-tools/inistexec -r
+          _it_std_consoleMessage "CHECK" "inist-tools est à la dernière version disponible"
+        ;;
+        * )
+          _it_std_consoleMessage "INFO" "Abandon de la màj d'inist-tools"
+          return $TRUE
+        ;;
+      esac
     ;;
     
     #---------------------------------------------------------------------------

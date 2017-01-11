@@ -68,7 +68,7 @@ function _it_misc_apt_proxy {
 # ------------------------------------------------------------------------------
 function _it_misc_wget_proxy {
   wgetRCfile="$HOME/.wgetrc"
-  wgetProxy="http_proxy=$INIST_HTTP_PROXY\nuse_proxy=yes"
+  wgetProxy="http_proxy=$INIST_HTTP_PROXY\nhttps_proxy=$INIST_HTTP_PROXY\nuse_proxy=yes"
   wgetProxyTmp="/run/shm/wgetProxy"
   
   case "$1" in
