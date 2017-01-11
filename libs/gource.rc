@@ -21,6 +21,21 @@ function _it_gource {
   # IT_GOURCE_SPRINTSTART
   # IT_GOURCE_SPRINTEND
   
+  # ~~~~~~~~~~~~~~~~~
+  # ~ ALGO SOMMAIRE ~
+  # ~~~~~~~~~~~~~~~~~
+  #
+  # 1] récupérer/vérifier les variables d'environnement
+  # 2] lire le fichier de conf qui doit contenir
+  #     ･ token utilisateur de la plateforme (vpgithub INIST ou GitHub)
+  #     ･ url de l'API du compte permettant de récupérer les repositories
+  # 3] écrire le get-repository-list.js correspondant ou y injecter
+  #    les variables du fichier de conf si on compte faire un gource pour tous
+  #    les repos du compte
+  # 4] appeller libs/gource/gource.sh avec les paramètres pour
+  #     ･ puller le repository ou le compte complet
+  #     ･ créer l'animation kivabien
+  
   if [ -z "$IT_GOURCE_PROJECTNAME" ]; then
     _it_std_consoleMessage "ERROR" "La variable d'environnement 'IT_GOURCE_PROJECTNAME' n'est pas renseignée. Essayez « export IT_GOURCE_PROJECTNAME=\"nom du projet\" »."
     return $FALSE

@@ -214,5 +214,6 @@ inist-tools (0.9.11RC) RC; urgency=medium
   * [DEV] Corrections bugs/manques multiples, problèmes de droits sur
     des fichiers de conf, installation de docker qui posait problème
     sous Ubuntu 16.04
+  * [DEV] Commit -- 11/01/2017 @ 14:56:49
 
  -- Stanislas PERRIN <stanislas.perrin@inist.fr>  Tue, 21 Jun 2016 08:28:37 +0200
