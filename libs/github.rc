@@ -19,7 +19,7 @@ function _it_github_protocol {
       fi
       if _it_std_checkAction "github" $TRUE ; then
         git config --global url."https://github.com/".insteadOf git@github.com:
-        git config --global credential.helper 'cache --timeout=3600'        
+        git config --global credential.helper 'cache --timeout=28800'        
         _it_std_setAction "github" $TRUE
       fi
     ;;

@@ -201,12 +201,6 @@ function inist {
       _it_desktop_gnome_proxy "$2"
     ;;
 
-    iceweasel )
-      _it_std_consoleMessage "WARNING" "Cette commande n'est pas encore implémentée."
-      # source "$DIR_LIBS/browsers.rc"
-      # _it_browsers_iceweasel_proxy "$2"
-    ;;
-
     kde )
       source "$DIR_LIBS/desktop.rc"
       _it_desktop_kde_proxy "$2"
@@ -245,6 +239,14 @@ function inist {
     xfce )
       source "$DIR_LIBS/desktop.rc"
       _it_desktop_xfce4_proxy "$2"
+    ;;
+
+    #---------------------------------------------------------------------------
+    # COMMANDE : dependencies
+    #---------------------------------------------------------------------------
+    dependencies | dep )
+      source "$DIR_LIBS/misc.rc"
+      _it_misc_dependencies "$2"
     ;;
 
     #---------------------------------------------------------------------------
@@ -317,18 +319,18 @@ function inist {
 
     on )
       _it_std_consoleMessage "TITLE" "Basculement de toutes les applications pour utiliser le proxy INIST..."
-	  for service in shell ${INIST_SERVICES:="desktop apt docker github npm curl bower wget"}
-	  do
-		inist $service on
-	  done;
+      for service in shell ${INIST_SERVICES:="desktop apt docker github npm curl bower wget"}
+      do
+        inist $service on
+      done;
     ;;
 
     off )
       _it_std_consoleMessage "TITLE" "Désactivation du proxy INIST pour toutes les applications..."
-	  for service in shell ${INIST_SERVICES:="desktop apt docker github npm curl bower wget"}
-	  do
-		inist $service off
-	  done;
+      for service in shell ${INIST_SERVICES:="desktop apt docker github npm curl bower wget"}
+      do
+        inist $service off
+      done;
     ;;
 
     #---------------------------------------------------------------------------
@@ -339,9 +341,10 @@ function inist {
 
         # Synchro avec serveur ntp de l'INIST
         sync )
-          _it_std_consoleMessage "INFO" "Synchronisation de la date/heure..."
-          $SUDO "/opt/inist-tools/tools/timesync.sh"
-          _it_std_consoleMessage "OK" "Heure synchronisée"
+          _it_std_consoleMessage "ACTION" "Synchronisation de la date/heure..."
+          if $SUDO "/opt/inist-tools/tools/timesync.sh" ; then
+            _it_std_consoleMessage "OK" "Heure synchronisée"
+          fi
           return $TRUE
         ;;
 
@@ -373,13 +376,13 @@ function inist {
     #---------------------------------------------------------------------------
     --proxy=adsl | --proxy=ADSL)
       _it_std_setEnv "it_proxy" "ADSL"
-      IT_PROXY="$PROXY_ADSL"
+      IT_PROXY="ADSL"
       _it_std_consoleMessage "WARNING" "N'oubliez pas de faire inist off puis inist on pour activer l'usage du proxy ADSL"
     ;;
 
     --proxy=inist | --proxy=INIST)
       _it_std_setEnv "it_proxy" "INIST"
-      IT_PROXY="$PROXY_INIST"
+      IT_PROXY="INIST"
       _it_std_consoleMessage "WARNING" "N'oubliez pas de faire inist off puis inist on pour activer l'usage du proxy INIST"
     ;;
 
@@ -387,7 +390,7 @@ function inist {
       IT_PROXY=$(_it_std_getEnv "it_proxy")
       if [ $IT_PROXY == -1 ]; then
         _it_std_setEnv "it_proxy" "INIST"
-        IT_PROXY="$PROXY_INIST"
+        IT_PROXY="INIST"
       fi
       _it_std_consoleMessage "INFO" "Choix courant de proxy : $IT_PROXY"
     ;;

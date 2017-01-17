@@ -215,5 +215,9 @@ inist-tools (0.9.11RC) RC; urgency=medium
     des fichiers de conf, installation de docker qui posait problème
     sous Ubuntu 16.04
   * [DEV] Commit -- 11/01/2017 @ 14:56:49
+  * [DEV] Correction de bugs (lock à l'installation, affichage, proxy,
+    .curlrc, etc...) / merge d'un PULL REQUEST / gitconfig : credentials
+    = 8h / fonction de vérification et d'installation des dépendances
+    d'inist-tools / warning ntpdate manquant si ntp sync échoue
 
  -- Stanislas PERRIN <stanislas.perrin@inist.fr>  Tue, 21 Jun 2016 08:28:37 +0200

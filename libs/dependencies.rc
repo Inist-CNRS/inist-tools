@@ -1,0 +1,80 @@
+#!/usr/bin/env bash
+################################################################################
+#
+# inist-tools / libs / gource.rc
+# 
+# Bibliothèque de fonctions de génération d'animation "gource"
+#
+# @author : INIST-CNRS/DPI
+#
+################################################################################
+
+# ------------------------------------------------------------------------------
+# _it_gource
+# ------------------------------------------------------------------------------
+function _it_gource {
+
+  # On doit pouvoir trouver ces valeurs dans l'environnement (via un export
+  # par exemple)
+  # IT_GOURCE_PROJECTNAME
+  # IT_GOURCE_SPRINTNAME
+  # IT_GOURCE_SPRINTSTART
+  # IT_GOURCE_SPRINTEND
+  
+  # ~~~~~~~~~~~~~~~~~
+  # ~ ALGO SOMMAIRE ~
+  # ~~~~~~~~~~~~~~~~~
+  #
+  # 1] récupérer/vérifier les variables d'environnement
+  # 2] lire le fichier de conf qui doit contenir
+  #     ･ token utilisateur de la plateforme (vpgithub INIST ou GitHub)
+  #     ･ url de l'API du compte permettant de récupérer les repositories
+  # 3] écrire le get-repository-list.js correspondant ou y injecter
+  #    les variables du fichier de conf si on compte faire un gource pour tous
+  #    les repos du compte
+  # 4] appeller libs/gource/gource.sh avec les paramètres pour
+  #     ･ puller le repository ou le compte complet
+  #     ･ créer l'animation kivabien
+  
+  if [ -z "$IT_GOURCE_PROJECTNAME" ]; then
+    _it_std_consoleMessage "ERROR" "La variable d'environnement 'IT_GOURCE_PROJECTNAME' n'est pas renseignée. Essayez « export IT_GOURCE_PROJECTNAME=\"nom du projet\" »."
+    return $FALSE
+  fi
+
+  if [ -z "$IT_GOURCE_SPRINTNAME" ]; then
+    _it_std_consoleMessage "ERROR" "La variable d'environnement 'IT_GOURCE_SPRINTNAME' n'est pas renseignée. Essayez « export IT_GOURCE_SPRINTNAME=\"nom du sprint\" »."
+    return $FALSE
+  fi
+
+  if [ -z "$IT_GOURCE_SPRINTSTART" ]; then
+    _it_std_consoleMessage "ERROR" "La variable d'environnement 'IT_GOURCE_SPRINTSTART' n'est pas renseignée. Essayez « export IT_GOURCE_SPRINTSTART=\"2017-01-01\" »."
+    return $FALSE
+  fi
+
+  if [ -z "$IT_GOURCE_SPRINTEND" ]; then
+    _it_std_consoleMessage "ERROR" "La variable d'environnement 'IT_GOURCE_SPRINTEND' n'est pas renseignée. Essayez « export IT_GOURCE_SPRINTEND=\"2017-03-10\" »."
+    return $FALSE
+  fi
+
+  # -------------------------------
+  # Variables locales à la fonction
+  # -------------------------------
+  local tmpDir = "/tmp/$IT_GOURCE_PROJECTNAME/$IT_GOURCE_SPRINTNAME"
+  
+  # -----------------
+  # Vérifier le dépôt
+  # -----------------
+  
+  case "$1" in
+   
+    help)
+      _it_std_consoleMessage "HELP" "Permet de créer une animation gource à partir d'un dépôt git."
+    ;;
+    
+    *)
+      # Traitement du dépôt pour en faire une animation "gource"
+      _it_std_consoleMessage "WARNING" "Commande « $1 » non prise en charge"
+    ;;
+    
+  esac
+}

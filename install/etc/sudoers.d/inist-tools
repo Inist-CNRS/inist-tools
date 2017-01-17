@@ -14,3 +14,4 @@ ALL	ALL=(root)	NOPASSWD:	/opt/inist-tools/tools/postfix-relay-on.sh
 ALL	ALL=(root)	NOPASSWD:	/opt/inist-tools/tools/postfix-relay-off.sh
 ALL	ALL=(root)	NOPASSWD:	/opt/inist-tools/tools/env-create.sh
 ALL	ALL=(root)	NOPASSWD:	/opt/inist-tools/tools/inist-tools-update.sh
+ALL	ALL=(root)	NOPASSWD:	/opt/inist-tools/tools/inist-tools-dependencies.sh

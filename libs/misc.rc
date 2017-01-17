@@ -151,7 +151,7 @@ function _it_misc_curl_proxy {
       if _it_std_checkAction "curl" $FALSE ; then
         if [ -a "$curlConf" ]; then
           # On soustrait la ligne contenant la conf du proxy INIST de la conf de curl...
-          curlConfNew=$(grep -v "proxyout\.inist\.fr" "$curlConf")
+          curlConfNew=$(grep -v "\.inist\.fr" "$curlConf")
           # ...et on réinject cette conf "nettoyée" dans ~/.curlrc
           echo "$curlConfNew" > "$curlConf"
         fi
@@ -230,6 +230,34 @@ function _it_misc_npm_proxy {
   esac
 }
 
+# ------------------------------------------------------------------------------
+# DÉPENDANCES
+# ------------------------------------------------------------------------------
+function _it_misc_dependencies {
+  case "$1" in
+    
+    install)
+      $SUDO /opt/inist-tools/tools/inist-tools-dependencies.sh
+    ;;
+    
+    status)
+      _it_std_consoleMessage "INFO" "Vérification des dépendance en cours en cours..."
+      for package in $IT_DEPENDENCIES; do
+        packageStatus=$(dpkg -s "$package" | grep -i "status" | grep -i "installed")
+        if [ $? == 0 ]; then
+          _it_std_consoleMessage "OK" "« $package » est installé sur votre système"
+        else
+          _it_std_consoleMessage "NOK" "« $package » n'est pas installé sur votre système"
+        fi
+      done
+    ;;
+    
+    *)
+      _it_std_consoleMessage "WARNING" "Commande « $1 » non prise en charge. Essayez install|status."
+    ;;
+    
+  esac
+}
 
 # ------------------------------------------------------------------------------
 # INFOS

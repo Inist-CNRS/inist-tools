@@ -23,12 +23,18 @@ CURDIR=$( cd "$( dirname "$0" )" && pwd )
 # Mise-à-l'heure
 #-------------------------------------------------------------------------------
 if which ntpd ; then
-  _it_std_consoleMessage "INFO" "ntpd est déjà utilisé pour sdynchroniser la machine"
+  _it_std_consoleMessage "WARNING" "ntpd est déjà utilisé pour sdynchroniser la machine"
+  exit $TRUE
 else
-  ntpdate ntp-int.inist.fr
+  if _it_std_check_command "ntpdate" ; then
+    ntpdate ntp-int.inist.fr > /dev/null 2>&1
+  else
+    _it_std_consoleMessage "ERROR" "ntpdate n'est pas installé sur votre machine. Essayez 'inist dependencies install'."
+    exit $FALSE
+  fi
 fi
 
 #-------------------------------------------------------------------------------
 # Fin
 #-------------------------------------------------------------------------------
-exit 0
+exit $TRUE

@@ -58,6 +58,9 @@ HOST_IP_ADDRESS=$(hostname -I | cut -d " " -f1)
 # User / Group / Sudo
 SUDO="$(which sudo) -u root"
 
+# Dépendances logicielles
+IT_DEPENDENCIES="make ntpdate parallel jq sudo libnotify-bin"
+
 #-------------------------------------------------------------------------------
 # Détermination de la plateforme et de sa version et la version du noyau
 #-------------------------------------------------------------------------------

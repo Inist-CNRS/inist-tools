@@ -113,9 +113,9 @@ function _it_desktop_gnome_proxy {
 
     *)
       if [ -z "$1" ]; then 
-        $1="vide"
+        local ARG='vide'
       fi
-      _it_std_consoleMessage "WARNING" "Commande « $1 » non prise en charge. Essayez on|off|help|status."
+      _it_std_consoleMessage "WARNING" "Commande « $ARG » non prise en charge. Essayez on|off|help|status."
     ;;
     
   esac
@@ -171,9 +171,9 @@ function _it_desktop_unity_proxy {
 
     *)
       if [ -z "$1" ]; then 
-        $1="vide"
+        local ARG='vide'
       fi
-      _it_std_consoleMessage "WARNING" "Commande « $1 » non prise en charge. Essayez on|off|help|status."
+      _it_std_consoleMessage "WARNING" "Commande « $ARG » non prise en charge. Essayez on|off|help|status."
     ;;
     
   esac
@@ -230,9 +230,9 @@ function _it_desktop_xfce4_proxy {
 
     *)
       if [ -z "$1" ]; then 
-        $1="vide"
+        local ARG='vide'
       fi
-      _it_std_consoleMessage "WARNING" "Commande « $1 » non prise en charge. Essayez on|off|help|status."
+      _it_std_consoleMessage "WARNING" "Commande « $ARG » non prise en charge. Essayez on|off|help|status."
     ;;
 
   esac
