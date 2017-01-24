@@ -106,15 +106,15 @@ if [ "$GENERATE_VIDEO" == "1" ]; then
          --user-image-dir ./avatars/ \
          --path ./gource-range.log \
          -1024x576 -o - \
-        | ffmpeg -y -r 60 -f image2pipe -vcodec ppm -i - -vcodec libvpx -b 10000K gource-$PROJECT_NAME-$SPRINT_NAME.webm
+        | ffmpeg -y -r 60 -f image2pipe -vcodec ppm -i - -vcodec libvpx -b 10000K "$TMP_DIR/gource-$PROJECT_NAME-$SPRINT_NAME.webm"
 else
   gource --seconds-per-day 2 \
          --file-filter ".*node_modules.*" \
          --file-filter ".*dataset.*" \
          --output-framerate 60 \
          --user-scale 1.5 \
-         --user-image-dir ./avatars/ \
-         --path ./gource-range.log
+         --user-image-dir "/opt/inist-tools/libs/gource/avatars/" \
+         --path "$TMP_DIR/gource-range.log"
 fi
 _it_std_consoleMessage "OK" "gource généré"
 
