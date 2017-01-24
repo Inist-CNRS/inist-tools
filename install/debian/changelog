@@ -219,5 +219,6 @@ inist-tools (0.9.11RC) RC; urgency=medium
     .curlrc, etc...) / merge d'un PULL REQUEST / gitconfig : credentials
     = 8h / fonction de vérification et d'installation des dépendances
     d'inist-tools / warning ntpdate manquant si ntp sync échoue
+  * [DEV] WIP gource
 
  -- Stanislas PERRIN <stanislas.perrin@inist.fr>  Tue, 21 Jun 2016 08:28:37 +0200

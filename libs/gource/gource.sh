@@ -9,72 +9,94 @@
 #
 ################################################################################
 
-TMP_DIR="$1"
-PROJECT_REPOSITORY="$2"
-PROJECT_NAME="$3"
-SPRINT_NAME="$4"
-SPRINT_START="$5"
-SPRINT_END="$6"
+# ------------------------------------------------------------------------------
+# Libs
+# ------------------------------------------------------------------------------
+source "$DIR_LIBS/ansicolors.rc"
+source "$DIR_LIBS/std.rc"
+
+# ------------------------------------------------------------------------------
+# Ligne de commande
+# ------------------------------------------------------------------------------
+# TMP_DIR="$1"
+PROJECT_URL="$1"
+PROJECT_NAME=$(echo $PROJECT_URL | rev | cut -d "/" -f1 | rev)
+SPRINT_NAME="$2"
+SPRINT_START="$3"
+SPRINT_END="$4"
 GENERATE_VIDEO="1"
 
+# ------------------------------------------------------------------------------
+# Variables locales
+# ------------------------------------------------------------------------------
+local TMP_DIR = "/tmp/$PROJECT_NAME/$SPRINT_NAME"
+
+# ---------------------------------
+# Création du répertoire temporaire
+# ---------------------------------
 if [ ! -z "TMP_DIR" ] && [ -d "$TMP_DIR" ]; then
   cd "TMP_DIR"
 else
   exit 1
 fi
 
-# get all the istex github repositories name
-# and generate a commit log for each repository
-MODULES=$(/opt/inist-tools/libs/gource/get-repository-list.js)
-for M in $MODULES
-do
-  # clone source code
-  echo "-> Getting source code"
-  mkdir -p "TMP_DIR/sources/"
-  if [ -d "TMP_DIR/sources/$M/" ]; then
-    cd "TMP_DIR/sources/$M"
-    git pull
-    cd ../..
-  else
-    cd "TMP_DIR/sources/"
-    #
-    # ~ Refactoring ~
-    # Structure des variables à renseigner
-    # git clone "git@$GIT_SERVER:$GIT_REPO[/$MODULE_NAME].git"
-    #
-    git clone "git@vpgithub.intra.inist.fr:istex/$M.git"
-    cd ..
-  fi
-  # code source commit logs
-  echo "-> Generating $M.log"
-  gource --output-custom-log "./logs_$M.log" ./sources/$M/
-  sed -i -E "s#(.+)\|#\1|/$PROJECT_NAME/$M#" ./logs_$M.log
-done
+# ----------------------
+# Récupération du source 
+# ----------------------
+_it_std_consoleMessage "INFO" "Récupération des sources"
+mkdir -p "$TMP_DIR/sources/"
+if [ -d "$TMP_DIR/sources/$PROJECT_NAME/" ]; then
+  cd "$TMP_DIR/sources/$PROJECT_NAME"
+  git pull
+  cd ../..
+else
+  cd "$TMP_DIR/sources/"
+  git clone "$PROJECT_URL"
+  cd "$TMP_DIR"
+fi
 
-# sort by date
+# --------------------------
+# Logs de commit des sources
+# --------------------------
+_it_std_consoleMessage "INFO" "Generation de $PROJECT_NAME.log"
+gource --output-custom-log "$TMP_DIR/logs_$PROJECT_NAME.log" "$TMP_DIR/sources/$PROJECT_NAME/"
+# vérifier l'usage de la ligne suivante durant les tests...
+# sed -i -E "s#(.+)\|#\1|/$PROJECT_NAME/$PROJECT_NAME#" ./logs_$PROJECT_NAME.log
+
+# --------------------- 
+# Tri des logs par date
+# ---------------------
+_it_std_consoleMessage "INFO" "Tri des logs"
 echo "-> Sorting *.log"
 cat ./logs_*.log | sort -n > ./gource-all.log
 
-# date range
+# ---------------
+# Plages de dates
+# ---------------
 TIMESTAMP1=`date --date="$SPRINT_START" +%s`
 TIMESTAMP2=`date --date="$SPRINT_END" +%s`
 
-# filter logs out of the date range
-echo "-> Filtering date range"
-rm -f ./gource-range.log
-touch ./gource-range.log
+# ------------------------------------------------
+# Filtrage des logs en dehors de la plage de dates
+# ------------------------------------------------
+_it_std_consoleMessage "INFO" "Filtrage des plages de dates"
+rm -f "$TMP_DIR/gource-range.log"
+touch "$TMP_DIR/gource-range.log"
+
 while read line
 do
   TIMESTAMP=`echo $line | awk -F'|' '{ print $1 }'`
   if [ "${TIMESTAMP:-0}" -ge $TIMESTAMP1 ] ; then
     if [ "${TIMESTAMP:-0}" -le $TIMESTAMP2 ] ; then
-      echo $line >> ./gource-range.log
+      echo $line >> "$TMP_DIR/gource-range.log"
     fi
   fi
-done < ./gource-all.log
+done < "$TMP_DIR/gource-all.log"
 
-echo "-> Generating the gource"
-# generate the video
+# --------------------
+# Génération du gource
+# --------------------
+_it_std_consoleMessage "ACTION" "Generation du gource"
 if [ "$GENERATE_VIDEO" == "1" ]; then
   gource --seconds-per-day 2 \
          --file-filter ".*node_modules.*" \
@@ -94,4 +116,5 @@ else
          --user-image-dir ./avatars/ \
          --path ./gource-range.log
 fi
-echo "-> Gource generated"
+_it_std_consoleMessage "OK" "gource généré"
+
