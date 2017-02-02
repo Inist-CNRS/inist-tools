@@ -39,28 +39,33 @@ function _it_gource {
   #     ･ puller le repository ou le compte complet
   #     ･ créer l'animation kivabien
 
-  if [ -z "$IT_GOURCE_GITURLS" ]; then
-    _it_std_consoleMessage "ERROR" "La variable d'environnement 'IT_GOURCE_GITURLS' n'est pas renseignée. Essayez « export IT_GOURCE_GITURLS=\"https://url/du/premier/projet git+ssh://user@serveur.fqdn/url/du/second/projet\" »."
+  $IT_GOURCE_GITURL="$2"
+  $IT_GOURCE_SPRINTNAME="$3"
+  $IT_GOURCE_SPRINTSTART="$4"
+  $IT_GOURCE_SPRINTEND="$4"
+
+  if [ -z "$IT_GOURCE_GITURL" ]; then
+    _it_std_consoleMessage "ERROR" "L'URL du dépôt git n'est pas renseigné ('IT_GOURCE_GITURL') n'est pas renseignée. Vous pouvez le positionner en l'exportant. Exemple : « export IT_GOURCE_GITURLS=\"https://url/du/premier/projet git+ssh://user@serveur.fqdn/url/du/second/projet\" »."
     return $FALSE
   fi
   
-  if [ -z "$IT_GOURCE_PROJECTNAME" ]; then
-    _it_std_consoleMessage "ERROR" "La variable d'environnement 'IT_GOURCE_PROJECTNAME' n'est pas renseignée. Essayez « export IT_GOURCE_PROJECTNAME=\"nom du projet\" »."
-    return $FALSE
-  fi
+  #if [ -z "$IT_GOURCE_PROJECTNAME" ]; then
+    #_it_std_consoleMessage "ERROR" "La variable d'environnement 'IT_GOURCE_PROJECTNAME' n'est pas renseignée. Essayez « export IT_GOURCE_PROJECTNAME=\"nom du projet\" »."
+    #return $FALSE
+  #fi
 
   if [ -z "$IT_GOURCE_SPRINTNAME" ]; then
-    _it_std_consoleMessage "ERROR" "La variable d'environnement 'IT_GOURCE_SPRINTNAME' n'est pas renseignée. Essayez « export IT_GOURCE_SPRINTNAME=\"nom du sprint\" »."
+    _it_std_consoleMessage "ERROR" "Le nom du sprint n'est pas renseigné ('IT_GOURCE_SPRINTNAME'). Vous pouvez le positionner en l'exportant. Exemple : « export IT_GOURCE_SPRINTNAME=\"nom du sprint\" »."
     return $FALSE
   fi
 
   if [ -z "$IT_GOURCE_SPRINTSTART" ]; then
-    _it_std_consoleMessage "ERROR" "La variable d'environnement 'IT_GOURCE_SPRINTSTART' n'est pas renseignée. Essayez « export IT_GOURCE_SPRINTSTART=\"2017-01-01\" »."
+    _it_std_consoleMessage "ERROR" "La date de début n'est pas renseignée ('IT_GOURCE_SPRINSTART'). Vous pouvez la positionner en l'exportant. Exemple : « export IT_GOURCE_SPRINTSTART=\"2017-01-01\" »."
     return $FALSE
   fi
 
   if [ -z "$IT_GOURCE_SPRINTEND" ]; then
-    _it_std_consoleMessage "ERROR" "La variable d'environnement 'IT_GOURCE_SPRINTEND' n'est pas renseignée. Essayez « export IT_GOURCE_SPRINTEND=\"2017-03-10\" »."
+    _it_std_consoleMessage "ERROR" "La date de fin n'est pas renseignée ('IT_GOURCE_SPRINTEND'). Vous pouvez la positionner en l'exportant. Exemple : « export IT_GOURCE_SPRINTEND=\"2017-03-10\" »."
     return $FALSE
   fi
 
@@ -69,7 +74,10 @@ function _it_gource {
   # -----------------
   
   case "$1" in
-   
+    go)
+      /opt/inist-tools/tools/gource.sh "$IT_GOURCE_GITURLS" "$IT_GOURCE_SPRINTNAME" "$IT_GOURCE_SPRINTSTART" "$IT_GOURCE_SPRINTEND"
+    ;;
+    
     help)
       _it_std_consoleMessage "HELP" "Permet de créer une animation gource à partir d'un dépôt git."
     ;;

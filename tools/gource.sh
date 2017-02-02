@@ -10,6 +10,20 @@
 ################################################################################
 
 # ------------------------------------------------------------------------------
+# Conf
+# ------------------------------------------------------------------------------
+export PATH="$PATH:/opt/inist-tools"
+PID="$$"
+PARENT_COMMAND="$(ps -o comm= $PPID)"
+MODULE_NAME="INIST-TOOLS"
+DIR_MODULE="/opt/inist-tools" # fixé "en dur" en fonction du chemin définitif
+DIR_CONF="$DIR_MODULE/conf"
+DIR_LIBS="$DIR_MODULE/libs"
+DIR_TOOLS="$DIR_MODULE/tools"
+DIR_INSTALL="$DIR_MODULE/install"
+DIR_ENV="$DIR_MODULE/env"
+
+# ------------------------------------------------------------------------------
 # Libs
 # ------------------------------------------------------------------------------
 source "$DIR_LIBS/ansicolors.rc"
@@ -20,7 +34,7 @@ source "$DIR_LIBS/std.rc"
 # ------------------------------------------------------------------------------
 # TMP_DIR="$1"
 PROJECT_URL="$1"
-PROJECT_NAME=$(echo $PROJECT_URL | rev | cut -d "/" -f1 | rev)
+PROJECT_NAME=$(echo $PROJECT_URL | rev | cut -d "/" -f1 | rev | cut -d "." -f 1)
 SPRINT_NAME="$2"
 SPRINT_START="$3"
 SPRINT_END="$4"
@@ -29,13 +43,14 @@ GENERATE_VIDEO="1"
 # ------------------------------------------------------------------------------
 # Variables locales
 # ------------------------------------------------------------------------------
-local TMP_DIR = "/tmp/$PROJECT_NAME/$SPRINT_NAME"
+TMP_DIR="/tmp/$PROJECT_NAME/$SPRINT_START/$SPRINT_NAME"
 
 # ---------------------------------
 # Création du répertoire temporaire
 # ---------------------------------
-if [ ! -z "TMP_DIR" ] && [ -d "$TMP_DIR" ]; then
-  cd "TMP_DIR"
+mkdir -p "$TMP_DIR"
+if [ ! -z "$TMP_DIR" ] && [ -d "$TMP_DIR" ]; then
+  cd "$TMP_DIR"
 else
   exit 1
 fi
@@ -67,7 +82,6 @@ gource --output-custom-log "$TMP_DIR/logs_$PROJECT_NAME.log" "$TMP_DIR/sources/$
 # Tri des logs par date
 # ---------------------
 _it_std_consoleMessage "INFO" "Tri des logs"
-echo "-> Sorting *.log"
 cat ./logs_*.log | sort -n > ./gource-all.log
 
 # ---------------
@@ -96,25 +110,38 @@ done < "$TMP_DIR/gource-all.log"
 # --------------------
 # Génération du gource
 # --------------------
-_it_std_consoleMessage "ACTION" "Generation du gource"
+#        | ffmpeg -y -r 60 -f image2pipe -vcodec ppm -i - -vcodec libvpx -b 10000K "$TMP_DIR/gource-$PROJECT_NAME-$SPRINT_NAME.webm"
+
+_it_std_consoleMessage "ACTION" "Generation du gource\n"
 if [ "$GENERATE_VIDEO" == "1" ]; then
   gource --seconds-per-day 2 \
          --file-filter ".*node_modules.*" \
          --file-filter ".*dataset.*" \
          --output-framerate 60 \
          --user-scale 1.5 \
-         --user-image-dir ./avatars/ \
+         --user-image-dir "/opt/inist-tools/gfx/gource/avatars/" \
          --path ./gource-range.log \
          -1024x576 -o - \
-        | ffmpeg -y -r 60 -f image2pipe -vcodec ppm -i - -vcodec libvpx -b 10000K "$TMP_DIR/gource-$PROJECT_NAME-$SPRINT_NAME.webm"
+        | avconv -y -r 60 -f image2pipe -vcodec ppm -i - -vcodec libvpx -b 10000K "$TMP_DIR/gource-$PROJECT_NAME-$SPRINT_NAME.webm"
 else
   gource --seconds-per-day 2 \
          --file-filter ".*node_modules.*" \
          --file-filter ".*dataset.*" \
          --output-framerate 60 \
          --user-scale 1.5 \
-         --user-image-dir "/opt/inist-tools/libs/gource/avatars/" \
+         --user-image-dir "/opt/inist-tools/libs/gfx/avatars/" \
          --path "$TMP_DIR/gource-range.log"
 fi
-_it_std_consoleMessage "OK" "gource généré"
+
+_it_std_consoleMessage "OK" "Gource généré, disponible ici : « $TMP_DIR/gource-$PROJECT_NAME-$SPRINT_NAME.webm »"
+
+#_it_std_consoleMessage "ACTION" "Nettoyage du dossier temporaire"
+#if rm -rf "$TMP_DIR" ; then
+  #_it_std_consoleMessage "OK" "« $TMP_DIR » supprimé"
+  #exit $TRUE
+#else
+  #_it_std_consoleMessage "NOK" "impossible de supprimer « $TMP_DIR »"
+  #exit $FALSE
+#fi
+
 
