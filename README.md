@@ -186,6 +186,24 @@ Les services pris en charge sont :
 
 ---
 
+### GOURCE ###
+Inist-Tools permet de créer une animation Gource à partir d'un dépôt git.
+Pour pouvoir fonctionner, vous devez avoir installé ces deux dépendances :
+
+```bash
+$ sudo apt-get install -y libav-tools gource
+```
+
+La commande "gource" dans inist-tools s'utilise ainsi :
+
+```bash
+$ inist gource "url_du_dépôt" "nom_du_sprint" "date_début_format_YYYY-MM-DD" "date_fin_format_YYYY-MM-DD"
+```
+
+Le fichier webm (vidéo pour le web) sera généré dans un répertoire de /tmp
+qui vous sera donné à la fin de l'opération.
+
+
 ## DEV ##
 
 __Note__ : <br>

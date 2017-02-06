@@ -133,19 +133,10 @@ else
          --path "$TMP_DIR/gource-range.log"
 fi
 
-if [ $? eq $TRUE ]; then
+if [ $? -eq $TRUE ]; then
   _it_std_consoleMessage "OK" "Gource généré, disponible ici : « $TMP_DIR/gource-$PROJECT_NAME-$SPRINT_NAME.webm »"
 else
   _it_std_consoleMessage "NOK" "Un problème est survenu.»"
 fi
-
-#_it_std_consoleMessage "ACTION" "Nettoyage du dossier temporaire"
-#if rm -rf "$TMP_DIR" ; then
-  #_it_std_consoleMessage "OK" "« $TMP_DIR » supprimé"
-  #exit $TRUE
-#else
-  #_it_std_consoleMessage "NOK" "impossible de supprimer « $TMP_DIR »"
-  #exit $FALSE
-#fi
 
 
