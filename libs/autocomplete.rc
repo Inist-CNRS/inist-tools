@@ -30,7 +30,7 @@ _inist () {
     ;;
 
     d*)
-      COMPREPLY=( $( compgen -W 'desktop docker ' -- $cur ) )
+      COMPREPLY=( $( compgen -W 'dep dependencies desktop docker ' -- $cur ) )
     ;;
 
     e*)

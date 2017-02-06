@@ -73,6 +73,9 @@ Commandes :
             Synchronise l'horloge de votre PC avec le serveur de temps de
             l'INIST.
 
+    dep     <install|status>
+            Installe ou vérifie le statut des dépendances d'inist-tools.
+            
 Options :
 
   -h, --help      Cette aide
