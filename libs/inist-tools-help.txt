@@ -33,7 +33,7 @@ Commandes :
             INIST. Peut aussi s'utiliser avec "https" (on) et "ssh" (off).
             
     gource  <"URL_du_dépôt_GIT" "nom_du_sprint" "date_début" "date_fin"|help>
-            Produit une animation Gource à partir du dépôt GIT donné en
+            Produit une animation Gource à partir du dépôt git donné en
             argument.
                         
     npm     <on|off|help|status>

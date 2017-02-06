@@ -119,7 +119,7 @@ if [ "$GENERATE_VIDEO" == "1" ]; then
          --file-filter ".*dataset.*" \
          --output-framerate 60 \
          --user-scale 1.5 \
-         --user-image-dir "/opt/inist-tools/gfx/gource/avatars/" \
+         --user-image-dir "/opt/inist-tools/libs/gfx/avatars/" \
          --path ./gource-range.log \
          -1024x576 -o - \
         | avconv -y -r 60 -f image2pipe -vcodec ppm -i - -vcodec libvpx -b 10000K "$TMP_DIR/gource-$PROJECT_NAME-$SPRINT_NAME.webm"
@@ -133,7 +133,11 @@ else
          --path "$TMP_DIR/gource-range.log"
 fi
 
-_it_std_consoleMessage "OK" "Gource généré, disponible ici : « $TMP_DIR/gource-$PROJECT_NAME-$SPRINT_NAME.webm »"
+if [ $? eq $TRUE ]; then
+  _it_std_consoleMessage "OK" "Gource généré, disponible ici : « $TMP_DIR/gource-$PROJECT_NAME-$SPRINT_NAME.webm »"
+else
+  _it_std_consoleMessage "NOK" "Un problème est survenu.»"
+fi
 
 #_it_std_consoleMessage "ACTION" "Nettoyage du dossier temporaire"
 #if rm -rf "$TMP_DIR" ; then

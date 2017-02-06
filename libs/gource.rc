@@ -16,7 +16,7 @@ function _it_gource {
 
   # On doit pouvoir trouver ces valeurs dans l'environnement (via un export
   # par exemple)
-  # IT_GOURCE_GITURLS
+  # IT_GOURCE_GITURL
   # IT_GOURCE_PROJECTNAME
   # IT_GOURCE_SPRINTNAME
   # IT_GOURCE_SPRINTSTART
@@ -39,20 +39,43 @@ function _it_gource {
   #     ･ puller le repository ou le compte complet
   #     ･ créer l'animation kivabien
 
-  $IT_GOURCE_GITURL="$2"
-  $IT_GOURCE_SPRINTNAME="$3"
-  $IT_GOURCE_SPRINTSTART="$4"
-  $IT_GOURCE_SPRINTEND="$4"
-
-  if [ -z "$IT_GOURCE_GITURL" ]; then
-    _it_std_consoleMessage "ERROR" "L'URL du dépôt git n'est pas renseigné ('IT_GOURCE_GITURL') n'est pas renseignée. Vous pouvez le positionner en l'exportant. Exemple : « export IT_GOURCE_GITURLS=\"https://url/du/premier/projet git+ssh://user@serveur.fqdn/url/du/second/projet\" »."
+  # -----------------------------------------------------
+  # Tester les dépendances nécessaires : gource et avconv
+  # -----------------------------------------------------
+  if ! _it_std_check_command "gource" ; then
+    _it_std_consoleMessage "ERROR" "Gource est introuvable ou pas installé. Fin."
     return $FALSE
   fi
-  
-  #if [ -z "$IT_GOURCE_PROJECTNAME" ]; then
-    #_it_std_consoleMessage "ERROR" "La variable d'environnement 'IT_GOURCE_PROJECTNAME' n'est pas renseignée. Essayez « export IT_GOURCE_PROJECTNAME=\"nom du projet\" »."
-    #return $FALSE
-  #fi
+
+  if ! _it_std_check_command "avconv" ; then
+    _it_std_consoleMessage "ERROR" "Avconv est introuvable ou pas installé. Fin."
+    return $FALSE
+  fi
+
+  # --------------------------------------------------------------------
+  # Si les arguments sont vides, alors on prend les var. d'environnement
+  # --------------------------------------------------------------------
+
+  if [ ! -z "$2" ]; then
+    IT_GOURCE_GITURL="$2"
+  fi
+
+  if [ ! -z "$3" ]; then
+    IT_GOURCE_SPRINTNAME="$3"
+  fi
+
+  if [ ! -z "$4" ]; then
+    IT_GOURCE_SPRINTSTART="$4"
+  fi
+
+  if [ ! -z "$5" ]; then
+    IT_GOURCE_SPRINTEND="$5"
+  fi
+
+  if [ -z "$IT_GOURCE_GITURL" ]; then
+    _it_std_consoleMessage "ERROR" "L'URL du dépôt git n'est pas renseigné ('IT_GOURCE_GITURL'). Vous pouvez le positionner en l'exportant. Exemple : « export IT_GOURCE_GITURL=\"https://url/du/premier/projet\" »."
+    return $FALSE
+  fi
 
   if [ -z "$IT_GOURCE_SPRINTNAME" ]; then
     _it_std_consoleMessage "ERROR" "Le nom du sprint n'est pas renseigné ('IT_GOURCE_SPRINTNAME'). Vous pouvez le positionner en l'exportant. Exemple : « export IT_GOURCE_SPRINTNAME=\"nom du sprint\" »."
@@ -74,17 +97,18 @@ function _it_gource {
   # -----------------
   
   case "$1" in
-    go)
-      /opt/inist-tools/tools/gource.sh "$IT_GOURCE_GITURLS" "$IT_GOURCE_SPRINTNAME" "$IT_GOURCE_SPRINTSTART" "$IT_GOURCE_SPRINTEND"
-    ;;
-    
+   
     help)
       _it_std_consoleMessage "HELP" "Permet de créer une animation gource à partir d'un dépôt git."
     ;;
     
     *)
-      # Traitement du dépôt pour en faire une animation "gource"
-      _it_std_consoleMessage "WARNING" "Commande « $1 » non prise en charge"
+      if ! curl -I "$IT_GOURCE_GITURL" 2>&1 | grep "HTTP/1.0 4" && ! curl -I "$IT_GOURCE_GITURL" 2>&1 | grep "HTTP/1.0 5" ; then
+        /opt/inist-tools/tools/gource.sh "$IT_GOURCE_GITURL" "$IT_GOURCE_SPRINTNAME" "$IT_GOURCE_SPRINTSTART" "$IT_GOURCE_SPRINTEND"
+      else
+        _it_std_consoleMessage "ERROR" "L'URL du dépôt ($IT_GOURCE_GITURL) ne semble pas valide ou pas atteignable. Commande interrompue."
+        return $FALSE
+      fi
     ;;
     
   esac

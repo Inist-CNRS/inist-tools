@@ -38,7 +38,7 @@ _inist () {
     ;;
 
     g*)
-      COMPREPLY=( $( compgen -W 'github gnome' -- $cur ) )
+      COMPREPLY=( $( compgen -W 'github gnome gource' -- $cur ) )
     ;;
 
     k*)
