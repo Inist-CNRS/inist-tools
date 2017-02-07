@@ -241,7 +241,7 @@ function _it_misc_dependencies {
     ;;
     
     status)
-      _it_std_consoleMessage "INFO" "Vérification des dépendance en cours en cours..."
+      _it_std_consoleMessage "INFO" "Vérification des dépendance en cours..."
       for package in $IT_DEPENDENCIES; do
         packageStatus=$(dpkg -s "$package" | grep -i "status" | grep -i "installed")
         if [ $? == 0 ]; then

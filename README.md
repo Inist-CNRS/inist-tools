@@ -185,6 +185,49 @@ Les services pris en charge sont :
 ```
 
 ---
+### Variables d'environnement ###
+
+#### $INIST_SERVICES ####
+inist-tools utilise la variable d'environnement ``$INIST_SERVICES`` qui
+permet, lorsque que vous faites ``inist on`` ou ``inist off``
+de ne paramétrer pour le proxy INIST (ou ADSL) qu'une partie des services.
+
+Les services que vous pouvez paramétrer sont : ``desktop apt docker github npm
+curl bower wget``.
+
+Ainsi, si vous faites :
+
+```bash
+$ INIST_SERVICES="apt docker github bower" inist off
+```
+*(dans ce cas précis, la variable ```$INIST_SERVICES``` n'est prise en compte
+qu'une seule fois, au moment de l'execution de ``inist off``)*
+
+ou bien :
+
+```bash
+$ export INIST_SERVICES="apt docker github bower"
+$ inist off
+```
+*(dans ce cas précis, la variable ```$INIST_SERVICES``` est prise en compte
+pour toute la durée du shell courant)*
+
+vous obtiendrez :
+
+```bash
+Désactivation du proxy INIST pour toutes les applications...
+[INFO]		« shell » n'est plus configuré pour fonctionner à l'INIST
+[INFO]		« apt » n'est plus configuré pour fonctionner à l'INIST
+[INFO]		« docker » n'est plus configuré pour fonctionner à l'INIST
+[INFO]		« github » n'est plus configuré pour fonctionner à l'INIST
+[INFO]		« bower » n'est plus configuré pour fonctionner à l'INIST
+```
+
+Les autres services (desktop,; npm, curl, wget) ne seront pas impactés.
+
+#### $IT_GOURCE_* ####
+Les variables d'environnement ``$IT_GOURCE_*`` sont utilisées exclusivement
+dans le cadre de la commande ``inist gource`` (voir ci-dessous).
 
 ### GOURCE ###
 Inist-Tools permet de créer une animation Gource à partir d'un dépôt git.
@@ -193,7 +236,6 @@ Pour pouvoir fonctionner, vous devez avoir installé ces deux dépendances :
 ```bash
 $ sudo apt-get install -y libav-tools gource
 ```
-
 La commande "gource" dans inist-tools s'utilise ainsi :
 
 ```bash
