@@ -121,7 +121,7 @@ if [ "$GENERATE_VIDEO" == "1" ]; then
          --user-scale 1.5 \
          --user-image-dir "/opt/inist-tools/libs/gfx/avatars/" \
          --path ./gource-range.log \
-         -1024x576 -o - \
+         -1920x1080 -o - \
         | avconv -y -r 60 -f image2pipe -vcodec ppm -i - -vcodec libvpx -b 10000K "$TMP_DIR/gource-$PROJECT_NAME-$SPRINT_NAME.webm"
 else
   gource --seconds-per-day 2 \

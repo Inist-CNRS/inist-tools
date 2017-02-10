@@ -228,5 +228,7 @@ inist-tools (0.9.11RC) RC; urgency=medium
   * [DEV] Correction bug de prise en compte de --proxy=adsl, correction
     de bug dans un message, correction bug 'inist dekstop',
     documentation INIST_SERVICES
+  * [DEV] Documentation des variables d'environnement pour la commande
+    gource
 
  -- Stanislas PERRIN <stanislas.perrin@inist.fr>  Tue, 21 Jun 2016 08:28:37 +0200

@@ -236,10 +236,37 @@ Pour pouvoir fonctionner, vous devez avoir installé ces deux dépendances :
 ```bash
 $ sudo apt-get install -y libav-tools gource
 ```
-La commande "gource" dans inist-tools s'utilise ainsi :
+
+#### Générer un gource pour un dépôt ####
+Vous devez renseigner les variables d'environnement suivantes 
+
+  * ``IT_GOURCE_GITURL``
+  
+    L'url du dépôt git pour lequel vous souhaitez générer une animation gource<br />
+    ex : ``$ export IT_GOURCE_GITURL="https://github.com/Inist-CNRS/inist-tools.git"``
+    
+  * ``$IT_GOURCE_SPRINTNAME``
+  
+    Le nom (du sprint) de votre animation <br />
+    ex : ``$ export IT_GOURCE_SPRINTNAME="Démo gource pour inist-tools"``
+    
+  * ``$IT_GOURCE_SPRINTSTART``
+
+    La date de début de la période pour laquelle l'animation sera produites
+    sous la forme YYYY-MM-DD<br />
+    ex : ``$ export IT_GOURCE_SPRINTSTART="2017-01-15"``
+  
+  * ``$IT_GOURCE_SPRINTEND``
+
+    La date de fin de la période pour laquelle l'animation sera produites
+    sous la forme YYYY-MM-DD<br />
+    ex : ``$ export IT_GOURCE_SPRINTEND="2017-02-28"``
+  
+
+Puis lancer la génération du "gource" dans inist-tools s'utilise ainsi :
 
 ```bash
-$ inist gource "url_du_dépôt" "nom_du_sprint" "date_début_format_YYYY-MM-DD" "date_fin_format_YYYY-MM-DD"
+$ inist gource
 ```
 
 Le fichier webm (vidéo pour le web) sera généré dans un répertoire de /tmp
