@@ -92,6 +92,10 @@ function _it_gource {
     return $FALSE
   fi
 
+  if [ -z "$IT_GOURCE_AVATARSDIR" ] || [ ! -d "$IT_GOURCE_AVATARSDIR" ]; then
+    IT_GOURCE_AVATARSDIR="/opt/inist-tools/libs/gfx/avatars/"
+  fi
+
   # -----------------
   # Vérifier le dépôt
   # -----------------
@@ -104,7 +108,7 @@ function _it_gource {
     
     *)
       if ! curl -I "$IT_GOURCE_GITURL" 2>&1 | grep "HTTP/1.0 4" && ! curl -I "$IT_GOURCE_GITURL" 2>&1 | grep "HTTP/1.0 5" ; then
-        /opt/inist-tools/tools/gource.sh "$IT_GOURCE_GITURL" "$IT_GOURCE_SPRINTNAME" "$IT_GOURCE_SPRINTSTART" "$IT_GOURCE_SPRINTEND"
+        /opt/inist-tools/tools/gource.sh "$IT_GOURCE_GITURL" "$IT_GOURCE_SPRINTNAME" "$IT_GOURCE_SPRINTSTART" "$IT_GOURCE_SPRINTEND" "$IT_GOURCE_AVATARSDIR"
       else
         _it_std_consoleMessage "ERROR" "L'URL du dépôt ($IT_GOURCE_GITURL) ne semble pas valide ou pas atteignable. Commande interrompue."
         return $FALSE

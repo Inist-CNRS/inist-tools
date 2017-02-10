@@ -261,6 +261,14 @@ Vous devez renseigner les variables d'environnement suivantes
     La date de fin de la période pour laquelle l'animation sera produites
     sous la forme YYYY-MM-DD<br />
     ex : ``$ export IT_GOURCE_SPRINTEND="2017-02-28"``
+
+  * ``$IT_GOURCE_AVATARSDIR``
+
+    Le chemin vers le répertoire contenant les avatars des contributeurs au
+    dépôt pour lequel vous produisez l'animation. Par défaut, si vous ne 
+    renseignez pas cette variable, le répertoire utilisé est 
+    ``/opt/inist-tools/libs/gfx/avatars/``<br />
+    ex : ``$ export IT_GOURCE_AVATARSDIR="/tmp/avatars"``
   
 
 Puis lancer la génération du "gource" dans inist-tools s'utilise ainsi :

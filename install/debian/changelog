@@ -230,5 +230,7 @@ inist-tools (0.9.11RC) RC; urgency=medium
     documentation INIST_SERVICES
   * [DEV] Documentation des variables d'environnement pour la commande
     gource
+  * [DEV] Documentation de la configuration du répertoire des avatars
+    pour Gource
 
  -- Stanislas PERRIN <stanislas.perrin@inist.fr>  Tue, 21 Jun 2016 08:28:37 +0200

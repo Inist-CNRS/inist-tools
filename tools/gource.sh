@@ -38,6 +38,7 @@ PROJECT_NAME=$(echo $PROJECT_URL | rev | cut -d "/" -f1 | rev | cut -d "." -f 1)
 SPRINT_NAME="$2"
 SPRINT_START="$3"
 SPRINT_END="$4"
+AVATARS_DIR="$5"
 GENERATE_VIDEO="1"
 
 # ------------------------------------------------------------------------------
@@ -119,7 +120,7 @@ if [ "$GENERATE_VIDEO" == "1" ]; then
          --file-filter ".*dataset.*" \
          --output-framerate 60 \
          --user-scale 1.5 \
-         --user-image-dir "/opt/inist-tools/libs/gfx/avatars/" \
+         --user-image-dir "$AVATARS_DIR" \
          --path ./gource-range.log \
          -1920x1080 -o - \
         | avconv -y -r 60 -f image2pipe -vcodec ppm -i - -vcodec libvpx -b 10000K "$TMP_DIR/gource-$PROJECT_NAME-$SPRINT_NAME.webm"
@@ -129,7 +130,7 @@ else
          --file-filter ".*dataset.*" \
          --output-framerate 60 \
          --user-scale 1.5 \
-         --user-image-dir "/opt/inist-tools/libs/gfx/avatars/" \
+         --user-image-dir "$AVATARS_DIR" \
          --path "$TMP_DIR/gource-range.log"
 fi
 
