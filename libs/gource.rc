@@ -108,10 +108,10 @@ function _it_gource {
     
     *)
       # Boucle sur les dépôts (même s'il n'y en a qu'un)
-      for depot in "$IT_GOURCE_GITURLS"
+      for depot in $IT_GOURCE_GITURLS
       do
         if ! curl -I "$depot" 2>&1 | grep "HTTP/1.0 4" && ! curl -I "$depot" 2>&1 | grep "HTTP/1.0 5" ; then
-          /opt/inist-tools/tools/gource.sh "$IT_GOURCE_GITURL" "$IT_GOURCE_SPRINTNAME" "$IT_GOURCE_SPRINTSTART" "$IT_GOURCE_SPRINTEND" "$IT_GOURCE_AVATARSDIR"
+          /opt/inist-tools/tools/gource.sh "$depot" "$IT_GOURCE_SPRINTNAME" "$IT_GOURCE_SPRINTSTART" "$IT_GOURCE_SPRINTEND" "$IT_GOURCE_AVATARSDIR"
         else
           _it_std_consoleMessage "ERROR" "L'URL du dépôt ($IT_GOURCE_GITURL) ne semble pas valide ou pas atteignable. Commande interrompue."
           return $FALSE

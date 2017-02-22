@@ -233,5 +233,6 @@ inist-tools (0.9.11RC) RC; urgency=medium
   * [DEV] Documentation de la configuration du répertoire des avatars
     pour Gource
   * [DEV] Commit -- 22/02/2017 @ 14:02:31
+  * [DEV] Gource multi-dépôt
 
  -- Stanislas PERRIN <stanislas.perrin@inist.fr>  Tue, 21 Jun 2016 08:28:37 +0200
