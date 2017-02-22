@@ -223,7 +223,7 @@ Désactivation du proxy INIST pour toutes les applications...
 [INFO]		« bower » n'est plus configuré pour fonctionner à l'INIST
 ```
 
-Les autres services (desktop,; npm, curl, wget) ne seront pas impactés.
+Les autres services (desktop, npm, curl, wget) ne seront pas impactés.
 
 #### $IT_GOURCE_* ####
 Les variables d'environnement ``$IT_GOURCE_*`` sont utilisées exclusivement
