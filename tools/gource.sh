@@ -44,7 +44,7 @@ GENERATE_VIDEO="1"
 # ------------------------------------------------------------------------------
 # Variables locales
 # ------------------------------------------------------------------------------
-TMP_DIR="/tmp/$PROJECT_NAME/$SPRINT_START/$SPRINT_NAME"
+TMP_DIR="/tmp/$SPRINT_START/$SPRINT_NAME/$PROJECT_NAME"
 
 # ---------------------------------
 # Création du répertoire temporaire
