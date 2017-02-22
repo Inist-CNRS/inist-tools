@@ -264,10 +264,10 @@ Vous devez renseigner les variables d'environnement suivantes
 
   * ``$IT_GOURCE_AVATARSDIR``
 
-    Le chemin vers le répertoire contenant les avatars des contributeurs au
-    dépôt pour lequel vous produisez l'animation. Par défaut, si vous ne 
-    renseignez pas cette variable, le répertoire utilisé est 
-    ``/opt/inist-tools/libs/gfx/avatars/``<br />
+    Le chemin **absolu** vers le répertoire contenant les avatars des
+    contributeurs au dépôt pour lequel vous produisez l'animation.
+    Par défaut, si vous ne renseignez pas cette variable, le répertoire utilisé
+    est ``/opt/inist-tools/libs/gfx/avatars/``<br />
     ex : ``$ export IT_GOURCE_AVATARSDIR="/tmp/avatars"``
   
 

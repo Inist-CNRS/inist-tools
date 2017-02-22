@@ -33,51 +33,67 @@ source "$DIR_LIBS/std.rc"
 # Ligne de commande
 # ------------------------------------------------------------------------------
 # TMP_DIR="$1"
-PROJECT_URL="$1"
-PROJECT_NAME=$(echo $PROJECT_URL | rev | cut -d "/" -f1 | rev | cut -d "." -f 1)
+PROJECT_URLS="$1"
 SPRINT_NAME="$2"
 SPRINT_START="$3"
 SPRINT_END="$4"
 AVATARS_DIR="$5"
 GENERATE_VIDEO="1"
 
-# ------------------------------------------------------------------------------
-# Variables locales
-# ------------------------------------------------------------------------------
-TMP_DIR="/tmp/$SPRINT_START/$SPRINT_NAME/$PROJECT_NAME"
+GOURCE_NAME=""
 
 # ---------------------------------
 # Création du répertoire temporaire
 # ---------------------------------
+TMP_DIR="/tmp/inist-gource/$SPRINT_NAME/$SPRINT_START"
 mkdir -p "$TMP_DIR"
 if [ ! -z "$TMP_DIR" ] && [ -d "$TMP_DIR" ]; then
   cd "$TMP_DIR"
 else
+  _it_std_consoleMessage "ERROR" "« $TMP_DIR » introuvable !?!"
   exit 1
 fi
 
-# ----------------------
-# Récupération du source 
-# ----------------------
-_it_std_consoleMessage "INFO" "Récupération des sources"
-mkdir -p "$TMP_DIR/sources/"
-if [ -d "$TMP_DIR/sources/$PROJECT_NAME/" ]; then
-  cd "$TMP_DIR/sources/$PROJECT_NAME"
-  git pull
-  cd ../..
-else
-  cd "$TMP_DIR/sources/"
-  git clone "$PROJECT_URL"
-  cd "$TMP_DIR"
-fi
+# -----------------------
+# Bouclage sur les dépôts
+# -----------------------
+for depot in $PROJECT_URLS
+do
 
-# --------------------------
-# Logs de commit des sources
-# --------------------------
-_it_std_consoleMessage "INFO" "Generation de $PROJECT_NAME.log"
-gource --output-custom-log "$TMP_DIR/logs_$PROJECT_NAME.log" "$TMP_DIR/sources/$PROJECT_NAME/"
-# vérifier l'usage de la ligne suivante durant les tests...
-# sed -i -E "s#(.+)\|#\1|/$PROJECT_NAME/$PROJECT_NAME#" ./logs_$PROJECT_NAME.log
+  if curl -I "$depot" 2>&1 | grep "HTTP/1.0 4" || curl -I "$depot" 2>&1 | grep "HTTP/1.0 5" ; then
+    _it_std_consoleMessage "ERROR" "L'URL du dépôt ($IT_GOURCE_GITURL) ne semble pas valide ou pas atteignable. Commande interrompue."
+    exit $FALSE
+  fi
+  
+  # Nom du projet
+  PROJECT_NAME=$(echo $depot | rev | cut -d "/" -f1 | rev | cut -d "." -f 1)
+
+  # Récupération des sources
+  _it_std_consoleMessage "INFO" "Récupération des sources pour '$PROJECT_NAME'"
+  mkdir -p "$TMP_DIR/sources/"
+  if [ -d "$TMP_DIR/sources/$PROJECT_NAME/" ]; then
+    cd "$TMP_DIR/sources/$PROJECT_NAME"
+    git pull
+    cd ../..
+  else
+    cd "$TMP_DIR/sources/"
+    git clone "$depot" "$PROJECT_NAME"
+    cd "$TMP_DIR"
+  fi
+
+  # Logs de commit des sources
+  _it_std_consoleMessage "INFO" "Generation de $PROJECT_NAME.log"
+  gource --output-custom-log "$TMP_DIR/logs_$PROJECT_NAME.log" "$TMP_DIR/sources/$PROJECT_NAME/"
+  
+  GOURCE_NAME="$GOURCE_NAME+"$PROJECT_NAME
+  
+done
+
+# --------------- 
+# Fusion des logs
+# --------------- 
+_it_std_consoleMessage "INFO" "Fusion des logs"
+sed -i -E "s#(.+)\|#\1|/$GOURCE_NAME/$PROJECT_NAME#" ./logs_$PROJECT_NAME.log
 
 # --------------------- 
 # Tri des logs par date

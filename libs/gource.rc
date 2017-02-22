@@ -73,7 +73,7 @@ function _it_gource {
   fi
 
   if [ -z "$IT_GOURCE_GITURLS" ]; then
-    _it_std_consoleMessage "ERROR" "L'URL du (des) dépôt(s) git n'est (ne sont) pas renseigné(s) ('IT_GOURCE_GITURLS'). Vous pouvez (s) positionner en l'exportant. Exemple : « export IT_GOURCE_GITURL=\"https://url/du/premier/projet\" \"https://url/du/second/projet\" »."
+    _it_std_consoleMessage "ERROR" "L'URL du (des) dépôt(s) git n'est (ne sont) pas renseigné(s) ('IT_GOURCE_GITURLS'). Vous pouvez (s) positionner en l'exportant. Exemple : « export IT_GOURCE_GITURLS=\"https://url/du/premier/projet\" \"https://url/du/second/projet\" »."
     return $FALSE
   fi
 
@@ -107,16 +107,7 @@ function _it_gource {
     ;;
     
     *)
-      # Boucle sur les dépôts (même s'il n'y en a qu'un)
-      for depot in $IT_GOURCE_GITURLS
-      do
-        if ! curl -I "$depot" 2>&1 | grep "HTTP/1.0 4" && ! curl -I "$depot" 2>&1 | grep "HTTP/1.0 5" ; then
-          /opt/inist-tools/tools/gource.sh "$depot" "$IT_GOURCE_SPRINTNAME" "$IT_GOURCE_SPRINTSTART" "$IT_GOURCE_SPRINTEND" "$IT_GOURCE_AVATARSDIR"
-        else
-          _it_std_consoleMessage "ERROR" "L'URL du dépôt ($IT_GOURCE_GITURL) ne semble pas valide ou pas atteignable. Commande interrompue."
-          return $FALSE
-        fi
-      done
+      /opt/inist-tools/tools/gource.sh "$IT_GOURCE_GITURLS" "$IT_GOURCE_SPRINTNAME" "$IT_GOURCE_SPRINTSTART" "$IT_GOURCE_SPRINTEND" "$IT_GOURCE_AVATARSDIR"
     ;;
     
   esac
