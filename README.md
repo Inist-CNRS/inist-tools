@@ -240,10 +240,10 @@ $ sudo apt-get install -y libav-tools gource
 #### Générer un gource pour un dépôt ####
 Vous devez renseigner les variables d'environnement suivantes 
 
-  * ``IT_GOURCE_GITURL``
+  * ``IT_GOURCE_GITURLS``
   
     L'url du dépôt git pour lequel vous souhaitez générer une animation gource<br />
-    ex : ``$ export IT_GOURCE_GITURL="https://github.com/Inist-CNRS/inist-tools.git"``
+    ex : ``$ export IT_GOURCE_GITURLS="https://github.com/Inist-CNRS/lodex https://github.com/Inist-CNRS/lodex-theme"``
     
   * ``$IT_GOURCE_SPRINTNAME``
   
