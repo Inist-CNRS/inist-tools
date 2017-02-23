@@ -94,10 +94,10 @@ function _it_misc_wget_proxy {
       # Vérifier si cet état n'est pas celui en cours
       if _it_std_checkAction "wget" $FALSE ; then
         # "Soustraire" la conf du proxy inist de .wgetrc
-        echo -e "$wgetProxy" > "$wgetProxyTmp"
-        wgetRCfileNew=$(grep -vf "$wgetProxyTmp" "$wgetRCfile")
+        # echo -e "$wgetProxy" > "$wgetProxyTmp"
+        wgetRCfileNew=$(grep -v "inist" "$wgetRCfile" | grep -v "use_proxy=yes")
         echo "$wgetRCfileNew" > "$wgetRCfile"
-        rm "$wgetProxyTmp"
+        # rm "$wgetProxyTmp"
         #
         _it_std_setAction "wget" $FALSE
       fi

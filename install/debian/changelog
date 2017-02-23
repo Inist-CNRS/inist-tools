@@ -238,5 +238,6 @@ inist-tools (0.9.11RC) RC; urgency=medium
   * [DEV] Correction du bug de fusion des logs pour Gource
   * [DEV] Augmentation du bitrate pour une meilleure qualité du webm de
     Gource
+  * [DEV] Correction des bugs --proxy=adsl pour wget, apt et docker
 
  -- Stanislas PERRIN <stanislas.perrin@inist.fr>  Tue, 21 Jun 2016 08:28:37 +0200
