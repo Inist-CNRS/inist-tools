@@ -40,7 +40,7 @@ SPRINT_END="$4"
 AVATARS_DIR="$5"
 GENERATE_VIDEO="1"
 
-GOURCE_NAME=""
+PROJECT_NAME_LIST=""
 
 # ---------------------------------
 # Création du répertoire temporaire
@@ -84,16 +84,20 @@ do
   # Logs de commit des sources
   _it_std_consoleMessage "INFO" "Generation de $PROJECT_NAME.log"
   gource --output-custom-log "$TMP_DIR/logs_$PROJECT_NAME.log" "$TMP_DIR/sources/$PROJECT_NAME/"
-  
-  GOURCE_NAME="$GOURCE_NAME+"$PROJECT_NAME
+
+  PROJECT_NAME_LIST="$PROJECT_NAME_LIST$PROJECT_NAME "
   
 done
 
+
 # --------------- 
 # Fusion des logs
-# --------------- 
-_it_std_consoleMessage "INFO" "Fusion des logs"
-sed -i -E "s#(.+)\|#\1|/$GOURCE_NAME/$PROJECT_NAME#" ./logs_$PROJECT_NAME.log
+# ---------------
+for project in $PROJECT_NAME_LIST
+do
+  _it_std_consoleMessage "INFO" "Fusion des logs pour '$project'"
+  sed -i -E "s#(.+)\|#\1|/$SPRINT_NAME/$project#" ./logs_$project.log
+done
 
 # --------------------- 
 # Tri des logs par date
