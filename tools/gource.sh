@@ -143,7 +143,7 @@ if [ "$GENERATE_VIDEO" == "1" ]; then
          --user-image-dir "$AVATARS_DIR" \
          --path ./gource-range.log \
          -1920x1080 -o - \
-        | avconv -y -r 60 -f image2pipe -vcodec ppm -i - -vcodec libvpx -b 10000K "$TMP_DIR/gource-$PROJECT_NAME-$SPRINT_NAME.webm"
+        | avconv -y -r 60 -f image2pipe -vcodec ppm -i - -vcodec libvpx -b 50000K "$TMP_DIR/gource-$PROJECT_NAME-$SPRINT_NAME.webm"
 else
   gource --seconds-per-day 2 \
          --file-filter ".*node_modules.*" \

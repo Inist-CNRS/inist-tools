@@ -236,5 +236,7 @@ inist-tools (0.9.11RC) RC; urgency=medium
   * [DEV] Gource multi-dépôt
   * [DEV] Gource multi-url : fusion des logs -> une seule vidéo
   * [DEV] Correction du bug de fusion des logs pour Gource
+  * [DEV] Augmentation du bitrate pour une meilleure qualité du webm de
+    Gource
 
  -- Stanislas PERRIN <stanislas.perrin@inist.fr>  Tue, 21 Jun 2016 08:28:37 +0200
