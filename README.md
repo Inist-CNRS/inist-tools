@@ -1,7 +1,8 @@
 # inist-tools #
 [![Build Status](https://travis-ci.org/Inist-CNRS/inist-tools.svg?branch=master)](https://travis-ci.org/Inist-CNRS/inist-tools)
+
 Ensemble d'outils permettant de faire fonctionner un poste GNU/Linux (Debian,
-Ubuntu) dans l'environnement INIST.
+Ubuntu) dans l'environnement INIST. [Présentation de l'outil au 1er mars 2017](https://docs.google.com/presentation/d/1s5Jma6hBDVfvQDM6D5N9tk8BP9agPlVM1unkXJfJkGs/edit)
 
 ## INSTALLATION ##
 
