@@ -143,7 +143,7 @@ if [ "$GENERATE_VIDEO" == "1" ]; then
          --user-image-dir "$AVATARS_DIR" \
          --path ./gource-range.log \
          -1920x1080 -o - \
-        | avconv -y -r 60 -f image2pipe -vcodec ppm -i - -vcodec libvpx -b 50000K "$TMP_DIR/gource-$PROJECT_NAME-$SPRINT_NAME.webm"
+        | avconv -y -r 60 -f image2pipe -vcodec ppm -i - -vcodec libvpx -b 50000K "$TMP_DIR/gource"_"$PROJECT_NAME"_"$SPRINT_NAME.webm"
 else
   gource --seconds-per-day 2 \
          --file-filter ".*node_modules.*" \
@@ -155,7 +155,7 @@ else
 fi
 
 if [ $? -eq $TRUE ]; then
-  _it_std_consoleMessage "OK" "Gource généré, disponible ici : « $TMP_DIR/gource-$PROJECT_NAME-$SPRINT_NAME.webm »"
+  _it_std_consoleMessage "OK" "Gource généré, disponible ici : « $TMP_DIR/$TMP_DIR/gource"_"$PROJECT_NAME"_"$SPRINT_NAME.webm »"
 else
   _it_std_consoleMessage "NOK" "Un problème est survenu.»"
 fi
