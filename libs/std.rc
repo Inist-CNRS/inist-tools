@@ -13,7 +13,6 @@
 #-------------------------------------------------------------------------------
 # Initialisation de variables globales
 #-------------------------------------------------------------------------------
-
 DIR_MODULE="/opt/inist-tools" # fixé "en dur" en fonction du chemin définitif
 DIR_CONF="$DIR_MODULE/conf"
 DIR_LIBS="$DIR_MODULE/libs"
