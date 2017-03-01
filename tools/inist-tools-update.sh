@@ -34,7 +34,7 @@ fi
 # Téléchargement de la latest
 wget -O "$IT_LATEST" "https://github.com/Inist-CNRS/inist-tools/raw/master/releases/inist-tools_latest.deb"
 # Installation
-dpkgi -i "$IT_LATEST"
+dpkg -i "$IT_LATEST"
 
 # ------------------------------------------------------------------------------
 # Fin

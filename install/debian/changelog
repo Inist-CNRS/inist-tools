@@ -240,5 +240,6 @@ inist-tools (0.9.11RC) RC; urgency=medium
     Gource
   * [DEV] Correction des bugs --proxy=adsl pour wget, apt et docker
   * [DEV] Réactivation de l'update
+  * [DEV] Correction typs scritp update
 
  -- Stanislas PERRIN <stanislas.perrin@inist.fr>  Tue, 21 Jun 2016 08:28:37 +0200
