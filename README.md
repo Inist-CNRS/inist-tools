@@ -356,6 +356,9 @@ test                           Lance tous les tests sur inist-tools
 Construit le paquet <inist-tools_x_y_z.deb> installable sous Debian et Ubuntu
 avec la commande "dpkg -i inist-tools_x_y_z.deb".
 
+Nécessite la création préalable d'un tag git avant d'exécuter la commande.
+Exemple: ``git tag v1.8.0``
+
 #### clean ####
 Nettoie toute l'arborescence "install" des fichiers ayant servi aux commandes
 'build' et 'release'.
