@@ -23,10 +23,12 @@ Commandes :
     apt     <on|off|help|status>
             Paramètre apt le proxy INIST.
           
-    docker  <on|off|help|status|install>
+    docker  <on|off|help|status|install|top>
             Paramètre docker le proxy INIST
             <install> permet d'installer Docker et Docker-compose sur votre
             machine.
+            La sous commande "top" permet de monitorer les conteneurs à la
+            manière de top cf https://bcicen.github.io/ctop/
     
     github  <on|https|off|ssh|help|status>
             Paramètre github pour utiliser ssh ou https au travers du proxy 

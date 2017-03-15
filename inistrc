@@ -141,6 +141,11 @@ function inist {
     docker )
       source "$DIR_LIBS/docker.rc"
       case "$2" in
+        ctop|top)
+          # execute le programe ctop (équivalent de top pour monitorer les conteneurs docker)
+          # https://bcicen.github.io/ctop/
+          docker run -ti --name ctop --rm -v /var/run/docker.sock:/var/run/docker.sock quay.io/vektorlab/ctop:latest
+        ;;
         inst|install)
           _it_docker_install
         ;;
