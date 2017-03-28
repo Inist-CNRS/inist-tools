@@ -36,7 +36,9 @@ function _it_inistProxy {
         # FTP
         export ftp_proxy="$INIST_FTP_PROXY"
         export FTP_PROXY="$INIST_FTP_PROXY"
-        #
+        # JAVA_OPT
+        export JAVA_OPTS="-Dhttp.proxyHost=$INIST_PROXY_HOST -Dhttp.proxyPort=$INIST_PROXY_PORT -Dhttps.proxyHost=$INIST_PROXY_HOST -Dhttps.proxyPort=$INIST_PROXY_PORT"
+
         _it_std_setAction "shell" $TRUE
       fi
       
@@ -52,6 +54,7 @@ function _it_inistProxy {
         unset "HTTP_PROXY"
         unset "HTTPS_PROXY"
         unset "FTP_PROXY"
+        unset "JAVA_OPTS"
         #
         _it_std_setAction "shell" $FALSE
       fi
@@ -70,6 +73,8 @@ function _it_inistProxy {
       # FTP
       export ftp_proxy="$INIST_FTP_PROXY"
       export FTP_PROXY="$INIST_FTP_PROXY"
+      # JAVA_OPTS
+      export JAVA_OPTS="-Dhttp.proxyHost=$INIST_PROXY_HOST -Dhttp.proxyPort=$INIST_PROXY_PORT -Dhttps.proxyHost=$INIST_PROXY_HOST -Dhttps.proxyPort=$INIST_PROXY_PORT"
     ;;
 
     defaultOff)
@@ -81,6 +86,7 @@ function _it_inistProxy {
       unset "HTTP_PROXY"
       unset "HTTPS_PROXY"
       unset "FTP_PROXY"
+      unset "JAVA_OPTS"
     ;;
     
     help)
