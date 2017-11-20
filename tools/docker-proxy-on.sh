@@ -52,12 +52,8 @@ printf "\n" >> "$DOCKER_DEFAULT_FILE"
 printf "DOCKER_OPTS=\"--dns 172.16.128.28 --dns 172.16.128.32 --insecure-registry vsregistry.intra.inist.fr:5000 $DOCKER_OPTS_CUSTOM\"\n" >> "$DOCKER_DEFAULT_FILE" 2>&1
 printf "HTTP_PROXY=\"$INIST_HTTP_PROXY\"\n" >> "$DOCKER_DEFAULT_FILE" 2>&1
 printf "HTTPS_PROXY=\"$INIST_HTTPS_PROXY\"\n" >> "$DOCKER_DEFAULT_FILE" 2>&1
-printf "export HTTP_PROXY=\"$INIST_HTTP_PROXY\"\n" >> "$DOCKER_DEFAULT_FILE" 2>&1
-printf "export HTTPS_PROXY=\"$INIST_HTTPS_PROXY\"\n" >> "$DOCKER_DEFAULT_FILE" 2>&1
 printf "http_proxy=\"$INIST_HTTP_PROXY\"\n" >> "$DOCKER_DEFAULT_FILE" 2>&1
 printf "https_proxy=\"$INIST_HTTPS_PROXY\"\n" >> "$DOCKER_DEFAULT_FILE" 2>&1
-printf "export http_proxy=\"$INIST_HTTP_PROXY\"\n" >> "$DOCKER_DEFAULT_FILE" 2>&1
-printf "export https_proxy=\"$INIST_HTTPS_PROXY\"\n" >> "$DOCKER_DEFAULT_FILE" 2>&1
 
 
 # ------------------------------------------------------------------------------
@@ -78,7 +74,7 @@ case "$HOST_SYSTEM" in
     echo "# inist-tools" >> "$INIST_TOOLS_CONF_FILE"
     echo "[Service]" >> "$INIST_TOOLS_CONF_FILE"
     echo "ExecStart=" >> "$INIST_TOOLS_CONF_FILE"
-    echo "ExecStart=/usr/bin/docker daemon \$DOCKER_OPTS -H fd://" >> "$INIST_TOOLS_CONF_FILE"
+    echo "ExecStart=/usr/bin/dockerd \$DOCKER_OPTS -H fd://" >> "$INIST_TOOLS_CONF_FILE"
     echo "EnvironmentFile=/etc/default/docker" >> "$INIST_TOOLS_CONF_FILE"
 
     # Prise en charge de la conf et redémarrage du service
@@ -107,7 +103,7 @@ case "$HOST_SYSTEM" in
         echo "# inist-tools" >> "$INIST_TOOLS_CONF_FILE"
         echo "[Service]" >> "$INIST_TOOLS_CONF_FILE"
         echo "ExecStart=" >> "$INIST_TOOLS_CONF_FILE"
-        echo "ExecStart=/usr/bin/docker daemon \$DOCKER_OPTS -H fd://" >> "$INIST_TOOLS_CONF_FILE"
+        echo "ExecStart=/usr/bin/dockerd \$DOCKER_OPTS -H fd://" >> "$INIST_TOOLS_CONF_FILE"
         echo "EnvironmentFile=/etc/default/docker" >> "$INIST_TOOLS_CONF_FILE"
 
         # Prise en charge de la conf et redémarrage du service
