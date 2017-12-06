@@ -14,14 +14,6 @@
 source "/opt/inist-tools/libs/std.rc"
 source "/opt/inist-tools/libs/ansicolors.rc"
 
-# ------------------------------------------------------------------------------
-# Variables globales
-# ------------------------------------------------------------------------------
-DOCKER_DEFAULT_FILE="/etc/default/docker"
-INIST_TOOLS_CONF_DIR="/etc/systemd/system/docker.service.d"
-INIST_TOOLS_CONF_FILE="$INIST_TOOLS_CONF_DIR/inist-tools.conf"
-DOCKEROPTS_CONF_FILE="/opt/inist-tools/conf/docker-opts.conf"
-
 # PROXY
 #INIST_HTTP_PROXY="http://proxyout.inist.fr:8080"
 #INIST_HTTPS_PROXY="http://proxyout.inist.fr:8080"
@@ -31,90 +23,25 @@ DOCKEROPTS_CONF_FILE="/opt/inist-tools/conf/docker-opts.conf"
 #INIST_PROXY_ADDRESS="http://proxyout.inist.fr"
 #INIST_PROXY_PORT="8080"
 
-# ------------------------------------------------------------------------------
-# BACKUP !
-# ------------------------------------------------------------------------------
-cp "$DOCKER_DEFAULT_FILE" /etc/default/docker_inist-tools-backup
-
-# ------------------------------------------------------------------------------
-# Docker-opts personnalisés
-# ------------------------------------------------------------------------------
-if [ -a "$DOCKEROPTS_CONF_FILE" ]; then
-  DOCKER_OPTS_CUSTOM=$(cat "$DOCKEROPTS_CONF_FILE")
-else
-  DOCKER_OPTS_CUSTOM=""
+if [ ! -f /etc/docker/daemon.json ] || [ "$(cat /etc/docker/daemon.json)" == "" ]; then
+  echo "{}" > /etc/docker/daemon.json
+fi
+if [ -f /etc/docker/daemon.json ]; then
+  TMPFILE=$(tempfile)
+  cat /etc/docker/daemon.json \
+    | jq '.dns += [ "172.16.128.28", "172.16.128.32" ]' \
+    | jq '."insecure-registries" += [ "vsregistry.intra.inist.fr:5000" ]' \
+     > $TMPFILE
+  cp -f $TMPFILE /etc/docker/daemon.json
+  rm -f $TMPFILE
 fi
 
-# ------------------------------------------------------------------------------
-# conf docker
-# ------------------------------------------------------------------------------
-printf "\n" >> "$DOCKER_DEFAULT_FILE"
-printf "DOCKER_OPTS=\"--dns 172.16.128.28 --dns 172.16.128.32 --insecure-registry vsregistry.intra.inist.fr:5000 $DOCKER_OPTS_CUSTOM\"\n" >> "$DOCKER_DEFAULT_FILE" 2>&1
-printf "HTTP_PROXY=\"$INIST_HTTP_PROXY\"\n" >> "$DOCKER_DEFAULT_FILE" 2>&1
-printf "HTTPS_PROXY=\"$INIST_HTTPS_PROXY\"\n" >> "$DOCKER_DEFAULT_FILE" 2>&1
-printf "http_proxy=\"$INIST_HTTP_PROXY\"\n" >> "$DOCKER_DEFAULT_FILE" 2>&1
-printf "https_proxy=\"$INIST_HTTPS_PROXY\"\n" >> "$DOCKER_DEFAULT_FILE" 2>&1
+mkdir -p /etc/systemd/system/docker.service.d/
+echo "# inist-tools" > /etc/systemd/system/docker.service.d/inist-tools.conf
+echo "[Service]" >> /etc/systemd/system/docker.service.d/inist-tools.conf
+echo "Environment=\"HTTP_PROXY=$INIST_HTTP_PROXY\" \"http_proxy=$INIST_HTTP_PROXY\" \"HTTPS_PROXY=$INIST_HTTPS_PROXY\" \"https_proxy=$INIST_HTTPS_PROXY\" \"NO_PROXY=$INIST_NO_PROXY\"" >> /etc/systemd/system/docker.service.d/inist-tools.conf
 
-
-# ------------------------------------------------------------------------------
-# Service
-# ------------------------------------------------------------------------------
-case "$HOST_SYSTEM" in
-
-  debian)
-    # Modification de la conf
-    mkdir -p "$INIST_TOOLS_CONF_DIR"
-    
-    if [ -a "$INIST_TOOLS_CONF_FILE" ]; then
-      rm "$INIST_TOOLS_CONF_FILE"
-    fi
-    
-    touch "$INIST_TOOLS_CONF_FILE"
-    
-    echo "# inist-tools" >> "$INIST_TOOLS_CONF_FILE"
-    echo "[Service]" >> "$INIST_TOOLS_CONF_FILE"
-    echo "ExecStart=" >> "$INIST_TOOLS_CONF_FILE"
-    echo "ExecStart=/usr/bin/dockerd \$DOCKER_OPTS -H fd://" >> "$INIST_TOOLS_CONF_FILE"
-    echo "EnvironmentFile=/etc/default/docker" >> "$INIST_TOOLS_CONF_FILE"
-
-    # Prise en charge de la conf et redémarrage du service
-    /opt/inist-tools/tools/service-restart.sh "docker" &
-  ;;
-  
-  ubuntu)
-    /opt/inist-tools/tools/service-restart.sh "docker" &
-    
-    case "$HOST_SYSTEM_VERSION" in
-    
-      "12.04" | "12.10" | "13.04" | "13.10" | "14.04" | "14.10" )
-        #/opt/inist-tools/tools/service-restart.sh "docker" &
-      ;;
-      
-      *)
-        # Modification de la conf
-        mkdir -p "$INIST_TOOLS_CONF_DIR"
-        
-        if [ -a "$INIST_TOOLS_CONF_FILE" ]; then
-          rm "$INIST_TOOLS_CONF_FILE"
-        fi
-        
-        touch "$INIST_TOOLS_CONF_FILE"
-        
-        echo "# inist-tools" >> "$INIST_TOOLS_CONF_FILE"
-        echo "[Service]" >> "$INIST_TOOLS_CONF_FILE"
-        echo "ExecStart=" >> "$INIST_TOOLS_CONF_FILE"
-        echo "ExecStart=/usr/bin/dockerd \$DOCKER_OPTS -H fd://" >> "$INIST_TOOLS_CONF_FILE"
-        echo "EnvironmentFile=/etc/default/docker" >> "$INIST_TOOLS_CONF_FILE"
-
-        # Prise en charge de la conf et redémarrage du service
-        /opt/inist-tools/tools/service-restart.sh "docker" &
-
-      ;;
-      
-    esac
-  ;;
-  
-esac
+/opt/inist-tools/tools/service-restart.sh "docker" &
 
 # ------------------------------------------------------------------------------
 # Sortie propre
