@@ -88,7 +88,7 @@ fi
 # Environnement de bureau
 #-------------------------------------------------------------------------------
 # DESKTOPSESSION=$(env | grep "XDG_CURRENT_DESKTOP" | cut -d "=" -f 2)
-DESKTOPSESSION=$(echo "$XDG_CURRENT_DESKTOP" | tr '[:upper:]' '[:lower:]')
+DESKTOPSESSION=$(echo "$XDG_CURRENT_DESKTOP" | tr '[:upper:]' '[:lower:]' | sed 's#^ubuntu:##g')
 
 #-------------------------------------------------------------------------------
 # COMMANDE [+option[s]]
